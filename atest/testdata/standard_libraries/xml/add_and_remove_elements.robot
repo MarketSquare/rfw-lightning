@@ -5,8 +5,8 @@ Test Setup        Parse XML To Test Variable    ${SIMPLE}    \${XML}
 
 *** Variables ***
 ${NEW}            <new attr="value"/>
-${WITH TAIL}      <p>text with <b>bold</b>&amp;<i>italics</i>...</p>
-${WITH TAIL 2}    <p><b>bold</b><i>italics</i>...</p>
+${WITH_TAIL}      <p>text with <b>bold</b>&amp;<i>italics</i>...</p>
+${WITH_TAIL_2}    <p><b>bold</b><i>italics</i>...</p>
 
 *** Test Cases ***
 Add Element
@@ -46,19 +46,19 @@ Remove Non-Direct Child Element
     Element Should Not Exist    ${XML}    c2/gc
 
 Remove Element Keeps Tail By Default
-    ${p} =    Remove Element    ${WITH TAIL}   i
+    ${p} =    Remove Element    ${WITH_TAIL}   i
     Elements Should Be Equal    ${p}    <p>text with <b>bold</b>&amp;...</p>
     Remove Element     ${p}    b
     Elements Should Be Equal    ${p}    <p>text with &amp;...</p>
 
 Remove Element Keeps Tail When Parent or Sibling Contains No Text
-    ${p} =    Remove Element    ${WITH TAIL2}   i
+    ${p} =    Remove Element    ${WITH_TAIL2}   i
     Elements Should Be Equal    ${p}    <p><b>bold</b>...</p>
     Remove Element    ${p}    b    remove_tail=false
     Elements Should Be Equal    ${p}    <p>...</p>
 
 Remove Element Can Be Configured To Remove Tail
-    ${p} =    Remove Element    ${WITH TAIL}   i    remove_tail=True
+    ${p} =    Remove Element    ${WITH_TAIL}   i    remove_tail=True
     Elements Should Be Equal    ${p}    <p>text with <b>bold</b>&amp;</p>
     Remove Element     ${p}    b    remove_tail=YeS
     Elements Should Be Equal    ${p}    <p>text with </p>
@@ -96,13 +96,13 @@ Remove Elements Does Not Fail If No Element Match
     Remove Elements    ${XML}    nonex
 
 Remove Elements Keeps Tail By Default
-    ${p} =    Remove Elements    ${WITH TAIL}    xpath=*
+    ${p} =    Remove Elements    ${WITH_TAIL}    xpath=*
     Elements Should Be Equal    ${p}    <p>text with &amp;...</p>
-    ${p} =    Remove Elements    ${WITH TAIL 2}    xpath=*    remove_tail=
+    ${p} =    Remove Elements    ${WITH_TAIL_2}    xpath=*    remove_tail=
     Elements Should Be Equal    ${p}    <p>...</p>
 
 Remove Elements Can Be Configured To Remove Tail
-    ${p} =    Remove Elements    ${WITH TAIL}    xpath=*    remove_tail=please
+    ${p} =    Remove Elements    ${WITH_TAIL}    xpath=*    remove_tail=please
     Elements Should Be Equal    ${p}    <p>text with </p>
 
 Remove Elements Requires Xpath

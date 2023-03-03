@@ -98,19 +98,19 @@ Set Modified Time Fails When Path Is Directory
     Set Modified Time    ${CURDIR}    0
 
 Set And Get Modified Time Of Non-ASCII File
-    Create File    ${NON ASCII}
-    Set Modified Time    ${NON ASCII}    2010-09-26 21:22:42
-    ${time} =    Get Modified Time    ${NON ASCII}
+    Create File    ${NON_ASCII}
+    Set Modified Time    ${NON_ASCII}    2010-09-26 21:22:42
+    ${time} =    Get Modified Time    ${NON_ASCII}
     Should Be Equal    ${time}    2010-09-26 21:22:42
 
 Set And Get Modified Time Of File With Spaces In Name
-    Create File    ${WITH SPACE}
-    Set Modified Time    ${WITH SPACE}    2010-09-26 21:24
-    ${time} =    Get Modified Time    ${WITH SPACE}
+    Create File    ${WITH_SPACE}
+    Set Modified Time    ${WITH_SPACE}    2010-09-26 21:24
+    ${time} =    Get Modified Time    ${WITH_SPACE}
     Should Be Equal    ${time}    2010-09-26 21:24:00
 
 Path as `pathlib.Path`
     Create File    ${BASE}/file.txt
-    Set Modified Time    ${PATH/'file.txt'}    2022-09-16 19:41:12
-    ${time} =    Get Modified Time    ${PATH/'file.txt'}
+    Set Modified Time    ${PATH}/file.txt    2022-09-16 19:41:12
+    ${time} =    Get Modified Time    ${PATH}/file.txt
     Should Be Equal    ${time}    2022-09-16 19:41:12

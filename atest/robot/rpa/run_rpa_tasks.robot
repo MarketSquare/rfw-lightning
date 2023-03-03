@@ -5,7 +5,7 @@ Test Template     Run and validate RPA tasks
 Resource          atest_resource.robot
 
 *** Variables ***
-@{ALL TASKS}      Defaults    Override    Task    Another task    Task    Failing    Passing    Test
+@{ALL_TASKS}      Defaults    Override    Task    Another task    Task    Failing    Passing    Test
 ...               Defaults    Override    Task timeout exceeded    Invalid task timeout
 
 *** Test Cases ***
@@ -39,7 +39,7 @@ Conflicting headers with --rpa are fine
 
 Conflicting headers with --norpa are fine
     [Template]    Run and validate test cases
-    --NorPA -v TIMEOUT:Test    rpa/                    @{ALL TASKS}
+    --NorPA -v TIMEOUT:Test    rpa/                    @{ALL_TASKS}
 
 Conflicting headers in same file cause error
     [Documentation]    Using --rpa or --norpa doesn't affect the behavior.
@@ -50,7 +50,7 @@ Conflicting headers in same file cause error
     ${message} =    Catenate
     ...    [ ERROR ] Parsing '${path}' failed:
     ...    One file cannot have both tests and tasks.
-    Stderr Should Be Equal To    ${message}${USAGE TIP}\n
+    Stderr Should Be Equal To    ${message}${USAGE_TIP}\n
 
 Conflicting headers in same file cause error when executing directory
     [Template]    NONE
@@ -60,7 +60,7 @@ Conflicting headers in same file cause error when executing directory
     ${message} =    Catenate
         ...    [ ERROR ] Parsing '${path}' failed:
         ...    One file cannot have both tests and tasks.
-    Stderr Should Be Equal To    ${message}${USAGE TIP}\n
+    Stderr Should Be Equal To    ${message}${USAGE_TIP}\n
 
 --task as alias for --test
     --task task                            rpa/tasks    Task
@@ -92,20 +92,20 @@ Run and validate test cases
     Should contain tests    ${SUITE}    @{tasks}
 
 Run and validate conflict
-    [Arguments]    ${paths}    ${conflicting}    ${this}    ${that}    @{extra errors}
+    [Arguments]    ${paths}    ${conflicting}    ${this}    ${that}    @{extra_errors}
     Run tests without processing output    ${EMPTY}    ${paths}
     ${conflicting} =    Normalize path    ${DATADIR}/${conflicting}
-    ${extra} =    Catenate    @{extra errors}
+    ${extra} =    Catenate    @{extra_errors}
     ${error} =    Catenate
     ...    [[] ERROR ] Parsing '${conflicting}' failed: Conflicting execution modes.
     ...    File has ${this} but files parsed earlier have ${that}.
     ...    Fix headers or use '--rpa' or '--norpa' options to set the execution mode explicitly.
-    Stderr Should Match    ${extra}${error}${USAGE TIP}\n
+    Stderr Should Match    ${extra}${error}${USAGE_TIP}\n
 
 Run and validate no task found
     [Arguments]    ${options}    ${message}
     Run tests without processing output    --rpa ${options}    rpa/tasks
-    Stderr Should Be Equal To    [ ERROR ] Suite 'Tasks' contains no tasks ${message}.${USAGE TIP}\n
+    Stderr Should Be Equal To    [ ERROR ] Suite 'Tasks' contains no tasks ${message}.${USAGE_TIP}\n
 
 Outputs should contain correct mode information
     [Arguments]    ${rpa}

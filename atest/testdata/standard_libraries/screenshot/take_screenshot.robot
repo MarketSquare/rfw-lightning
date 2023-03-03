@@ -27,7 +27,8 @@ Basename With Extension Turns Off Index Generation
     Screenshots Should Exist  ${OUTPUTDIR}    xxx.jpg    yyy.jpeg
 
 Name as `pathlib.Path`
-    Take Screenshot    ${{pathlib.Path('name.jpg')}}
+    ${jpg_path}=Evaluate   pathlib.Path('name.jpg')
+    Take Screenshot    ${jpg_path}
     Screenshots Should Exist    ${OUTPUTDIR}    name.jpg
 
 Screenshot Width Can Be Given
@@ -43,7 +44,7 @@ Without Embedding
 
 *** Keywords ***
 Take Screenshot And Verify
-    [Arguments]    @{expected files}
+    [Arguments]    @{expected_files}
     ${path}=    Take Screenshot
-    Screenshots Should Exist    ${OUTPUTDIR}    @{expected files}
+    Screenshots Should Exist    ${OUTPUTDIR}    @{expected_files}
     RETURN    ${path}

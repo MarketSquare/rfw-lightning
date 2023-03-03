@@ -1,5 +1,6 @@
 *** Settings ***
 Resource          atest_resource.robot
+Library           String
 
 *** Test Cases ***
 Import Libraries Only Once
@@ -50,7 +51,9 @@ Process Resource Files Only Once
 Syslog File Should Contain In Order
     [Arguments]    ${text}
     Should Contain X Times    ${SYSLOG}    ${text}    1
-    ${pre}    ${post} =    Set Variable    ${SYSLOG.split("${text.replace('\\','\\\\')}")}
+    ${txt}=Replace String    ${text}      \\      \\\\
+    ${parts}=Evaluate    $SYSLOG.split($txt)
+    ${pre}    ${post}=    Set Variable    ${parts}
     Set Suite Variable    ${SYSLOG}    ${post}
 
 Run Tests And Set $SYSLOG

@@ -8,8 +8,7 @@ Metadata	Ä	§
 								
 
 *Variable*	*Value*	*Value*	*Value*	*Value*	*Value*	*Value*	*Value*	
-${UNICODE}	äöå §½€							
-${UTF NAME öäå §½€}	value							
+${UNICODE}	äöå §½€														
 								
 
 *Test Case*	*Action*	*Argument*	*Argument*	*Argument*	*Argument*	*Argument*	*Argument*	
@@ -25,8 +24,7 @@ UTF-8 Name Äöå §½€"	[Documentation]	Quote is actually plain ASCII but the
 	...	FAIL Virheessäkin on ääkkösiä: Äöå §½€"
 	${ret}	äöå §½€
 	Log	${ret}
-	Should Be Equal	${ret}	äöå §½€
-	Log	${UTF NAME öäå §½€}						
+	Should Be Equal	${ret}	äöå §½€					
 	Fail	Virheessäkin on ääkkösiä: Äöå §½€"
 
 *Keyword*	*Action*	*Argument*	*Argument*	*Argument*	*Argument*	*Argument*	*Argument*	

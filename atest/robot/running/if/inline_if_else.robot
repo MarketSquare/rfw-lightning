@@ -21,7 +21,7 @@ Not executed after failure
 
 Not executed after failure with assignment
     [Template]    NONE
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Check IF/ELSE Status    NOT RUN    NOT RUN    root=${tc.body[1]}    run=False
     Check IF/ELSE Status    NOT RUN    NOT RUN    root=${tc.body[2]}    run=False
     Check Keyword Data      ${tc.body[1].body[0].body[0]}    Not run    assign=\${x}           status=NOT RUN
@@ -70,20 +70,20 @@ Assign when no branch is run
 
 Inside FOR
     [Template]    NONE
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Check IF/ELSE Status    NOT RUN    PASS       root=${tc.body[0].body[0].body[0]}
     Check IF/ELSE Status    NOT RUN    PASS       root=${tc.body[0].body[1].body[0]}
     Check IF/ELSE Status    FAIL       NOT RUN    root=${tc.body[0].body[2].body[0]}
 
 Inside normal IF
     [Template]    NONE
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Check IF/ELSE Status    NOT RUN    PASS       root=${tc.body[0].body[0].body[1]}
     Check IF/ELSE Status    NOT RUN    NOT RUN    root=${tc.body[0].body[1].body[0]}    run=False
 
 In keyword
     [Template]    NONE
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Check IF/ELSE Status    PASS       NOT RUN                       root=${tc.body[0].body[0]}
     Check IF/ELSE Status    NOT RUN    PASS       NOT RUN            root=${tc.body[0].body[1]}
     Check IF/ELSE Status    NOT RUN    NOT RUN    NOT RUN    FAIL

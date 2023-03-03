@@ -3,17 +3,17 @@ Library         Operating System
 
 *** Variables ***
 @{LIST}  a  b  c
-@{EMPTY LIST}
-@{1 ITEM}  1
-@{2 ITEMS}  @{1 ITEM}  2
-@{3 ITEMS}  @{2 ITEMS}  3
-@{3 ITEMS 2}  0  @{2 ITEMS}
-@{4 ITEMS}  @{3 ITEMS}  4
-@{4 ITEMS 2}  0  @{3 ITEMS}
-@{5 ITEMS}  @{4 ITEMS}  5
-@{NEEDS ESCAPING}  c:\\temp\\foo  \${notvar}
-@{NEEDS ESCAPING 2}  len("\\\\") == 1  @{NEEDS ESCAPING}
-@{NEEDS ESCAPING 3}  @{3 ITEMS 2}  @{NEEDS ESCAPING}
+@{EMPTY_LIST}
+@{1_ITEM}  1
+@{2_ITEMS}  @{1_ITEM}  2
+@{3_ITEMS}  @{2_ITEMS}  3
+@{3_ITEMS_2}  0  @{2_ITEMS}
+@{4_ITEMS}  @{3_ITEMS}  4
+@{4_ITEMS_2}  0  @{3_ITEMS}
+@{5_ITEMS}  @{4_ITEMS}  5
+@{NEEDS_ESCAPING}  c:\\temp\\foo  \${notvar}
+@{NEEDS_ESCAPING_2}  len("\\\\") == 1  @{NEEDS_ESCAPING}
+@{NEEDS_ESCAPING_3}  @{3_ITEMS_2}  @{NEEDS_ESCAPING}
 
 *** Test Cases ***
 True Condition
@@ -45,29 +45,29 @@ Fails Without Values 2
     Set Variable If  False
 
 Non-Existing Variables In Values 1
-    [Documentation]  FAIL Variable '\${now this breaks}' not found.
+    [Documentation]  FAIL Variable '\${now_this_breaks}' not found.
     ${existing} =  Set Variable  ${42}
     ${var} =  Set Variable If  True  ${existing}*2 = ${existing*2}  ${nonex}
     Should Be Equal  ${var}  42*2 = 84
-    ${var} =  Set Variable If  ${existing} < 0  ${I don't exist at all!!}
+    ${var} =  Set Variable If  ${existing} < 0  ${I_don_t_exist_at_all}
     Should Be Equal  ${var}  ${None}
-    ${var} =  Set Variable If  ${existing}  ${now this breaks}  Not used
+    ${var} =  Set Variable If  ${existing}  ${now_this_breaks}  Not used
 
 Non-Existing Variables In Values 2
     [Documentation]  FAIL Resolving variable '${nonexisting.extended}' failed: Variable '${nonexisting}' not found.
-    ${var} =  Set Variable If  False is True  ${not used}  ${nonexisting.extended}
+    ${var} =  Set Variable If  False is True  ${not_used}  ${nonexisting.extended}
 
 Non-Existing Variables In Values 3
     [Documentation]  FAIL Variable '\${ooooops}' not found.
-    Set Variable If  False  ${not used}  True  ${ooooops}
+    Set Variable If  False  ${not_used}  True  ${ooooops}
 
 Non-Existing Variables In Values 4
     [Documentation]  FAIL STARTS: Resolving variable '\${SPACE.nonex}' failed: AttributeError:
-    Set Variable If  False  ${not used}  False  ${not used}  ${SPACE.nonex}
+    Set Variable If  False  ${not_used}  False  ${not_used}  ${SPACE.nonex}
 
 Non-Existing Variables In Values 5
     [Documentation]  FAIL Variable '\${nonexisting}' not found.
-    Set Variable If  False  ${not used}  False  ${not used}  True  This is ${nonexisting} is enough
+    Set Variable If  False  ${not_used}  False  ${not_used}  True  This is ${nonexisting} is enough
 
 Extra Values Are Ignored If First Expression Is True
     ${var} =  Set Variable If  True  This ${1} is set!!  Other  values  are  ${not}
@@ -96,53 +96,53 @@ If / Else If / Else
 
 With Empty List Variables 1
     [Documentation]  FAIL At least one value is required
-    Set Variable If  True  @{EMPTY LIST}
+    Set Variable If  True  @{EMPTY_LIST}
 
 With Empty List Variables 2
     [Documentation]  FAIL At least one value is required
-    Set Variable If  False  @{EMPTY LIST}  @{EMPTY LIST}  @{EMPTY LIST}
+    Set Variable If  False  @{EMPTY_LIST}  @{EMPTY_LIST}  @{EMPTY_LIST}
 
 With Empty List Variables 3
-    ${v1} =  Set Variable If  True  42  @{EMPTY LIST}
-    ${v2} =  Set Variable If  True  @{EMPTY LIST}  42
-    ${v3} =  Set Variable If  @{EMPTY LIST}  True  42
-    ${v4} =  Set Variable If  @{EMPTY LIST}  ${True}  ${42}
-    ${v5} =  Set Variable If  @{EMPTY LIST}  @{EMPTY LIST}  ${True}  @{EMPTY LIST}  @{EMPTY LIST}  ${42}  @{EMPTY LIST}
+    ${v1} =  Set Variable If  True  42  @{EMPTY_LIST}
+    ${v2} =  Set Variable If  True  @{EMPTY_LIST}  42
+    ${v3} =  Set Variable If  @{EMPTY_LIST}  True  42
+    ${v4} =  Set Variable If  @{EMPTY_LIST}  ${True}  ${42}
+    ${v5} =  Set Variable If  @{EMPTY_LIST}  @{EMPTY_LIST}  ${True}  @{EMPTY_LIST}  @{EMPTY_LIST}  ${42}  @{EMPTY_LIST}
     Should Be True  ${v1} == ${v2} == ${v3} == ${v4} == ${v5} == 42
 
 With List Variables In Values
-    ${var} =  Set Variable If  True  @{1 ITEM}
+    ${var} =  Set Variable If  True  @{1_ITEM}
     Should Be Equal  ${var}  1
-    ${var} =  Set Variable If  ${False}  @{1 ITEM}
+    ${var} =  Set Variable If  ${False}  @{1_ITEM}
     Should Be Equal  ${var}  ${None}
-    ${var} =  Set Variable If  True  @{2 ITEMS}  @{EMPTY LIST}
+    ${var} =  Set Variable If  True  @{2_ITEMS}  @{EMPTY_LIST}
     Should Be Equal  ${var}  1
-    ${var} =  Set Variable If  False  @{EMPTY LIST}  @{2 ITEMS}
+    ${var} =  Set Variable If  False  @{EMPTY_LIST}  @{2_ITEMS}
     Should Be Equal  ${var}  2
-    ${var} =  Set Variable If  True  @{2 ITEMS} as string
-    Should Be Equal  ${var}  @{2 ITEMS} as string
+    ${var} =  Set Variable If  True  @{2_ITEMS} as string
+    Should Be Equal  ${var}  @{2_ITEMS} as string
 
 With List Variables In Expressions And Values
-    ${var} =  Set Variable If  @{1 ITEM}  this is set
+    ${var} =  Set Variable If  @{1_ITEM}  this is set
     Should Be Equal  ${var}  this is set
-    ${var} =  Set Variable If  @{2 ITEMS}
+    ${var} =  Set Variable If  @{2_ITEMS}
     Should Be Equal  ${var}  2
-    ${var} =  Set Variable If  @{2 ITEMS} == @{1 ITEM}  @{2 ITEMS}  value
+    ${var} =  Set Variable If  @{2_ITEMS} == @{1_ITEM}  @{2_ITEMS}  value
     Should Be Equal  ${var}  value
-    ${var} =  Set Variable If  @{3 ITEMS}
+    ${var} =  Set Variable If  @{3_ITEMS}
     Should Be Equal  ${var}  2
-    ${var} =  Set Variable If  @{3 ITEMS 2}
+    ${var} =  Set Variable If  @{3_ITEMS_2}
     Should Be Equal  ${var}  2
-    ${var} =  Set Variable If  @{4 ITEMS 2}
+    ${var} =  Set Variable If  @{4_ITEMS_2}
     Should Be Equal  ${var}  3
 
 With List Variables Containing Escaped Values
-    ${var} =  Set Variable If  True  @{NEEDS ESCAPING}
+    ${var} =  Set Variable If  True  @{NEEDS_ESCAPING}
     Should Be Equal  ${var}  c:\\temp\\foo
-    ${var} =  Set Variable If  False  @{NEEDS ESCAPING}
+    ${var} =  Set Variable If  False  @{NEEDS_ESCAPING}
     Should Be Equal  ${var}  \${notvar}
-    ${var} =  Set Variable If  @{NEEDS ESCAPING 2}
+    ${var} =  Set Variable If  @{NEEDS_ESCAPING_2}
     Should Be Equal  ${var}  c:\\temp\\foo
-    ${var} =  Set Variable If  @{NEEDS ESCAPING 3}
+    ${var} =  Set Variable If  @{NEEDS_ESCAPING_3}
     Should Be Equal  ${var}  c:\\temp\\foo
 

@@ -8,7 +8,7 @@ def log_debug_message():
 
 
 def get_test_name():
-    return BuiltIn().get_variables()['${TEST NAME}']
+    return BuiltIn().get_variables()['${TEST_NAME}']
 
 
 def set_secret_variable():

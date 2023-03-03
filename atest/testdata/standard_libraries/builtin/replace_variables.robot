@@ -12,16 +12,16 @@ Replace Variables
 
 Replace Variables Using Extended Variable Syntax
     ${what} =    Set Variable    Python
-    ${replaced} =    Replace Variables    I like \${WHAT.upper()}! Me ${1 * 2}!!
+    ${replaced} =    Replace Variables    I like \${WHAT.upper()}! Me ${1*2}!!
     Should Be Equal    ${replaced}    I like PYTHON! Me 2!!
 
 Replace Variables Fails When Variable Does Not Exist
-    [Documentation]    FAIL Variable '\${non existing variables}' not found.
-    Replace Variables    Using \${non existing variables} is an error
+    [Documentation]    FAIL Variable '\${non_existing_variables}' not found.
+    Replace Variables    Using \${non_existing_variables} is an error
 
 Replace Variables With Escaped Variables
-    ${result} =    Replace Variables    \\\${non existing} but escaped
-    Should Be Equal    ${result}    \${non existing} but escaped
+    ${result} =    Replace Variables    \\\${non_existing} but escaped
+    Should Be Equal    ${result}    \${non_existing} but escaped
     ${result} =    Replace Variables    \${LIST}[0] \\\${LIST}[1]
     Should Be Equal    ${result}    Hello \${LIST}[1]
 

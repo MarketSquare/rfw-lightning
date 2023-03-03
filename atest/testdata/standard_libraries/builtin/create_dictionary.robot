@@ -34,8 +34,8 @@ Separate keys and values with equals in variable value
     Verify Dictionary    ${d}    {'foo=bar': 'foo=bar'}
 
 Separate keys and values with non-existing variables
-    [Documentation]    FAIL Variable '\${NONEX VALUE}' not found.
-    Create Dictionary    key    ${NONEX VALUE}
+    [Documentation]    FAIL Variable '\${NONEX_VALUE}' not found.
+    Create Dictionary    key    ${NONEX_VALUE}
 
 Wrong number of separate keys and values 1
     [Documentation]    FAIL Expected even number of keys and values, got 3.
@@ -66,12 +66,12 @@ Separate keys and values with invalid key
     Verify Dictionary    ${d}    {'foo=bar': 'foo=bar'}
 
 `key=value` syntax with non-existing variables 1
-    [Documentation]    FAIL Variable '\${NONEX VALUE}' not found.
-    Create Dictionary    key=${NONEX VALUE}
+    [Documentation]    FAIL Variable '\${NONEX_VALUE}' not found.
+    Create Dictionary    key=${NONEX_VALUE}
 
 `key=value` syntax with non-existing variables 2
-    [Documentation]    FAIL Variable '\${NONEX KEY}' not found.
-    Create Dictionary    ${NONEX KEY}=${NONEX VALUE}
+    [Documentation]    FAIL Variable '\${NONEX_KEY}' not found.
+    Create Dictionary    ${NONEX_KEY}=${NONEX_VALUE}
 
 `key=value` syntax with invalid key
     [Documentation]    FAIL STARTS: Creating dictionary failed:
@@ -103,8 +103,9 @@ Separate keys and values and 'key=value' syntax
     ${name} =    Set Variable    DICT
     &{d} =    Create Dictionary    &{${name}}
     Verify Dictionary    ${d}    {'a': '1', 'b': 2, 3: 'c'}
+    ${n} = Evaluate   dict.fromkeys([${4}], str(40+2))
     &{d} =    Create Dictionary    &{${name[${0}]}ic${name[${-1}]}}
-    ...    &{${name.lower()}.fromkeys([${4}], '${40 + ${2}}')}
+    ...    &{n}
     Verify Dictionary    ${d}    {'a': '1', 'b': 2, 3: 'c', 4: '42'}
 
 Non-existing `\&{dict}` variable

@@ -4,7 +4,7 @@ Resource   robot_resource2.robot
 
 
 *Variable*  Value  Value  Value  Value
-${ROBOT RESOURCE VAR}  ROBOT Resource Variable      
+${ROBOT_RESOURCE_VAR}  ROBOT Resource Variable      
 
 
 *Keywords  Action  Argument  Argument  Argument

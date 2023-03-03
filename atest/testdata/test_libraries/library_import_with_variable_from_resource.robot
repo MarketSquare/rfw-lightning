@@ -1,6 +1,6 @@
 *** Settings ***
 Resource        variables_for_library_import.robot
-Library         ${OS LIB}
+Library         ${OS_LIB}
 Library         ${PARAM}Library    @{ARGS}
 
 *** Test Cases ***

@@ -1,5 +1,5 @@
 def get_variables():
-    return {'MIXED USAGE': MixedUsage()}
+    return {'MIXED_USAGE': MixedUsage()}
 
 
 class MixedUsage:

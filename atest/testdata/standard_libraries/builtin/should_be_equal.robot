@@ -8,7 +8,7 @@ Basics
     Hello!                        Hello!
     Multi\nline\ntext\n\n!!!\n    Multi\nline\ntext\n\n!!!\n
     ${1.0}                        ${1}
-    ${BYTES WITHOUT NON ASCII}    ${BYTES WITHOUT NON ASCII}    repr=True
+    ${BYTES_WITHOUT_NON_ASCII}    ${BYTES_WITHOUT_NON_ASCII}    repr=True
     A                             B    Error message    values=yes
 
 Case-insensitive
@@ -41,17 +41,17 @@ Without leading and trailing spaces
 
 Do not collapse spaces
     [Documentation]    FAIL repr=True: Yö \ntä != Yö\ttä
-    ${SPACE * 5}test${SPACE * 2}value    ${SPACE * 5}test${SPACE * 2}value    collapse_spaces=False
-    HYVÄÄ\tYÖTÄ${SPACE * 3}              HYVÄÄ\tYÖTÄ${SPACE * 3}              repr=True    collapse_spaces=False
+    ${SPACE*5}test${SPACE*2}value    ${SPACE*5}test${SPACE*2}value    collapse_spaces=False
+    HYVÄÄ\tYÖTÄ${SPACE*3}              HYVÄÄ\tYÖTÄ${SPACE*3}              repr=True    collapse_spaces=False
     ${42}                                ${42}                                collapse_spaces=${FALSE}
     Yö \ntä                              Yö\ttä                               repr=True    collapse_spaces=False
 
 Collapse spaces
     [Documentation]    FAIL Yo yo != Oy oy
-    test${SPACE * 4}value${SPACE * 5}    test value${SPACE}    collapse_spaces=True
-    ${SPACE * 5}HYVÄÄ\t\nYÖTÄ            ${SPACE}HYVÄÄ YÖTÄ    repr=True    collapse_spaces=Yes
+    test${SPACE*4}value${SPACE*5}    test value${SPACE}    collapse_spaces=True
+    ${SPACE*5}HYVÄÄ\t\nYÖTÄ            ${SPACE}HYVÄÄ YÖTÄ    repr=True    collapse_spaces=Yes
     ${42}                                ${42}                 collapse_spaces=${TRUE}
-    Yo${SPACE * 5}yo                     Oy\toy                collapse_spaces=True
+    Yo${SPACE*5}yo                     Oy\toy                collapse_spaces=True
 
 Fails with values
     [Documentation]    FAIL Several failures occurred:
@@ -155,7 +155,7 @@ formatter=repr/ascii with non-ASCII characters
     ...
     ...    7) {'A': 2, 'a': 1, 'Ä': 4, 'ä': 3} != {'a': 1}
     ...
-    ...    8) ${ASCII DICT} != {'a': 1}
+    ...    8) ${ASCII_DICT} != {'a': 1}
     Ä          A
     Ä          A           formatter=repr
     Ä          A           formatter=ascii
@@ -258,20 +258,20 @@ Invalid formatter
 
 Tuple and list with same items fail
     [Documentation]    FAIL not same
-    ${TUPLE 1}    ${LIST 1}    not same    values=false
+    ${TUPLE_1}    ${LIST_1}    not same    values=false
 
 Dictionaries of different type with same items pass
-    ${DICT}    ${ORDERED DICT}
+    ${DICT}    ${ORDERED_DICT}
     [Teardown]    Should Be True    $DICT == dict($ORDERED_DICT)    Sanity check
 
 Bytes containing non-ascii characters
-    [Documentation]    FAIL ${BYTES WITH NON ASCII} != ${BYTES WITHOUT NON ASCII}
-    ${BYTES WITH NON ASCII}    ${BYTES WITH NON ASCII}
-    ${BYTES WITH NON ASCII}    ${BYTES WITHOUT NON ASCII}
+    [Documentation]    FAIL ${BYTES_WITH_NON_ASCII} != ${BYTES_WITHOUT_NON_ASCII}
+    ${BYTES_WITH_NON_ASCII}    ${BYTES_WITH_NON_ASCII}
+    ${BYTES_WITH_NON_ASCII}    ${BYTES_WITHOUT_NON_ASCII}
 
 Unicode and bytes with non-ascii characters
-    [Documentation]    FAIL ${BYTES WITH NON ASCII} != this fails
-    ${BYTES WITH NON ASCII}    this fails
+    [Documentation]    FAIL ${BYTES_WITH_NON_ASCII} != this fails
+    ${BYTES_WITH_NON_ASCII}    this fails
 
 Types info is added if string representations are same
     [Documentation]    FAIL Several failures occurred:
@@ -368,8 +368,8 @@ Should Not Be Equal and collapse spaces
     \ \ ${42}        \ \ ${42}        collapse_spaces=TruE
 
 Should Not Be Equal with bytes containing non-ascii characters
-    [Documentation]    FAIL ${BYTES WITH NON ASCII} == ${BYTES WITH NON ASCII}
+    [Documentation]    FAIL ${BYTES_WITH_NON_ASCII} == ${BYTES_WITH_NON_ASCII}
     [Template]  Should Not Be Equal
-    ${BYTES WITH NON ASCII}    ${BYTES WITHOUT NON ASCII}
-    ${BYTES WITH NON ASCII}    unicode
-    ${BYTES WITH NON ASCII}    ${BYTES WITH NON ASCII}
+    ${BYTES_WITH_NON_ASCII}    ${BYTES_WITHOUT_NON_ASCII}
+    ${BYTES_WITH_NON_ASCII}    unicode
+    ${BYTES_WITH_NON_ASCII}    ${BYTES_WITH_NON_ASCII}

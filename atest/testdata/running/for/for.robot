@@ -5,9 +5,9 @@ Variables         binary_list.py
 *** Variables ***
 @{NUMS}           1    2    3    4    5
 @{RESULT}
-${WRONG VALUES}   Number of FOR loop values should be multiple of its variables.
-${INVALID FOR}    'For' is a reserved keyword. It must be an upper case 'FOR' when used as a marker.
-${INVALID END}    'End' is a reserved keyword. It must be an upper case 'END' when used as a marker to close a block.
+${WRONG_VALUES}   Number of FOR loop values should be multiple of its variables.
+${INVALID_FOR}    'For' is a reserved keyword. It must be an upper case 'FOR' when used as a marker.
+${INVALID_END}    'End' is a reserved keyword. It must be an upper case 'END' when used as a marker to close a block.
 
 *** Test Cases ***
 Simple loop
@@ -240,14 +240,14 @@ Multiple loop variables
     Should Be Equal    ${a}${b}${c}${d}${e}    12345
 
 Wrong number of loop variables 1
-    [Documentation]    FAIL     ${WRONG VALUES} Got 3 variables but 5 values.
+    [Documentation]    FAIL     ${WRONG_VALUES} Got 3 variables but 5 values.
     FOR    ${a}    ${b}    ${c}    IN    @{NUMS}
         Fail    Not executed
     END
     Fail    Not executed
 
 Wrong number of loop variables 2
-    [Documentation]    FAIL     ${WRONG VALUES} Got 4 variables but 3 values.
+    [Documentation]    FAIL     ${WRONG_VALUES} Got 4 variables but 3 values.
     FOR    ${a}    ${b}    ${c}    ${d}    IN    a     b    c
         Fail    Not executed
     END
@@ -270,7 +270,7 @@ Cut long iteration variable values
     Should Be Equal    ${var}    ${var3}    Sanity check
 
 Characters that are illegal in XML
-    FOR    ${var}    IN    @{ILLEGAL VALUES}
+    FOR    ${var}    IN    @{ILLEGAL_VALUES}
         Log    ${var}
     END
 
@@ -291,24 +291,24 @@ Escaping with backslash is not supported
     Fail    Should not be executed
 
 FOR is case and space sensitive 1
-    [Documentation]    FAIL    ${INVALID FOR}
+    [Documentation]    FAIL    ${INVALID_FOR}
     For    ${var}    IN    one    two
         Fail    Should not be executed
     END
 
 FOR is case and space sensitive 2
-    [Documentation]    FAIL    ${INVALID FOR}
+    [Documentation]    FAIL    ${INVALID_FOR}
     F O R    ${var}    IN    one    two
         Fail    Should not be executed
     END
 
 Invalid END usage 1
-    [Documentation]    FAIL    ${INVALID END}
+    [Documentation]    FAIL    ${INVALID_END}
     Log    No for loop here...
     END
 
 Invalid END usage 2
-    [Documentation]    FAIL    ${INVALID END}
+    [Documentation]    FAIL    ${INVALID_END}
     Invalid END usage in UK
 
 Empty body

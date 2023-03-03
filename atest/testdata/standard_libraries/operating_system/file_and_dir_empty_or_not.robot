@@ -9,73 +9,73 @@ Directory Should Be Empty
     Test Directory Should Be Empty    ${BASE}
 
 Non-ASCII Directory Should Be Empty
-    [Documentation]    FAIL Directory '${NON ASCII}' is not empty. Contents: 'dir', 'file.txt', 'nöẗ önlÿ äscïï'.
-    Test Directory Should Be Empty    ${NON ASCII}
+    [Documentation]    FAIL Directory '${NON_ASCII}' is not empty. Contents: 'dir', 'file.txt', 'nöẗ önlÿ äscïï'.
+    Test Directory Should Be Empty    ${NON_ASCII}
 
 Directory With Space Should Be Empty
-    [Documentation]    FAIL Directory '${WITH SPACE}' is not empty. Contents: 'dir', 'file.txt', 'nöẗ önlÿ äscïï'.
-    Test Directory Should Be Empty    ${WITH SPACE}
+    [Documentation]    FAIL Directory '${WITH_SPACE}' is not empty. Contents: 'dir', 'file.txt', 'nöẗ önlÿ äscïï'.
+    Test Directory Should Be Empty    ${WITH_SPACE}
 
 Directory Should Be Empty When Directory Does Not Exist
-    [Documentation]    FAIL Directory '${NON ASCII}' does not exist.
-    Directory Should Be Empty    ${NON ASCII}
+    [Documentation]    FAIL Directory '${NON_ASCII}' does not exist.
+    Directory Should Be Empty    ${NON_ASCII}
 
 Directory Should Not Be Empty
     [Documentation]    FAIL Directory '${BASE}' is empty.
     Test Directory Should Not Be Empty    ${BASE}
 
 Non-ASCII Directory Should Not Be Empty
-    [Documentation]    FAIL Directory '${NON ASCII}' is empty.
-    Test Directory Should Not Be Empty    ${NON ASCII}
+    [Documentation]    FAIL Directory '${NON_ASCII}' is empty.
+    Test Directory Should Not Be Empty    ${NON_ASCII}
 
 Directory With Space Should Not Be Empty
-    [Documentation]    FAIL Directory '${WITH SPACE}' is empty.
-    Test Directory Should Not Be Empty    ${WITH SPACE}
+    [Documentation]    FAIL Directory '${WITH_SPACE}' is empty.
+    Test Directory Should Not Be Empty    ${WITH_SPACE}
 
 Directory Should Not Be Empty When Directory Does Not Exist
-    [Documentation]    FAIL Directory '${NON ASCII}' does not exist.
-    Directory Should Not Be Empty    ${NON ASCII}
+    [Documentation]    FAIL Directory '${NON_ASCII}' does not exist.
+    Directory Should Not Be Empty    ${NON_ASCII}
 
 File Should Be Empty
     [Documentation]    FAIL File '${TESTFILE}' is not empty. Size: 12 bytes.
     Test File Should Be Empty    ${TESTFILE}
 
 Non-ASCII File Should Be Empty
-    [Documentation]    FAIL File '${NON ASCII}' is not empty. Size: 12 bytes.
-    Test File Should Be Empty    ${NON ASCII}
+    [Documentation]    FAIL File '${NON_ASCII}' is not empty. Size: 12 bytes.
+    Test File Should Be Empty    ${NON_ASCII}
 
 File With Space Should Be Empty
-    [Documentation]    FAIL File '${WITH SPACE}' is not empty. Size: 12 bytes.
-    Test File Should Be Empty    ${WITH SPACE}
+    [Documentation]    FAIL File '${WITH_SPACE}' is not empty. Size: 12 bytes.
+    Test File Should Be Empty    ${WITH_SPACE}
 
 File Should Be Empty When File Does Not Exist
-    [Documentation]    FAIL File '${NON ASCII}' does not exist.
-    File Should Be Empty    ${NON ASCII}
+    [Documentation]    FAIL File '${NON_ASCII}' does not exist.
+    File Should Be Empty    ${NON_ASCII}
 
 File Should Not Be Empty
     [Documentation]    FAIL File '${TESTFILE}' is empty.
     Test File Should Not Be Empty    ${TESTFILE}
 
 Non-ASCII File Should Not Be Empty
-    [Documentation]    FAIL File '${NON ASCII}' is empty.
-    Test File Should Not Be Empty    ${NON ASCII}
+    [Documentation]    FAIL File '${NON_ASCII}' is empty.
+    Test File Should Not Be Empty    ${NON_ASCII}
 
 File With Space Should Not Be Empty
-    [Documentation]    FAIL File '${WITH SPACE}' is empty.
-    Test File Should Not Be Empty    ${WITH SPACE}
+    [Documentation]    FAIL File '${WITH_SPACE}' is empty.
+    Test File Should Not Be Empty    ${WITH_SPACE}
 
 File Should Not Be Empty When File Does Not Exist
-    [Documentation]    FAIL File '${NON ASCII}' does not exist.
-    File Should Not Be Empty    ${NON ASCII}
+    [Documentation]    FAIL File '${NON_ASCII}' does not exist.
+    File Should Not Be Empty    ${NON_ASCII}
 
 Path as `pathlib.Path`
     Create Directory                 ${BASE}/dir
-    Directory Should Be Empty        ${PATH/'dir'}
+    Directory Should Be Empty        ${PATH}${/}dir
     Create File                      ${BASE}/dir/file.txt
-    File Should Be Empty             ${PATH/'dir/file.txt'}
+    File Should Be Empty             ${PATH}/dir/file.txt
     Create File                      ${BASE}/dir/file.txt    content
-    File Should Not Be Empty         ${PATH/'dir/file.txt'}
-    Directory Should Not Be Empty    ${PATH/'dir'}
+    File Should Not Be Empty         ${PATH}/dir/file.txt
+    Directory Should Not Be Empty    ${PATH}${/}dir
 
 *** Keywords ***
 Test Directory Should Be Empty

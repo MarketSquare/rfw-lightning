@@ -16,7 +16,7 @@ Evaluate
     ${ten} =    Evaluate    100 - 9*11 + int(9.9)
     Should Be Equal    ${ten}    ${10}
     ${dict} =    Evaluate    {'a': 1, 'b': 2, 'c': 3}
-    Should Be True    ${dict['a']} + ${dict['b']} == ${dict['c']}
+    Should Be True    ${dict}[a] + ${dict}[b] == ${dict}[c]
     ${world} =    Evaluate    [item for item in $HELLO]
     Should Be Equal    ${hello}    ${world}
     ${len} =    Evaluate    len(@{HELLO})
@@ -171,7 +171,7 @@ Automatic variables don't override modules
 
 Automatic variables are case and underscore insensitive
     ${foo} =    Set variable    value
-    ${foo with space} =    Set variable    value with space
+    ${foo_with_space} =    Set variable    value with space
     ${res} =    Evaluate     $FOO == 'value' and $FOO_with_SPACE == 'value with space'
     Should be Equal    ${res}    ${True}
 
@@ -190,15 +190,15 @@ Non-existing automatic variable with recommendation 1
     [Documentation]    FAIL
     ...    Evaluating expression '$HILLO' failed: \
     ...    Variable '$HILLO' not found. Did you mean:
-    ...    ${SPACE * 4}$HELLO
+    ...    ${SPACE*4}$HELLO
     Evaluate    $HILLO
 
 Non-existing automatic variable with recommendation 2
     [Documentation]    FAIL
     ...    Evaluating expression '$hels in $ki' failed: \
     ...    Variable '\$hels' not found. Did you mean:
-    ...    ${SPACE * 4}$hell
-    ...    ${SPACE * 4}$HELLO
+    ...    ${SPACE*4}$hell
+    ...    ${SPACE*4}$HELLO
     ${hell} =    Set Variable    xxx
     Evaluate    $hels in $ki
 

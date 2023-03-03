@@ -12,41 +12,41 @@ Normal Resource Import
     [Documentation]    Test that path given in resource import is relative to
     ...                the current directory and that '/' is converted to
     ...                correct path separator depending on the OS.
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Resource Import With Variables
     [Documentation]    Test that variables can be used in resource import path.
     ...                Also test that path can be absolute.
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Normal Variable Import
     [Documentation]    Test that path given in variable import is relative to
     ...                the current directory and that '/' is converted to
     ...                correct path separator depending on the OS.
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Not Included In __all__
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Variable Import With Variables
     [Documentation]    Test that variables can be used in variable import path.
     ...                Also test that path can be absolute.
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Invalid List Variable
     [Documentation]    List variable not containing a list value causes an error
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
     ${path} =    Normalize Path    ${RESDIR}/invalid_list_variable.py
     Error in file    14    ${DATAFILE}    43
     ...    Processing variable file '${path}' failed:
     ...    Invalid variable '\@{invalid_list}': Expected list-like value, got string.
 
 Dynamic Variable File
-    Check Test Case    ${TEST NAME} With No Args
-    Check Test Case    ${TEST NAME} With One Arg
+    Check Test Case    ${TEST_NAME} With No Args
+    Check Test Case    ${TEST_NAME} With One Arg
 
 Dynamic Variable File With Variables And Backslashes In Args
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Invalid return value from dynamic variable file
     ${path} =    Normalize Path    ${RESDIR}/dynamic_variables.py
@@ -69,13 +69,13 @@ Non-Existing Variable In Arguments To Dynamic Variable File
     ...    Variable '\${non_existing_var_as_arg}' not found.
 
 Resource Importing Resources
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Resource Importing Variables
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Resource Importing Library
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Re-Import Resource File
     [Template]    File Should Have Already Been Imported
@@ -144,10 +144,10 @@ Variable Import Without Path
     ...    Variables setting requires value.
 
 Resource File In PYTHONPATH
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Variable File In PYTHONPATH
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 *** Keywords ***
 Run Tests With Non-ASCII Items In PYTHONPATH
@@ -159,9 +159,9 @@ Run Tests With Non-ASCII Items In PYTHONPATH
     ...    Reset PYTHONPATH
 
 Stderr Should Contain Error
-    [Arguments]    ${path}    @{error parts}
+    [Arguments]    ${path}    @{error_parts}
     ${path} =    Join Path    ${DATADIR}    ${path}
-    ${error} =    Catenate    @{error parts}
+    ${error} =    Catenate    @{error_parts}
     Stderr Should Contain    [ ERROR ] Error in file '${path}': ${error}
 
 File Should Have Already Been Imported

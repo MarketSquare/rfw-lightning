@@ -13,7 +13,7 @@ def user_selects_from_webshop(user, item):
     return user, item
 
 
-@keyword(name='${prefix:Given|When|Then} this "${item}" ${no good name for this arg ...}')
+@keyword(name='${prefix:Given|When|Then} this "${item}" ${no_good_name_for_this_arg_...}')
 def this(ignored_prefix, item, somearg):
     log("%s-%s" % (item, somearg))
 

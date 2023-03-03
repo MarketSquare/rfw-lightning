@@ -178,10 +178,10 @@ Log Variables In User Keyword
     Should Be Equal As Integers    ${kw.message_count}    40    Wrong total message count
 
 List and dict variables failing during iteration
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 *** Keywords ***
 Check Variable Message
     [Arguments]    ${expected}    ${level}=INFO    ${pattern}=
     Check Log Message    ${KW.msgs[${INDEX}]}    ${expected}    ${level}    pattern=${pattern}
-    Set Test Variable    ${INDEX}    ${INDEX + 1}
+    Set Test Variable    ${INDEX}    ${INDEX+1}

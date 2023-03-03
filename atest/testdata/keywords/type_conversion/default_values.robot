@@ -5,8 +5,8 @@ Resource                 conversion.resource
 *** Variables ***
 @{LIST}                  foo                       bar
 &{DICT}                  foo=${1}                  bar=${2}
-${PATH}                  ${{pathlib.Path('x/y')}}
-${PUREPATH}              ${{pathlib.PurePath('x/y')}}
+${PATH}=Evaluate                  pathlib.Path('x/y')
+${PUREPATH}=Evaluate              pathlib.PurePath('x/y')
 
 *** Test Cases ***
 Integer

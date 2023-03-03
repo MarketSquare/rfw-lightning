@@ -37,7 +37,7 @@ Touch When Parent Does Not Exist Fails
     Touch    ${TESTDIR}/file.txt
 
 Path as `pathlib.Path`
-    Touch    ${PATH/'file.txt'}
+    Touch    ${PATH}/file.txt
     File Should Be Empty    ${BASE}/file.txt
 
 *** Keywords ***

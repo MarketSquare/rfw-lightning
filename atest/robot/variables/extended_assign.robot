@@ -6,7 +6,7 @@ Resource         atest_resource.robot
 Set attributes to Python object
     ${tc} =    Check Test Case    ${TESTNAME}
     Check Log Message    ${tc.kws[0].msgs[0]}    \${VAR.attr} = new value
-    Check Log Message    ${tc.kws[1].msgs[0]}    \${ v a r . attr2 } = nv2
+    Check Log Message    ${tc.kws[1].msgs[0]}    \${var.attr2} = nv2
 
 Set nested attribute
     Check Test Case    ${TESTNAME}

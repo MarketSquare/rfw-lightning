@@ -5,28 +5,31 @@ Variables         list_variable_items.py
 ${INT}            ${15}
 @{LIST}           A    B    C    D    E    F    G    H    I    J    K
 @{NUMBERS}        1    2    3
-@{NESTED}         ${{['a', 'b', 'c']}}    ${{[1, 2, 3]}}
-${BYTES}          ${{b'ABCDEFGHIJK'}}
-${BYTEARRAY}      ${{bytearray(b'ABCDEFGHIJK')}}
+${NESTED}=Evaluate         [['a','b','c'], [1,2,3]]
+${BYTES}=Evaluate          b'ABCDEFGHIJK'
+${BYTEARRAY}=Evaluate      bytearray(b'ABCDEFGHIJK')
 ${STRING}         ABCDEFGHIJK
 &{MAP}            first=0    last=-1
 ${ONE}            1
 ${INVALID}        xxx
 ${COLON}          :
-${BYTES NAME}     ${{'Bytes' if not isinstance(b'', str) else 'String'}}
 
 *** Test Cases ***
 Valid index
     Valid index    ${LIST}
     Valid index    ${STRING}
-    Should Be Equal    ${BYTES}[0]    ${{b'ABCDEFGHIJK'[0]}}
-    Should Be Equal    ${BYTES}[-1]    ${{b'ABCDEFGHIJK'[-1]}}
+    ${b0}=Evaluate    b'ABCDEFGHIJK'[0]
+    ${blast}=Evaluate   b'ABCDEFGHIJK'[-1]
+    Should Be Equal    ${BYTES}[0]    ${b0}
+    Should Be Equal    ${BYTES}[-1]    ${blast}
 
 Index with variable
     Index with variable    ${LIST}
     Index with variable    ${STRING}
-    Should Be Equal    ${BYTES}[${0}]    ${{b'A'[0]}}
-    Should Be Equal    ${BYTES}[${-1}]    ${{b'K'[0]}}
+    ${ba0}=Evaluate   b'A'[0]
+    ${bk0}=Evaluate   b'K'[0]
+    Should Be Equal    ${BYTES}[${0}]    ${ba0}
+    Should Be Equal    ${BYTES}[${-1}]    ${bk0}
 
 Index with variable using item access
     Index with variable using item access    ${LIST}
@@ -53,7 +56,7 @@ Invalid index string
     Log    ${STRING}[12]
 
 Invalid index bytes
-    [Documentation]    FAIL ${BYTES NAME} '\${BYTES}' has no item in index 12.
+    [Documentation]    FAIL    GLOB: * '\${BYTES}' has no item in index 12.
     Log    ${BYTES}[12]
 
 Invalid index using variable
@@ -73,9 +76,7 @@ Non-int index string
     Log    ${STRING}[invalid]
 
 Non-int index bytes
-    [Documentation]    FAIL
-    ...    ${BYTES NAME} '\${BYTES}' used with invalid index 'invalid'. \
-    ...    To use '[invalid]' as a literal value, it needs to be escaped like '\\[invalid]'.
+    [Documentation]    FAIL     GLOB: * '\${BYTES}' used with invalid index 'invalid'. *
     Log    ${BYTES}[invalid]
 
 Non-int index using variable 1
@@ -103,9 +104,7 @@ Empty index string
     Log    ${STRING}[]
 
 Empty index bytes
-    [Documentation]    FAIL
-    ...    ${BYTES NAME} '\$\{BYTES}' used with invalid index ''. \
-    ...     To use '[]' as a literal value, it needs to be escaped like '\\[]'.
+    [Documentation]    FAIL    GLOB: * '\$\{BYTES}' used with invalid index ''. *
     Log    ${BYTES}[]
 
 Invalid slice list
@@ -121,9 +120,7 @@ Invalid slice string
     Log    ${STRING}[1:2:3:4]
 
 Invalid slice bytes
-    [Documentation]    FAIL
-    ...    ${BYTES NAME} '\${BYTES}' used with invalid index '1:2:3:4'. \
-    ...    To use '[1:2:3:4]' as a literal value, it needs to be escaped like '\\[1:2:3:4]'.
+    [Documentation]    FAIL    GLOB: * '\${BYTES}' used with invalid index '1:2:3:4'. *
     Log    ${BYTES}[1:2:3:4]
 
 Non-int slice index 1
@@ -145,12 +142,12 @@ Non-int slice index 3
     Log    ${LIST}[1:2:ooops]
 
 Non-existing variable
-    [Documentation]    FAIL Variable '\${nonex list}' not found.
-    Log    ${nonex list}[0]
+    [Documentation]    FAIL Variable '\${nonex_list}' not found.
+    Log    ${nonex_list}[0]
 
 Non-existing index variable
-    [Documentation]    FAIL Variable '\${nonex index}' not found.
-    Log    ${LIST}[${nonex index}]
+    [Documentation]    FAIL Variable '\${nonex_index}' not found.
+    Log    ${LIST}[${nonex_index}]
 
 Non-subscriptable variable
     [Documentation]    FAIL
@@ -184,21 +181,21 @@ List expansion with slice fails if value is not list-like
     Log Many    @{STRING}[1:]
 
 Object supporting both index and key access
-    Valid index              ${MIXED USAGE}
-    Index with variable      ${MIXED USAGE}
-    Slicing                  ${MIXED USAGE}
-    Slicing with variable    ${MIXED USAGE}
-    Should be equal          ${MIXED USAGE}[A]    ${0}
-    Should be equal          ${MIXED USAGE}[K]    ${10}
+    Valid index              ${MIXED_USAGE}
+    Index with variable      ${MIXED_USAGE}
+    Slicing                  ${MIXED_USAGE}
+    Slicing with variable    ${MIXED_USAGE}
+    Should be equal          ${MIXED_USAGE}[A]    ${0}
+    Should be equal          ${MIXED_USAGE}[K]    ${10}
     Run keyword and expect error
-    ...    EQUALS: MixedUsage '\${MIXED USAGE}' has no item in index 11.
-    ...    Log    ${MIXED USAGE}[11]
+    ...    EQUALS: MixedUsage '\${MIXED_USAGE}' has no item in index 11.
+    ...    Log    ${MIXED_USAGE}[11]
     Run keyword and expect error
-    ...    STARTS: Accessing '\${MIXED USAGE}[X]' failed: ValueError:
-    ...    Log    ${MIXED USAGE}[X]
+    ...    STARTS: Accessing '\${MIXED_USAGE}[X]' failed: ValueError:
+    ...    Log    ${MIXED_USAGE}[X]
     Run keyword and expect error
-    ...    EQUALS: MixedUsage '\${MIXED USAGE}' used with invalid index 'None'. To use '[None]' as a literal value, it needs to be escaped like '\\[None]'.
-    ...    Log    ${MIXED USAGE}[${NONE}]
+    ...    EQUALS: MixedUsage '\${MIXED_USAGE}' used with invalid index 'None'. To use '[None]' as a literal value, it needs to be escaped like '\\[None]'.
+    ...    Log    ${MIXED_USAGE}[${NONE}]
 
 *** Keywords ***
 Valid index

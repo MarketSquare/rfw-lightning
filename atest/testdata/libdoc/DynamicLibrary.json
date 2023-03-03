@@ -1,9 +1,9 @@
 {
-  "specversion": 2,
+  "specversion": 1,
   "name": "DynamicLibrary",
   "doc": "<p>Dummy documentation for <span class=\"name\">__intro__</span>.</p>",
   "version": "0.1",
-  "generated": "2023-02-27T15:47:24+00:00",
+  "generated": "2022-02-10 21:21:43",
   "type": "LIBRARY",
   "scope": "TEST",
   "docFormat": "HTML",
@@ -21,7 +21,6 @@
       "args": [
         {
           "name": "arg1",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -31,7 +30,6 @@
         },
         {
           "name": "arg2",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": "These args are shown in docs",
@@ -54,6 +52,8 @@
       "doc": "<p>Dummy documentation for <a href=\"#0\" class=\"name\">0</a>.</p>\n<p>Neither <a href=\"#Keyword%201\" class=\"name\">Keyword 1</a> or <a href=\"#KW%202\" class=\"name\">KW 2</a> do anything really interesting. They do, however, accept some <span class=\"name\">arguments</span>. Neither <a href=\"#Introduction\" class=\"name\">introduction</a> nor <a href=\"#Importing\" class=\"name\">importing</a> contain any more information.</p>\n<p>Examples:</p>\n<table border=\"1\">\n<tr>\n<td>Keyword 1</td>\n<td>arg</td>\n<td></td>\n</tr>\n<tr>\n<td>KW 2</td>\n<td>arg</td>\n<td>arg 2</td>\n</tr>\n<tr>\n<td>KW 2</td>\n<td>arg</td>\n<td>arg 3</td>\n</tr>\n</table>\n<hr>\n<p><a href=\"http://robotframework.org\">http://robotframework.org</a></p>",
       "shortdoc": "Dummy documentation for `0`.",
       "tags": [],
+      "private": true,
+      "deprecated": true,
       "source": "/home/peke/Devel/robotframework/atest/testdata/libdoc/DynamicLibrary.py",
       "lineno": -1
     },
@@ -62,7 +62,6 @@
       "args": [
         {
           "name": "old",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": "style",
@@ -72,7 +71,6 @@
         },
         {
           "name": "new",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": "style",
@@ -82,7 +80,6 @@
         },
         {
           "name": "cool",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": "True",
@@ -120,7 +117,6 @@
       "args": [
         {
           "name": "varargs",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -130,7 +126,6 @@
         },
         {
           "name": "kwargs",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -150,7 +145,6 @@
       "args": [
         {
           "name": "arg1",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -170,7 +164,6 @@
       "args": [
         {
           "name": "",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -180,7 +173,6 @@
         },
         {
           "name": "kwo",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -190,7 +182,6 @@
         },
         {
           "name": "another",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": "default",
@@ -210,7 +201,6 @@
       "args": [
         {
           "name": "arg1",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -220,7 +210,6 @@
         },
         {
           "name": "arg2",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -240,7 +229,6 @@
       "args": [
         {
           "name": "varargs",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -250,7 +238,6 @@
         },
         {
           "name": "a",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -260,7 +247,6 @@
         },
         {
           "name": "b",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": "2",
@@ -270,7 +256,6 @@
         },
         {
           "name": "c",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -280,7 +265,6 @@
         },
         {
           "name": "kws",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -300,7 +284,6 @@
       "args": [
         {
           "name": "varargs",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -310,7 +293,6 @@
         },
         {
           "name": "kwargs",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -330,7 +312,6 @@
       "args": [
         {
           "name": "varargs",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -340,7 +321,6 @@
         },
         {
           "name": "kwargs",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -360,7 +340,6 @@
       "args": [
         {
           "name": "varargs",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -370,7 +349,6 @@
         },
         {
           "name": "kwargs",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -390,7 +368,6 @@
       "args": [
         {
           "name": "varargs",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -400,7 +377,6 @@
         },
         {
           "name": "kwargs",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -423,7 +399,6 @@
       "args": [
         {
           "name": "arg1",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -433,7 +408,6 @@
         },
         {
           "name": "arg2",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -443,7 +417,6 @@
         },
         {
           "name": "arg3",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -453,7 +426,6 @@
         },
         {
           "name": "arg4",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -463,7 +435,6 @@
         },
         {
           "name": "arg5",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -473,7 +444,6 @@
         },
         {
           "name": "arg6",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -483,7 +453,6 @@
         },
         {
           "name": "arg7",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -493,7 +462,6 @@
         },
         {
           "name": "arg8",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -516,7 +484,6 @@
       "args": [
         {
           "name": "varargs",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -526,7 +493,6 @@
         },
         {
           "name": "kwargs",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -546,7 +512,6 @@
       "args": [
         {
           "name": "varargs",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -556,7 +521,6 @@
         },
         {
           "name": "kwargs",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -576,7 +540,6 @@
       "args": [
         {
           "name": "varargs",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -586,7 +549,6 @@
         },
         {
           "name": "kwargs",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -606,7 +568,6 @@
       "args": [
         {
           "name": "varargs",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -616,7 +577,6 @@
         },
         {
           "name": "kwargs",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -639,12 +599,6 @@
       "args": [
         {
           "name": "integer",
-          "type": {
-            "name": "int",
-            "typedoc": "integer",
-            "nested": [],
-            "union": false
-          },
           "types": [
             "int"
           ],
@@ -658,7 +612,6 @@
         },
         {
           "name": "no type",
-          "type": null,
           "types": [],
           "typedocs": {},
           "defaultValue": null,
@@ -668,12 +621,6 @@
         },
         {
           "name": "boolean",
-          "type": {
-            "name": "bool",
-            "typedoc": "boolean",
-            "nested": [],
-            "union": false
-          },
           "types": [
             "bool"
           ],

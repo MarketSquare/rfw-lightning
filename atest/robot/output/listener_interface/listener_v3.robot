@@ -1,9 +1,9 @@
 *** Settings ***
-Suite Setup       Run Tests    --listener ${LISTENER DIR}/v3.py -l l -r r -b d -x x    misc/pass_and_fail.robot
+Suite Setup       Run Tests    --listener ${LISTENER_DIR}/v3.py -l l -r r -b d -x x    misc/pass_and_fail.robot
 Resource          listener_resource.robot
 
 *** Variables ***
-${SEPARATOR}      ${EMPTY + '-' * 78}
+${SEPARATOR}=Evaluate      $EMPTY+'-'*78
 
 *** Test Cases ***
 New tests and keywords can be added
@@ -37,16 +37,16 @@ Test status and message can be changed
 Changing test status in end suite changes console output, but not output.xml
     Stdout Should Contain     SEPARATOR=\n
     ...    5 tests, 5 passed, 0 failed
-    ${from output.xml} =    Catenate    SEPARATOR=\n
+    ${from_output.xml} =    Catenate    SEPARATOR=\n
     ...    5 tests, 2 passed, 3 failed
-    Should be equal    ${SUITE.stat_message}     ${from output.xml}
+    Should be equal    ${SUITE.stat_message}     ${from_output.xml}
 
 Test tags can be modified
     Check Test Tags    Fail [start suite]    [end]  [start]  [start suite]  fail  force
 
 Metadata can be modified
-    Should be equal    ${SUITE.metadata['suite']}   [start] [end]
-    Should be equal    ${SUITE.metadata['tests']}   xxxxx
+    Should be equal    ${SUITE.metadata}[suite]   [start] [end]
+    Should be equal    ${SUITE.metadata}[tests]   xxxxx
 
 Changing current element name is not possible
     [Documentation]    But start_suite can change test names

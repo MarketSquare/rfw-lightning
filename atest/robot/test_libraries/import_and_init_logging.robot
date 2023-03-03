@@ -36,7 +36,7 @@ Python library logging in import via logging API
     Stderr Should Contain  [ WARN ] Warning via API in init 2\n
 
 Importing and initializing libraries in init
-    ${tc} =  Check Test Case  ${TEST NAME}
+    ${tc} =  Check Test Case  ${TEST_NAME}
     Check log message  ${tc.kws[0].msgs[0]}  Keyword from library with importing __init__.
     Check log message  ${tc.kws[2].msgs[0]}  Keyword from library with initting __init__.
     Check log message  ${tc.kws[2].msgs[1]}  Keyword from library initted by __init__ (id: 42).

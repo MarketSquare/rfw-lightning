@@ -6,12 +6,12 @@ Library           ./wait_until_library.py
 
 *** Variables ***
 ${FILE}              %{TEMPDIR}${/}ROBOTEST-F.txt
-${FILE 2}            %{TEMPDIR}${/}ROBOTEST-F-2.txt
+${FILE_2}            %{TEMPDIR}${/}ROBOTEST-F-2.txt
 ${DIR}               %{TEMPDIR}${/}ROBOTEST-D
-${FILE PATTERN}      %{TEMPDIR}${/}ROBOTEST-*.txt
-${DIR PATTERN}       %{TEMPDIR}${/}ROBOTEST-?
-${BOTH PATTERN}      %{TEMPDIR}${/}ROBOTEST-*
-${FILE WITH GLOB}    %{TEMPDIR}${/}ROBOTEST[glob].txt
+${FILE_PATTERN}      %{TEMPDIR}${/}ROBOTEST-*.txt
+${DIR_PATTERN}       %{TEMPDIR}${/}ROBOTEST-?
+${BOTH_PATTERN}      %{TEMPDIR}${/}ROBOTEST-*
+${FILE_WITH_GLOB}    %{TEMPDIR}${/}ROBOTEST[glob].txt
 
 *** Test Cases ***
 File And Dir Already Removed
@@ -29,13 +29,13 @@ File And Dir Removed Before Timeout
 
 File And Dir Removed With Pattern
     Create Items
-    Remove After Sleeping    ${FILE}    ${FILE 2}
-    Wait Until Removed    ${FILE PATTERN}    23
+    Remove After Sleeping    ${FILE}    ${FILE_2}
+    Wait Until Removed    ${FILE_PATTERN}    23
     Remove After Sleeping    ${DIR}
-    Wait Until Removed    ${DIR PATTERN}    12 s
+    Wait Until Removed    ${DIR_PATTERN}    12 s
     Create Items
-    Remove After Sleeping    ${FILE}    ${FILE 2}    ${DIR}
-    Wait Until Removed    ${BOTH PATTERN}
+    Remove After Sleeping    ${FILE}    ${FILE_2}    ${DIR}
+    Wait Until Removed    ${BOTH_PATTERN}
 
 File Not Removed Before Timeout
     [Documentation]    FAIL '${FILE}' was not removed in 111 milliseconds.
@@ -48,9 +48,9 @@ Dir Not Removed Before Timeout
     Wait Until Removed    ${DIR}    0day 0sec 123 millis
 
 Not Removed Before Timeout With Pattern
-    [Documentation]    FAIL '${BOTH PATTERN}' was not removed in 42 milliseconds.
+    [Documentation]    FAIL '${BOTH_PATTERN}' was not removed in 42 milliseconds.
     Create Items
-    Wait Until Removed    ${BOTH PATTERN}    0.042
+    Wait Until Removed    ${BOTH_PATTERN}    0.042
 
 Invalid Remove Timeout
     [Documentation]    FAIL ValueError: Invalid time string 'invalid timeout'.
@@ -69,9 +69,9 @@ File And Dir Created Before Timeout
 
 File And Dir Created With Pattern
     Create File After Sleeping    ${FILE}
-    Wait Until Created    ${FILE PATTERN}
+    Wait Until Created    ${FILE_PATTERN}
     Create Dir After Sleeping    ${DIR}
-    Wait Until Created    ${DIR PATTERN}
+    Wait Until Created    ${DIR_PATTERN}
 
 File Not Created Before Timeout
     [Documentation]    FAIL '${FILE}' was not created in 1 second 1 millisecond.
@@ -82,8 +82,8 @@ Dir Not Created Before Timeout
     Wait Until Created    ${DIR}    0 s 42 ms
 
 Not Created Before Timeout With Pattern
-    [Documentation]    FAIL '${BOTH PATTERN}' was not created in 22 milliseconds.
-    Wait Until Created    ${BOTH PATTERN}    0.022
+    [Documentation]    FAIL '${BOTH_PATTERN}' was not created in 22 milliseconds.
+    Wait Until Created    ${BOTH_PATTERN}    0.022
 
 Invalid Create Timeout
     [Documentation]    FAIL ValueError: Invalid time string 'invalid timeout'.
@@ -91,29 +91,31 @@ Invalid Create Timeout
 
 Wait Until File With Glob Like Name
     Create Items
-    Wait Until Created    ${FILE WITH GLOB}    1ms
+    Wait Until Created    ${FILE_WITH_GLOB}    1ms
 
 Wait Until Removed File With Glob Like Name
-    [Documentation]    FAIL '${FILE WITH GLOB}' was not removed in 42 milliseconds.
+    [Documentation]    FAIL '${FILE_WITH_GLOB}' was not removed in 42 milliseconds.
     Create Items
-    Wait Until Removed    ${FILE WITH GLOB}    0.042
+    Wait Until Removed    ${FILE_WITH_GLOB}    0.042
 
 Path as `pathlib.Path`
     Create Items
     Remove After Sleeping    ${FILE}
-    Wait Until Removed    ${{pathlib.Path($FILE)}}    5 second
+    ${filepath}=Evaluate   pathlib.Path($FILE)
+    Wait Until Removed    ${filepath}    5 second
     Remove After Sleeping    ${DIR}
-    Wait Until Removed    ${{pathlib.Path($DIR)}}    32 seconds 44 millis
+    ${filedir}=Evaluate    pathlib.Path($DIR)
+    Wait Until Removed    ${filedir}    32 seconds 44 millis
 
 *** Keywords ***
 Remove Items
-    Remove File    ${FILE WITH GLOB}
+    Remove File    ${FILE_WITH_GLOB}
     Remove File    ${FILE}
-    Remove File    ${FILE 2}
+    Remove File    ${FILE_2}
     Remove Directory    ${DIR}
 
 Create Items
-    Create File    ${FILE WITH GLOB}
+    Create File    ${FILE_WITH_GLOB}
     Create File    ${FILE}
-    Create File    ${FILE 2}
+    Create File    ${FILE_2}
     Create Directory    ${DIR}

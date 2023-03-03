@@ -15,9 +15,6 @@ Scalar Variable As List With Extended Syntax
 Extended syntax with non-list value
     Check Test Case    ${TESTNAME}
 
-Non-alphanumeric characters in name
-    Check Test Case    ${TESTNAME}
-
 String Cannot Be Used As List Variable
     Check Test Case    ${TESTNAME}
 

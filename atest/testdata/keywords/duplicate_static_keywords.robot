@@ -2,7 +2,7 @@
 Library          DupeKeywords.py
 
 *** Variables ***
-${INDENT}         ${SPACE * 4}
+${INDENT}         ${SPACE*4}
 
 *** Test Cases ***
 Using keyword defined twice fails
@@ -16,13 +16,13 @@ Using keyword defined thrice fails as well
 Keyword with embedded arguments defined twice fails at run-time: Called with embedded args
     [Documentation]    FAIL
     ...    Multiple keywords matching name 'Embedded arguments twice' found:
-    ...    ${INDENT}DupeKeywords.Embedded \${arguments match} TWICE
+    ...    ${INDENT}DupeKeywords.Embedded \${arguments_match} TWICE
     ...    ${INDENT}DupeKeywords.Embedded \${arguments} twice
     Embedded arguments twice
 
 Keyword with embedded arguments defined twice fails at run-time: Called with exact name
     [Documentation]    FAIL
-    ...    Multiple keywords matching name 'Embedded \${arguments match} twice' found:
-    ...    ${INDENT}DupeKeywords.Embedded \${arguments match} TWICE
+    ...    Multiple keywords matching name 'Embedded \${arguments_match} twice' found:
+    ...    ${INDENT}DupeKeywords.Embedded \${arguments_match} TWICE
     ...    ${INDENT}DupeKeywords.Embedded \${arguments} twice
-    Embedded ${arguments match} twice
+    Embedded ${arguments_match} twice

@@ -6,7 +6,7 @@ Suite Teardown    Remove File    ${OUTPUT}
 
 *** Variables ***
 ${NON-ASCII}          <hyvää>yötä</hyvää>
-${NON-ASCII SAVED}    <hyv&#228;&#228;>y&#246;t&#228;</hyv&#228;&#228;>
+${NON-ASCII_SAVED}    <hyv&#228;&#228;>y&#246;t&#228;</hyv&#228;&#228;>
 
 *** Test Cases ***
 Save XML Element
@@ -35,7 +35,8 @@ Save Non-ASCII XML Using Custom Encoding
     XML Content Should Be    ${NON-ASCII}    ISO-8859-1
 
 Save to `pathlib.Path`
-    Save XML    ${SIMPLE}    ${{pathlib.Path($OUTPUT)}}
+    ${output_path}=Evaluate    pathlib.Path($OUTPUT)
+    Save XML    ${SIMPLE}    ${output_path}
     XML Content Should Be    ${SIMPLE}
 
 Save to Invalid File
@@ -48,7 +49,7 @@ Save Using Invalid Encoding
 
 Save Non-ASCII Using ASCII
     Save XML    ${NON-ASCII}    ${OUTPUT}    ASCII
-    XML Content Should Be    ${NON-ASCII SAVED}    ASCII
+    XML Content Should Be    ${NON-ASCII_SAVED}    ASCII
 
 Doctype is not preserved
     Save XML    <!DOCTYPE foo><foo/>    ${OUTPUT}

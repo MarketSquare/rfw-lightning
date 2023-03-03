@@ -11,7 +11,7 @@ Get Count
     ${LIST}           b                2
     ${LIST}           cee              1
     ${TUPLE3}         a                1
-    ${SPACE * 100}    ${SPACE * 2}     50
+    ${SPACE*100}    ${SPACE*2}     50
     Hello, world!     no match here    0
     ${None}           x
 
@@ -50,7 +50,7 @@ Should Contain X Times case-insensitive
     XxX          xx    1      ignore_case=True
     ${DICT}      a     2      ignore_case=yes
     ${DICT}      Ä     2      ignore_case=yes
-    ${DICT 1}    a     100    ignore_case=yes, please
+    ${DICT_1}    a     100    ignore_case=yes, please
 
 Should Contain X Times without leading spaces
     [Documentation]    FAIL    ${DICT_5} contains 'b' 1 time, not 2 times.

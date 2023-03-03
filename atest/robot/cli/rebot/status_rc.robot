@@ -7,7 +7,7 @@ Resource        rebot_cli_resource.robot
 *** Variables ***
 ${PASSING}         %{TEMPDIR}${/}rebot-testing-passing.xml
 ${FAILING}         %{TEMPDIR}${/}rebot-testing-failing.xml
-${NO OUTPUTS}      [ ERROR ] No outputs created.\n\nTry --help for usage information.
+${NO_OUTPUTS}      [ ERROR ] No outputs created.\n\nTry --help for usage information.
 
 *** Test Cases ***
 Zero RC when all tests pass
@@ -24,8 +24,8 @@ Zero RC when tests fail with --NoStatusRC
     --nostatusrc               ${FAILING}        rc=0
 
 Error when no output is created
-    ${EMPTY}                   ${PASSING}        rc=252    stderr=${NO OUTPUTS}    report=NONE
-    --nostatusrc               ${FAILING}        rc=252    stderr=${NO OUTPUTS}    report=NONE
+    ${EMPTY}                   ${PASSING}        rc=252    stderr=${NO_OUTPUTS}    report=NONE
+    --nostatusrc               ${FAILING}        rc=252    stderr=${NO_OUTPUTS}    report=NONE
 
 --StatusRC and --NoStatusRC together
     --nostatusrc --statusrc    ${FAILING}        rc=1

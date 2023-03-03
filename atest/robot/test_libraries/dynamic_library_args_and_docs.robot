@@ -58,9 +58,9 @@ Keyword Not Created And Warning Shown When Getting Arguments Fails
 
 *** Keywords ***
 Check test case and its doc
-    [Arguments]    ${expected doc}    @{msgs}
+    [Arguments]    ${expected_doc}    @{msgs}
     ${tc} =    Check Test case    ${TESTNAME}
-    Should Be Equal    ${tc.kws[0].doc}    ${expected doc}
+    Should Be Equal    ${tc.kws[0].doc}    ${expected_doc}
     FOR    ${kw}    ${msg}    IN ZIP    ${tc.kws}    ${msgs}
         Check Log Message    ${kw.msgs[0]}    ${msg}
     END

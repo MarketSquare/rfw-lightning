@@ -1,6 +1,5 @@
 string:   Hello, YAML!
 non:      äscii
-nön:      äscii
 integer:  42
 float:    3.14
 list:
@@ -12,9 +11,9 @@ dict:
   b: 2
   3: [one, 2]
   key with spaces: value with spaces
-nested dict:
+nested_dict:
   dict: *alias
-list with dict:
+list_with_dict:
   - scalar
   - key: value
   - dict: *alias

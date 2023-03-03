@@ -4,8 +4,8 @@ Library              embedded_args.py
 Variables            variable.py
 
 *** Variables ***
-@{NEEDS ESCAPING}    c:\\temp\\foo    \${notvar}    ${42}
-${FAIL KW}           Fail
+@{NEEDS_ESCAPING}    c:\\temp\\foo    \${notvar}    ${42}
+${FAIL_KW}           Fail
 ${VARIABLE}          value
 
 *** Test Cases ***
@@ -18,7 +18,7 @@ Run Keyword
     Run Keyword    ${kw}    Run keyword with variable: ${kw}
     @{kw} =    Set Variable    Log Many    one    two
     Run Keyword    @{kw}
-    Run Keyword    ${FAIL KW}    Expected failure
+    Run Keyword    ${FAIL_KW}    Expected failure
 
 Run Keyword Returning Value
     ${ret} =    Run Keyword    Set Variable    hello world
@@ -28,9 +28,9 @@ Run Keyword Returning Value
 
 Run Keyword With Arguments That Needs To Be Escaped
     Run Keyword    Directory Should Exist    ${CURDIR}
-    Run Keyword    Log Many    @{NEEDS ESCAPING}    ${CURDIR}    ${EMPTY}
-    ${ret} =    Run Keyword    Create List    @{NEEDS ESCAPING}
-    Should Be Equal    ${ret}    ${NEEDS ESCAPING}
+    Run Keyword    Log Many    @{NEEDS_ESCAPING}    ${CURDIR}    ${EMPTY}
+    ${ret} =    Run Keyword    Create List    @{NEEDS_ESCAPING}
+    Should Be Equal    ${ret}    ${NEEDS_ESCAPING}
 
 Escaping Arguments From Opened List Variable
     @{named} =    Create List    Log    message=foo    INFO

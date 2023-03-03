@@ -26,9 +26,9 @@ Pipe to command consuming no data
 
 *** Keywords ***
 Run with pipe and validate results
-    [Arguments]    ${pipe style}
+    [Arguments]    ${pipe_style}
     ${command} =    Join Command Line    @{COMMAND}
-    ${result} =    Run Process    ${command} | python ${TARGET} ${pipe style}
+    ${result} =    Run Process    ${command} | python ${TARGET} ${pipe_style}
     ...    shell=true
     Log Many    RC: ${result.rc}    STDOUT:\n${result.stdout}    STDERR:\n${result.stderr}
     Should Be Equal    ${result.rc}    ${0}

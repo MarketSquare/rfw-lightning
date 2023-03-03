@@ -4,9 +4,10 @@ Library           DateTime
 Variables         datesandtimes.py
 
 *** Variables ***
-${DATE}               ${datetime(2018, 11, 22, 13, 13, 42)}
-${DATE w/ MILLIS}     ${datetime(2018, 11, 22, 13, 13, 42, 123000)}
-${DATE w/ MICRO}      ${datetime(2018, 11, 22, 13, 13, 42, 123456)}
+${DATE}=Evaluate        datetime.datetime(2018,11,22,13,13,42)
+${DATE_PLUS_1}=Evaluate   datetime.datetime(2018,11,22,13,13,43)
+${DATE_WITH_MILLIS}=Evaluate     datetime.datetime(2018,11,22,13,13,42,123000)
+${DATE_WITH_MICRO}=Evaluate      datetime.datetime(2018,11,22,13,13,42,123456)
 
 *** Test Cases ***    INPUT                      FORMAT               OUTPUT                     INPUT FORMAT
 Should convert to timestamp
@@ -15,8 +16,8 @@ Should convert to timestamp
                       20140424 21:45:12.12399    tImestamp            2014-04-24 21:45:12.124    %Y%m%d %H:%M:%S.%f
                       ${EPOCH}                   TIMEstamp            2018-11-22 13:13:42.000
                       ${DATE}                    TimeStamp            2018-11-22 13:13:42.000
-                      ${DATE w/ MILLIS}          TimeStamp            2018-11-22 13:13:42.123
-                      ${DATE w/ MICRO}           TimeStamp            2018-11-22 13:13:42.123
+                      ${DATE_WITH_MILLIS}          TimeStamp            2018-11-22 13:13:42.123
+                      ${DATE_WITH_MICRO}           TimeStamp            2018-11-22 13:13:42.123
 
 Timestamp should contain millis rounded to three digits
                       2014-07-30 17:31:00        timestamp            2014-07-30 17:31:00.000
@@ -40,18 +41,18 @@ Should convert to timestamp with format
                       2014/04/24 21:45:12.123    %H:%M %Y-%m-%d       21:45 2014-04-24           %Y/%m/%d %H:%M:%S.%f
 
 Should convert to epoch
-                      2018-11-22 13:13:42.123    epoch                ${EPOCH + 0.123}
-                      2018-11-22 13:13:42.123    epoch                ${EPOCH + 0.123}           %Y-%m-%d %H:%M:%S.%f
+                      2018-11-22 13:13:42.123    epoch                ${EPOCH+0.123}
+                      2018-11-22 13:13:42.123    epoch                ${EPOCH+0.123}           %Y-%m-%d %H:%M:%S.%f
                       ${EPOCH}                   epoch                ${EPOCH}
-                      ${DATE w/ MICRO}           epoch                ${EPOCH + 0.123456}
+                      ${DATE_WITH_MICRO}           epoch                ${EPOCH+0.123456}
 
 Should convert to datetime
-                      20181122 13:13:42.123456   datetime             ${DATE w/ MICRO}
-                      20181122 13:13:42.123456   datetime             ${DATE w/ MICRO}           %Y%m%d %H:%M:%S.%f
-                      ${EPOCH + 0.123456}        DateTiMe             ${DATE w/ MICRO}
+                      20181122 13:13:42.123456   datetime             ${DATE_WITH_MICRO}
+                      20181122 13:13:42.123456   datetime             ${DATE_WITH_MICRO}           %Y%m%d %H:%M:%S.%f
+                      ${EPOCH+0.123456}        DateTiMe             ${DATE_WITH_MICRO}
                       ${DATE}                    datetime             ${DATE}
-                      ${DATE w/ MILLIS}          datetime             ${DATE w/ MILLIS}
-                      ${DATE w/ MICRO}           datetime             ${DATE w/ MICRO}
+                      ${DATE_WITH_MILLIS}          datetime             ${DATE_WITH_MILLIS}
+                      ${DATE_WITH_MICRO}           datetime             ${DATE_WITH_MICRO}
 
 Should exclude milliseconds
                       [Template]    Date Conversion Should Succeed Without Milliseconds
@@ -59,15 +60,15 @@ Should exclude milliseconds
                       2014-04-24 21:45:12.999    timestamp            2014-04-24 21:45:13
                       2014-04-24 21:45:12.99999  timestamp            2014-04-24 21:45:13
                       ${DATE}                    timestamp            2018-11-22 13:13:42
-                      ${EPOCH + 0.123}           %Y-%m-%d %H:%M:%S    2018-11-22 13:13:42
-                      ${EPOCH + 0.500}           %Y-%m-%d %H:%M:%S    2018-11-22 13:13:43
-                      ${DATE}                    datetime             ${datetime(2018, 11, 22, 13, 13, 42)}
-                      ${DATE w/ MILLIS}          datetime             ${datetime(2018, 11, 22, 13, 13, 42)}
-                      ${DATE w/ MICRO}           datetime             ${datetime(2018, 11, 22, 13, 13, 42)}
-                      ${EPOCH + 0.123}           datetime             ${datetime(2018, 11, 22, 13, 13, 42)}
-                      ${EPOCH + 0.500}           datetime             ${datetime(2018, 11, 22, 13, 13, 43)}
-                      ${EPOCH + 0.123}           epoch                ${EPOCH}
-                      ${EPOCH + 0.500}           epoch                ${EPOCH + 1}
+                      ${EPOCH+0.123}           %Y-%m-%d %H:%M:%S    2018-11-22 13:13:42
+                      ${EPOCH+0.500}           %Y-%m-%d %H:%M:%S    2018-11-22 13:13:43
+                      ${DATE}                    datetime             ${DATE}
+                      ${DATE_WITH_MILLIS}          datetime             ${DATE}
+                      ${DATE_WITH_MICRO}           datetime             ${DATE}
+                      ${EPOCH+0.123}           datetime             ${DATE}
+                      ${EPOCH+0.500}           datetime             ${DATE_PLUS_1}
+                      ${EPOCH+0.123}           epoch                ${EPOCH}
+                      ${EPOCH+0.500}           epoch                ${EPOCH+1}
 
 Epoch time is float regardless are millis included or not
                       [Template]    Epoch time format should be

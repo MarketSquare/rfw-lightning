@@ -2,17 +2,17 @@
 Resource          atest_resource.robot
 
 *** Variables ***
-${FORMATS DIR}     ${DATA DIR}/parsing/data_formats
-${TSV DIR}         ${FORMATS DIR}/tsv
-${TXT DIR}         ${FORMATS DIR}/txt
-${ROBOT DIR}       ${FORMATS DIR}/robot
-${REST DIR}        ${FORMATS DIR}/rest
-${MIXED DIR}       ${FORMATS DIR}/mixed_data
-${RESOURCE DIR}    ${FORMATS DIR}/resources
-@{SAMPLE TESTS}    Passing    Failing    User Keyword    Nön-äscïï    Own Tags    Default Tags    Variable Table
+${FORMATS_DIR}     ${DATA_DIR}/parsing/data_formats
+${TSV_DIR}         ${FORMATS_DIR}/tsv
+${TXT_DIR}         ${FORMATS_DIR}/txt
+${ROBOT_DIR}       ${FORMATS_DIR}/robot
+${REST_DIR}        ${FORMATS_DIR}/rest
+${MIXED_DIR}       ${FORMATS_DIR}/mixed_data
+${RESOURCE_DIR}    ${FORMATS_DIR}/resources
+@{SAMPLE_TESTS}    Passing    Failing    User Keyword    Nön-äscïï    Own Tags    Default Tags    Variable Table
 ...                Resource File    Variable File    Library Import    Test Timeout    Keyword Timeout    Empty Rows    Document
 ...                Default Fixture    Overridden Fixture    Quotes    Escaping
-@{SUBSUITE TESTS}    Suite1 Test    Suite2 Test
+@{SUBSUITE_TESTS}    Suite1 Test    Suite2 Test
 
 *** Keywords ***
 Previous Run Should Have Been Successful

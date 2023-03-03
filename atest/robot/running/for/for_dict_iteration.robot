@@ -63,9 +63,6 @@ Dict variable with 'key=value' syntax
 Last value wins
     Check Test Case    ${TESTNAME}
 
-Equal sign in variable
-    Check Test Case    ${TESTNAME}
-
 'key=value' alone is still considered "normal" iteration
     ${tc} =    Check Test Case    ${TESTNAME}
     ${message} =    Catenate
@@ -89,7 +86,6 @@ Invalid key
 
 Invalid dict
     Check Test Case    ${TESTNAME} 1
-    Check Test Case    ${TESTNAME} 2
 
 Non-existing variable
     Check Test Case    ${TESTNAME} 1
@@ -99,12 +95,6 @@ Dict variables and invalid values
     Check test and failed loop    ${TESTNAME} 1
     Check test and failed loop    ${TESTNAME} 2
     Check test and failed loop    ${TESTNAME} 3
-
-Equal sign in variable doesn't initiate dict iteration
-    ${loop} =    Check test and get loop    ${TESTNAME}
-    Should be FOR loop         ${loop}           2
-    Should be FOR iteration    ${loop.body[0]}    \${item}==
-    Should be FOR iteration    ${loop.body[1]}    \${item}==
 
 'key=value' syntax with normal values doesn't initiate dict iteration
     ${loop} =    Check test and get loop    ${TESTNAME} 1

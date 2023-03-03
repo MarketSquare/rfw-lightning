@@ -11,17 +11,17 @@ Numbers
     -${FLOAT}-        -3.14-
 
 Byte string
-    [Documentation]  We has ${BYTE STRING}!
-    ${BYTE STRING}    ${BYTE STRING}
-    -${BYTE STRING}-  -${BYTE STRING STR}-
+    [Documentation]  We has ${BYTE_STRING}!
+    ${BYTE_STRING}    ${BYTE_STRING}
+    -${BYTE_STRING}-  -${BYTE_STRING_STR}-
 
 Collections
     [Documentation]  ${LIST} ${DICT}
-    -${LIST}-         -${LIST STR}-
-    -${DICT}-         -${DICT STR}-
+    -${LIST}-         -${LIST_STR}-
+    -${DICT}-         -${DICT_STR}-
 
 Misc
     [Documentation]  ${BOOLEAN} ${NONE} ${MODULE}
     -${BOOLEAN}-      -True-
     -${NONE}-         -None-
-    -${MODULE}-       -${MODULE STR}-
+    -${MODULE}-       -${MODULE_STR}-

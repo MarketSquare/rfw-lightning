@@ -4,7 +4,7 @@ Variables         length_variables.py
 
 *** Variables ***
 ${scalar}         Hi tellus
-${scalar 2}       Hello world
+${scalar_2}       Hello world
 
 *** Test Cases ***
 Variable Should Exist With Default Error Message
@@ -34,7 +34,7 @@ Variable Should Exist Using Escaped format
 Variable Should Exist With Variables
     ${name} =    Set Variable    scalar
     Variable Should Exist    $${name}
-    Variable Should Exist    $${name} ${2}
+    Variable Should Exist    $${name}_${2}
 
 Variable Should Exist With Built In Variables
     Variable Should Exist    \${TEMPDIR}
@@ -44,9 +44,9 @@ Variable Should Exist With Built In Variables
     # Currently this is not working Variable Should Exist \${CURDIR}
 
 Variable Should Exist With Extended Variable Syntax
-    [Documentation]    FAIL Variable '\${length attribute.missing}' does not exist.
-    Variable Should Exist    \${length attribute.length}
-    Variable Should Exist    \${length attribute.missing}
+    [Documentation]    FAIL Variable '\${length_attribute.missing}' does not exist.
+    Variable Should Exist    \${length_attribute.length}
+    Variable Should Exist    \${length_attribute.missing}
 
 Variable Should Exist With Extended Variable Syntax And Missing Object
     [Documentation]    FAIL Variable '\${missing.missing}' does not exist.
@@ -79,9 +79,9 @@ Variable Should Not Exist With Built In Variables
     Variable Should Not Exist    \${10}
 
 Variable Should Not Exist With Extended Variable Syntax
-    [Documentation]    FAIL Variable '\${length attribute.length}' exists.
-    Variable Should Not Exist    \${length attribute.missing}
-    Variable Should Not Exist    \${length attribute.length}
+    [Documentation]    FAIL Variable '\${length_attribute.length}' exists.
+    Variable Should Not Exist    \${length_attribute.missing}
+    Variable Should Not Exist    \${length_attribute.length}
 
 Variable Should Not Exist With Extended Variable Syntax And Missing Object
     Variable Should Not Exist    \${missing.missing}
@@ -134,9 +134,9 @@ Variable Should Not Exist Fails When Variable Has Variable Like Value
 
 *** Keywords ***
 Check Variable Exists In UK
-    [Arguments]    ${variable name}
-    Variable Should Exist    ${variable name}
+    [Arguments]    ${variable_name}
+    Variable Should Exist    ${variable_name}
 
 Check Variable Does Not Exist In UK
-    [Arguments]    ${variable name}
-    Variable Should Not Exist    ${variable name}
+    [Arguments]    ${variable_name}
+    Variable Should Not Exist    ${variable_name}

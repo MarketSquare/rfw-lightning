@@ -2,30 +2,30 @@
 Set Message To Successful Test
     [Documentation]    PASS My Test <Message>
     Set Test Message    My Test <Message>
-    [Teardown]    Should Be Equal    ${TEST MESSAGE}    My Test <Message>
+    [Teardown]    Should Be Equal    ${TEST_MESSAGE}    My Test <Message>
 
 Reset Message
     [Documentation]    PASS My Real Test Message
     Set Test Message    My Test Message
     Set Test Message    My Real Test Message
-    [Teardown]    Should Be Equal    ${TEST MESSAGE}    My Real Test Message
+    [Teardown]    Should Be Equal    ${TEST_MESSAGE}    My Real Test Message
 
 Append To Message
     [Documentation]    PASS My <message> & its continuation <>
     Set Test Message    My <message>    append please
     Set Test Message    & its continuation <>    append=please
-    [Teardown]    Should Be Equal    ${TEST MESSAGE}    My <message> & its continuation <>
+    [Teardown]    Should Be Equal    ${TEST_MESSAGE}    My <message> & its continuation <>
 
 Set Non-ASCII Message
     [Documentation]    PASS Hyvää yötä & huomenta!
     Set Test Message    Hyvää yötä
     Set Test Message    & huomenta!    append=jep
-    [Teardown]    Should Be Equal    ${TEST MESSAGE}    Hyvää yötä & huomenta!
+    [Teardown]    Should Be Equal    ${TEST_MESSAGE}    Hyvää yötä & huomenta!
 
 Set Multiline Message
     [Documentation]    PASS 1\n2\n3
     Set Test Message    1\n2\n3
-    [Teardown]    Should Be Equal    ${TEST MESSAGE}    1\n2\n3
+    [Teardown]    Should Be Equal    ${TEST_MESSAGE}    1\n2\n3
 
 Set HTML Message
     [Documentation]    PASS *HTML* My <b>HTML</b> message
@@ -49,13 +49,13 @@ Append HTML to HTML
 Set Non-String Message
     [Documentation]    PASS 42
     Set Test Message    ${42}
-    [Teardown]    Should Be Equal    ${TEST MESSAGE}    42
+    [Teardown]    Should Be Equal    ${TEST_MESSAGE}    42
 
 Failure Resets Set Message
     [Documentation]    FAIL Fail Message
     Set Test Message    Message That Will Be Ignored
     Fail    Fail Message
-    [Teardown]    Should Be Equal    ${TEST MESSAGE}    Fail Message
+    [Teardown]    Should Be Equal    ${TEST_MESSAGE}    Fail Message
 
 Set Message To Failed Test On Teardown
     [Documentation]    FAIL Teardown Message
@@ -71,7 +71,7 @@ Setting Message In Test Body After Continuable Failure Has No Effect
     [Documentation]    FAIL Failure Message
     Run Keyword And Continue On Failure    Fail    Failure Message
     Set Test Message    Ignored Message
-    [Teardown]    Should Be Equal    ${TEST MESSAGE}    Failure Message
+    [Teardown]    Should Be Equal    ${TEST_MESSAGE}    Failure Message
 
 Setting Message In Teardown After Continuable Failure Works
     [Documentation]    FAIL Set Message
@@ -99,11 +99,11 @@ Fail In Teardown And Set Message Afterwards
 Set Message In Setup
     [Documentation]    PASS Message set in setup
     [Setup]    Set Test Message    Message set in setup
-    Variable Should Not Exist    ${TEST MESSAGE}
-    [Teardown]    Should Be Equal    ${TEST MESSAGE}    Message set in setup
+    Variable Should Not Exist    ${TEST_MESSAGE}
+    [Teardown]    Should Be Equal    ${TEST_MESSAGE}    Message set in setup
 
 Check Message From Previous Test
-    Should Be Equal    ${PREV TEST MESSAGE}    Message set in setup
+    Should Be Equal    ${PREV_TEST_MESSAGE}    Message set in setup
 
 Test Message Variable Reacts On Set Test Message
     [Documentation]    PASS Other Second

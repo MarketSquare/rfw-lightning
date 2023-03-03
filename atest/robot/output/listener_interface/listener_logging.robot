@@ -18,7 +18,7 @@ Methods outside start_keyword and end_keyword can log messages to syslog
 
 *** Keywords ***
 Run Tests With Logging Listener
-    ${path} =    Normalize Path    ${LISTENER DIR}/logging_listener.py
+    ${path} =    Normalize Path    ${LISTENER_DIR}/logging_listener.py
     Run Tests    --listener ${path} -l l.html -r r.html    misc/pass_and_fail.robot
 
 Test statuses should be correct
@@ -56,7 +56,7 @@ Correct start/end warnings should be shown in execution errors
     ...    end_suite
          Check Log Message    ${msgs}[${index}]    ${method}    WARN
     END
-    Length Should Be    ${msgs}    ${index + 1}
+    Length Should Be    ${msgs}    ${index+1}
 
 Get start/end messages
     [Arguments]    ${messages}

@@ -27,9 +27,9 @@ Max Error Lines None
 
 Invalid Values
     Run Tests Without Processing Output    --maxerrorlines InVaLid    misc/pass_and_fail.robot
-    Stderr Should Be Equal To    [ ERROR ] Invalid value for option '--maxerrorlines': Expected integer, got 'InVaLid'.${USAGE TIP}\n
+    Stderr Should Be Equal To    [ ERROR ] Invalid value for option '--maxerrorlines': Expected integer, got 'InVaLid'.${USAGE_TIP}\n
     Run Tests Without Processing Output    --maxerrorlines -100    misc/pass_and_fail.robot
-    Stderr Should Be Equal To    [ ERROR ] Invalid value for option '--maxerrorlines': Expected integer greater than 10, got -100.${USAGE TIP}\n
+    Stderr Should Be Equal To    [ ERROR ] Invalid value for option '--maxerrorlines': Expected integer greater than 10, got -100.${USAGE_TIP}\n
 
 *** Keywords ***
 Has Been Cut

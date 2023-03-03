@@ -4,25 +4,25 @@ Resource          atest_resource.robot
 
 *** Test Cases ***
 Times As String
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Check Repeated Messages    ${tc.kws[0]}    2    Hello, repeating world!
 
 Times As Integer
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Check Repeated Messages    ${tc.kws[0]}    42    This works too!!
 
 Times With 'times' Postfix
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Check Repeated Messages    ${tc.kws[0]}    3    This is done 3 times
     Check Repeated Messages    ${tc.kws[1]}    2    Case and space insensitive
 
 Times With 'x' Postfix
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Check Repeated Messages    ${tc.kws[0]}    10    Close to old repeating syntax
     Check Repeated Messages    ${tc.kws[1]}    1    Case and space
 
 Zero And Negative Times
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Check Repeated Messages    ${tc.kws[0]}    0    name=This is not executed
     Check Repeated Messages    ${tc.kws[2]}    0    name=\${name}
     Check Repeated Messages    ${tc.kws[3]}    0    name=This is not executed
@@ -32,7 +32,7 @@ Invalid Times
     Check Test Case    Invalid Times 2
 
 Repeat Keyword With Time String
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Check Repeated Messages With Time    ${tc.kws[0]}    This is done for 00:00:00.003
     Check Repeated Messages With Time    ${tc.kws[1]}    This is done for 3 milliseconds
     Check Repeated Messages With Time    ${tc.kws[2]}    This is done for 3ms

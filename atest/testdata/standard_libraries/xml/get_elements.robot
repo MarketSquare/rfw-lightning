@@ -17,7 +17,8 @@ Get element from xml file
     Should Be Equal    ${child.text}    nöŋ-äŝĉíï tëxt
 
 Get element from xml file using pathlib.Path
-    ${child}=    Get Element    ${{pathlib.Path($TEST)}}    another
+    ${test_path}=Evaluate    pathlib.Path($TEST)
+    ${child}=    Get Element    ${test_path}    another
     Should Be Equal    ${child.tag}    another
     ${child}=    Get Element    ${TEST}    another/child
     Should Be Equal    ${child.text}    nöŋ-äŝĉíï tëxt
@@ -53,7 +54,8 @@ Get elements
     Should Be Equal    ${elements[0].text}    child 1 text
 
 Get elements using pathlib.Path
-    ${elements}=    Get Elements    ${{pathlib.Path($TEST)}}    child
+    ${test_path}=   Evaluate    pathlib.Path($TEST)
+    ${elements}=    Get Elements    ${test_path}    child
     Length Should Be    ${elements}    3
     Should Be Equal    ${elements[0].text}    child 1 text
 
@@ -75,10 +77,14 @@ Get elements returns empty list when no elements match
 Get child elements
     ${children}=    Get Child Elements    ${TEST}
     Length Should Be    ${children}    4
-    Should Be Equal    ${children[0].text}    child 1 text
-    Should Be Equal    ${children[1].attrib['id']}    2
-    Should Be Equal    ${children[2].attrib['id']}    3
-    Should Be Equal    ${children[3].tag}    another
+    ${result}=Evaluate   $children[0].text
+    Should Be Equal    ${result}    child 1 text
+    ${result}=Evaluate   $children[1].attrib['id']
+    Should Be Equal    ${result}    2
+    ${result}=Evaluate   $children[2].attrib['id']
+    Should Be Equal    ${result}    3
+    ${result}=Evaluate   $children[3].tag
+    Should Be Equal    ${result}    another
     ${children}=    Get Child Elements    ${TEST}    another/child
     Should Be Empty    ${children}
 

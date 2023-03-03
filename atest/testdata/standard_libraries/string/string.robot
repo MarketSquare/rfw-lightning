@@ -3,9 +3,9 @@ Library           String
 
 *** Variables ***
 ${NSN}            nokia_siemens_networks
-${TEXT IN COLUMNS}    robot\tframework\nis\tgood\tfor\ttesting
-${FIRST LINE}     robot\tframework
-${SECOND LINE}    is\tgood\tfor\ttesting
+${TEXT_IN_COLUMNS}    robot\tframework\nis\tgood\tfor\ttesting
+${FIRST_LINE}     robot\tframework
+${SECOND_LINE}    is\tgood\tfor\ttesting
 
 *** Test Cases ***
 Fetch From Left
@@ -17,51 +17,51 @@ Fetch From Right
     Should Be Equal    ${result}    networks
 
 Get Line
-    ${result} =    Get Line    ${TEXT IN COLUMNS}    0
-    Should be equal    ${result}    ${FIRST LINE}
-    ${result} =    Get Line    ${TEXT IN COLUMNS}    1
-    Should be equal    ${result}    ${SECOND LINE}
+    ${result} =    Get Line    ${TEXT_IN_COLUMNS}    0
+    Should be equal    ${result}    ${FIRST_LINE}
+    ${result} =    Get Line    ${TEXT_IN_COLUMNS}    1
+    Should be equal    ${result}    ${SECOND_LINE}
 
 Get Line Count
     ${result} =    Get Line Count    ${EMPTY}
     Should be equal as integers    ${result}    ${0}
     ${result} =    Get Line Count    ${SPACE}
     Should be equal as integers    ${result}    ${1}
-    ${result} =    Get Line Count    ${TEXT IN COLUMNS}
+    ${result} =    Get Line Count    ${TEXT_IN_COLUMNS}
     Should be equal as integers    ${result}    2
 
 Split To Lines
-    @{result} =    Split To Lines    ${TEXT IN COLUMNS}
+    @{result} =    Split To Lines    ${TEXT_IN_COLUMNS}
     Length Should Be    ${result}    2
-    Should be equal    ${result}[0]    ${FIRST LINE}
-    Should be equal    ${result}[1]    ${SECOND LINE}
+    Should be equal    ${result}[0]    ${FIRST_LINE}
+    Should be equal    ${result}[1]    ${SECOND_LINE}
 
 Split To Lines With Start Only
-    @{result} =    Split To Lines    ${TEXT IN COLUMNS}    1
-    Should be equal    ${result}[0]    ${SECOND LINE}
+    @{result} =    Split To Lines    ${TEXT_IN_COLUMNS}    1
+    Should be equal    ${result}[0]    ${SECOND_LINE}
 
 Split To Lines With Start And End
-    @{result} =    Split To Lines    ${TEXT IN COLUMNS}    0    1
+    @{result} =    Split To Lines    ${TEXT_IN_COLUMNS}    0    1
     Length Should Be    ${result}    1
-    Should be equal    ${result}[0]    ${FIRST LINE}
+    Should be equal    ${result}[0]    ${FIRST_LINE}
 
 Split To Lines With End Only
-    @{result} =    Split To Lines    ${TEXT IN COLUMNS}    ${EMPTY}    1
+    @{result} =    Split To Lines    ${TEXT_IN_COLUMNS}    ${EMPTY}    1
     Length Should Be    ${result}    1
-    Should be equal    ${result}[0]    ${FIRST LINE}
+    Should be equal    ${result}[0]    ${FIRST_LINE}
 
 Split To Lines With Negative Values
-    @{result} =    Split To Lines    ${TEXT IN COLUMNS}    -1
+    @{result} =    Split To Lines    ${TEXT_IN_COLUMNS}    -1
     Length Should Be    ${result}    1
-    Should be equal    ${result}[0]    ${SECOND LINE}
+    Should be equal    ${result}[0]    ${SECOND_LINE}
 
 Split To Lines With Invalid Start
     [Documentation]    FAIL ValueError: Cannot convert 'start' argument 'invalid' to an integer.
-    Split To Lines    ${TEXT IN COLUMNS}    invalid
+    Split To Lines    ${TEXT_IN_COLUMNS}    invalid
 
 Split To Lines With Invalid End
     [Documentation]    FAIL ValueError: Cannot convert 'end' argument 'invalid' to an integer.
-    Split To Lines    ${TEXT IN COLUMNS}    0    invalid
+    Split To Lines    ${TEXT_IN_COLUMNS}    0    invalid
 
 Get Substring
     ${result} =    Get Substring    Robot    0    2

@@ -14,13 +14,13 @@ Write & Read
     Should Be Equal    ${text}    pwd\r\n
     Sleep    300 ms
     ${out} =    Read
-    Should Be Equal    ${out}    ${HOME}\r\n${FULL PROMPT}
+    Should Be Equal    ${out}    ${HOME}\r\n${FULL_PROMPT}
 
 Write & Read Non-ASCII
     Write    echo Hyvää yötä    wArN
     Sleep    300 ms
     ${out} =    Read    deBug
-    Should Be Equal    ${out}    Hyvää yötä\r\n${FULL PROMPT}
+    Should Be Equal    ${out}    Hyvää yötä\r\n${FULL_PROMPT}
 
 Write & Read Non-ASCII Bytes
     Set Encoding    NONE
@@ -28,7 +28,7 @@ Write & Read Non-ASCII Bytes
     Write    ${bytes}
     ${out} =    Read Until Prompt
     Should Be Byte String    ${out}
-    ${expected} =    Encode String To Bytes    Hyvää yötä\r\n${FULL PROMPT}    UTF-8
+    ${expected} =    Encode String To Bytes    Hyvää yötä\r\n${FULL_PROMPT}    UTF-8
     Should Be Equal    ${out}    ${expected}
     [Teardown]    Set Encoding    UTF-8
 
@@ -37,7 +37,7 @@ Write ASCII-Only Unicode When Encoding Is Disabled
     Set Encoding    NONE
     Write    echo Only ASCII
     ${out} =    Read Until Prompt
-    Should Be Equal    ${out.decode('ASCII')}    Only ASCII\r\n${FULL PROMPT}
+    Should Be Equal    ${out.decode('ASCII')}    Only ASCII\r\n${FULL_PROMPT}
     Write    Tämä ei toimi
 
 Write Does Not Allow Newlines
@@ -55,7 +55,7 @@ Write Bare
 Write Bare With Newlines
     Write Bare    a=1\r\nb=2\r\necho $a $b 3\r\n
     ${out} =    Read Until    1 2 3
-    Should Be Equal    ${out}    a=1\r\n${FULL PROMPT}b=2\r\n${FULL PROMPT}echo $a $b 3\r\n1 2 3
+    Should Be Equal    ${out}    a=1\r\n${FULL_PROMPT}b=2\r\n${FULL_PROMPT}echo $a $b 3\r\n1 2 3
 
 Write control character using name
     [Documentation]   FAIL STARTS: No match found for 'moi' in 300 milliseconds.
@@ -90,7 +90,7 @@ Read Until Regexp
     ${out} =    Read Until Regexp    /h[abo]me.${USERNAME}\\s+
     Should Be Equal    ${out}    ${HOME}\r\n
     ${out} =    Read Until Regexp    no match    .*@    blaah    deBUG
-    Should Be Equal    ${out}    ${PROMPT START}
+    Should Be Equal    ${out}    ${PROMPT_START}
 
 Read Until Regexp With Compiled Regexp
     Write    pwd
@@ -99,7 +99,7 @@ Read Until Regexp With Compiled Regexp
     Should Be Equal    ${out}    ${HOME}\r\n
     ${regexp} =    Evaluate    re.compile('.*@')    modules=re
     ${out} =    Read Until Regexp    no match    ${regexp}    blaah    deBUG
-    Should Be Equal    ${out}    ${PROMPT START}
+    Should Be Equal    ${out}    ${PROMPT_START}
 
 Read Until Regexp Non-ASCII
     Write    echo Päivää
@@ -118,16 +118,16 @@ Read Until Prompt
     [Documentation]    FAIL Prompt '$$' not found in ${TIMEOUT}.
     Write    pwd
     ${out} =    Read Until Prompt
-    Should Be Equal    ${out}    ${HOME}\r\n${FULL PROMPT}
+    Should Be Equal    ${out}    ${HOME}\r\n${FULL_PROMPT}
     Write    pwd
     ${out} =    Read Until Prompt    dEbUg
-    Should Be Equal    ${out}    ${HOME}\r\n${FULL PROMPT}
+    Should Be Equal    ${out}    ${HOME}\r\n${FULL_PROMPT}
     Set Prompt    $$
     Write    pwd
     Read Until Prompt
 
 Read Until Prompt And Strip Prompt
-    Set Prompt  ${FULL PROMPT}
+    Set Prompt  ${FULL_PROMPT}
     Write    pwd
     ${out} =    Read Until Prompt    strip_prompt=${True}
     Should Be Equal    ${out}    ${HOME}\r\n
@@ -140,7 +140,7 @@ Read Until Regexp Prompt
     Set Prompt    \\$\\s    REGEXP
     Write    pwd
     ${out} =    Read Until Prompt
-    Should Be Equal    ${out}    ${HOME}\r\n${FULL PROMPT}
+    Should Be Equal    ${out}    ${HOME}\r\n${FULL_PROMPT}
     Set Prompt    No match    true
     Write    pwd
     Read Until Prompt
@@ -159,10 +159,10 @@ Write Until Expected Output
 
 Execute Command
     ${output} =    Execute Command    pwd
-    Should Be Equal    ${output}    ${HOME}\r\n${FULL PROMPT}
+    Should Be Equal    ${output}    ${HOME}\r\n${FULL_PROMPT}
 
 Execute Command And Strip Prompt
-    Set Prompt  ${FULL PROMPT}
+    Set Prompt  ${FULL_PROMPT}
     ${output} =    Execute Command    pwd    strip_prompt=${True}
     Should Be Equal    ${output}    ${HOME}\r\n
     ${output} =    Execute Command    pwd    debUG    ${True}

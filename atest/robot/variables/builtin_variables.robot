@@ -51,5 +51,5 @@ Boolean Variables
 $CURDIR
     Check Test Case    ${TESTNAME}
 
-\${LOG LEVEL}
+\${LOG_LEVEL}
     Check Test Case    ${TESTNAME}

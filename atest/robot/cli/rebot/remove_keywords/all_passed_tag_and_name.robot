@@ -5,9 +5,9 @@ Resource          remove_keywords_resource.robot
 
 *** Test Cases ***
 All Mode
-    [Setup]    Run Rebot and set My Suite    --RemoveKeywords ALL    0
-    Keyword Should Be Empty    ${MY SUITE.setup}    My Keyword    Suite Setup
-    Keyword Should Contain Removal Message    ${MY SUITE.setup}
+    [Setup]    Run Rebot and set MY_SUITE    --RemoveKeywords ALL    0
+    Keyword Should Be Empty    ${MY_SUITE.setup}    My Keyword    Suite Setup
+    Keyword Should Contain Removal Message    ${MY_SUITE.setup}
     ${tc1} =    Check Test Case    Pass
     ${tc2} =    Check Test Case    Fail
     Length Should Be    ${tc1.body}    1
@@ -18,10 +18,10 @@ All Mode
     Keyword Should Contain Removal Message    ${tc2.body[1]}   Fails the test with the given message and optionally alters its tags.
 
 Warnings Are Removed In All Mode
-    [Setup]    Verify previous test and set My Suite    All Mode    1
-    Keyword Should Be Empty    ${MY SUITE.setup}    Warning in    suite setup
-    Keyword Should Be Empty    ${MY SUITE.teardown}    Warning in    suite teardown
-    ${tc1}    ${tc2}=    Set Variable    ${MY SUITE.tests[:2]}
+    [Setup]    Verify previous test and set MY_SUITE    All Mode    1
+    Keyword Should Be Empty    ${MY_SUITE.setup}    Warning in    suite setup
+    Keyword Should Be Empty    ${MY_SUITE.teardown}    Warning in    suite teardown
+    ${tc1}    ${tc2}=    Set Variable    ${MY_SUITE.tests[:2]}
     Length Should Be    ${tc1.body}    1
     Length Should Be    ${tc2.body}    1
     Keyword Should Be Empty    ${tc1.body[0]}    Warning in    test case
@@ -53,8 +53,8 @@ FOR in All mode
     FOR Loop Should Be Empty    ${tc.body[0]}    IN RANGE
 
 Passed Mode
-    [Setup]    Run Rebot and set My Suite    --removekeywords passed    0
-    Keyword Should Not Be Empty    ${MY SUITE.setup}    My Keyword    Suite Setup
+    [Setup]    Run Rebot and set MY_SUITE    --removekeywords passed    0
+    Keyword Should Not Be Empty    ${MY_SUITE.setup}    My Keyword    Suite Setup
     ${tc1} =    Check Test Case    Pass
     ${tc2} =    Check Test Case    Fail
     Length Should Be    ${tc1.body}    1
@@ -65,10 +65,10 @@ Passed Mode
     Keyword Should Not Be Empty    ${tc2.body[1]}    BuiltIn.Fail    Expected failure
 
 Warnings Are Not Removed In Passed Mode
-    [Setup]    Verify previous test and set My Suite    Passed Mode    1
-    Keyword Should Not Be Empty    ${MY SUITE.setup}    Warning in    suite setup
-    Keyword Should Not Be Empty    ${MY SUITE.teardown}    Warning in    suite teardown
-    ${tc1}    ${tc2}=    Set Variable    ${MY SUITE.tests[:2]}
+    [Setup]    Verify previous test and set MY_SUITE    Passed Mode    1
+    Keyword Should Not Be Empty    ${MY_SUITE.setup}    Warning in    suite setup
+    Keyword Should Not Be Empty    ${MY_SUITE.teardown}    Warning in    suite teardown
+    ${tc1}    ${tc2}=    Set Variable    ${MY_SUITE.tests[:2]}
     Length Should Be    ${tc1.body}    1
     Keyword Should Not Be Empty    ${tc1.body[0]}    Warning in    test case
     Keyword Should Not Be Empty    ${tc1.body[0].body[0].body[0].body[0]}    BuiltIn.Log    Warning in \${where}    WARN
@@ -83,10 +83,10 @@ Errors Are Not Removed In Passed Mode
     Logged Errors Are Preserved In Execution Errors
 
 Name Mode
-    [Setup]    Run Rebot and set My Suite
+    [Setup]    Run Rebot and set MY_SUITE
     ...    --removekeywords name:BuiltIn.Fail --RemoveK NAME:??_KEYWORD --RemoveK NaMe:*WARN*IN* --removek name:errorin*   0
-    Keyword Should Be Empty    ${MY SUITE.setup}    My Keyword    Suite Setup
-    Keyword Should Contain Removal Message    ${MY SUITE.setup}
+    Keyword Should Be Empty    ${MY_SUITE.setup}    My Keyword    Suite Setup
+    Keyword Should Contain Removal Message    ${MY_SUITE.setup}
     ${tc1} =    Check Test Case    Pass
     ${tc2} =    Check Test Case    Fail
     Length Should Be    ${tc1.body}    1
@@ -99,10 +99,10 @@ Name Mode
     Keyword Should Contain Removal Message    ${tc2.body[0]}
 
 Warnings Are Not Removed In Name Mode
-    [Setup]    Verify previous test and set My Suite    Name Mode    1
-    Keyword Should Not Be Empty    ${MY SUITE.setup}    Warning in    suite setup
-    Keyword Should Not Be Empty    ${MY SUITE.teardown}    Warning in    suite teardown
-    ${tc1}    ${tc2}=    Set Variable    ${MY SUITE.tests[:2]}
+    [Setup]    Verify previous test and set MY_SUITE    Name Mode    1
+    Keyword Should Not Be Empty    ${MY_SUITE.setup}    Warning in    suite setup
+    Keyword Should Not Be Empty    ${MY_SUITE.teardown}    Warning in    suite teardown
+    ${tc1}    ${tc2}=    Set Variable    ${MY_SUITE.tests[:2]}
     Length Should Be    ${tc1.body}    1
     Length Should Be    ${tc2.body}    1
     Keyword Should Not Be Empty    ${tc1.body[0]}    Warning in    test case
@@ -117,9 +117,9 @@ Errors Are Not Removed In Name Mode
     Logged Errors Are Preserved In Execution Errors
 
 Tag Mode
-    [Setup]    Run Rebot and set My Suite    --removekeywords tag:force --RemoveK TAG:warn    0
-    Keyword Should Be Empty    ${MY SUITE.setup}    My Keyword    Suite Setup
-    Keyword Should Contain Removal Message    ${MY SUITE.setup}
+    [Setup]    Run Rebot and set MY_SUITE    --removekeywords tag:force --RemoveK TAG:warn    0
+    Keyword Should Be Empty    ${MY_SUITE.setup}    My Keyword    Suite Setup
+    Keyword Should Contain Removal Message    ${MY_SUITE.setup}
     ${tc1} =    Check Test Case    Pass
     ${tc2} =    Check Test Case    Fail
     Length Should Be    ${tc1.body}    1
@@ -131,10 +131,10 @@ Tag Mode
     Keyword Should Not Be Empty    ${tc2.body[1]}    BuiltIn.Fail    Expected failure
 
 Warnings Are Not Removed In Tag Mode
-    [Setup]    Verify previous test and set My Suite    Tag Mode    1
-    Keyword Should Not Be Empty    ${MY SUITE.setup}    Warning in    suite setup
-    Keyword Should Not Be Empty    ${MY SUITE.teardown}    Warning in    suite teardown
-    ${tc1}    ${tc2}=    Set Variable    ${MY SUITE.tests[:2]}
+    [Setup]    Verify previous test and set MY_SUITE    Tag Mode    1
+    Keyword Should Not Be Empty    ${MY_SUITE.setup}    Warning in    suite setup
+    Keyword Should Not Be Empty    ${MY_SUITE.teardown}    Warning in    suite teardown
+    ${tc1}    ${tc2}=    Set Variable    ${MY_SUITE.tests[:2]}
     Length Should Be    ${tc1.body}    1
     Length Should Be    ${tc2.body}    1
     Keyword Should Not Be Empty    ${tc1.body[0]}    Warning in    test case
@@ -157,16 +157,16 @@ Run Some Tests
     ...    misc/for_loops.robot
     Create Output With Robot    ${INPUTFILE}    ${EMPTY}    ${suites}
 
-Run Rebot And Set My Suite
-    [Arguments]    ${rebot params}    ${suite index}
-    Run Rebot    ${rebot params}    ${INPUTFILE}
+Run Rebot And Set MY_SUITE
+    [Arguments]    ${rebot_params}    ${suite_index}
+    Run Rebot    ${rebot_params}    ${INPUTFILE}
     Should Not Be Equal    ${SUITE}    ${None}    Errors in test execution
-    Set Test Variable    ${MY SUITE}    ${SUITE.suites[${suite index}]}
+    Set Test Variable    ${MY_SUITE}    ${SUITE.suites[${suite_index}]}
 
-Verify previous test and set My Suite
-    [Arguments]    ${prev test}    ${suite index}
-    Previous test should have passed    ${prev test}
-    Set Test Variable    ${MY SUITE}    ${SUITE.suites[${suite index}]}
+Verify previous test and set MY_SUITE
+    [Arguments]    ${prev_test}    ${suite_index}
+    Previous test should have passed    ${prev_test}
+    Set Test Variable    ${MY_SUITE}    ${SUITE.suites[${suite_index}]}
 
 Keyword Should Contain Removal Message
     [Arguments]    ${keyword}    ${doc}=${EMPTY}

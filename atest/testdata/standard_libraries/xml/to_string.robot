@@ -3,8 +3,8 @@ Library           XML
 Resource          xml_resource.robot
 
 *** Variables ***
-${TÄG}    <täg attr="hyvä">sisältö</täg>
-${XML}    <root>\n\t${TÄG}\n</root>
+${TAG}    <täg attr="hyvä">sisältö</täg>
+${XML}    <root>\n\t${TAG}\n</root>
 
 *** Test Cases ***
 Element to string
@@ -14,15 +14,15 @@ Element to string
     Elements Should Be Equal    ${string}    ${TEST}
 
 Element to string with encoding
-    ${string}=    Element To String    ${TÄG}    encoding=latin-1
-    ${expected}=    Encode String To Bytes    ${TÄG}    encoding=latin-1
+    ${string}=    Element To String    ${TAG}    encoding=latin-1
+    ${expected}=    Encode String To Bytes    ${TAG}    encoding=latin-1
     Should Be Equal    ${string}    ${expected}
 
 Child element to string
     ${string}=    Element To String    ${XML}    xpath=täg
-    Should Be Equal    ${string}    ${TÄG}
+    Should Be Equal    ${string}    ${TAG}
     ${string}=    Element To String    ${XML}    täg    latin-1
-    ${expected}=    Encode String To Bytes    ${TÄG}    encoding=latin-1
+    ${expected}=    Encode String To Bytes    ${TAG}    encoding=latin-1
     Should Be Equal    ${string}    ${expected}
 
 Log element
@@ -33,4 +33,4 @@ Log element
 
 Log child element
     ${string}=    Log Element    ${XML}    xpath=täg
-    Should Be Equal    ${string}    ${TÄG}
+    Should Be Equal    ${string}    ${TAG}

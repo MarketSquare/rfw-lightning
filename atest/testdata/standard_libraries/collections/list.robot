@@ -3,16 +3,16 @@ Test Setup        Create Lists for the Tests
 Resource          collections_resources.robot
 
 *** Variables ***
-${INDEX ERROR}          ValueError: Cannot convert index 'index' to an integer.
-${LIST OUT OF RANGE}    IndexError: Given index 10 is out of the range 0-2.
+${INDEX_ERROR}          ValueError: Cannot convert index 'index' to an integer.
+${LIST_OUT_OF_RANGE}    IndexError: Given index 10 is out of the range 0-2.
 
 *** Test Cases ***
 Convert To List
-    ${string list} =    Convert To List    hello
-    Compare To Expected String    ${string list}    ['h', 'e', 'l', 'l', 'o']
+    ${string_list} =    Convert To List    hello
+    Compare To Expected String    ${string_list}    ['h', 'e', 'l', 'l', 'o']
     ${tuple} =    Evaluate    (1, 2, 3)
-    ${tuple list} =    Convert To List    ${tuple}
-    Compare To Expected String    ${tuple list}    [1, 2, 3]
+    ${tuple_list} =    Convert To List    ${tuple}
+    Compare To Expected String    ${tuple_list}    [1, 2, 3]
 
 Convert To List With Invalid Type
     [Documentation]    FAIL STARTS: TypeError:
@@ -40,25 +40,25 @@ Insert Into List With Index Under Lists Size
     Insert Into List And Compare    ${L2}    -1000    value    ['value' , '1', 2]
 
 Insert Into List With Invalid Index
-    [Documentation]    FAIL ${INDEX ERROR}
+    [Documentation]    FAIL ${INDEX_ERROR}
     Insert Into List    ${L3}    index    value
 
 Combine Lists
-    ${combined list} =    Combine Lists    ${L1}    ${L2}
-    Compare To Expected String    ${combined list}    ['1', '1', 2]
-    ${combined list} =    Combine Lists    ${L1}    ${L2}    ${L3}    ${L0}
-    Compare To Expected String    ${combined list}    ['1', '1', 2, '11', 12, '13']
+    ${combined_list} =    Combine Lists    ${L1}    ${L2}
+    Compare To Expected String    ${combined_list}    ['1', '1', 2]
+    ${combined_list} =    Combine Lists    ${L1}    ${L2}    ${L3}    ${L0}
+    Compare To Expected String    ${combined_list}    ['1', '1', 2, '11', 12, '13']
 
 Set List Value
     Set List Value    ${L3}    1    value
     Compare To Expected String    ${L3}    ['11', 'value', '13']
 
 Set List Value Index Out Of List
-    [Documentation]    FAIL ${LIST OUT OF RANGE}
+    [Documentation]    FAIL ${LIST_OUT_OF_RANGE}
     Set List Value    ${L3}    10    value
 
 Set List Value With Invalid Index
-    [Documentation]    FAIL ${INDEX ERROR}
+    [Documentation]    FAIL ${INDEX_ERROR}
     Set List Value    ${L3}    index    value
 
 Remove Values From List
@@ -72,19 +72,19 @@ Remove Non Existing Values From List
     Compare To Expected String    ${L3}    ['11', 12, '13']
 
 Remove From List
-    ${removed value} =    Remove From List    ${L3}    1
-    Should Be Equal    ${removed value}    ${12}
+    ${removed_value} =    Remove From List    ${L3}    1
+    Should Be Equal    ${removed_value}    ${12}
     Compare To Expected String    ${L3}    ['11', '13']
-    ${removed value} =    Remove From List    ${L3}    -2
-    Should Be Equal    ${removed value}    11
+    ${removed_value} =    Remove From List    ${L3}    -2
+    Should Be Equal    ${removed_value}    11
     Compare To Expected String    ${L3}    ['13']
 
 Remove From List Index Out Of List
-    [Documentation]    FAIL ${LIST OUT OF RANGE}
+    [Documentation]    FAIL ${LIST_OUT_OF_RANGE}
     Remove From List    ${L3}    10
 
 Remove From List With Invalid Index
-    [Documentation]    FAIL ${INDEX ERROR}
+    [Documentation]    FAIL ${INDEX_ERROR}
     Remove From List    ${L3}    index
 
 Remove Duplicates
@@ -104,11 +104,11 @@ Count Values In List
     Should Be Equal As Integers    ${count}    2
 
 Count Values In List With Invalid Start Index
-    [Documentation]    FAIL ${INDEX ERROR}
+    [Documentation]    FAIL ${INDEX_ERROR}
     Count Values In List    ${LONG}    2    index    1
 
 Count Values In List With Invalid Stop Index
-    [Documentation]    FAIL ${INDEX ERROR}
+    [Documentation]    FAIL ${INDEX_ERROR}
     Count Values In List    ${LONG}    2    1    index
 
 Get Index From List
@@ -126,11 +126,11 @@ Get Index From List With Non Existing Value
     Should Be Equal As Integers    ${position}    -1
 
 Get Index From List With Invalid Start Index
-    [Documentation]    FAIL ${INDEX ERROR}
+    [Documentation]    FAIL ${INDEX_ERROR}
     Get Index From List    ${LONG}    2    index    1
 
 Get Index From List With Invalid Stop Index
-    [Documentation]    FAIL ${INDEX ERROR}
+    [Documentation]    FAIL ${INDEX_ERROR}
     Get Index From List    ${LONG}    2    1    index
 
 Copy List
@@ -180,11 +180,11 @@ Get From List
     Should Be Equal As Integers    ${value}    43
 
 Get From List With Invalid Index
-    [Documentation]    FAIL ${INDEX ERROR}
+    [Documentation]    FAIL ${INDEX_ERROR}
     Get From List    ${L3}    index
 
 Get From List Out Of List Index
-    [Documentation]    FAIL ${LIST OUT OF RANGE}
+    [Documentation]    FAIL ${LIST_OUT_OF_RANGE}
     Get From List    ${L3}    10
 
 Get Slice From List
@@ -198,11 +198,11 @@ Get Slice From List
     Should Be Equal    ${values}    ${L4}
 
 Get Slice From List With Invalid Start Index
-    [Documentation]    FAIL ${INDEX ERROR}
+    [Documentation]    FAIL ${INDEX_ERROR}
     Get Slice From List    ${L4}    index    2
 
 Get Slice From List With Invalid Stop Index
-    [Documentation]    FAIL ${INDEX ERROR}
+    [Documentation]    FAIL ${INDEX_ERROR}
     Get Slice From List    ${L4}    2    index
 
 Get Slice From List With Out Of List Index
@@ -446,7 +446,7 @@ List Should Contain Value Case Insensitive
     ${STRINGS}    word    case_insensitive=True
     ${STRINGS}    WORD    case_insensitive=True
     ${STRINGS}    WoRd    case_insensitive=True
-    ${STRINGS}    \${cmd list}
+    ${STRINGS}    \${cmd_list}
 
 List Should Contain Value Whitespace Insensitive
     [Template]    Should Contain Match
@@ -630,7 +630,7 @@ Create Lists For The Tests
     ${LONG} =    Combine Lists    ${L1}    ${L2}    ${L4}    ${L2}
     Set Test Variable    \${LONG}
     ${STRINGS} =    Create List    a    B    b    wOrD    WOrd
-    ...    !@#$%^&*()_+-=    \${cmd list}    1    2    3    äö
+    ...    !@#$%^&*()_+-=    \${cmd_list}    1    2    3    äö
     ...    regexp=blah    glob=test
     Set Test Variable    \${STRINGS}
     ${STRING} =    Create List    wOrD
@@ -644,9 +644,9 @@ Insert Into List And Compare
     Compare To Expected String    ${list}    ${expected}
 
 Get Random Item And Add It To List
-    [Arguments]    ${from list}    ${to list}
-    ${item} =    Get Item From List    Ran Dom    ${from list}
-    Add Item To List    ${to list}    ${item}
+    [Arguments]    ${from_list}    ${to_list}
+    ${item} =    Get Item From List    Ran Dom    ${from_list}
+    Add Item To List    ${to_list}    ${item}
 
 Match Count Should Be
     [Arguments]    ${count}    ${list}    ${pattern}    ${case_insensitive}=${False}    ${whitespace_insensitive}=${False}

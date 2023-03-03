@@ -17,17 +17,17 @@ Set Tags In Test Teardown
     No Operation
     [Teardown]    Set And Remove Tags    teardown
 
-Modifying ${TEST TAGS} after setting them has no affect on tags test has
+Modifying ${TEST_TAGS} after setting them has no affect on tags test has
     [Documentation]    Variable is changed but "real" tags are not. ${ERROR}
     Set Tags    new
-    Append To List    ${TEST TAGS}    not really added
-    Should Be True    ${TEST TAGS} == ['force-init', 'new', 'set-init', 'not really added']
+    Append To List    ${TEST_TAGS}    not really added
+    Should Be True    ${TEST_TAGS} == ['force-init', 'new', 'set-init', 'not really added']
 
-Modifying ${TEST TAGS} after removing them has no affect on tags test has
+Modifying ${TEST_TAGS} after removing them has no affect on tags test has
     [Documentation]    Variable is changed but "real" tags are not. ${ERROR}
     Remove Tags    *-init
-    Append To List    ${TEST TAGS}    not really added
-    Should Be True    ${TEST TAGS} == ['not really added']
+    Append To List    ${TEST_TAGS}    not really added
+    Should Be True    ${TEST_TAGS} == ['not really added']
 
 *** Keyword ***
 Set And Remove Tags

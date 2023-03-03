@@ -28,9 +28,6 @@ Failing When Base Name Starts With Existing Variable
 Testing Extended Var Regexp
     Check Test Case    ${TESTNAME}
 
-Base name contains non-ASCII characters
-    Check Test Case    ${TESTNAME}
-
 Escape characters and curly braces
     [Documentation]    This is somewhat complicated. See docs on test data side for details.
     Check Test Case    ${TESTNAME}

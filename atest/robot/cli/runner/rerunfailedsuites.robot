@@ -1,13 +1,13 @@
 *** Settings ***
 Suite Setup       Suite initialization
-Suite Teardown    Remove Directory    ${RERUN SUITE DIR}    recursive
+Suite Teardown    Remove Directory    ${RERUN_SUITE_DIR}    recursive
 Resource          atest_resource.robot
 
 *** Variables ***
-${ORIG DIR}           ${DATADIR}/cli/runfailed
-${RERUN SUITE DIR}    %{TEMPDIR}/rerunsuites-dir
-${SUITE DIR}          ${RERUN SUITE DIR}/suite
-${RUN FAILED FROM}    ${RERUN SUITE DIR}/rerun-suites-output.xml
+${ORIG_DIR}           ${DATADIR}/cli/runfailed
+${RERUN_SUITE_DIR}    %{TEMPDIR}/rerunsuites-dir
+${SUITE_DIR}          ${RERUN_SUITE_DIR}/suite
+${RUN_FAILED_FROM}    ${RERUN_SUITE_DIR}/rerun-suites-output.xml
 
 *** Test Cases ***
 Passing suite is not re-executed
@@ -28,12 +28,12 @@ Non-existing failing from output file is not executed
 
 *** Keywords ***
 Suite initialization
-    Copy Directory    ${ORIG DIR}/suite    ${SUITE DIR}
-    Copy File    ${ORIG DIR}/runfailed1.robot     ${SUITE DIR}/runfailed.robot
-    Run Tests    ${SUITE DIR}
-    Copy File    ${OUTFILE}    ${RUN FAILED FROM}
-    Copy File    ${ORIG DIR}/runfailed2.robot     ${SUITE DIR}/runfailed.robot
-    Run Tests    --rerunfailedsuites ${RUN FAILED FROM} --exclude excluded_tag ${SUITE DIR}
+    Copy Directory    ${ORIG_DIR}/suite    ${SUITE_DIR}
+    Copy File    ${ORIG_DIR}/runfailed1.robot     ${SUITE_DIR}/runfailed.robot
+    Run Tests    ${SUITE_DIR}
+    Copy File    ${OUTFILE}    ${RUN_FAILED_FROM}
+    Copy File    ${ORIG_DIR}/runfailed2.robot     ${SUITE_DIR}/runfailed.robot
+    Run Tests    --rerunfailedsuites ${RUN_FAILED_FROM} --exclude excluded_tag ${SUITE_DIR}
 
 Test Should Have Been Executed
     [Arguments]    ${name}

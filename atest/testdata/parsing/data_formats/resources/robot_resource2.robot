@@ -1,5 +1,5 @@
 | *Variable             |  Value                                          |  Value  |  Value  |  Value |
-| ${ROBOT RESOURCE VAR 2}  |  ROBOT Resource Variable From Recursive Resource  |
+| ${ROBOT_RESOURCE_VAR_2}  |  ROBOT Resource Variable From Recursive Resource  |
 
 
 | *Keyword                     |  Action  |  Argument  |  Argument  |  Argument |

@@ -5,13 +5,13 @@ Resource          atest_resource.robot
 
 *** Test Case ***
 Normal Text
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Special Characters
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 No Colon In Variable
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 *** Keyword ***
 Run Tests With Variables

@@ -2,7 +2,7 @@
 Library           Process
 Resource          process_resource.robot
 Test Setup        Run Robot Process
-Suite Teardown    Safe Remove File    ${TEMP FILE}
+Suite Teardown    Safe Remove File    ${TEMP_FILE}
 
 *** Variables ***
 ${TEMPFILE}       %{TEMPDIR}${/}get-process-result.txt

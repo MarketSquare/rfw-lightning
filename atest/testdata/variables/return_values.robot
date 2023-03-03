@@ -192,7 +192,7 @@ Dictionary is dot-accessible
 Scalar dictionary is not dot-accessible
     [Documentation]     FAIL STARTS: Resolving variable '${normal.key}' failed: AttributeError:
     ${normal} =    Evaluate    {'key': 'value'}
-    Should Be Equal    ${normal['key']}    value
+    Should Be Equal    ${normal}[key]    value
     Should Be Equal    ${normal.key}    value
 
 Dictionary only allowed alone 1
@@ -298,9 +298,9 @@ Assign Mark Can Be Used Only With The Last Variable
     ${v1} =    ${v2} =    Set Variable    a    b
 
 Files are not lists
-    [Documentation]    FAIL Cannot set variable '\@{works not}': Expected list-like value, got file.
+    [Documentation]    FAIL Cannot set variable '\@{works_not}': Expected list-like value, got file.
     ${works} =    Get open file
-    @{works not} =    Get open file
+    @{works_not} =    Get open file
 
 Invalid count error is catchable
     [Documentation]    FAIL
@@ -350,7 +350,7 @@ Invalid assign with assign mark
     ${oops=    Set Variable    whatever
 
 Too many assign marks
-    [Documentation]    FAIL No keyword with name '\${oops}==' found.
+    [Documentation]    FAIL No keyword with name '=' found.
     ${oops}==    Set Variable    whatever
 
 *** Keywords ***

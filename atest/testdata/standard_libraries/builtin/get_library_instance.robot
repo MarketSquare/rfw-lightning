@@ -13,9 +13,11 @@ Library           Collections
 *** Test Cases ***
 Library imported normally
     ${lib} =    Get Library Instance    BuiltIn
-    Should Be Equal    ${lib.convert_to_integer('42')}    ${42}
+    ${num}=Evaluate   $lib.convert_to_integer('42')
+    Should Be Equal    ${num}    ${42}
     ${lib} =    Get Library Instance    Operating System
-    Should Not Be Empty    ${lib.list_directory('.')}
+    ${content}=Evaluate   $lib.list_directory('.')
+    Should Not Be Empty    ${content}
 
 Module library
     ${lib} =    Get Library Instance    module_library
@@ -48,7 +50,8 @@ Same name when normalized matching multiple
 `Import Library` keyword
     Import Library    String
     ${lib} =    Get Library Instance    String
-    Should Be Equal    ${lib.replace_string('Hello', 'e', 'i')}    Hillo
+    ${val} =    Evaluate    $lib.replace_string('Hello', 'e', 'i')
+    Should Be Equal    ${val}    Hillo
 
 Non-existing library should cause catchable error
     Run Keyword And Expect Error    No library 'NonExisting' found.    Get Library Instance    NonExisting
@@ -57,23 +60,23 @@ Library scopes 1
     ${test} =    Get Library Instance    libraryscope.Test
     ${suite} =    Get Library Instance    libraryscope.Suite
     ${global} =    Get Library Instance    libraryscope.Global
-    Log    ${test.register('Test 1')}
-    Log    ${suite.register('Suite 1')}
-    Log    ${global.register('Global 1')}
-    Log    ${test.should_be_registered('Test 1')}
-    Log    ${suite.should_be_registered('Suite 1')}
-    Log    ${global.should_be_registered('Global 1')}
+    ${val}=   Evaluate    $test.register('Test 1')
+    ${val}=    Evaluate  $suite.register('Suite 1')
+    ${val}=    Evaluate  $global.register('Global 1')
+    ${val}=    Evaluate  $test.should_be_registered('Test 1')
+    ${val}=    Evaluate  $suite.should_be_registered('Suite 1')
+    ${val}=    Evaluate  $global.should_be_registered('Global 1')
 
 Library scopes 2
     ${test} =    Get Library Instance    libraryscope.Test
     ${suite} =    Get Library Instance    libraryscope.Suite    all=False
     ${global} =    Get Library Instance    libraryscope.Global    all=
-    Log    ${test.register('Test 2')}
-    Log    ${suite.register('Suite 2')}
-    Log    ${global.register('Global 2')}
-    Log    ${test.should_be_registered('Test 2')}
-    Log    ${suite.should_be_registered('Suite 1', 'Suite 2')}
-    Log    ${global.should_be_registered('Global 1', 'Global 2')}
+    ${val}=    Evaluate  $test.register('Test 2')
+    ${val}=    Evaluate  $suite.register('Suite 2')
+    ${val}=    Evaluate  $global.register('Global 2')
+    ${val}=    Evaluate  $test.should_be_registered('Test 2')
+    ${val}=    Evaluate  $suite.should_be_registered('Suite 1', 'Suite 2')
+    ${val}=    Evaluate  $global.should_be_registered('Global 1', 'Global 2')
 
 Get all libraries
     &{libs} =    Get library instance    all=True
@@ -88,7 +91,8 @@ Get all libraries
     ...    Collections
     ...    BuiltIn
     ...    String
-    Should Be Equal    ${libs.String.replace_string('Hello', 'e', 'i')}    Hillo
+    ${val}=    Evaluate  $libs.String.replace_string('Hello', 'e', 'i')
+    Should Be Equal    ${val}    Hillo
 
 Get all libraries gets a copy
     &{libs} =    Get library instance    name is ignored when all is true    all=True

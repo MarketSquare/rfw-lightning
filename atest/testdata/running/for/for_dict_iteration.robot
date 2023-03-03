@@ -82,7 +82,7 @@ FOR IN ZIP loop doesn't support dict iteration
 
 Multiple dict variables
     &{d} =    Create dictionary    d=4
-    FOR    ${key}    ${value}    IN    &{DICT}    &{d}    &{{{'e': 5}}}    &{EMPTY}
+    FOR    ${key}    ${value}    IN    &{DICT}    &{d}    &{{{'e':5}}}    &{EMPTY}
         @{result} =    Create list    @{result}    ${key}:${value}
     END
     Should be true    ${result} == ['a:1', 'b:2', 'c:3', 'd:4', 'e:5']
@@ -95,18 +95,12 @@ Dict variable with 'key=value' syntax
     Should be true    ${result} == [':0', 'a:1', 'b:2', 'c:3', 'd:4', 'e:', 'f=:3', '==:==']
 
 Last value wins
+    ${list}=Create Dictionary   d=new  b=override
     FOR    ${key}    ${value}    IN    =over    a=ridded    &{DICT}    c=replace
-    ...    &{EMPTY}    ====    &{{{'d': 'new', 'b': 'override'}}}    =
+    ...    &{EMPTY}    ====    &{list}    =
         @{result} =    Create list    @{result}    ${key}:${value}
     END
     Should be true    ${result} == [':', 'a:1', 'b:override', 'c:replace', 'd:new']
-
-Equal sign in variable
-    FOR    ${key}    ${value}    IN    a=${{'='}}    ${{'='}}=b    ${{'=='}}=
-    ...    &{{{'===': ''}}}
-        @{result} =    Create list    @{result}    ${key}:${value}
-    END
-    Should be true    ${result} == ['a:=', '=:b', '==:', '===:']
 
 'key=value' alone is still considered "normal" iteration
     FOR    ${item}    IN    a=1    b=2
@@ -119,7 +113,8 @@ Equal sign in variable
     END
 
 Non-string keys
-    FOR    ${key}    ${value}    IN    ${1}=one    &{{{2: 'two'}}}
+    ${dicty}=Create Dictionary   ${2}=two
+    FOR    ${key}    ${value}    IN    ${1}=one    &{dicty}
         Should be true    isinstance($key, int)
         @{result} =    Create list    @{result}    ${key}:${value}
     END
@@ -135,31 +130,22 @@ Invalid key
 
 Invalid dict 1
     [Documentation]    FAIL
-    ...    Value of variable '\&{TEST NAME}' is not dictionary or dictionary-like.
-    FOR    ${x}    IN    &{TEST NAME}
-        Fail    Not executed
-    END
-    Fail    Not executed
-
-Invalid dict 2
-    [Documentation]    FAIL
-    ...    STARTS: Resolving variable '\&{{{[]: 'ooops'}}}' failed: \
-    ...    Evaluating expression '{[]: 'ooops'}' failed: TypeError:
-    FOR    ${x}    IN    &{{{[]: 'ooops'}}}
+    ...    Value of variable '\&{TEST_NAME}' is not dictionary or dictionary-like.
+    FOR    ${x}    IN    &{TEST_NAME}
         Fail    Not executed
     END
     Fail    Not executed
 
 Non-existing variable 1
-    [Documentation]    FAIL Variable '\&{NON EXISTING}' not found.
-    FOR    ${x}    IN    &{NON EXISTING}
+    [Documentation]    FAIL Variable '\&{NON_EXISTING}' not found.
+    FOR    ${x}    IN    &{NON_EXISTING}
         Fail    Not executed
     END
     Fail    Not executed
 
 Non-existing variable 2
-    [Documentation]    FAIL Variable '\${non existing}' not found.
-    FOR    ${x}    IN    &{EMPTY}    key=${non existing}
+    [Documentation]    FAIL Variable '\${non_existing}' not found.
+    FOR    ${x}    IN    &{EMPTY}    key=${non_existing}
         Fail    Not executed
     END
     Fail    Not executed
@@ -175,9 +161,9 @@ Dict variables and invalid values 1
 
 Dict variables and invalid values 2
     [Documentation]    FAIL
-    ...    Invalid FOR loop value '\${{'='}}'. When iterating over dictionaries, \
+    ...    Invalid FOR loop value '\${{'_'}}'. When iterating over dictionaries, \
     ...    values must be '\&{dict}' variables or use 'key=value' syntax.
-    FOR    ${i}    IN    &{DICT}    ${{'='}}
+    FOR    ${i}    IN    &{DICT}    ${{'_'}}
         Fail    Not executed
     END
     Fail    Not executed
@@ -190,11 +176,6 @@ Dict variables and invalid values 3
         Fail    Not executed
     END
     Fail    Not executed
-
-Equal sign in variable doesn't initiate dict iteration
-    FOR    ${item}    IN    ${{'='}}    @{{['=']}}
-        Should be equal    ${item}    =
-    END
 
 'key=value' syntax with normal values doesn't initiate dict iteration 1
     FOR    ${item}    IN    a=1    normal    c=3

@@ -5,37 +5,37 @@ Resource        atest_resource.robot
 
 *** Test Cases ***
 Get Time As Timestamp
-    Check Test Case  ${TEST NAME}
+    Check Test Case  ${TEST_NAME}
 
 Get Time As Seconds After Epoch
-    Check Test Case  ${TEST NAME}
+    Check Test Case  ${TEST_NAME}
 
 Get Time As Parts
-    Check Test Case  ${TEST NAME}
+    Check Test Case  ${TEST_NAME}
 
 When Time Is Seconds After Epoch
-    Check Test Case  ${TEST NAME}
+    Check Test Case  ${TEST_NAME}
 
 When Time Is Timestamp
-    Check Test Case  ${TEST NAME}
+    Check Test Case  ${TEST_NAME}
 
 When Time Is Now
-    Check Test Case  ${TEST NAME}
+    Check Test Case  ${TEST_NAME}
 
 When Time Is Now +- something
-    Check Test Case  ${TEST NAME}
+    Check Test Case  ${TEST_NAME}
 
 Empty Format Is Interpreted As Timestamp When Time Given
-    Check Test Case  ${TEST NAME}
+    Check Test Case  ${TEST_NAME}
 
 Invalid Time Does Not Cause Un-Catchable Failure
-    Check Test Case  ${TEST NAME}
+    Check Test Case  ${TEST_NAME}
 
 When Time Is UTC
-    Check Test Case  ${TEST NAME}
+    Check Test Case  ${TEST_NAME}
 
 When Time Is UTC +- something
-    Check Test Case  ${TEST NAME}
+    Check Test Case  ${TEST_NAME}
 
 DST is handled correctly when adding or substracting time
-    Check Test Case  ${TEST NAME}
+    Check Test Case  ${TEST_NAME}

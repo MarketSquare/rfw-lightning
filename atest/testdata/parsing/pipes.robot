@@ -34,10 +34,11 @@
 |
 
 | Pipes In Data |
+|               | ${pipe}=Set Variable | \|
 |               | Should Be Equal | |foo\| | |foo| |
 |               | Should Be Equal | |foo|  | |foo\|
-|               | Should Be Equal | \|     | ${{'|'}} |
-|               | Should Be Equal | ||||   | ${{'||||'}}  |
+|               | Should Be Equal | \|     | ${pipe} |
+|               | Should Be Equal | ||||   | ${pipe}${pipe}${pipe}${pipe}  |
 
 
 |  Extra Pipes At The End  |       |                      |       |        |
@@ -71,7 +72,7 @@
 | | Cells Should Be Empty  |  |     | | | |  |   | ${EMPTY}  | | | |
 
 | Consecutive spaces
-| | Should Be Equal | foo            bar | foo${SPACE * 12}bar
+| | Should Be Equal | foo            bar | foo${SPACE*12}bar
 | | Should Be Equal | non-ascii  　spaces | non-ascii\xa0\u1680\u3000spaces
 
 | Tabs

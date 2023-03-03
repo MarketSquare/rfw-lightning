@@ -30,8 +30,8 @@ Remove Wait Until Keyword Succeeds with Rebot
     Run Rebot    --removekeywords wuKs    ${INPUTFILE}
 
 Check Number Of Keywords
-    [Arguments]    ${test name}    ${expected number}
-    ${tc}=    Check Test Case    ${test name}
-    Length Should Be    ${tc.kws[0].kws}    ${expected number}
+    [Arguments]    ${test_name}    ${expected_number}
+    ${tc}=    Check Test Case    ${test_name}
+    Length Should Be    ${tc.kws[0].kws}    ${expected_number}
     [Return]    ${tc}
 

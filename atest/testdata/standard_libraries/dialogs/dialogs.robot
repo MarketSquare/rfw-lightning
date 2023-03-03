@@ -84,16 +84,16 @@ Get Selections From User
     ...    This is a rather long value and the dialog size should be set so that it fits.
     ...    9    10    11    12    13    14    15    16    17    18    19    20
     Should Be True    type($values) is list
-    ${expected values}=    Create List    FOO    BAR    ZÄP
-    Lists Should Be Equal    ${values}    ${expected values}
+    ${expected_values}=    Create List    FOO    BAR    ZÄP
+    Lists Should Be Equal    ${values}    ${expected_values}
 
 Get Selections From User When No Input Provided
     ${values}=    Get Selections From User
     ...    Press OK or <Enter>.
     ...    value 1    value 2    value 3    value 4
     Should Be True    type($values) is list
-    ${expected values}=    Create List
-    Lists Should Be Equal    ${values}    ${expected values}
+    ${expected_values}=    Create List
+    Lists Should Be Equal    ${values}    ${expected_values}
 
 Get Selections From User Cancelled
     [Documentation]  FAIL No value provided by user.

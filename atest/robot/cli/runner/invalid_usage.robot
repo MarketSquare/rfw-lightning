@@ -4,7 +4,7 @@ Resource        cli_resource.robot
 Test Template   Run Should Fail
 
 *** Variables ***
-${VALID}        ${DATA DIR}/${TEST FILE}
+${VALID}        ${DATA_DIR}/${TEST_FILE}
 
 *** Test Cases ***
 No Input

@@ -1,13 +1,13 @@
 *** Settings ***
 Suite Setup       Suite initialization
-Suite Teardown    Remove Directory    ${RERUN DIR}    recursive
+Suite Teardown    Remove Directory    ${RERUN_DIR}    recursive
 Resource          atest_resource.robot
 
 *** Variables ***
-${ORIG DIR}           ${DATADIR}/cli/runfailed
-${RERUN DIR}          %{TEMPDIR}/rerun-dir
-${SUITE DIR}          ${RERUN DIR}/suite
-${RUN FAILED FROM}    ${RERUN DIR}/rerun-output.xml
+${ORIG_DIR}           ${DATADIR}/cli/runfailed
+${RERUN_DIR}          %{TEMPDIR}/rerun-dir
+${SUITE_DIR}          ${RERUN_DIR}/suite
+${RUN_FAILED_FROM}    ${RERUN_DIR}/rerun-output.xml
 
 *** Test Cases ***
 Passing is not re-executed
@@ -44,12 +44,12 @@ Suite teardown failures are noticed
 
 *** Keywords ***
 Suite initialization
-    Copy Directory    ${ORIG DIR}/suite    ${SUITE DIR}
-    Copy File    ${ORIG DIR}/runfailed1.robot    ${SUITE DIR}/runfailed.robot
-    Run Tests    ${EMPTY}    ${SUITE DIR}
-    Copy File    ${OUTFILE}    ${RUN FAILED FROM}
-    Copy File    ${ORIG DIR}/runfailed2.robot    ${SUITE DIR}/runfailed.robot
-    Run Tests    --rerunfailed ${RUN FAILED FROM} --test Selected --exclude excluded_tag    ${SUITE DIR}
+    Copy Directory    ${ORIG_DIR}/suite    ${SUITE_DIR}
+    Copy File    ${ORIG_DIR}/runfailed1.robot    ${SUITE_DIR}/runfailed.robot
+    Run Tests    ${EMPTY}    ${SUITE_DIR}
+    Copy File    ${OUTFILE}    ${RUN_FAILED_FROM}
+    Copy File    ${ORIG_DIR}/runfailed2.robot    ${SUITE_DIR}/runfailed.robot
+    Run Tests    --rerunfailed ${RUN_FAILED_FROM} --test Selected --exclude excluded_tag    ${SUITE_DIR}
 
 Test Should Have Been Executed
     [Arguments]    ${name}

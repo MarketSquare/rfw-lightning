@@ -1,7 +1,7 @@
 *** Variables ***
 ${COUNT}             0
-${NORMAL FAIL}       no
-${PASS EXECUTION}    no
+${NORMAL_FAIL}       no
+${PASS_EXECUTION}    no
 
 *** Test Cases ***
 Times As String
@@ -48,8 +48,8 @@ Repeat Keyword Arguments As Variables
     Repeat Keyword    1x    @{items}
 
 Repeated Keyword As Non-existing Variable
-    [Documentation]    FAIL Variable '\${non existing}' not found.
-    Repeat Keyword    1 x    ${non existing}
+    [Documentation]    FAIL Variable '\${non_existing}' not found.
+    Repeat Keyword    1 x    ${non_existing}
 
 Argument To Repeated Keyword As Non-existing Variable
     [Documentation]    FAIL Variable '\${nonexisting}' not found.
@@ -87,11 +87,11 @@ Keyword Failing On Third Run
     Set Suite Variable    ${COUNT}
 
 First Continuable Failure And Then Normal Failure
-    Should Be True    "${NORMAL FAIL}" == "no"    Normal
-    Set Suite Variable    ${NORMAL FAIL}    yes
+    Should Be True    "${NORMAL_FAIL}" == "no"    Normal
+    Set Suite Variable    ${NORMAL_FAIL}    yes
     Run Keyword And Continue On Failure    Fail    Continuable
 
 First Continuable Failure And Then Pass Execution
-    Pass Execution If    "${PASS EXECUTION}" == "yes"    Message
-    Set Suite Variable    ${PASS EXECUTION}    yes
+    Pass Execution If    "${PASS_EXECUTION}" == "yes"    Message
+    Set Suite Variable    ${PASS_EXECUTION}    yes
     Run Keyword And Continue On Failure    Fail    Continuable

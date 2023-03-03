@@ -51,12 +51,12 @@ Executing Keywords from Listeners
     Check Log Message    ${tc.kws[2].msgs[0]}    End Pass
 
 Test Template
-    ${listener} =    Normalize Path    ${LISTENER DIR}/verify_template_listener.py
-    Run Tests    --listener ${listener}    ${LISTENER DIR}/test_template.robot
+    ${listener} =    Normalize Path    ${LISTENER_DIR}/verify_template_listener.py
+    Run Tests    --listener ${listener}    ${LISTENER_DIR}/test_template.robot
     Stderr Should Be Empty
 
 Keyword Arguments Are Always Strings
-    ${result} =    Run Tests    --listener VerifyAttributes    ${LISTENER DIR}/keyword_argument_types.robot
+    ${result} =    Run Tests    --listener VerifyAttributes    ${LISTENER_DIR}/keyword_argument_types.robot
     Should Be Empty    ${result.stderr}
     Check Test Tags    Run Keyword with already resolved non-string arguments in test data    1    2
     Check Test Case    Run Keyword with non-string arguments in library
@@ -73,7 +73,7 @@ TimeoutError occurring during listener method is propagaged
     [Documentation]    Timeouts can only occur inside `log_message`.
     ...    Cannot reliable set timeouts to occur during it, so the listener
     ...    emulates the situation by explicitly raising TimeoutError.
-    Run Tests    --listener ${LISTENER DIR}/timeouting_listener.py    ${LISTENER DIR}/timeouting_listener.robot
+    Run Tests    --listener ${LISTENER_DIR}/timeouting_listener.py    ${LISTENER_DIR}/timeouting_listener.robot
     Check Test Case    Timeout in test case level
     Check Test Case    Timeout inside user keyword
     Stderr Should Be Empty

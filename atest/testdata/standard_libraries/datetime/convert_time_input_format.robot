@@ -3,6 +3,12 @@ Test Template     Time conversion should succeed
 Library           DateTime
 Variables         datesandtimes.py
 
+*** Variables ***
+${DELTA1}=Evaluate    datetime.timedelta(1)
+${DELTA2}=Evaluate    datetime.timedelta(0,1.5)
+${DELTA3}=Evaluate    datetime.timedelta(0,0,0,0,0,-1)
+${DELTA4}=Evaluate    datetime.timedelta(0,0,1234567)
+
 *** Test Cases ***    INPUT                                 EXPECTED
 Time string           10 s                                  10
                       0.5 seconds                           0.5
@@ -68,10 +74,10 @@ Timer without hours
                       0:0.0                                 0
                       1:2.3                                 62.3
 
-Timedelta             ${timedelta(1)}                       86400
-                      ${timedelta(seconds=1.5)}             1.5
-                      ${timedelta(hours=-1)}                -3600
-                      ${timedelta(microseconds=1234567)}    1.234567
+Timedelta             ${DELTA1}                       86400
+                      ${DELTA2}             1.5
+                      ${DELTA3}                -3600
+                      ${DELTA4}    1.234567
 
 Invalid               [Template]    Time conversion should fail
                       kekkonen

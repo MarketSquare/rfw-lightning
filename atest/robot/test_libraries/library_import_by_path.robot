@@ -15,7 +15,7 @@ Importing Python Library In Dir By Path
     Check Keyword Data    ${test.kws[2]}    MyLibDir.Keyword In My Lib Dir    \${ret}    a1, a2
 
 Importing Library With Same Name
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Check log message    ${tc.kws[0].msgs[0]}    Hello from lib1
     Check log message    ${tc.kws[1].msgs[0]}    Hello from lib2
 
@@ -24,10 +24,10 @@ Importing Python Library By Path With Variables
     Check Keyword Data    ${test.kws[0]}    MyLibDir2.Keyword In My Lib Dir 2    \${sum}    1, 2, 3, 4, 5
 
 Importing By Path Having Spaces
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Importing By Path Containing Non-ASCII Characters
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Importing Invalid Python File Fails
     ${path} =    Normalize Path    ${DATADIR}/test_libraries/MyInvalidLibFile.py

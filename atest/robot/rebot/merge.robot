@@ -1,6 +1,6 @@
 *** Settings ***
 Suite Setup       Run original tests
-Test Teardown     Remove Files    ${MERGE 1}    ${MERGE 2}
+Test Teardown     Remove Files    ${MERGE_1}    ${MERGE_2}
 Suite Teardown    Remove Files    ${ORIGINAL}
 Resource          rebot_resource.robot
 
@@ -8,20 +8,20 @@ Resource          rebot_resource.robot
 ${MISC}           ${DATADIR}/misc/
 ${SUITES}         ${DATADIR}/misc/suites
 ${ORIGINAL}       %{TEMPDIR}/merge-original.xml
-${MERGE 1}        %{TEMPDIR}/merge-1.xml
-${MERGE 2}        %{TEMPDIR}/merge-2.xml
-@{ALL TESTS}      Suite4 First             SubSuite1 First    SubSuite2 First
+${MERGE_1}        %{TEMPDIR}/merge-1.xml
+${MERGE_2}        %{TEMPDIR}/merge-2.xml
+@{ALL_TESTS}      Suite4 First             SubSuite1 First    SubSuite2 First
 ...               Test From Sub Suite 4    SubSuite3 First    SubSuite3 Second
 ...               Suite1 First             Suite1 Second
 ...               Test With Double Underscore    Test With Prefix    Third In Suite1
 ...               Suite2 First             Suite3 First
-@{ALL SUITES}     Fourth                   Subsuites          Subsuites2
+@{ALL_SUITES}     Fourth                   Subsuites          Subsuites2
 ...               Suite With Double Underscore    Suite With Prefix
 ...               Tsuite1                  Tsuite2            Tsuite3
-@{SUB SUITES 1}   Sub1                     Sub2
-@{SUB SUITES 2}   Sub.suite.4              Subsuite3
-@{RERUN TESTS}    Suite4 First             SubSuite1 First
-@{RERUN SUITES}   Fourth                   Subsuites
+@{SUB_SUITES_1}   Sub1                     Sub2
+@{SUB_SUITES_2}   Sub.suite.4              Subsuite3
+@{RERUN_TESTS}    Suite4 First             SubSuite1 First
+@{RERUN_SUITES}   Fourth                   Subsuites
 
 *** Test Cases ***
 Merge re-executed tests
@@ -42,7 +42,7 @@ Merge re-executed and re-re-executed tests
     Re-re-run tests
     Run multi-merge
     ${message} =    Create expected multi-merge message
-    Test merge should have been successful    status 2=FAIL    message 2=${message}
+    Test merge should have been successful    status_2=FAIL    message_2=${message}
 
 Add new tests
     Run tests to be added
@@ -71,7 +71,7 @@ Using other options
     ...              by ExecutionResult (--flattenkeyword) work correctly.
     Re-run tests
     Run merge    --nomerge --log log.html --merge --flattenkeyword name:BuiltIn.Log --name Custom
-    Test merge should have been successful    suite name=Custom
+    Test merge should have been successful    suite_name=Custom
     Log should have been created with all Log keywords flattened
 
 Merge ignores skip
@@ -98,10 +98,10 @@ Run original tests
 
 Verify original tests
     Should Be Equal    ${SUITE.name}    Suites
-    Should Contain Suites    ${SUITE}    @{ALL SUITES}
-    Should Contain Suites    ${SUITE.suites[2]}    @{SUB SUITES 1}
-    Should Contain Suites    ${SUITE.suites[3]}    @{SUB SUITES 2}
-    Should Contain Tests    ${SUITE}    @{ALL TESTS}
+    Should Contain Suites    ${SUITE}    @{ALL_SUITES}
+    Should Contain Suites    ${SUITE.suites[2]}    @{SUB_SUITES_1}
+    Should Contain Suites    ${SUITE.suites[3]}    @{SUB_SUITES_2}
+    Should Contain Tests    ${SUITE}    @{ALL_TESTS}
     ...    SubSuite1 First=FAIL:This test was doomed to fail: YES != NO
 
 Re-run tests
@@ -116,50 +116,50 @@ Re-run tests
     ...    --variable SETUP:NONE               # Affects misc/suites/subsuites/sub1.robot
     ...    --variable TEARDOWN:NONE            #           -- ;; --
     ...    --rerunfailed ${ORIGINAL} ${options}
-    Create Output With Robot    ${MERGE 1}    ${options}    ${SUITES}
+    Create Output With Robot    ${MERGE_1}    ${options}    ${SUITES}
     Should Be Equal    ${SUITE.name}    Suites
-    Should Contain Suites    ${SUITE}    @{RERUN SUITES}
-    Should Contain Suites    ${SUITE.suites[1]}    ${SUB SUITES 1}[0]
-    Should Contain Tests    ${SUITE}    @{RERUN TESTS}
+    Should Contain Suites    ${SUITE}    @{RERUN_SUITES}
+    Should Contain Suites    ${SUITE.suites[1]}    ${SUB_SUITES_1}[0]
+    Should Contain Tests    ${SUITE}    @{RERUN_TESTS}
 
 Re-re-run tests
-    Create Output With Robot    ${MERGE 2}    --test SubSuite1First --variable FAIL:again    ${SUITES}
+    Create Output With Robot    ${MERGE_2}    --test SubSuite1First --variable FAIL:again    ${SUITES}
 
 Run tests to be added
-    Create Output With Robot    ${MERGE 1}    --name Suites    ${MISC}/pass_and_fail.robot
+    Create Output With Robot    ${MERGE_1}    --name Suites    ${MISC}/pass_and_fail.robot
 
 Run suite to be added
-    Create Output With Robot    ${MERGE 1}    --name Suites --suite PassAndFail    ${MISC}
+    Create Output With Robot    ${MERGE_1}    --name Suites --suite PassAndFail    ${MISC}
 
 Run incompatible suite
-    Create Output With Robot    ${MERGE 1}    ${EMPTY}    ${MISC}/pass_and_fail.robot
+    Create Output With Robot    ${MERGE_1}    ${EMPTY}    ${MISC}/pass_and_fail.robot
 
 Run merge
     [Arguments]    ${options}=
-    Run Rebot    --merge ${options}    ${ORIGINAL} ${MERGE 1}
+    Run Rebot    --merge ${options}    ${ORIGINAL} ${MERGE_1}
     Stderr Should Be Empty
 
 Run multi-merge
-    Run Rebot    -R    ${ORIGINAL} ${MERGE 1} ${MERGE 2}
+    Run Rebot    -R    ${ORIGINAL} ${MERGE_1} ${MERGE_2}
     Stderr Should Be Empty
 
 Run incompatible merge
-    Run Rebot Without Processing Output    --merge    ${ORIGINAL} ${MERGE 1}
+    Run Rebot Without Processing Output    --merge    ${ORIGINAL} ${MERGE_1}
 
 Test merge should have been successful
-    [Arguments]    ${suite name}=Suites    ${status 1}=FAIL    ${message 1}=
-    ...    ${status 2}=PASS    ${message 2}=
-    Should Be Equal    ${SUITE.name}    ${suite name}
-    Should Contain Suites    ${SUITE}    @{ALL SUITES}
-    Should Contain Suites    ${SUITE.suites[2]}    @{SUB SUITES 1}
-    Should Contain Suites    ${SUITE.suites[3]}    @{SUB SUITES 2}
-    ${message 1} =    Create expected merge message    ${message 1}
+    [Arguments]    ${suite_name}=Suites    ${status_1}=FAIL    ${message_1}=
+    ...    ${status_2}=PASS    ${message_2}=
+    Should Be Equal    ${SUITE.name}    ${suite_name}
+    Should Contain Suites    ${SUITE}    @{ALL_SUITES}
+    Should Contain Suites    ${SUITE.suites[2]}    @{SUB_SUITES_1}
+    Should Contain Suites    ${SUITE.suites[3]}    @{SUB_SUITES_2}
+    ${message_1} =    Create expected merge message    ${message_1}
     ...    FAIL    Expected    FAIL    Expected
-    ${message 2} =    Create expected merge message    ${message 2}
+    ${message_2} =    Create expected merge message    ${message_2}
     ...    PASS    ${EMPTY}    FAIL    This test was doomed to fail: YES != NO
-    Should Contain Tests    ${SUITE}    @{ALL TESTS}
-    ...    Suite4 First=${status 1}:${message 1}
-    ...    SubSuite1 First=${status 2}:${message 2}
+    Should Contain Tests    ${SUITE}    @{ALL_TESTS}
+    ...    Suite4 First=${status_1}:${message_1}
+    ...    SubSuite1 First=${status_2}:${message_2}
     Timestamps should be cleared
     ...    ${SUITE}
     ...    ${SUITE.suites[1]}
@@ -191,10 +191,10 @@ Suite documentation and metadata should have been merged
 
 Test add should have been successful
     Should Be Equal    ${SUITE.name}    Suites
-    Should Contain Suites    ${SUITE}    @{ALL SUITES}
-    Should Contain Suites    ${SUITE.suites[2]}    @{SUB SUITES 1}
-    Should Contain Suites    ${SUITE.suites[3]}    @{SUB SUITES 2}
-    Should Contain Tests    ${SUITE}    @{ALL TESTS}
+    Should Contain Suites    ${SUITE}    @{ALL_SUITES}
+    Should Contain Suites    ${SUITE.suites[2]}    @{SUB_SUITES_1}
+    Should Contain Suites    ${SUITE.suites[3]}    @{SUB_SUITES_2}
+    Should Contain Tests    ${SUITE}    @{ALL_TESTS}
     ...    SubSuite1 First=FAIL:This test was doomed to fail: YES != NO
     ...    Pass=PASS:*HTML* Test added from merged output.
     ...    Fail=FAIL:*HTML* Test added from merged output.<hr>Expected failure
@@ -214,10 +214,10 @@ Test add should have been successful
 
 Suite add should have been successful
     Should Be Equal    ${SUITE.name}    Suites
-    Should Contain Suites    ${SUITE}    @{ALL SUITES}    Pass And Fail
-    Should Contain Suites    ${SUITE.suites[2]}    @{SUB SUITES 1}
-    Should Contain Suites    ${SUITE.suites[3]}    @{SUB SUITES 2}
-    Should Contain Tests    ${SUITE}    @{ALL TESTS}
+    Should Contain Suites    ${SUITE}    @{ALL_SUITES}    Pass And Fail
+    Should Contain Suites    ${SUITE.suites[2]}    @{SUB_SUITES_1}
+    Should Contain Suites    ${SUITE.suites[3]}    @{SUB_SUITES_2}
+    Should Contain Tests    ${SUITE}    @{ALL_TESTS}
     ...    Pass    Fail
     ...    SubSuite1 First=FAIL:This test was doomed to fail: YES != NO
     Should Be Equal    ${SUITE.suites[8].name}    Pass And Fail
@@ -248,7 +248,7 @@ Warnings should have been merged
 Merge should have failed
     Stderr Should Be Equal To
     ...    [ ERROR ] Cannot merge outputs containing different root suites.
-    ...    Original suite is 'Suites' and merged is 'Pass And Fail'.${USAGE TIP}\n
+    ...    Original suite is 'Suites' and merged is 'Pass And Fail'.${USAGE_TIP}\n
 
 Timestamps should be cleared
     [Arguments]    @{suites}
@@ -265,56 +265,56 @@ Timestamps should be set
     END
 
 Create expected merge message header
-    [Arguments]    ${html marker}=*HTML*${SPACE}
+    [Arguments]    ${html_marker}=*HTML*${SPACE}
     Run Keyword And Return    Catenate    SEPARATOR=
-    ...    ${html marker}<span class="merge">Test has been re-executed and results merged.</span><hr>
+    ...    ${html_marker}<span class="merge">Test has been re-executed and results merged.</span><hr>
 
 Create expected merge old message body
-    [Arguments]    ${old status}    ${old message}
-    ${old status} =    Set Variable If    '${old status}' == 'PASS'
+    [Arguments]    ${old_status}    ${old_message}
+    ${old_status} =    Set Variable If    '${old_status}' == 'PASS'
     ...    <span class="pass">PASS</span>    <span class="fail">FAIL</span>
-    ${old message} =    Set Variable If    '${old message}' != ''
-    ...    ${old message}<br>    ${EMPTY}
-    ${old message html achor} =    Set Variable If    '${old message}' != ''
+    ${old_message} =    Set Variable If    '${old_message}' != ''
+    ...    ${old_message}<br>    ${EMPTY}
+    ${old_message_html_achor} =    Set Variable If    '${old_message}' != ''
     ...    <span class="old-message">Old message:</span>${SPACE}    ${EMPTY}
     Run Keyword And Return    Catenate    SEPARATOR=
-    ...    <span class="old-status">Old status:</span> ${old status}<br>
-    ...    ${old message html achor}${old message}
+    ...    <span class="old-status">Old status:</span> ${old_status}<br>
+    ...    ${old_message_html_achor}${old_message}
 
 Create expected merge message body
-    [Arguments]    ${new status}    ${new message}    ${old status}    ${old message}
-    ${new status} =    Set Variable If    '${new status}' == 'PASS'
+    [Arguments]    ${new_status}    ${new_message}    ${old_status}    ${old_message}
+    ${new_status} =    Set Variable If    '${new_status}' == 'PASS'
     ...    <span class="pass">PASS</span>    <span class="fail">FAIL</span>
-    ${new message html achor} =    Set Variable If    '${new message}' != ''
+    ${new_message_html_achor} =    Set Variable If    '${new_message}' != ''
     ...    <span class="new-message">New message:</span>${SPACE}    ${EMPTY}
-    ${new message} =    Set Variable If    '${new message}' != ''
-    ...    ${new message}<br>    ${EMPTY}
-    ${old message} =    Create expected merge old message body    ${old status}    ${old message}
+    ${new_message} =    Set Variable If    '${new_message}' != ''
+    ...    ${new_message}<br>    ${EMPTY}
+    ${old_message} =    Create expected merge old message body    ${old_status}    ${old_message}
     Run Keyword And Return    Catenate    SEPARATOR=
-    ...    <span class="new-status">New status:</span> ${new status}<br>
-    ...    ${new message html achor}${new message}
-    ...    <hr>${old message}
+    ...    <span class="new-status">New status:</span> ${new_status}<br>
+    ...    ${new_message_html_achor}${new_message}
+    ...    <hr>${old_message}
 
 Create expected merge message
-    [Arguments]    ${message}    ${new status}    ${new message}    ${old status}    ${old message}   ${html marker}=*HTML*${SPACE}
+    [Arguments]    ${message}    ${new_status}    ${new_message}    ${old_status}    ${old_message}   ${html_marker}=*HTML*${SPACE}
     Return From Keyword If    """${message}"""    ${message}
-    ${merge header} =    Create expected merge message header    html marker=${html marker}
-    ${merge body} =    Create expected merge message body    ${new status}    ${new message}    ${old status}    ${old message}
+    ${merge_header} =    Create expected merge message header    html_marker=${html_marker}
+    ${merge_body} =    Create expected merge message body    ${new_status}    ${new_message}    ${old_status}    ${old_message}
     Run Keyword And Return    Catenate    SEPARATOR=
-    ...    ${merge header}
-    ...    ${merge body}
+    ...    ${merge_header}
+    ...    ${merge_body}
 
 Create expected multi-merge message
-    [Arguments]    ${html marker}=*HTML*${SPACE}
-    ${header} =    Create expected merge message header    html marker=${html marker}
-    ${message 1} =    Create expected merge message body
+    [Arguments]    ${html_marker}=*HTML*${SPACE}
+    ${header} =    Create expected merge message header    html_marker=${html_marker}
+    ${message_1} =    Create expected merge message body
     ...    FAIL    This test was doomed to fail: again != NO    PASS    ${EMPTY}
-    ${message 2} =    Create expected merge old message body
+    ${message_2} =    Create expected merge old message body
     ...    FAIL    This test was doomed to fail: YES != NO
     Run Keyword And Return    Catenate    SEPARATOR=
     ...    ${header}
-    ...    ${message 1}
-    ...    <hr>${message 2}
+    ...    ${message_1}
+    ...    <hr>${message_2}
 
 Log should have been created with all Log keywords flattened
     ${log} =    Get File    ${OUTDIR}/log.html

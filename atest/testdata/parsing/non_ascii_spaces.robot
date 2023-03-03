@@ -4,9 +4,9 @@ Test Teardown     Ogham space mark     : :
 Library  　  　  　OperatingSystem  　  　WITH NAME  　OS
 
 *** Variables ***
-${NO-BREAK SPACE} =         : :
-${OGHAM SPACE MARK} =       : :  　  　# Trailing  　  　  　
-${IDEOGRAPHIC　SPACE}　=    :　:  　  　  　  　  　  　
+${NO-BREAK_SPACE} =         : :
+${OGHAM_SPACE_MARK} =       : :  　  　# Trailing  　  　  　
+${IDEOGRAPHIC_SPACE}　=    :　:  　  　  　  　  　  　
 
 *** Test Cases ***
 In test and keywords
@@ -32,24 +32,24 @@ No-break space
     Log    ${arg}    formatter=repr
     Log    ${arg}
     Should be equal    ${arg}    : :
-    Should be equal    ${arg}    ${NO-BREAK SPACE}
-    Should be equal    ${arg}    ${NO-BREAK SPACE}
+    Should be equal    ${arg}    ${NO-BREAK_SPACE}
+    Should be equal    ${arg}    ${NO-BREAK_SPACE}
 
 Ogham space mark
     [ Arguments ]    ${arg}
     Log    ${arg}    formatter=repr
     Log    ${arg}
     Should be equal    ${arg}    : :
-    Should be equal    ${arg}    ${OGHAM SPACE MARK}
-    Should be equal    ${arg}    ${OGHAM SPACE MARK}
+    Should be equal    ${arg}    ${OGHAM_SPACE_MARK}
+    Should be equal    ${arg}    ${OGHAM_SPACE_MARK}
 
 Ideographic　space
     [　Arguments　]    ${arg}
     Log    ${arg}    formatter=repr
     Log    ${arg}
     Should　be　equal    ${arg}    :　:
-    Should　be　equal    ${arg}    ${IDEOGRAPHIC SPACE}
-    Should　be　equal    ${arg}    ${IDEOGRAPHIC　SPACE}
+    Should　be　equal    ${arg}    ${IDEOGRAPHIC_SPACE}
+    Should　be　equal    ${arg}    ${IDEOGRAPHIC_SPACE}
 
 *** Test Cases　***
 In header
@@ -68,7 +68,7 @@ In FOR separator
     FOR    ${index}    ${item}    IN ENUMERATE    value
         Should Be Equal    ${index}: ${item}    0: value
     END
-    FOR    ${tag}    IN　ZIP    ${TEST TAGS}
+    FOR    ${tag}    IN　ZIP    ${TEST_TAGS}
         Fail    Should not be executed
     END
 

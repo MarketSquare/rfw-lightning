@@ -48,8 +48,8 @@ Invalid variable in start
 Index and two items
     @{values} =    Create List    a    b    c    d    e    f
     FOR    ${i}    ${item1}    ${item2}    IN ENUMERATE    @{values}
-        Should Be Equal    ${values}[${i * 2 + 0}]    ${item1}
-        Should Be Equal    ${values}[${i * 2 + 1}]    ${item2}
+        Should Be Equal    ${values}[${i*2+0}]    ${item1}
+        Should Be Equal    ${values}[${i*2+1}]    ${item2}
         @{result} =     Create List    @{result}    ${i}:${item1}:${item2}
     END
     Should Be True    ${result} == ['0:a:b', '1:c:d', '2:e:f']
@@ -57,11 +57,11 @@ Index and two items
 Index and five items
     @{values} =    Create List    a    b    c    d    e    f    g    h    i    j
     FOR    ${x}    ${i1}    ${i2}    ${i3}    ${i4}    ${i5}    IN ENUMERATE    @{values}
-        Should Be Equal    ${values}[${x * 5 + 0}]    ${i1}
-        Should Be Equal    ${values}[${x * 5 + 1}]    ${i2}
-        Should Be Equal    ${values}[${x * 5 + 2}]    ${i3}
-        Should Be Equal    ${values}[${x * 5 + 3}]    ${i4}
-        Should Be Equal    ${values}[${x * 5 + 4}]    ${i5}
+        Should Be Equal    ${values}[${x*5+0}]    ${i1}
+        Should Be Equal    ${values}[${x*5+1}]    ${i2}
+        Should Be Equal    ${values}[${x*5+2}]    ${i3}
+        Should Be Equal    ${values}[${x*5+3}]    ${i4}
+        Should Be Equal    ${values}[${x*5+4}]    ${i5}
         @{result} =     Create List    @{result}    ${x}:${i1}:${i2}:${i3}:${i4}:${i5}
     END
     Should Be True    ${result} == ['0:a:b:c:d:e', '1:f:g:h:i:j']

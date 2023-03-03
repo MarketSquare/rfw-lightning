@@ -33,8 +33,8 @@ With list variable
     Should Be True    ${ret} == ['0', '1', '2', '3']
 
 Escaping
-    ${ret}=    With variable    \${not var}
-    Should Be Equal    ${ret}    \${not var}
+    ${ret}=    With variable    \${not_var}
+    Should Be Equal    ${ret}    \${not_var}
     ${ret}=    With variable    c:\\temp
     Should Be Equal    ${ret}    c:\\temp
 
@@ -47,9 +47,9 @@ Inside for loop in keyword
     Should Be Equal    ${ret}     return foo
 
 Keyword teardown is run
-    ${ret}=    With teardown    ${TEST NAME}
+    ${ret}=    With teardown    ${TEST_NAME}
     Should Be Equal    ${ret}     something else to return
-    Should Be Equal    ${test var}    ${TEST NAME}
+    Should Be Equal    ${test_var}    ${TEST_NAME}
 
 In a keyword inside keyword teardown
     With return in keyword inside teardown
@@ -67,7 +67,7 @@ Fails if used outside keywords
     ...
     ...    Also teardown failed:
     ...    Invalid 'RETURN' usage.
-    Return From Keyword    ${non existent variable}
+    Return From Keyword    ${non_existent_variable}
     [Teardown]    Return From Keyword
 
 Fails if used outside keywords inside for loop
@@ -91,7 +91,7 @@ Return From Keyword If
     Should Be Equal    ${ret}    something to return
 
 Return From Keyword If does not evaluate bogus arguments if condition is untrue
-    [Documentation]    FAIL Replacing variables from keyword return value failed: Variable '\${non existent 2}' not found.
+    [Documentation]    FAIL Replacing variables from keyword return value failed: Variable '\${non_existent_2}' not found.
     Return From Keyword If with non-existing variables in arguments
 
 *** Keywords ***
@@ -139,7 +139,7 @@ With teardown
     [Arguments]    ${arg}
     Return From Keyword    something else to return
     Fail     Should have returned before this
-    [Teardown]    Set Test Variable    ${test var}    ${arg}
+    [Teardown]    Set Test Variable    ${test_var}    ${arg}
     [Return]     Should not ${evaluate}
 
 Returning directly from keyword teardown fails
@@ -173,6 +173,6 @@ With Return From Keyword If
     [Return]     Should not ${evaluate}
 
 Return From Keyword If with non-existing variables in arguments
-    Return From Keyword If    0 > 1    ${non existing 1}
-    Return From Keyword If    ${True}    ${non existent 2}
+    Return From Keyword If    0 > 1    ${non_existing_1}
+    Return From Keyword If    ${True}    ${non_existent_2}
     Fail    Not executed

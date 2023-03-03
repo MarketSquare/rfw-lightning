@@ -130,7 +130,7 @@ CONTINUE with continuable failures
     ...    2) Failure 0
     WHILE    $variable >= 0
         Run Keyword And Continue On Failure    Fail    Failure ${variable}
-        ${variable} =    Set Variable    ${variable - 1}
+        ${variable} =    Set Variable    ${variable-1}
         CONTINUE
         Fail    Not run
     END

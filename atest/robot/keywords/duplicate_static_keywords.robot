@@ -18,7 +18,7 @@ Keyword with embedded arguments defined twice fails at run-time
     ${tc} =    Check Test Case    ${TESTNAME}: Called with embedded args
     Should Be Equal    ${tc.kws[0].name}    Embedded arguments twice
     ${tc} =    Check Test Case    ${TESTNAME}: Called with exact name
-    Should Be Equal    ${tc.kws[0].name}    Embedded \${arguments match} twice
+    Should Be Equal    ${tc.kws[0].name}    Embedded \${arguments_match} twice
     Length Should Be    ${ERRORS}    3
 
 *** Keywords ***

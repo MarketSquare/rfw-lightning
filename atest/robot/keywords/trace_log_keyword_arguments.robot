@@ -67,12 +67,12 @@ Object With Unicode Repr as Argument
     ...    'Circle is 360°, Hyvää üötä, \u0989\u09c4 \u09f0 \u09fa \u099f \u09eb \u09ea \u09b9'
 
 Arguments With Run Keyword
-    ${tc}=    Check Test Case    ${TEST NAME}
-    Check Log Message    ${tc.kws[1].msgs[0]}    Arguments: [ '\${keyword name}' | '\@{VALUES}' ]    TRACE
+    ${tc}=    Check Test Case    ${TEST_NAME}
+    Check Log Message    ${tc.kws[1].msgs[0]}    Arguments: [ '\${keyword_name}' | '\@{VALUES}' ]    TRACE
     Check Log Message    ${tc.kws[1].kws[0].msgs[0]}    Arguments: [ 'a' | 'b' | 'c' | 'd' ]    TRACE
 
 Embedded Arguments
-    ${tc}=    Check Test Case    ${TEST NAME}
+    ${tc}=    Check Test Case    ${TEST_NAME}
     Check Log Message    ${tc.kws[0].msgs[0]}    Arguments: [ \${first}='foo' | \${second}=42 | \${what}='UK' ]    TRACE
     Check Log Message    ${tc.kws[1].msgs[0]}    Arguments: [ 'bar' | 'Embedded Arguments' ]    TRACE
     Check Log Message    ${tc.kws[2].msgs[0]}    Arguments: [ \${embedded}='Embedded' | \${keyword}='keyword' | \${positional}='positively' ]    TRACE
@@ -80,7 +80,7 @@ Embedded Arguments
 *** Keywords ***
 Check Argument Value Trace
     [Arguments]    @{expected}
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     ${length} =    Get Length    ${expected}
     FOR    ${index}    IN RANGE    0    ${length}
         Check Log Message    ${tc.kws[${index}].msgs[0]}    Arguments: [ ${expected}[${index}] ]    TRACE

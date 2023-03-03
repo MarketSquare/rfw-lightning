@@ -3,16 +3,16 @@ Suite Setup     Check That Default Orders Are Correct
 Resource        cli_resource.robot
 
 *** Variables ***
-@{DEFAULT SUITE ORDER}    Suite First    Sub.Suite.1    Suite3     Suite4     Suite5
+@{DEFAULT_SUITE_ORDER}    Suite First    Sub.Suite.1    Suite3     Suite4     Suite5
 ...                       Suite10        Suite 6        SUite7     suiTe 8    Suite 9 Name
-@{DEFAULT TEST ORDER}     test1          test2          test3      test4      test5
+@{DEFAULT_TEST_ORDER}     test1          test2          test3      test4      test5
 ...                       test6          test7          test8      test9      test10
 ...                       test11         test12
 
 *** Test Cases ***
 Randomizing tests
     [Setup]  Run Tests  --randomize test  misc/multiple_suites/01__suite_first.robot
-    Should Not Be Equal As Strings  ${SUITE.tests}  ${DEFAULT TEST ORDER}
+    Should Not Be Equal As Strings  ${SUITE.tests}  ${DEFAULT_TEST_ORDER}
     Randomized metadata is added    Tests
 
 Randomizing suites
@@ -83,21 +83,25 @@ Check That Default Orders Are Correct
     Tests should be in default order
 
 Suites Should Be Randomized
-    Should Not Be Equal    ${{[suite.name for suite in $SUITE.suites]}}    ${DEFAULT SUITE ORDER}
+    ${names}=      Evaluate    [suite.name for suite in $SUITE.suites]
+    Should Not Be Equal    ${names}    ${DEFAULT_SUITE_ORDER}
     RETURN    ${SUITE.suites}
 
 Suites should be in default order
-    Should Be Equal    ${{[suite.name for suite in $SUITE.suites]}}    ${DEFAULT SUITE ORDER}
+    ${names}=      Evaluate    [suite.name for suite in $SUITE.suites]
+    Should Be Equal    ${names}    ${DEFAULT_SUITE_ORDER}
     RETURN    ${SUITE.suites}
 
 Tests Should Be Randomized
     ${tests} =  Get Tests
-    Should Not Be Equal    ${{[test.name for test in $tests]}}    ${DEFAULT TEST ORDER}
+    ${names}=      Evaluate    [test.name for test in $tests]
+    Should Not Be Equal    ${names}    ${DEFAULT_TEST_ORDER}
     RETURN    ${tests}
 
 Tests should be in default order
     ${tests} =  Get Tests
-    Should Be Equal    ${{[test.name for test in $tests]}}    ${DEFAULT TEST ORDER}
+    ${names}=      Evaluate    [test.name for test in $tests]
+    Should Be Equal    ${names}    ${DEFAULT_TEST_ORDER}
     RETURN    ${tests}
 
 Order should be same
@@ -111,7 +115,7 @@ Get Tests
 
 Randomized metadata is added
     [Arguments]    ${what}    ${seed}=*
-    Should Match    ${SUITE.metadata['Randomized']}    ${what} (seed ${seed})
+    Should Match    ${SUITE.metadata}[Randomized]    ${what} (seed ${seed})
     FOR    ${child}    IN    @{SUITE.suites}
         Should Not Contain    ${child.metadata}    Randomized
     END

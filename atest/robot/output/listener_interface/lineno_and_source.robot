@@ -1,12 +1,12 @@
 *** Settings ***
-Suite Setup          Run Tests    --listener ${LISTENER DIR}/LinenoAndSource.py    ${TEST CASE FILE}
+Suite Setup          Run Tests    --listener ${LISTENER_DIR}/LinenoAndSource.py    ${TEST_CASE_FILE}
 Test Template        Expect
 Test Teardown        Validate keywords
 Resource             listener_resource.robot
 
 *** Variables ***
-${TEST CASE FILE}    ${LISTENER DIR}/lineno_and_source.robot
-${RESOURCE FILE}     ${LISTENER DIR}/lineno_and_source.resource
+${TEST_CASE_FILE}    ${LISTENER_DIR}/lineno_and_source.robot
+${RESOURCE_FILE}     ${LISTENER_DIR}/lineno_and_source.resource
 @{EXPECTED}
 
 *** Test Cases ***
@@ -24,8 +24,8 @@ User keyword
 
 User keyword in resource
     START    KEYWORD          User Keyword In Resource       12    NOT SET
-    START    KEYWORD          No Operation                    3    NOT SET    source=${RESOURCE FILE}
-    END      KEYWORD          No Operation                    3    PASS       source=${RESOURCE FILE}
+    START    KEYWORD          No Operation                    3    NOT SET    source=${RESOURCE_FILE}
+    END      KEYWORD          No Operation                    3    PASS       source=${RESOURCE_FILE}
     END      KEYWORD          User Keyword In Resource       12    PASS
 
 Not run keyword
@@ -70,12 +70,12 @@ FOR in IF
 
 FOR in resource
     START    KEYWORD          FOR In Resource                36    NOT SET
-    START    FOR              \${x} IN [ once ]               6    NOT SET    source=${RESOURCE FILE}
-    START    ITERATION        \${x} = once                    6    NOT SET    source=${RESOURCE FILE}
-    START    KEYWORD          Log                             7    NOT SET    source=${RESOURCE FILE}
-    END      KEYWORD          Log                             7    PASS       source=${RESOURCE FILE}
-    END      ITERATION        \${x} = once                    6    PASS       source=${RESOURCE FILE}
-    END      FOR              \${x} IN [ once ]               6    PASS       source=${RESOURCE FILE}
+    START    FOR              \${x} IN [ once ]               6    NOT SET    source=${RESOURCE_FILE}
+    START    ITERATION        \${x} = once                    6    NOT SET    source=${RESOURCE_FILE}
+    START    KEYWORD          Log                             7    NOT SET    source=${RESOURCE_FILE}
+    END      KEYWORD          Log                             7    PASS       source=${RESOURCE_FILE}
+    END      ITERATION        \${x} = once                    6    PASS       source=${RESOURCE_FILE}
+    END      FOR              \${x} IN [ once ]               6    PASS       source=${RESOURCE_FILE}
     END      KEYWORD          FOR In Resource                36    PASS
 
 IF
@@ -128,10 +128,10 @@ IF in FOR
 
 IF in resource
     START   KEYWORD           IF In Resource                 61    NOT SET
-    START   IF                True                           11    NOT SET    source=${RESOURCE FILE}
-    START   KEYWORD           No Operation                   12    NOT SET    source=${RESOURCE FILE}
-    END     KEYWORD           No Operation                   12    PASS       source=${RESOURCE FILE}
-    END     IF                True                           11    PASS       source=${RESOURCE FILE}
+    START   IF                True                           11    NOT SET    source=${RESOURCE_FILE}
+    START   KEYWORD           No Operation                   12    NOT SET    source=${RESOURCE_FILE}
+    END     KEYWORD           No Operation                   12    PASS       source=${RESOURCE_FILE}
+    END     IF                True                           11    PASS       source=${RESOURCE_FILE}
     END     KEYWORD           IF In Resource                 61    PASS
 
 TRY
@@ -178,14 +178,14 @@ TRY in keyword
 
 TRY in resource
     START    KEYWORD          TRY In Resource                81    NOT SET
-    START    TRY              ${EMPTY}                       16    NOT SET    source=${RESOURCE FILE}
-    START    KEYWORD          Log                            17    NOT SET    source=${RESOURCE FILE}
-    END      KEYWORD          Log                            17    PASS       source=${RESOURCE FILE}
-    END      TRY              ${EMPTY}                       16    PASS       source=${RESOURCE FILE}
-    START    FINALLY          ${EMPTY}                       18    NOT SET    source=${RESOURCE FILE}
-    START    KEYWORD          Log                            19    NOT SET    source=${RESOURCE FILE}
-    END      KEYWORD          Log                            19    PASS       source=${RESOURCE FILE}
-    END      FINALLY          ${EMPTY}                       18    PASS       source=${RESOURCE FILE}
+    START    TRY              ${EMPTY}                       16    NOT SET    source=${RESOURCE_FILE}
+    START    KEYWORD          Log                            17    NOT SET    source=${RESOURCE_FILE}
+    END      KEYWORD          Log                            17    PASS       source=${RESOURCE_FILE}
+    END      TRY              ${EMPTY}                       16    PASS       source=${RESOURCE_FILE}
+    START    FINALLY          ${EMPTY}                       18    NOT SET    source=${RESOURCE_FILE}
+    START    KEYWORD          Log                            19    NOT SET    source=${RESOURCE_FILE}
+    END      KEYWORD          Log                            19    PASS       source=${RESOURCE_FILE}
+    END      FINALLY          ${EMPTY}                       18    PASS       source=${RESOURCE_FILE}
     END      KEYWORD          TRY In Resource                81    PASS
 
 Run Keyword
@@ -212,10 +212,10 @@ Run Keyword in keyword
 
 Run Keyword in resource
     START    KEYWORD          Run Keyword in resource        92    NOT SET
-    START    KEYWORD          Run Keyword                    23    NOT SET    source=${RESOURCE FILE}
-    START    KEYWORD          Log                            23    NOT SET    source=${RESOURCE FILE}
-    END      KEYWORD          Log                            23    PASS       source=${RESOURCE FILE}
-    END      KEYWORD          Run Keyword                    23    PASS       source=${RESOURCE FILE}
+    START    KEYWORD          Run Keyword                    23    NOT SET    source=${RESOURCE_FILE}
+    START    KEYWORD          Log                            23    NOT SET    source=${RESOURCE_FILE}
+    END      KEYWORD          Log                            23    PASS       source=${RESOURCE_FILE}
+    END      KEYWORD          Run Keyword                    23    PASS       source=${RESOURCE_FILE}
     END      KEYWORD          Run Keyword in resource        92    PASS
 
 In setup and teardown
@@ -262,14 +262,14 @@ Suite
 
 *** Keywords ***
 Expect
-    [Arguments]    ${event}    ${type}    ${name}    ${lineno}=-1    ${status}=    ${source}=${TEST CASE FILE}
+    [Arguments]    ${event}    ${type}    ${name}    ${lineno}=-1    ${status}=    ${source}=${TEST_CASE_FILE}
     ${source} =    Normalize Path    ${source}
     ${status} =    Set Variable IF    "${status}"    \t${status}    ${EMPTY}
     Set test variable    @EXPECTED    @{EXPECTED}    ${event}\t${type}\t${name}\t${lineno}\t${source}${status}
 
 Validate keywords
     Check Test Case    ${TESTNAME}
-    Check Listener File    ${TEST NAME}.txt    @{EXPECTED}
+    Check Listener File    ${TEST_NAME}.txt    @{EXPECTED}
 
 Expect test
     [Arguments]    ${name}    ${lineno}    ${status}=PASS

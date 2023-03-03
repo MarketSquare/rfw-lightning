@@ -1,5 +1,5 @@
 *** Settings ***
-Suite Teardown    Sleep    ${TEARDOWN SLEEP}
+Suite Teardown    Sleep    ${TEARDOWN_SLEEP}
 Library           Library.py
 Library           OperatingSystem
 

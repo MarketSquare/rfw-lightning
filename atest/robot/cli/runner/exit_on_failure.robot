@@ -5,26 +5,26 @@ Suite Setup       Run Tests
 Resource          atest_resource.robot
 
 *** Variables ***
-${EXIT ON FAILURE}          Failure occurred and exit-on-failure mode is in use.
+${EXIT_ON_FAILURE}          Failure occurred and exit-on-failure mode is in use.
 
 *** Test Cases ***
 Passing test does not initiate exit-on-failure
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Skipped test does not initiate exit-on-failure
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Test skipped in teardown does not initiate exit-on-failure
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Skip-on-failure test does not initiate exit-on-failure
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Test skipped-on-failure in teardown does not initiate exit-on-failure
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Failing test initiates exit-on-failure
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
     Test Should Not Have Been Run    Not executed
 
 Tests in subsequent suites are skipped
@@ -98,5 +98,5 @@ Failure set by listener can initiate exit-on-failure
 *** Keywords ***
 Test Should Not Have Been Run
     [Arguments]    ${name}
-    ${tc} =    Check Test Case    ${name}    FAIL    ${EXIT ON FAILURE}
+    ${tc} =    Check Test Case    ${name}    FAIL    ${EXIT_ON_FAILURE}
     Should Contain    ${tc.tags}    robot:exit

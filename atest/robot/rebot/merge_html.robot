@@ -4,17 +4,17 @@ Suite Teardown    Remove Files    ${ORIGINAL}
 Resource          rebot_resource.robot
 
 *** Variables ***
-${MERGE HEADER}   Test has been re-executed and results merged.
+${MERGE_HEADER}   Test has been re-executed and results merged.
 
 *** Variables ***
 ${DATA}                   ${DATADIR}/rebot/merge_html.robot
 ${ORIGINAL}               %{TEMPDIR}/merge-original.xml
 ${MERGE}                  %{TEMPDIR}/merge.xml
-@{ALL TESTS}              Html1   Html2   Html3   Html4
+@{ALL_TESTS}              Html1   Html2   Html3   Html4
 ${RUN_MSG_TEXT}           Test message
 ${RUN_MSG_HTML}           *HTML* <b>Test</b> message
 ${MERGE_MSG_TEXT_TEXT}    SEPARATOR=
-...    *HTML* <span class="merge">${MERGE HEADER}</span>
+...    *HTML* <span class="merge">${MERGE_HEADER}</span>
 ...    <hr>
 ...    <span class="new-status">New status:</span> <span class="fail">FAIL</span>
 ...    <br>
@@ -26,7 +26,7 @@ ${MERGE_MSG_TEXT_TEXT}    SEPARATOR=
 ...    <span class="old-message">Old message:</span> Test message
 ...    <br>
 ${MERGE_MSG_HTML_HTML}    SEPARATOR=
-...    *HTML* <span class="merge">${MERGE HEADER}</span>
+...    *HTML* <span class="merge">${MERGE_HEADER}</span>
 ...    <hr>
 ...    <span class="new-status">New status:</span> <span class="fail">FAIL</span>
 ...    <br>
@@ -38,7 +38,7 @@ ${MERGE_MSG_HTML_HTML}    SEPARATOR=
 ...    <span class="old-message">Old message:</span> <b>Test</b> message
 ...    <br>
 ${MERGE_MSG_TEXT_HTML}    SEPARATOR=
-...    *HTML* <span class="merge">${MERGE HEADER}</span>
+...    *HTML* <span class="merge">${MERGE_HEADER}</span>
 ...    <hr>
 ...    <span class="new-status">New status:</span> <span class="fail">FAIL</span>
 ...    <br>
@@ -50,7 +50,7 @@ ${MERGE_MSG_TEXT_HTML}    SEPARATOR=
 ...    <span class="old-message">Old message:</span> <b>Test</b> message
 ...    <br>
 ${MERGE_MSG_HTML_TEXT}    SEPARATOR=
-...    *HTML* <span class="merge">${MERGE HEADER}</span>
+...    *HTML* <span class="merge">${MERGE_HEADER}</span>
 ...    <hr>
 ...    <span class="new-status">New status:</span> <span class="fail">FAIL</span>
 ...    <br>
@@ -81,7 +81,7 @@ Merge re-executed tests
 *** Keywords ***
 Run original tests
     Create Output With Robot    ${ORIGINAL}    ${EMPTY}    ${DATA}
-    Should Contain Tests    ${SUITE}    @{ALL TESTS}
+    Should Contain Tests    ${SUITE}    @{ALL_TESTS}
 
 Re-run tests
     [Arguments]    ${options}=

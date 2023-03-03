@@ -1,6 +1,6 @@
 *** Variables ***
 # Used to make arguments look different from actual printout in html
-${TO LOG}         to log
+${TO_LOG}         to log
 
 *** Test Cases ***
 Set Log Level
@@ -31,11 +31,11 @@ Invalid Log Level Failure Is Catchable
 
 Log Level Goes To HTML
     Set Log Level    Trace
-    Log    TC Trace ${to log}    Trace
-    Log    TC Info ${to log}    Info
+    Log    TC Trace ${to_log}    Trace
+    Log    TC Info ${to_log}    Info
     Logging keyword
 
 *** Keywords ***
 Logging keyword
-    Log    KW Trace ${to log}    Trace
-    Log    KW Info ${to log}    Info
+    Log    KW Trace ${to_log}    Trace
+    Log    KW Info ${to_log}    Info

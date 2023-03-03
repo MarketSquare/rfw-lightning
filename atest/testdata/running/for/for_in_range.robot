@@ -122,8 +122,8 @@ Wrong number of variables
     Fail    Not executed
 
 Non-existing variables in arguments
-    [Documentation]    FAIL    Variable '\@{non existing}' not found.
-    FOR    ${i}    IN RANGE    @{non existing}
+    [Documentation]    FAIL    Variable '\@{non_existing}' not found.
+    FOR    ${i}    IN RANGE    @{non_existing}
         Fail    Not executed
     END
     Fail    Not executed

@@ -13,5 +13,5 @@ Keyword should have been validated
     Check Keyword Data    ${kw.kws[0]}    BuiltIn.Log    status=NOT RUN    args=This is validated
 
 Last keyword should have been validated
-    ${tc} =    Get test case    ${TEST NAME}
+    ${tc} =    Get test case    ${TEST_NAME}
     Keyword should have been validated    ${tc.kws[-1]}

@@ -23,7 +23,7 @@ Log Variables
 List and dict variables failing during iteration
     Import Variables    ${CURDIR}/broken_containers.py
     Log Variables
-    Log Many    ${BROKEN ITERABLE}    ${BROKEN SEQUENCE}    ${BROKEN MAPPING}
+    Log Many    ${BROKEN_ITERABLE}    ${BROKEN_SEQUENCE}    ${BROKEN_MAPPING}
 
 *** Keyword ***
 My Suite Setup

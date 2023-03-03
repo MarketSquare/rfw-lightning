@@ -5,7 +5,8 @@ Resource           process_resource.robot
 Stdin is PIPE by defauls
     Start Process    python    -c    import sys; print(sys.stdin.read())
     ${process} =    Get Process Object
-    Call Method    ${process.stdin}    write    ${{b'Hello, world!'}}
+    ${binary_text} =    Evaluate    b'Hello, world!'
+    Call Method    ${process.stdin}    write    ${binary_text}
     Call Method    ${process.stdin}    close
     ${result} =    Wait For Process
     Should Be Equal    ${result.stdout}    Hello, world!
@@ -13,7 +14,8 @@ Stdin is PIPE by defauls
 Stdin as PIPE explicitly
     Start Process    python    -c    import sys; print(sys.stdin.read())    stdin=PIPE
     ${process} =    Get Process Object
-    Call Method    ${process.stdin}    write    ${{b'Hello, world!'}}
+    ${binary_text} =    Evaluate    b'Hello, world!'
+    Call Method    ${process.stdin}    write    ${binary_text}
     Call Method    ${process.stdin}    close
     ${result} =    Wait For Process
     Should Be Equal    ${result.stdout}    Hello, world!
@@ -45,7 +47,8 @@ Stdin as path
 
 Stdin as `pathlib.Path`
     Create File    ${STDIN}    Hyvää päivää maailma!    encoding=CONSOLE
-    ${result} =    Run Process    python    -c    import sys; print(sys.stdin.read())    stdin=${{pathlib.Path($STDIN)}}
+    ${stdin_path}=Evaluate   pathlib.Path($STDIN)
+    ${result} =    Run Process    python    -c    import sys; print(sys.stdin.read())    stdin=${stdin_path}
     Should Be Equal    ${result.stdout}    Hyvää päivää maailma!
     [Teardown]    Remove File    ${STDIN}
 

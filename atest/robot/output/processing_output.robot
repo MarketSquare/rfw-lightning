@@ -8,7 +8,7 @@ Test Case File Suite
     My Run Robot And Rebot    ${EMPTY}    misc/normal.robot
     Should Be Equal    ${SUITE.name}    Normal
     Should Be Equal    ${SUITE.doc}    Normal test cases
-    Should Be Equal    ${SUITE.metadata['Something']}    My Value
+    Should Be Equal    ${SUITE.metadata}[Something]    My Value
     Should Be Equal as Strings    ${SUITE.metadata}    {Something: My Value}
     Check Normal Suite Defaults    ${SUITE}
     Should Be Equal    ${SUITE.full_message}    2 tests, 2 passed, 0 failed
@@ -20,8 +20,8 @@ Directory Suite
     My Run Robot And Rebot    --metadata x:y -M a:b --name "My Name" --doc Something    misc/suites
     Should Be Equal    ${SUITE.name}    My Name
     Should Be Equal    ${SUITE.doc}    Something
-    Should Be Equal    ${SUITE.metadata['x']}    y
-    Should Be Equal    ${SUITE.metadata['a']}    b
+    Should Be Equal    ${SUITE.metadata}[x]    y
+    Should Be Equal    ${SUITE.metadata}[a]    b
     Should Be True    list($SUITE.metadata.items()) == [('a', 'b'), ('x', 'y')]
     Check Suite Got From misc/suites/ Directory
 
@@ -46,7 +46,7 @@ My Run Robot And Rebot
     [Arguments]    ${params}    ${paths}
     Run Tests Without Processing Output    ${params}    ${paths}
     Copy Previous Outfile
-    Run Rebot    ${EMPTY}    ${OUTFILE COPY}
+    Run Rebot    ${EMPTY}    ${OUTFILE_COPY}
 
 Check Normal Suite Defaults
     [Arguments]    ${suite}    ${message}=    ${setup}=${None}    ${teardown}=${None}

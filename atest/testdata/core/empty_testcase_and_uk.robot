@@ -1,15 +1,15 @@
 *** Variables ***
-${TEST OR TASK}   Test
+${TEST_OR_TASK}   Test
 
 *** Test Cases ***
-    [Documentation]  FAIL ${TEST OR TASK} name cannot be empty.
+    [Documentation]  FAIL ${TEST_OR_TASK} name cannot be empty.
     Fail  Should not be executed
 
 Empty Test Case
-    [Documentation]  FAIL ${TEST OR TASK} contains no keywords.
+    [Documentation]  FAIL ${TEST_OR_TASK} contains no keywords.
 
 Empty Test Case With Setup And Teardown
-    [Documentation]  FAIL ${TEST OR TASK} contains no keywords.
+    [Documentation]  FAIL ${TEST_OR_TASK} contains no keywords.
     [Setup]  Fail  Should not be executed
     [Teardown]  Fail  Should not be executed
 

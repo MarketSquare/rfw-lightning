@@ -6,19 +6,19 @@ Library           XML    use_lxml=yes
 Resource          xml_resource.robot
 
 *** Variables ***
-${SIMPLE SAVED}       <root><child id="1">text</child><c2><gc/></c2></root>
+${SIMPLE_SAVED}       <root><child id="1">text</child><c2><gc/></c2></root>
 ${NON-ASCII}          <hyvää>yötä</hyvää>
-${NON-ASCII SAVED}    <hyv&#228;&#228;>y&#246;t&#228;</hyv&#228;&#228;>
+${NON-ASCII_SAVED}    <hyv&#228;&#228;>y&#246;t&#228;</hyv&#228;&#228;>
 
 *** Test Cases ***
 Save XML Element
     ${xml} =    Parse XML    ${SIMPLE}
     Save XML    ${xml}    ${OUTPUT}
-    XML Content Should Be    ${SIMPLE SAVED}
+    XML Content Should Be    ${SIMPLE_SAVED}
 
 Save XML String
     Save XML    ${SIMPLE}    ${OUTPUT}
-    XML Content Should Be    ${SIMPLE SAVED}
+    XML Content Should Be    ${SIMPLE_SAVED}
 
 Save XML File
     Save XML    ${TEST}    ${OUTPUT}
@@ -26,7 +26,7 @@ Save XML File
 
 Save XML Using Custom Encoding
     Save XML    ${SIMPLE}    ${OUTPUT}    encoding=US-ASCII
-    XML Content Should Be    ${SIMPLE SAVED}    encoding=US-ASCII
+    XML Content Should Be    ${SIMPLE_SAVED}    encoding=US-ASCII
 
 Save Non-ASCII XML
     Save XML    ${NON-ASCII}    ${OUTPUT}
@@ -37,8 +37,9 @@ Save Non-ASCII XML Using Custom Encoding
     XML Content Should Be    ${NON-ASCII}    ISO-8859-1
 
 Save to `pathlib.Path`
-    Save XML    ${SIMPLE}    ${{pathlib.Path($OUTPUT)}}
-    XML Content Should Be    ${SIMPLE SAVED}
+    ${output_path}=Evaluate  pathlib.Path($OUTPUT)
+    Save XML    ${SIMPLE}    ${output_path}
+    XML Content Should Be    ${SIMPLE_SAVED}
 
 Save to Invalid File
     [Documentation]    FAIL REGEXP: (IOError|IsADirectoryError|PermissionError): .*
@@ -50,7 +51,7 @@ Save Using Invalid Encoding
 
 Save Non-ASCII Using ASCII
     Save XML    ${NON-ASCII}    ${OUTPUT}    ASCII
-    XML Content Should Be    ${NON-ASCII SAVED}   ASCII
+    XML Content Should Be    ${NON-ASCII_SAVED}   ASCII
 
 Doctype is preserved
     Save XML    <!DOCTYPE foo><foo/>    ${OUTPUT}
@@ -64,7 +65,7 @@ Comments and processing instructions are removed
     ${xml} =    Replace String    ${SIMPLE}    <    <!--c--><?p?><
     ${xml} =    Replace String    ${xml}    >    ><!--c--><?p?>
     Save XML    ${xml}    ${OUTPUT}
-    XML Content Should Be    ${SIMPLE SAVED}
+    XML Content Should Be    ${SIMPLE_SAVED}
 
 Element can be further modified after saving
     ${xml} =    Parse XML    <root><child>text</child></root>

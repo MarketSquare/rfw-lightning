@@ -6,7 +6,7 @@ Documentation     Test that SIGINT and SIGTERM can stop execution gracefully
 Resource          atest_resource.robot
 
 *** Variables ***
-${TEST FILE}      %{TEMPDIR}${/}signal-tests.txt
+${TEST_FILE}      %{TEMPDIR}${/}signal-tests.txt
 
 *** Test Cases ***
 SIGINT Signal Should Stop Test Execution Gracefully
@@ -71,9 +71,9 @@ Skip Teardowns After Stopping Gracefully
 
 *** Keywords ***
 Start And Send Signal
-    [Arguments]    ${datasource}    ${signals}    ${sleep}=0s    @{extra options}
-    Remove File    ${TEST FILE}
-    Start Run    ${datasource}    ${sleep}    @{extra options}
+    [Arguments]    ${datasource}    ${signals}    ${sleep}=0s    @{extra_options}
+    Remove File    ${TEST_FILE}
+    Start Run    ${datasource}    ${sleep}    @{extra_options}
     Wait Until Created    ${TESTFILE}    timeout=45s
     Run Keyword    ${signals}
     ${result} =    Wait For Process    timeout=45s    on_timeout=terminate
@@ -81,14 +81,14 @@ Start And Send Signal
     Set Test Variable    $STDERR    ${result.stderr}
 
 Start Run
-    [Arguments]    ${datasource}    ${sleep}    @{extra options}
+    [Arguments]    ${datasource}    ${sleep}    @{extra_options}
     @{command} =    Create List
     ...    @{INTERPRETER.runner}
     ...    --output    ${OUTFILE}    --report    NONE    --log    NONE
-    ...    --variable    TESTSIGNALFILE:${TEST FILE}
+    ...    --variable    TESTSIGNALFILE:${TEST_FILE}
     ...    --variable    TEARDOWNSLEEP:${sleep}
     ...    --variablefile    ${CURDIR}${/}enable_ctrl_c_event.py
-    ...    @{extra options}
+    ...    @{extra_options}
     ...    ${DATADIR}${/}running${/}stopping_with_signal${/}${datasource}
     Log Many    @{command}
     Start Process    @{command}

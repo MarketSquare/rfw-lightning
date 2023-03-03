@@ -3,21 +3,21 @@ Library           RegisteringLibrary.py
 Variables         variable.py
 
 *** Variable ***
-@{NEEDS ESCAPING}    c:\\temp\\foo    \${notvar}
-@{KEYWORD AND ARG WHICH NEEDS ESCAPING}    \\Log Many    \${notvar}
-@{KEYWORD AND ARGS WHICH NEEDS ESCAPING}    \\Log Many    @{NEEDS ESCAPING}
+@{NEEDS_ESCAPING}    c:\\temp\\foo    \${notvar}
+@{KEYWORD_AND_ARG_WHICH_NEEDS_ESCAPING}    \\Log Many    \${notvar}
+@{KEYWORD_AND_ARGS_WHICH_NEEDS_ESCAPING}    \\Log Many    @{NEEDS_ESCAPING}
 @{EXPRESSION}     ${TRUE}
-@{ARGS}           @{NEEDS ESCAPING}
+@{ARGS}           @{NEEDS_ESCAPING}
 ${KEYWORD}        \\Log Many
-@{KEYWORD LIST}   ${KEYWORD}
+@{KEYWORD_LIST}   ${KEYWORD}
 
 *** Test Case ***
 Variable Values Should Not Be Visible As Keyword's Arguments
     Run Keyword    My UK    Log    ${OBJECT}
 
 Run Keyword When Keyword and Arguments Are in List Variable
-    Run Keyword    @{KEYWORD AND ARGS WHICH NEEDS ESCAPING}
-    Run Keyword    @{KEYWORD AND ARG WHICH NEEDS ESCAPING}
+    Run Keyword    @{KEYWORD_AND_ARGS_WHICH_NEEDS_ESCAPING}
+    Run Keyword    @{KEYWORD_AND_ARG_WHICH_NEEDS_ESCAPING}
 
 Run Keyword With Empty List Variable
     [Documentation]    FAIL
@@ -30,10 +30,10 @@ Run Keyword With Multiple Empty List Variables
     Run Keyword    @{EMPTY}    @{{{}}}    @{EMPTY}
 
 Run Keyword If When Arguments are In Multiple List
-    Run Keyword If    @{EXPRESSION}    @{KEYWORD LIST}    @{ARGS}
+    Run Keyword If    @{EXPRESSION}    @{KEYWORD_LIST}    @{ARGS}
 
 Run Keyword When Arguments are Not In First Lists
-    Run Keyword    @{EMPTY}    @{EMPTY}    @{EMPTY}    @{KEYWORD LIST}    @{ARGS}
+    Run Keyword    @{EMPTY}    @{EMPTY}    @{EMPTY}    @{KEYWORD_LIST}    @{ARGS}
 
 Run Keyword When Keyword And Arguments In Scalar After Empty Lists
     Run Keyword    @{EMPTY}    @{EMPTY}    ${KEYWORD}    @{ARGS}

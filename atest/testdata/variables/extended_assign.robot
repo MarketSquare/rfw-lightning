@@ -5,7 +5,7 @@ Variables    extended_assign_vars.py
 Set attributes to Python object
     [Setup]    Should Be Equal    ${VAR.attr}-${VAR.attr2}    value-v2
     ${VAR.attr} =    Set Variable    new value
-    ${ v a r . attr2 } =    Set Variable    nv2
+    ${var.attr2} =    Set Variable    nv2
     ${VAR.attr3} =    Set Variable    ${42}
     Should Be Equal    ${VAR.attr}-${VAR.attr2}-${VAR.attr3}    new value-NV2-42
 

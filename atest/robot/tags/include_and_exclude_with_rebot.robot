@@ -1,16 +1,16 @@
 *** Settings ***
 Documentation     Testing rebot's include/exclude functionality. Tests also include/exclude first during test execution and then with rebot.
 Suite Setup       Create Input Files
-Suite Teardown    Remove File    ${INPUT FILE}
+Suite Teardown    Remove File    ${INPUT_FILE}
 Test Template     Run And Check Include And Exclude
 Resource          rebot_resource.robot
 
 *** Variables ***
-${TEST FILE}      tags/include_and_exclude.robot
-${TEST FILE2}     tags/no_force_no_default_tags.robot
-${INPUT FILE}     %{TEMPDIR}/robot-tags-input.xml
-${INPUT FILE 2}    %{TEMPDIR}/robot-tags-input-2.xml
-${INPUT FILES}    ${INPUT FILE}
+${TEST_FILE}      tags/include_and_exclude.robot
+${TEST_FILE2}     tags/no_force_no_default_tags.robot
+${INPUT_FILE}     %{TEMPDIR}/robot-tags-input.xml
+${INPUT_FILE_2}    %{TEMPDIR}/robot-tags-input-2.xml
+${INPUT_FILES}    ${INPUT_FILE}
 @{INCL_ALL}       Incl-1    Incl-12    Incl-123
 @{EXCL_ALL}       excl-1    Excl-12    Excl-123
 @{ALL}            @{INCL_ALL}    @{EXCL_ALL}
@@ -87,11 +87,11 @@ Include and Exclude with NOT
     --include incl1NOTincl3 --exclude incl1NOTincl2    Incl-12
 
 Select tests without any tags
-    [Setup]    Set Test Variable    ${INPUT FILES}    ${INPUT FILE 2}
+    [Setup]    Set Test Variable    ${INPUT_FILES}    ${INPUT_FILE_2}
     --exclude *ORwhatever    No Own Tags No Force Nor Default    Own Tags Empty No Force Nor Default
 
 Select tests with any tag
-    [Setup]    Set Test Variable    ${INPUT FILES}    ${INPUT FILE 2}
+    [Setup]    Set Test Variable    ${INPUT_FILES}    ${INPUT_FILE_2}
     --include *AND*    Own Tags No Force Nor Default
 
 Non Matching Include
@@ -110,17 +110,17 @@ Non Matching Include And Exclude
     --include nonex -i incl? -e *1 -e *2 -e *3    tags 'nonex' or 'incl?' and not matching tags '*1', '*2' or '*3'
 
 Non Matching When Reboting Multiple Outputs
-    [Setup]    Set Test Variable    ${INPUT FILES}    ${INPUT FILE} ${INPUT FILE 2}
+    [Setup]    Set Test Variable    ${INPUT_FILES}    ${INPUT_FILE} ${INPUT_FILE_2}
     [Template]    Run And Check Error
     --include nonex    tag 'nonex'    Include And Exclude & No Force No Default Tags
     --include nonex --name MyName   tag 'nonex'    MyName
 
 Including With Robot And Including And Excluding With Rebot
-    [Setup]    Create Output With Robot    ${INPUT FILE}    --include incl1 --exclude nonexisting    ${TESTFILE}
+    [Setup]    Create Output With Robot    ${INPUT_FILE}    --include incl1 --exclude nonexisting    ${TESTFILE}
     -i i*2* -e nonexisting -e incl3    Incl-12
 
 Excluding With Robot And Including And Excluding Without Matching Rebot
-    [Setup]    Create Output With Robot    ${INPUT FILE}    -i incl1 --exclude excl*    ${TESTFILE}
+    [Setup]    Create Output With Robot    ${INPUT_FILE}    -i incl1 --exclude excl*    ${TESTFILE}
     -e nonexisting -e excl3    @{INCL_ALL}
 
 Elapsed Time
@@ -138,7 +138,7 @@ Elapsed Time
     Length Should Be    ${SUITE.tests}    6
     # Filter ouput created in earlier step and check that times are set accordingly.
     Copy Previous Outfile
-    Run Rebot    --include incl2 --include excl3    ${OUTFILE COPY}
+    Run Rebot    --include incl2 --include excl3    ${OUTFILE_COPY}
     Check Times    ${SUITE}    ${NONE}    ${NONE}    6004
     Check Times    ${SUITE.tests[0]}    20061227 12:00:01.000    20061227 12:00:03.000    2000
     Check Times    ${SUITE.tests[1]}    20061227 12:00:03.000    20061227 12:00:07.000    4000
@@ -147,12 +147,12 @@ Elapsed Time
 
 *** Keywords ***
 Create Input Files
-    Create Output With Robot    ${INPUT FILE 2}    ${EMPTY}    ${TEST FILE 2}
-    Create Output With Robot    ${INPUT FILE}    ${EMPTY}    ${TEST FILE}
+    Create Output With Robot    ${INPUT_FILE_2}    ${EMPTY}    ${TEST_FILE_2}
+    Create Output With Robot    ${INPUT_FILE}    ${EMPTY}    ${TEST_FILE}
 
 Run And Check Include And Exclude
     [Arguments]    ${params}    @{tests}    ${times_are_none}=${{bool($params)}}
-    Run Rebot    ${params}    ${INPUT FILES}
+    Run Rebot    ${params}    ${INPUT_FILES}
     Stderr Should Be Empty
     Should Contain Tests    ${SUITE}    @{tests}
     Should Be True    $SUITE.statistics.passed == len($tests)
@@ -168,9 +168,9 @@ Run And Check Include And Exclude
     Should Be True    $SUITE.elapsedtime <= $ORIG_ELAPSED + 1
 
 Run And Check Error
-    [Arguments]    ${params}    ${filter msg}    ${suite name}=Include And Exclude
-    Run Rebot Without Processing Output    ${params}    ${INPUT FILES}
+    [Arguments]    ${params}    ${filter_msg}    ${suite_name}=Include And Exclude
+    Run Rebot Without Processing Output    ${params}    ${INPUT_FILES}
     Stderr Should Be Equal To    SEPARATOR=
-    ...    [ ERROR ] Suite '${suite name}' contains no tests matching ${filter msg}.
-    ...    ${USAGE TIP}\n
+    ...    [ ERROR ] Suite '${suite_name}' contains no tests matching ${filter_msg}.
+    ...    ${USAGE_TIP}\n
     File Should Not Exist    ${OUTFILE}

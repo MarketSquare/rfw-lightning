@@ -36,11 +36,11 @@ Setting Syslog Level
 
 *** Keywords ***
 Rebot Something
-    ${result} =    Run Rebot Without Processing Output    ${INPUT FILE}
+    ${result} =    Run Rebot Without Processing Output    ${INPUT_FILE}
     Should Be Equal    ${result.rc}    ${0}
 
 Reset syslog
-    Set Suite Variable    ${SET SYSLOG}    False
+    Set Suite Variable    ${SET_SYSLOG}    False
     Remove Environment Variable    ROBOT_SYSLOG_FILE
     Remove Environment Variable    ROBOT_SYSLOG_LEVEL
     Remove File    ${SYSLOG}

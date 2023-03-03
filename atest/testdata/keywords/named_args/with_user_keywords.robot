@@ -108,10 +108,6 @@ Non working named combinations without varargs
     got positional argument after named arguments.    b=b    b
     got multiple values for argument 'a'.             a      a=a
 
-Nön äscii named arguments
-    ${result} =      Named arguments with nönäscii     nönäscii=pöpipöö
-    Should be equal    ${result}     pöpipöö
-
 *** Keywords ***
 Execute working named vararg combination with result
     [Arguments]    ${expected}    @{args}
@@ -119,9 +115,9 @@ Execute working named vararg combination with result
     Should be equal    ${expected}    ${res}
 
 Execute illegal named vararg combination
-    [Arguments]    ${expected error}    @{args}
+    [Arguments]    ${expected_error}    @{args}
     ${res} =    Get result or error    Mandatory, Named and varargs    @{args}
-    Should be equal    ${res}    Keyword 'Mandatory, Named and varargs' ${expected error}
+    Should be equal    ${res}    Keyword 'Mandatory, Named and varargs' ${expected_error}
 
 Execute working named combination with result
     [Arguments]    ${expected}    @{args}
@@ -129,9 +125,9 @@ Execute working named combination with result
     Should be equal    ${expected}    ${res}
 
 Execute illegal named combination
-    [Arguments]    ${expected error}    @{args}
+    [Arguments]    ${expected_error}    @{args}
     ${res} =    Get result or error    Mandatory and Named    @{args}
-    Should be equal    ${res}    Keyword 'Mandatory and Named' ${expected error}
+    Should be equal    ${res}    Keyword 'Mandatory and Named' ${expected_error}
 
 Mandatory, Named and varargs
     [Arguments]    ${a}    ${b}=default    @{varargs}

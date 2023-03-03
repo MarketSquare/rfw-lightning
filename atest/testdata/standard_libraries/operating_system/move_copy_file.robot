@@ -14,13 +14,13 @@ Copy File
     Create File    ${TESTFILE}    contents
     Copy File    ${TESTFILE}    ${TESTFILE2}
     Verify File    ${TESTFILE2}    contents
-    Directory Should Have Items    ${BASE}    ${TESTFILE SHORT NAME}    ${TESTFILE 2 SHORT NAME}
+    Directory Should Have Items    ${BASE}    ${TESTFILE_SHORT_NAME}    ${TESTFILE_2_SHORT_NAME}
 
 Copy File With Glob Pattern
     Create File    ${BASE}/somefile.txt    contents
     Copy File    ${BASE}/som*i??.txt    ${TESTFILE}
     Verify File    ${TESTFILE}    contents
-    Directory Should Have Items    ${BASE}    ${TESTFILE SHORT NAME}    somefile.txt
+    Directory Should Have Items    ${BASE}    ${TESTFILE_SHORT_NAME}    somefile.txt
 
 Move File With Glob Pattern
     Create File    ${BASE}/somefile.txt    contents
@@ -60,15 +60,15 @@ Copy File when destination is a directory
     Create Directory    ${destination}
     Create File    ${TESTFILE}    contents
     Copy File    ${TESTFILE}    ${destination}
-    Verify File    ${destination}${/}${TESTFILE SHORT NAME}    contents
+    Verify File    ${destination}${/}${TESTFILE_SHORT_NAME}    contents
 
 Copy File when destination is a directory and file with same name exists
     ${destination}=    Set Variable    ${BASE}/foo
     Create Directory    ${destination}
     Create File    ${TESTFILE}    contents
-    Create File    ${destination}${/}${TESTFILE SHORT NAME}    original
+    Create File    ${destination}${/}${TESTFILE_SHORT_NAME}    original
     Copy File    ${TESTFILE}    ${destination}
-    Verify File    ${destination}${/}${TESTFILE SHORT NAME}    contents
+    Verify File    ${destination}${/}${TESTFILE_SHORT_NAME}    contents
 
 Move File To Existing Directory
     Create Directory    ${BASE}/foo
@@ -93,12 +93,12 @@ Move File To Non-Existing Directory
 
 Move File Using Just File Name
     Create File    rf_test.1    contents
-    ${contents 1} =    Get File    rf_test.1
+    ${contents_1} =    Get File    rf_test.1
     Move File    rf_test.1    rf_test.2
     Should Not Exist    rf_test.1
     Should Exist    ${EXECDIR}/rf_test.2
-    ${contents 2} =    Get File    rf_test.2
-    Should Be Equal    -${contents 1}-${contents 2}-    -contents-contents-
+    ${contents_2} =    Get File    rf_test.2
+    Should Be Equal    -${contents_1}-${contents_2}-    -contents-contents-
     [Teardown]    Remove Files    rf_test.1    rf_test.2
 
 Moving Non-Existing File Fails
@@ -170,8 +170,11 @@ Copy File returns destination path
 
 Path as `pathlib.Path`
     Create File              ${BASE}/file
-    Move File                ${PATH/'file'}    ${PATH/'new'}
-    Copy File                ${PATH/'new'}    ${PATH/'copy'}
+    ${path_file}=Evaluate    $PATH/'file'
+    ${path_new}=Evaluate    $PATH/'new'
+    ${path_copy}=Evaluate    $PATH/'copy'
+    Move File                ${path_file}    ${path_new}
+    Copy File                ${path_new}    ${path_copy}
     File Should Not Exist    ${BASE}/file
     File Should Exist        ${BASE}/new
     File Should Exist        ${BASE}/copy

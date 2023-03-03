@@ -21,6 +21,6 @@ def Defined_Thrice():
 def embedded1(arg):
     1/0
 
-@keyword('Embedded ${arguments match} TWICE')
+@keyword('Embedded ${arguments_match} TWICE')
 def embedded2(arg):
     2/0

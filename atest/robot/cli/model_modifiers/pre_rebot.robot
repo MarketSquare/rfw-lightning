@@ -1,38 +1,38 @@
 *** Settings ***
-Suite Setup       Create Output With Robot    ${MODIFIED OUTPUT}    ${EMPTY}    ${TEST DATA}
-Suite Teardown    Remove File    ${MODIFIED OUTPUT}
+Suite Setup       Create Output With Robot    ${MODIFIED_OUTPUT}    ${EMPTY}    ${TEST_DATA}
+Suite Teardown    Remove File    ${MODIFIED_OUTPUT}
 Resource          modifier_resource.robot
 Resource          rebot_resource.robot
 
 *** Variables ***
-${MODIFIED OUTPUT}    %{TEMPDIR}/pre_rebot_modified.xml
+${MODIFIED_OUTPUT}    %{TEMPDIR}/pre_rebot_modified.xml
 
 *** Test Cases ***
 Modifier as path
-    Run Rebot    --prerebotmodifier ${CURDIR}/ModelModifier.py -l ${LOG}    ${MODIFIED OUTPUT}
+    Run Rebot    --prerebotmodifier ${CURDIR}/ModelModifier.py -l ${LOG}    ${MODIFIED_OUTPUT}
     Output and log should be modified    visited
 
 Modifier as name
-    Run Rebot    --prerebotmodifier ModelModifier --pythonpath ${CURDIR} -l ${LOG}    ${MODIFIED OUTPUT}
+    Run Rebot    --prerebotmodifier ModelModifier --pythonpath ${CURDIR} -l ${LOG}    ${MODIFIED_OUTPUT}
     Output and log should be modified    visited
 
 Modifier with arguments separated with ':'
-    Run Rebot    --PreRebotModifier ${CURDIR}/ModelModifier.py:new:tags:named=tag -l ${LOG}    ${MODIFIED OUTPUT}
+    Run Rebot    --PreRebotModifier ${CURDIR}/ModelModifier.py:new:tags:named=tag -l ${LOG}    ${MODIFIED_OUTPUT}
     Output and log should be modified    new    tags    named-tag
 
 Modifier with arguments separated with ';'
-    Run Rebot    --prerebot "ModelModifier;1;2;3" --prere "ModelModifier;4;5;n=t" -P ${CURDIR} -l ${LOG}    ${MODIFIED OUTPUT}
+    Run Rebot    --prerebot "ModelModifier;1;2;3" --prere "ModelModifier;4;5;n=t" -P ${CURDIR} -l ${LOG}    ${MODIFIED_OUTPUT}
     Output and log should be modified    1    2    3    4    5    n-t
 
 Non-existing modifier
-    Run Rebot    --prerebotmod NobodyHere -l ${LOG}    ${MODIFIED OUTPUT}
+    Run Rebot    --prerebotmod NobodyHere -l ${LOG}    ${MODIFIED_OUTPUT}
     Stderr Should Match
     ...    ? ERROR ? Importing model modifier 'NobodyHere' failed: *Error:
     ...    No module named 'NobodyHere'\nTraceback (most recent call last):\n*
     Output and log should not be modified
 
 Invalid modifier
-    Run Rebot    --prerebotmodifier ${CURDIR}/ModelModifier.py:FAIL:Message -l ${LOG}    ${MODIFIED OUTPUT}
+    Run Rebot    --prerebotmodifier ${CURDIR}/ModelModifier.py:FAIL:Message -l ${LOG}    ${MODIFIED_OUTPUT}
     Stderr Should Start With
     ...    [ ERROR ] Executing model modifier 'ModelModifier' failed:
     ...    Message\nTraceback (most recent call last):\n
@@ -40,28 +40,30 @@ Invalid modifier
 
 Error if all tests removed
     ${result} =    Run Rebot Without Processing Output
-    ...    --prerebot ${CURDIR}/ModelModifier.py:REMOVE:ALL:TESTS    ${MODIFIED OUTPUT}
+    ...    --prerebot ${CURDIR}/ModelModifier.py:REMOVE:ALL:TESTS    ${MODIFIED_OUTPUT}
     Stderr Should Be Equal To
-    ...    [ ERROR ] Suite 'Pass And Fail' contains no tests after model modifiers.${USAGE TIP}\n
+    ...    [ ERROR ] Suite 'Pass And Fail' contains no tests after model modifiers.${USAGE_TIP}\n
     Should Be Equal    ${result.rc}    ${252}
 
 --ProcessmptySuite when all tests removed
-    Run Rebot    --ProcessEmptySuite --PreRebot ${CURDIR}/ModelModifier.py:REMOVE:ALL:TESTS    ${MODIFIED OUTPUT}
+    Run Rebot    --ProcessEmptySuite --PreRebot ${CURDIR}/ModelModifier.py:REMOVE:ALL:TESTS    ${MODIFIED_OUTPUT}
     Stderr Should Be Empty
     Length Should Be    ${SUITE.tests}    0
 
 Modifiers are used before normal configuration
-    Run Rebot    --include added --prereb ${CURDIR}/ModelModifier.py:CREATE:name=Created:tags=added    ${MODIFIED OUTPUT}
+    Run Rebot    --include added --prereb ${CURDIR}/ModelModifier.py:CREATE:name=Created:tags=added    ${MODIFIED_OUTPUT}
     Stderr Should Be Empty
     Length Should Be    ${SUITE.tests}    1
     ${tc} =    Check test case    Created    FAIL
-    Lists should be equal    ${tc.tags}    ${{['added']}}
+    ${expected}=Create List    added
+    Lists should be equal    ${tc.tags}    ${expected}
 
 Modify FOR
     [Setup]    Modify FOR and IF
     ${tc} =    Check Test Case    For In Range Loop In Test
     Should Be Equal      ${tc.body[0].flavor}                        IN
-    Should Be Equal      ${tc.body[0].values}                        ${{('FOR', 'is', 'modified!')}}
+    ${expected_values}=     Evaluate      ('FOR', 'is', 'modified!')
+    Should Be Equal      ${tc.body[0].values}                        ${expected_values}
     Should Be Equal      ${tc.body[0].body[0].variables['\${i}']}    0 (modified)
     Should Be Equal      ${tc.body[0].body[0].variables['\${x}']}    new
     Check Log Message    ${tc.body[0].body[0].body[0].msgs[0]}       0
@@ -73,7 +75,7 @@ Modify FOR
     Check Log Message    ${tc.body[0].body[2].body[0].msgs[0]}       2
 
 Modify IF
-    [Setup]    Should Be Equal    ${PREV TEST NAME}    Modify FOR
+    [Setup]    Should Be Equal    ${PREV_TEST_NAME}    Modify FOR
     ${tc} =    Check Test Case    If structure
     Should Be Equal    ${tc.body[0].body[0].condition}          modified
     Should Be Equal    ${tc.body[0].body[0].status}             PASS
@@ -82,6 +84,6 @@ Modify IF
 
 *** Keywords ***
 Modify FOR and IF
-    Create Output With Robot    ${MODIFIED OUTPUT}    ${EMPTY}    misc/for_loops.robot misc/if_else.robot
-    Run Rebot    --prereb ${CURDIR}/ModelModifier.py    ${MODIFIED OUTPUT}
+    Create Output With Robot    ${MODIFIED_OUTPUT}    ${EMPTY}    misc/for_loops.robot misc/if_else.robot
+    Run Rebot    --prereb ${CURDIR}/ModelModifier.py    ${MODIFIED_OUTPUT}
     Stderr Should Be Empty

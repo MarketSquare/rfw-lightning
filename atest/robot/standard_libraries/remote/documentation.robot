@@ -36,7 +36,7 @@ Init arguments
 
 *** Keywords ***
 Run Remote Tests And Libdoc
-    ${port} =    Run Remote Tests    documentation.robot    documentation.py    stop server=no
+    ${port} =    Run Remote Tests    documentation.robot    documentation.py    stop_server=no
     Run Libdoc And Parse Output    Remote::http://127.0.0.1:${port}
     [Teardown]      Run Keywords
     ...    Stop Remote Server    documentation.py    AND
@@ -44,7 +44,7 @@ Run Remote Tests And Libdoc
 
 Verify executed short doc and full Libdoc
     [Arguments]    ${short}    ${full}    ${index}
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Should Be Equal    ${tc.kws[0].doc}    ${short}
-    Keyword Name Should Be    ${index}    ${TEST NAME}
+    Keyword Name Should Be    ${index}    ${TEST_NAME}
     Keyword Doc Should Be     ${index}    ${full}

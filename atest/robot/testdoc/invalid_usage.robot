@@ -17,5 +17,5 @@ Invalid input
 Invalid output
     [Setup]    Create Directory    ${OUTFILE}
     Opening Testdoc output file '*[/\\]testdoc-output.html' failed: *Error: *
-    ...    ${INPUT 1}    remove_outfile=False
+    ...    ${INPUT_1}    remove_outfile=False
     [Teardown]    Remove Directory    ${OUTFILE}

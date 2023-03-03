@@ -65,12 +65,12 @@ Saved XML has same content as original but only default namespaces
     ...   </test>
 
 Element without namepace inside element with namespace
-    Save XML    ${NO NS IN NS}    ${OUTPUT}
-    Elements Should Be Equal    ${NO NS IN NS}    ${OUTPUT}
-    Saved XML Should Equal    ${NO NS IN NS}
+    Save XML    ${NO_NS_IN_NS}    ${OUTPUT}
+    Elements Should Be Equal    ${NO_NS_IN_NS}    ${OUTPUT}
+    Saved XML Should Equal    ${NO_NS_IN_NS}
     ...    <root xmlns="uri"><no xmlns=""><yes xmlns="uri"><no xmlns="">.</no></yes></no></root>
-    Element Text Should Be    ${NO NS IN NS}    .    xpath=no/yes/no
+    Element Text Should Be    ${NO_NS_IN_NS}    .    xpath=no/yes/no
 
 Attribute namespaces are not handled
-    ${elem} =    Parse XML    ${ATTR NS}    keep_clark_notation=false
+    ${elem} =    Parse XML    ${ATTR_NS}    keep_clark_notation=false
     Test Attribute Namespace Parsing    ${elem}

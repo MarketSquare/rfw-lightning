@@ -15,7 +15,7 @@ Invalid condition
     Check Invalid WHILE Test Case
 
 Invalid condition on second round
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Non-existing variable in condition
     Check Invalid WHILE Test Case
@@ -27,13 +27,13 @@ No END
     Check Invalid WHILE Test Case
 
 Invalid data causes syntax error
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Invalid condition causes normal error
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Non-existing variable in condition causes normal error
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 *** Keywords ***
 Check Invalid WHILE Test Case

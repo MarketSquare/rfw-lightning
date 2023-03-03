@@ -8,18 +8,18 @@ Resource          atest_resource.robot
 
 *** Test Cases ***
 Non Existing Implicit Keyword
-    Check Test Case    ${TEST NAME} 1
-    Check Test Case    ${TEST NAME} 2
+    Check Test Case    ${TEST_NAME} 1
+    Check Test Case    ${TEST_NAME} 2
 
 Non Existing Explicit Keyword
-    Check Test Case    ${TEST NAME} 1
-    Check Test Case    ${TEST NAME} 2
+    Check Test Case    ${TEST_NAME} 1
+    Check Test Case    ${TEST_NAME} 2
 
 Non Existing Implicit In User Keyword
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Non Existing Explicit In User Keyword
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Non Existing Library
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}

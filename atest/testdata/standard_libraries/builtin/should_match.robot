@@ -26,8 +26,8 @@ Should Match does not work with bytes
     ...    1) TypeError: *\n\n
     ...    2) TypeError: *
     [Template]    Should Match
-    ${BYTES WITHOUT NON ASCII}    pattern
-    text                          ${BYTES WITHOUT NON ASCII}
+    ${BYTES_WITHOUT_NON_ASCII}    pattern
+    text                          ${BYTES_WITHOUT_NON_ASCII}
 
 Should Not Match
     [Documentation]    FAIL    'Hello world' matches '?ello*'
@@ -70,9 +70,9 @@ Should Match Regexp returns match and groups
     Should Be Equal    ${group2}    !!!!!
 
 Should Match Regexp with bytes containing non-ascii characters
-    [Documentation]    FAIL    '${BYTES WITH NON ASCII}' does not match 'hyva'
+    [Documentation]    FAIL    '${BYTES_WITH_NON_ASCII}' does not match 'hyva'
     [Template]    Should Match Regexp
-    ${BYTES WITH NON ASCII}    ${BYTES WITHOUT NON ASCII}
+    ${BYTES_WITH_NON_ASCII}    ${BYTES_WITHOUT_NON_ASCII}
 
 Should Not Match Regexp
     [Documentation]    FAIL    'James Bond 007' matches '^J\\w{4}\\sB[donkey]+ \\d*$'

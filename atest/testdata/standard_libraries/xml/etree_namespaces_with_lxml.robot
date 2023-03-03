@@ -50,5 +50,5 @@ Saved XML has same namespaces as original
     [Teardown]    Remove Output File
 
 Attribute namespaces
-    ${elem} =    Parse XML    ${ATTR NS}    keep_clark_notation=yes
+    ${elem} =    Parse XML    ${ATTR_NS}    keep_clark_notation=yes
     Test Attribute Namespace Parsing With lxml    ${elem}

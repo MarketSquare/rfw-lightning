@@ -43,7 +43,8 @@ Multiple short errors
 Two long errors
     ${err}=    Get Long Message    40    50
     Raise Continuable Failure    ${err}
-    Raise Continuable Failure    ${err.replace(' ', '~')}
+    ${err_text}=    Evaluate    $err.replace(' ', '~')
+    Raise Continuable Failure    ${err_text}
 
 *** Keywords ***
 Fail With Long Message

@@ -90,7 +90,7 @@ Retry if variable is not found
 
 Pass With Initially Nonexisting Variable Inside Wait Until Keyword Succeeds
     ${tc} =    Check Test Case    ${TESTNAME}
-    Check Log Message    ${tc.kws[0].kws[0].kws[0].msgs[0]}    Variable '\${created after accessing first time}' not found.    FAIL
+    Check Log Message    ${tc.kws[0].kws[0].kws[0].msgs[0]}    Variable '\${created_after_accessing_first_time}' not found.    FAIL
     Check Log Message    ${tc.kws[0].kws[1].kws[0].msgs[0]}    created in keyword teardown
     Length Should Be    ${tc.kws[0].kws}    2
 

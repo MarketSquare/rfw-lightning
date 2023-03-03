@@ -7,113 +7,113 @@ ${EXECUTED}       This is executed
 
 *** Test Case ***
 Run Keyword If With True Expression
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Check Log Message    ${tc.body[0].body[0].msgs[0]}    ${EXECUTED}
 
 Run Keyword If With False Expression
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Should Be Equal As Integers    ${tc.body[0].keyword_count}    0
 
 Run Keyword In User Keyword
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Check Log Message    ${tc.body[0].body[0].body[0].msgs[0]}    ${EXECUTED}
     Should Be Equal As Integers    ${tc.body[1].body[0].keyword_count}    0
 
 Run Keyword With ELSE
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Check Log Message    ${tc.body[1].body[0].msgs[0]}    ${EXECUTED}
     Check Log Message    ${tc.body[3].body[0].msgs[0]}    ${EXECUTED}
 
 Keyword Name in ELSE as variable
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Keyword Name in ELSE as list variable
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Keyword Name in ELSE as non-existing variable
     [Template]    Check Test Case
-    ${TEST NAME} 1
-    ${TEST NAME} 2
+    ${TEST_NAME} 1
+    ${TEST_NAME} 2
 
 ELSE without keyword is invalid
     [Template]    Check Test Case
-    ${TEST NAME} 1
-    ${TEST NAME} 2
+    ${TEST_NAME} 1
+    ${TEST_NAME} 2
 
 Only first ELSE is significant
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Run Keyword With ELSE IF
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Check Log Message    ${tc.body[1].body[0].msgs[0]}    ${EXECUTED}
 
 Run Keyword with ELSE IF and ELSE
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Check Log Message    ${tc.body[0].body[0].msgs[0]}    ${EXECUTED}
     Check Log Message    ${tc.body[1].body[0].msgs[0]}    ${EXECUTED}
 
 Run Keyword with multiple ELSE IF
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Check Log Message    ${tc.body[0].body[0].msgs[0]}    ${EXECUTED}
     Check Log Message    ${tc.body[1].body[0].msgs[0]}    ${EXECUTED}
     Check Log Message    ${tc.body[2].body[0].msgs[0]}    ${EXECUTED}
 
 Keyword Name in ELSE IF as variable
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Keyword Name in ELSE IF as list variable
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Keyword Name in ELSE IF as non-existing variable
     [Template]    Check Test Case
-    ${TEST NAME} 1
-    ${TEST NAME} 2
-    ${TEST NAME} 3
+    ${TEST_NAME} 1
+    ${TEST_NAME} 2
+    ${TEST_NAME} 3
 
 ELSE IF without keyword is invalid
     [Template]    Check Test Case
-    ${TEST NAME} 1
-    ${TEST NAME} 2
-    ${TEST NAME} 3
-    ${TEST NAME} 4
+    ${TEST_NAME} 1
+    ${TEST_NAME} 2
+    ${TEST_NAME} 3
+    ${TEST_NAME} 4
 
 ELSE before ELSE IF is ignored
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Check Log Message    ${tc.body[0].body[0].msgs[0]}    ${EXECUTED}
 
 ELSE and ELSE IF inside list arguments should be escaped
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 ELSE and ELSE IF must be upper case
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Test ELSE (IF) Escaping    ${tc.body[0].body[0]}    else
     Test ELSE (IF) Escaping    ${tc.body[1].body[0]}    ELSE iF
 
 ELSE and ELSE IF must be whitespace sensitive
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Test ELSE (IF) Escaping    ${tc.body[0].body[0]}    EL SE
     Test ELSE (IF) Escaping    ${tc.body[1].body[0]}    ELSEIF
 
 Run Keyword With Escaped ELSE and ELSE IF
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Test ELSE (IF) Escaping    ${tc.body[0].body[0]}    ELSE
     Test ELSE (IF) Escaping    ${tc.body[1].body[0]}    ELSE IF
 
 Run Keyword With ELSE and ELSE IF from Variable
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Test ELSE (IF) Escaping    ${tc.body[0].body[0]}    ELSE
     Test ELSE (IF) Escaping    ${tc.body[1].body[0]}    ELSE
     Test ELSE (IF) Escaping    ${tc.body[2].body[0]}    ELSE IF
     Test ELSE (IF) Escaping    ${tc.body[3].body[0]}    ELSE IF
 
 Run Keyword Unless With False Expression
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Check Log Message    ${ERRORS[0]}                     Keyword 'BuiltIn.Run Keyword Unless' is deprecated.    WARN
     Check Log Message    ${tc.body[1].body[0]}            Keyword 'BuiltIn.Run Keyword Unless' is deprecated.    WARN
     Check Log Message    ${tc.body[1].body[1].msgs[0]}    ${EXECUTED}
 
 Run Keyword Unless With True Expression
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Check Log Message    ${ERRORS[1]}                     Keyword 'BuiltIn.Run Keyword Unless' is deprecated.    WARN
     Check Log Message    ${tc.body[0].body[0]}            Keyword 'BuiltIn.Run Keyword Unless' is deprecated.    WARN
     Length Should Be     ${tc.body[0].body}               1
@@ -125,7 +125,7 @@ Variable Values Should Not Be Visible As Keyword's Arguments
 
 *** Keywords ***
 Test ELSE (IF) Escaping
-    [Arguments]    ${kw}    ${else (if)}
+    [Arguments]    ${kw}    ${else_if}
     Length Should Be    ${kw.msgs}    2
-    Check Log Message    ${kw.msgs[0]}    ${else (if)}
+    Check Log Message    ${kw.msgs[0]}    ${else_if}
     Check Log Message    ${kw.msgs[1]}    ${EXECUTED}

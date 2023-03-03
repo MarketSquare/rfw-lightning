@@ -20,16 +20,16 @@ Suite scope library gets events
     Events should be    Start suite: Suite Scope
     ...                 Start kw: suite_listenerlibrary.Events Should Be
     ...                 End kw: suite_listenerlibrary.Events Should Be
-    ...                 Start test: ${TEST NAME}
+    ...                 Start test: ${TEST_NAME}
     ...                 Start kw: suite_listenerlibrary.Events Should Be
 
 Suite scope library gets previous events in suite
     Events should be    Start suite: Suite Scope
     ...                 Start kw: suite_listenerlibrary.Events Should Be
     ...                 End kw: suite_listenerlibrary.Events Should Be
-    ...                 Start test: ${PREV TEST NAME}
+    ...                 Start test: ${PREV_TEST_NAME}
     ...                 Start kw: suite_listenerlibrary.Events Should Be
     ...                 End kw: suite_listenerlibrary.Events Should Be
-    ...                 End test: ${PREV TEST NAME}
-    ...                 Start test: ${TEST NAME}
+    ...                 End test: ${PREV_TEST_NAME}
+    ...                 Start test: ${TEST_NAME}
     ...                 Start kw: suite_listenerlibrary.Events Should Be

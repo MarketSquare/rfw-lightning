@@ -20,16 +20,16 @@ Global scope library gets events
     Events should be    Start suite: Global Scope
     ...                 Start kw: global_listenerlibrary.Events Should Be
     ...                 End kw: global_listenerlibrary.Events Should Be
-    ...                 Start test: ${TEST NAME}
+    ...                 Start test: ${TEST_NAME}
     ...                 Start kw: global_listenerlibrary.Events Should Be
 
 Global scope library gets all previous events
     Events should be    Start suite: Global Scope
     ...                 Start kw: global_listenerlibrary.Events Should Be
     ...                 End kw: global_listenerlibrary.Events Should Be
-    ...                 Start test: ${PREV TEST NAME}
+    ...                 Start test: ${PREV_TEST_NAME}
     ...                 Start kw: global_listenerlibrary.Events Should Be
     ...                 End kw: global_listenerlibrary.Events Should Be
-    ...                 End test: ${PREV TEST NAME}
-    ...                 Start test: ${TEST NAME}
+    ...                 End test: ${PREV_TEST_NAME}
+    ...                 Start test: ${TEST_NAME}
     ...                 Start kw: global_listenerlibrary.Events Should Be

@@ -1,6 +1,7 @@
 *** Settings ***
 Suite Setup     Run Tests  -l log.html -r report.html  running/html_error_message.robot
 Resource        atest_resource.robot
+Library         String
 
 *** Variables ***
 ${MESSAGE}            <b>Hello, world!</b>
@@ -58,4 +59,5 @@ HTML message in report
 *** Keywords ***
 Should Contain Escaped
     [Arguments]    ${content}    ${expected}
-    Should Contain    ${content}    ${expected.replace('</', '\\x3c/')}
+    ${expt}=   Replace String    ${expected}     </      \\x3c\/
+    Should Contain    ${content}    ${expt}

@@ -2,45 +2,45 @@
 Library              OperatingSystem
 
 *** Variables ***
-@{NEEDS ESCAPING}    c:\\temp\\foo\\not_new_line    \${notvar}
+@{NEEDS_ESCAPING}    c:\\temp\\foo\\not_new_line    \${notvar}
 ${MESSAGE}           My message
-${ERROR MESSAGE}     My error message
-${FAIL KW}           Fail
+${ERROR_MESSAGE}     My error message
+${FAIL_KW}           Fail
 
 *** Test Cases ***
 Ignore Error When Keyword Passes
     Run Keyword And Ignore Error    Log    ${MESSAGE}
 
 Ignore Error When Keyword Fails
-    Run Keyword And Ignore Error    Fail    ${ERROR MESSAGE}
+    Run Keyword And Ignore Error    Fail    ${ERROR_MESSAGE}
 
 Ignore Error Returns When Keyword Passes
-    ${status}    ${ret val} =    Run Keyword And Ignore Error    Evaluate    1+2
+    ${status}    ${ret_val} =    Run Keyword And Ignore Error    Evaluate    1+2
     Should Be Equal    ${status}    PASS
-    Should Be Equal    ${ret val}    ${3}
+    Should Be Equal    ${ret_val}    ${3}
 
 Ignore Error Returns When Keyword Fails
-    ${status}    ${ret val} =    Run Keyword And Ignore Error    ${FAIL KW}    ${ERROR MESSAGE}
+    ${status}    ${ret_val} =    Run Keyword And Ignore Error    ${FAIL_KW}    ${ERROR_MESSAGE}
     Should Be Equal    ${status}    FAIL
-    Should Be Equal    ${ret val}    My error message
+    Should Be Equal    ${ret_val}    My error message
 
 Ignore Error With User Keyword When Keywords Pass
-    ${status}    ${ret val} =    Run Keyword And Ignore Error    Passing UK
+    ${status}    ${ret_val} =    Run Keyword And Ignore Error    Passing UK
     Should Be Equal    ${status}    PASS
-    Should Be Equal    ${ret val}    ${3}
+    Should Be Equal    ${ret_val}    ${3}
 
 Ignore Error With User Keyword When Keyword Fails
-    ${status}    ${ret val} =    Run Keyword And Ignore Error    Failing Uk
+    ${status}    ${ret_val} =    Run Keyword And Ignore Error    Failing Uk
     Should Be Equal    ${status}    FAIL
-    Should Be Equal    ${ret val}    Expected failure in UK
+    Should Be Equal    ${ret_val}    Expected failure in UK
 
 Ignore Error With Arguments That Needs To Be Escaped
-    ${status}    ${ret val} =    Run Keyword And Ignore Error    Directory Should Exist    ${CURDIR}
+    ${status}    ${ret_val} =    Run Keyword And Ignore Error    Directory Should Exist    ${CURDIR}
     Should Be Equal    ${status}    PASS
-    Should Be Equal    ${ret val}    ${None}
-    ${status}    ${ret val} =    Run Keyword And Ignore Error    Create List    @{NEEDS ESCAPING}
+    Should Be Equal    ${ret_val}    ${None}
+    ${status}    ${ret_val} =    Run Keyword And Ignore Error    Create List    @{NEEDS_ESCAPING}
     Should Be Equal    ${status}    PASS
-    Should Be True    ${ret val} == ${NEEDS ESCAPING}
+    Should Be True    ${ret_val} == ${NEEDS_ESCAPING}
 
 Ignore Error When Timeout Occurs
     [Documentation]    FAIL Test timeout 100 milliseconds exceeded.
@@ -95,11 +95,11 @@ Ignore Error With "Passing" Exceptions
     Fail    Test should have passsed already!
 
 Expect Error When Error Occurs
-    Run Keyword And Expect Error    ${ERROR MESSAGE}    ${FAIL KW}    ${ERROR MESSAGE}
+    Run Keyword And Expect Error    ${ERROR_MESSAGE}    ${FAIL_KW}    ${ERROR_MESSAGE}
 
 Expect Error When Different Error Occurs
     [Documentation]    FAIL Expected error 'Wrong!' but got 'My error message'.
-    Run Keyword And Expect Error    Wrong!    Fail    ${ERROR MESSAGE}
+    Run Keyword And Expect Error    Wrong!    Fail    ${ERROR_MESSAGE}
     Fail    This should not be executed
 
 Expect Error When Different Error Occurs 2
@@ -143,7 +143,7 @@ Expect Error With Arguments That Needs To Be Escaped
     ...    Directory Should Not Exist    %{TEMPDIR}
     Run Keyword And Expect Error
     ...    There are no errors
-    ...    Log Many    @{NEEDS ESCAPING}
+    ...    Log Many    @{NEEDS_ESCAPING}
 
 Expect Error When Timeout Occurs
     [Documentation]    FAIL Test timeout 100 milliseconds exceeded.
@@ -178,7 +178,7 @@ Expect Error When Syntax Error In For Loop
 
 Expect Error When Non Existing Variable In For Loop
     Run Keyword And Expect Error
-    ...    Variable '\${non existing}' not found.
+    ...    Variable '\${non_existing}' not found.
     ...    For Loop With Non Existing Variable
 
 Expect Error When Access To Nonexisting Variable
@@ -285,7 +285,7 @@ For Loop With Syntax Error
     END
 
 For Loop With Non Existing Variable
-    FOR    ${a}    IN    ${non existing}
+    FOR    ${a}    IN    ${non_existing}
         Whatever
     END
 

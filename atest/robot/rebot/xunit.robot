@@ -7,17 +7,17 @@ Variables         unicode_vars.py
 
 *** Variables ***
 ${MYOUTDIR}       %{TEMPDIR}${/}robot-test-xunit
-${INPUT FILE}     %{TEMPDIR}${/}robot-test-xunit-file.xml
+${INPUT_FILE}     %{TEMPDIR}${/}robot-test-xunit-file.xml
 ${INVALID}        %{TEMPDIR}${/}ïnvälïd-xünït.xml
 
 *** Test Cases ***
 No XUnit Option Given
-    Run Rebot    ${EMPTY}    ${INPUT FILE}
+    Run Rebot    ${EMPTY}    ${INPUT_FILE}
     Stderr Should Be Empty
     Stdout Should Not Contain    XUnit
 
 XUnit Option Given
-    Run Rebot    --xunit xunit.xml --log log.html    ${INPUT FILE}
+    Run Rebot    --xunit xunit.xml --log log.html    ${INPUT_FILE}
     Stderr Should Be Empty
     Stdout Should Contain    XUnit:
     File Should Exist    ${OUTDIR}/xunit.xml
@@ -79,7 +79,7 @@ Suite Properties
 
 Invalid XUnit File
     Create Directory    ${INVALID}
-    Run Rebot    -x ${INVALID} -l log.html    ${INPUT FILE}
+    Run Rebot    -x ${INVALID} -l log.html    ${INPUT_FILE}
     File Should Not Exist    ${INVALID}
     File Should Exist    ${OUTDIR}/log.html
     ${path} =    Regexp Escape    ${INVALID}
@@ -87,7 +87,7 @@ Invalid XUnit File
     ...    \\[ ERROR \\] Opening xunit file '${path}' failed: .*
 
 Merge outputs
-    Run Rebot    -x xunit.xml    ${INPUT FILE} ${INPUT FILE}
+    Run Rebot    -x xunit.xml    ${INPUT_FILE} ${INPUT_FILE}
     Suite Stats Should Be     42    10    0    timestamp=${EMPTY}
 
 Merged Suite properties
@@ -121,17 +121,17 @@ Merged Suite properties
     2     xpath=testsuite[2]/testsuite[2]/testsuite[8]
 
 Start and end time
-    Run Rebot    -x xunit.xml --starttime 20211215-12:11:10.456 --endtime 20211215-12:13:10.556    ${INPUT FILE}
+    Run Rebot    -x xunit.xml --starttime 20211215-12:11:10.456 --endtime 20211215-12:13:10.556    ${INPUT_FILE}
     Suite Stats Should Be     21    5    0    120.100    2021-12-15T12:11:10.456000
 
 *** Keywords ***
 Create Input File
-    Create Output With Robot    ${INPUT FILE}    ${EMPTY}    misc/non_ascii.robot misc/suites
+    Create Output With Robot    ${INPUT_FILE}    ${EMPTY}    misc/non_ascii.robot misc/suites
     Create Directory    ${MYOUTDIR}
 
 Remove Temps
     Remove Directory    ${MYOUTDIR}    recursive
-    Remove File    ${INPUT FILE}
+    Remove File    ${INPUT_FILE}
 
 Suite Stats Should Be
     [Arguments]    ${tests}    ${failures}    ${skipped}=0

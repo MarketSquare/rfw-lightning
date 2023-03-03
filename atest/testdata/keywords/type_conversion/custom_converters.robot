@@ -42,7 +42,8 @@ Custom in Union
     Int or number    one
 
 Accept subscripted generics
-    Accept subscripted generics    ${{[1, 2, 3]}}    ${6}
+    ${list_123}=Evaluate    [1,2,3]
+    Accept subscripted generics    ${list_123}    ${6}
 
 With generics
     With generics

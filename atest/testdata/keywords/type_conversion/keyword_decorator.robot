@@ -6,10 +6,16 @@ Resource                 conversion.resource
 *** Variables ***
 @{LIST}                  foo                       bar
 &{DICT}                  foo=${1}                  bar=${2}
-${FRACTION 1/2}          ${{fractions.Fraction(1,2)}}
-${DECIMAL 1/2}           ${{decimal.Decimal('0.5')}}
-${PATH}                  ${{pathlib.Path('x/y')}}
-${PUREPATH}              ${{pathlib.PurePath('x/y')}}
+${FRACTION_HALF}=Evaluate          fractions.Fraction(1,2)
+${DECIMAL_HALF}=Evaluate           decimal.Decimal('0.5')
+${PATH}=Evaluate                  pathlib.Path('x/y')
+${PUREPATH}=Evaluate              pathlib.PurePath('x/y')
+${list_1_2}=Evaluate     [1,2]
+${tuple_1_2}=Evaluate    (1,2)
+${time_10_seconds}=Evaluate     datetime.timedelta(seconds=10)
+${tuple_1}=Evaluate      (1,)
+${foob}=Evaluate      b'foo'
+${foobytearray}=Evaluate    bytearray(b'foo')
 
 *** Test Cases ***
 Integer
@@ -87,7 +93,7 @@ Float
     Float                -1.2e-3                   -0.0012
     Float                ${4}                      4.0
     Float                ${-4.1}                   -4.1
-    Float                ${FRACTION 1/2}           0.5
+    Float                ${FRACTION_HALF}           0.5
 
 Invalid float
     [Template]           Conversion Should Fail
@@ -100,7 +106,7 @@ Real (abc)
     Real                 1e6                       1000000.0
     Real                 1 000 000 . 0_0_1         1000000.001
     Real                 -1.2e-3                   -0.0012
-    Real                 ${FRACTION 1/2}           Fraction(1,2)
+    Real                 ${FRACTION_HALF}           Fraction(1,2)
 
 Invalid real (abc)
     [Template]           Conversion Should Fail
@@ -113,7 +119,7 @@ Decimal
     Decimal              1 000 000 . 0_0_1         Decimal('1000000.001')
     Decimal              ${1}                      Decimal(1)
     Decimal              ${1.1}                    Decimal(1.1)
-    Decimal              ${DECIMAL 1/2}            Decimal(0.5)
+    Decimal              ${DECIMAL_HALF}            Decimal(0.5)
 
 Invalid decimal
     [Template]           Conversion Should Fail
@@ -156,8 +162,8 @@ String
     String               ${LIST}                   "['foo', 'bar']"
 
 Invalid string
-    [Template]           Conversion Should Fail
-    String               ${{type('Bang', (), {'__str__': lambda self: 1/0})()}}
+    ${failstr}=          Evaluate    type('Bang', (), {'__str__': lambda self: 1/0})()
+    Conversion Should Fail         String               ${failstr}
     ...                  arg_type=Bang             error=ZeroDivisionError: *
 
 Bytes
@@ -166,8 +172,8 @@ Bytes
     Bytes                Hyvä esimerkki!           b'Hyv\\xE4 esimerkki!'
     Bytes                None                      b'None'
     Bytes                NONE                      b'NONE'
-    Bytes                ${{b'foo'}}               b'foo'
-    Bytes                ${{bytearray(b'foo')}}    b'foo'
+    Bytes                ${foob}               b'foo'
+    Bytes                ${foobytearray}    b'foo'
 
 Invalid bytes
     [Template]           Conversion Should Fail
@@ -182,8 +188,8 @@ Bytestring
     Bytestring           Hyvä esimerkki!           b'Hyv\\xE4 esimerkki!'
     Bytestring           None                      b'None'
     Bytestring           NONE                      b'NONE'
-    Bytestring           ${{b'foo'}}               b'foo'
-    Bytestring           ${{bytearray(b'foo')}}    bytearray(b'foo')
+    Bytestring           ${foob}               b'foo'
+    Bytestring           ${foobytearray}    bytearray(b'foo')
 
 Invalid bytesstring
     [Template]           Conversion Should Fail
@@ -197,8 +203,8 @@ Bytearray
     Bytearray            Hyvä esimerkki!           bytearray(b'Hyv\\xE4 esimerkki!')
     Bytearray            None                      bytearray(b'None')
     Bytearray            NONE                      bytearray(b'NONE')
-    Bytearray            ${{b'foo'}}               bytearray(b'foo')
-    Bytearray            ${{bytearray(b'foo')}}    bytearray(b'foo')
+    Bytearray            ${foob}               bytearray(b'foo')
+    Bytearray            ${foobytearray}    bytearray(b'foo')
 
 Invalid bytearray
     [Template]           Conversion Should Fail
@@ -355,8 +361,8 @@ List
     List                 [1, 2, 3.14, -42]         [1, 2, 3.14, -42]
     List                 ['\\x00', '\\x52']        ['\\x00', 'R']
     List                 [{'nested': True}]        [{'nested': True}]
-    List                 ${{[1, 2]}}               [1, 2]
-    List                 ${{(1, 2)}}               [1, 2]
+    List                 ${list_1_2}               [1, 2]
+    List                 ${tuple_1_2}               [1, 2]
 
 Invalid list
     [Template]           Conversion Should Fail
@@ -390,8 +396,8 @@ Tuple
     Tuple                ('foo', "bar")            tuple(${LIST})
     Tuple                (1, 2, 3.14, -42)         (1, 2, 3.14, -42)
     Tuple                (['nested', True],)       (['nested', True],)
-    Tuple                ${{(1, 2)}}               (1, 2)
-    Tuple                ${{[1, 2]}}               (1, 2)
+    Tuple                ${tuple_1_2}               (1, 2)
+    Tuple                ${list_1_2}               (1, 2)
 
 Invalid tuple
     [Template]           Conversion Should Fail
@@ -432,8 +438,8 @@ Set
     Set                  ${{{1}}}                  {1}
     Set                  ${{frozenset({1})}}       {1}
     Set                  ${{[1]}}                  {1}
-    Set                  ${{(1,)}}                 {1}
-    Set                  ${{{1: 2}}}               {1}
+    Set                  ${tuple_1}                 {1}
+    Set                  ${{{1:2}}}               {1}
 
 Invalid set
     [Template]           Conversion Should Fail
@@ -471,8 +477,8 @@ Frozenset
     Frozenset            ${{frozenset({1})}}       frozenset({1})
     Frozenset            ${{{1}}}                  frozenset({1})
     Frozenset            ${{[1]}}                  frozenset({1})
-    Frozenset            ${{(1,)}}                 frozenset({1})
-    Frozenset            ${{{1: 2}}}               frozenset({1})
+    Frozenset            ${tuple_1}                 frozenset({1})
+    Frozenset            ${{{1:2}}}               frozenset({1})
 
 Invalid frozenset
     [Template]           Conversion Should Fail
@@ -567,7 +573,7 @@ Default value is used if explicit type conversion fails
     Type and default 1    none       None
     Type and default 2    FALSE      False
     Type and default 2    ok also    'ok also'
-    Type and default 3    10         ${{datetime.timedelta(seconds=10)}}
+    Type and default 3    10         ${time_10_seconds}
 
 Explicit conversion failure is used if both conversions fail
     [Template]    Conversion Should Fail

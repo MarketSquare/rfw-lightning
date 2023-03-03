@@ -3,7 +3,7 @@ Library           XML
 Resource          xml_resource.robot
 
 *** Variables ***
-${WITH TAIL}    <root a="v"><child a="v">text</child>tail</root>
+${WITH_TAIL}    <root a="v"><child a="v">text</child>tail</root>
 
 *** Test Cases ***
 Clear Element
@@ -17,11 +17,11 @@ Clear Element Returns Root Element
     Elements Should Be Equal    ${root}    <root><child/><c2/></root>
 
 Tail Text Is Not Cleared By Default
-    ${root} =    Clear Element    ${WITH TAIL}    xpath=child
+    ${root} =    Clear Element    ${WITH_TAIL}    xpath=child
     Elements Should Be Equal    ${root}    <root a="v"><child/>tail</root>
 
 Tail Text Can Be Cleared
-    ${root} =    Clear Element    ${WITH TAIL}    child    clear_tail=false
+    ${root} =    Clear Element    ${WITH_TAIL}    child    clear_tail=false
     Elements Should Be Equal    ${root}    <root a="v"><child/>tail</root>
-    ${root} =    Clear Element    ${WITH TAIL}    child    clear_tail=yes
+    ${root} =    Clear Element    ${WITH_TAIL}    child    clear_tail=yes
     Elements Should Be Equal    ${root}    <root a="v"><child/></root>

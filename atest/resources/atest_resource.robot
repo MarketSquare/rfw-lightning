@@ -13,70 +13,70 @@ Variables         atest_variables.py
 *** Variables ***
 ${OUTDIR}         %{TEMPDIR}${/}output
 ${OUTFILE}        ${OUTDIR}${/}output.xml
-${SET SYSLOG}     True
-${SYSLOG FILE}    ${OUTDIR}${/}syslog.txt
-${SYSLOG LEVEL}   INFO
-${STDOUT FILE}    ${OUTDIR}${/}stdout.txt
-${STDERR FILE}    ${OUTDIR}${/}stderr.txt
-${OUTFILE COPY}   %{TEMPDIR}${/}output-copy.xml
+${SET_SYSLOG}     True
+${SYSLOG_FILE}    ${OUTDIR}${/}syslog.txt
+${SYSLOG_LEVEL}   INFO
+${STDOUT_FILE}    ${OUTDIR}${/}stdout.txt
+${STDERR_FILE}    ${OUTDIR}${/}stderr.txt
+${OUTFILE_COPY}   %{TEMPDIR}${/}output-copy.xml
 ${SUITE}          Set by TestCheckerLibrary.Process Output
 ${ERRORS}         -- ;; --
-${USAGE TIP}      \n\nTry --help for usage information.
+${USAGE_TIP}      \n\nTry --help for usage information.
 ${TESTNAME}       ${EMPTY}    # Used when not running test
-${COMMON DEFAULTS}
+${COMMON_DEFAULTS}
 ...               --ConsoleColors OFF
 ...               --output ${OUTFILE}
 ...               --report NONE
 ...               --log NONE
-${RUNNER DEFAULTS}
-...               ${COMMON DEFAULTS}
+${RUNNER_DEFAULTS}
+...               ${COMMON_DEFAULTS}
 ...               --ConsoleMarkers OFF
 ...               --PYTHONPATH "${CURDIR}${/}..${/}testresources${/}testlibs"
 ...               --PYTHONPATH "${CURDIR}${/}..${/}testresources${/}listeners"
 
 *** Keywords ***
 Run Tests
-    [Arguments]    ${options}=    ${sources}=    ${default options}=${RUNNER DEFAULTS}    ${output}=${OUTFILE}    ${validate output}=None
+    [Arguments]    ${options}=    ${sources}=    ${default_options}=${RUNNER_DEFAULTS}    ${output}=${OUTFILE}    ${validate_output}=None
     [Documentation]    *OUTDIR:* file://${OUTDIR} (regenerated for every run)
-    ${result} =    Execute    ${INTERPRETER.runner}   ${options}    ${sources}    ${default options}
+    ${result} =    Execute    ${INTERPRETER.runner}   ${options}    ${sources}    ${default_options}
     Log Many    RC: ${result.rc}    STDERR:\n${result.stderr}    STDOUT:\n${result.stdout}
-    Process Output    ${output}    validate=${validate output}
+    Process Output    ${output}    validate=${validate_output}
     [Return]    ${result}
 
 Run Tests Without Processing Output
-    [Arguments]    ${options}=    ${sources}=    ${default options}=${RUNNER DEFAULTS}
+    [Arguments]    ${options}=    ${sources}=    ${default_options}=${RUNNER_DEFAULTS}
     [Documentation]    *OUTDIR:* file://${OUTDIR} (regenerated for every run)
-    ${result} =    Execute    ${INTERPRETER.runner}   ${options}    ${sources}    ${default options}
+    ${result} =    Execute    ${INTERPRETER.runner}   ${options}    ${sources}    ${default_options}
     Log Many    RC: ${result.rc}    STDERR:\n${result.stderr}    STDOUT:\n${result.stdout}
     [Return]    ${result}
 
 Run Rebot
-    [Arguments]    ${options}=    ${sources}=    ${default options}=${COMMON DEFAULTS}    ${output}=${OUTFILE}    ${validate output}=None
+    [Arguments]    ${options}=    ${sources}=    ${default_options}=${COMMON_DEFAULTS}    ${output}=${OUTFILE}    ${validate_output}=None
     [Documentation]    *OUTDIR:* file://${OUTDIR} (regenerated for every run)
-    ${result} =    Execute    ${INTERPRETER.rebot}   ${options}    ${sources}    ${default options}
+    ${result} =    Execute    ${INTERPRETER.rebot}   ${options}    ${sources}    ${default_options}
     Log Many    RC: ${result.rc}    STDERR:\n${result.stderr}    STDOUT:\n${result.stdout}
-    Process Output    ${output}    validate=${validate output}
+    Process Output    ${output}    validate=${validate_output}
     [Return]    ${result}
 
 Run Rebot Without Processing Output
-    [Arguments]    ${options}=    ${sources}=    ${default options}=${COMMON DEFAULTS}
+    [Arguments]    ${options}=    ${sources}=    ${default_options}=${COMMON_DEFAULTS}
     [Documentation]    *OUTDIR:* file://${OUTDIR} (regenerated for every run)
-    ${result} =    Execute    ${INTERPRETER.rebot}   ${options}    ${sources}    ${default options}
+    ${result} =    Execute    ${INTERPRETER.rebot}   ${options}    ${sources}    ${default_options}
     Log Many    RC: ${result.rc}    STDERR:\n${result.stderr}    STDOUT:\n${result.stdout}
     [Return]    ${result}
 
 Execute
-    [Arguments]    ${executor}    ${options}    ${sources}    ${default options}=
+    [Arguments]    ${executor}    ${options}    ${sources}    ${default_options}=
     Set Execution Environment
-    @{arguments} =    Get Execution Arguments    ${options}    ${sources}    ${default options}
+    @{arguments} =    Get Execution Arguments    ${options}    ${sources}    ${default_options}
     ${result} =    Run Process    @{executor}    @{arguments}
     ...    stdout=${STDOUTFILE}    stderr=${STDERRFILE}    output_encoding=SYSTEM
     ...    timeout=5min    on_timeout=terminate
     [Return]    ${result}
 
 Get Execution Arguments
-    [Arguments]    ${options}    ${sources}    ${default options}
-    @{options} =    Split command line    --outputdir ${OUTDIR} ${default options} ${options}
+    [Arguments]    ${options}    ${sources}    ${default_options}
+    @{options} =    Split command line    --outputdir ${OUTDIR} ${default_options} ${options}
     @{sources} =    Split command line    ${sources}
     @{sources} =    Join Paths    ${DATADIR}    @{sources}
     [Return]    @{options}    @{sources}
@@ -84,13 +84,13 @@ Get Execution Arguments
 Set Execution Environment
     Remove Directory    ${OUTDIR}    recursive
     Create Directory    ${OUTDIR}
-    IF    ${SET SYSLOG}
-        Set Environment Variable    ROBOT_SYSLOG_FILE    ${SYSLOG FILE}
-        Set Environment Variable    ROBOT_SYSLOG_LEVEL    ${SYSLOG LEVEL}
+    IF    ${SET_SYSLOG}
+        Set Environment Variable    ROBOT_SYSLOG_FILE    ${SYSLOG_FILE}
+        Set Environment Variable    ROBOT_SYSLOG_LEVEL    ${SYSLOG_LEVEL}
     END
 
 Copy Previous Outfile
-    Copy File    ${OUTFILE}    ${OUTFILE COPY}
+    Copy File    ${OUTFILE}    ${OUTFILE_COPY}
 
 Check Test Suite
     [Arguments]    ${name}    ${message}    ${status}=${None}
@@ -116,35 +116,38 @@ Check Test Tags
 Check Keyword Data
     [Arguments]    ${kw}    ${name}    ${assign}=    ${args}=    ${status}=PASS    ${tags}=    ${type}=KEYWORD
     Should Be Equal    ${kw.name}                    ${name}
-    Should Be Equal    ${{', '.join($kw.assign)}}    ${assign}
-    Should Be Equal    ${{', '.join($kw.args)}}      ${args}
+    ${expected_assign}=   Evaluate   ', '.join($kw.assign)
+    Should Be Equal    ${expected_assign}    ${assign}
+    ${expected_args}=     Evaluate   ', '.join($kw.args)
+    Should Be Equal    ${expected_args}      ${args}
     Should Be Equal    ${kw.status}                  ${status}
-    Should Be Equal    ${{', '.join($kw.tags)}}      ${tags}
+    ${expected_tags}=     Evaluate   ', '.join($kw.tags)   
+    Should Be Equal    ${expected_tags}      ${tags}
     Should Be Equal    ${kw.type}                    ${type}
 
 Test And All Keywords Should Have Passed
-    [Arguments]    ${name}=${TESTNAME}    ${allow not run}=False
+    [Arguments]    ${name}=${TESTNAME}    ${allow_not_run}=False
     ${tc} =    Check Test Case    ${name}
-    All Keywords Should Have Passed    ${tc}    ${allow not run}
+    All Keywords Should Have Passed    ${tc}    ${allow_not_run}
 
 All Keywords Should Have Passed
-    [Arguments]    ${tc_or_kw}    ${allow not run}=False
+    [Arguments]    ${tc_or_kw}    ${allow_not_run}=False
     IF    hasattr($tc_or_kw, 'kws')
         FOR    ${index}    ${kw}    IN ENUMERATE    @{tc_or_kw.kws}
-            IF    ${allow not run} and (${index} > 0 or $kw.type in ['IF', 'ELSE', 'EXCEPT', 'BREAK'])
+            IF    ${allow_not_run} and (${index} > 0 or $kw.type in ['IF', 'ELSE', 'EXCEPT', 'BREAK'])
                 Should Be True    $kw.status in ['PASS', 'NOT RUN']
             ELSE
                 Log    ${kw.type}
                 Should Be Equal    ${kw.status}    PASS
             END
-            All Keywords Should Have Passed    ${kw}    ${allow not run}
+            All Keywords Should Have Passed    ${kw}    ${allow_not_run}
         END
     END
 
 Get Output File
     [Arguments]    ${path}
     [Documentation]    Output encoding avare helper
-    ${encoding} =    Set Variable If    r'${path}' in [r'${STDERR FILE}', r'${STDOUT FILE}']    SYSTEM    UTF-8
+    ${encoding} =    Set Variable If    r'${path}' in [r'${STDERR_FILE}', r'${STDOUT_FILE}']    SYSTEM    UTF-8
     ${file} =    Get File    ${path}    ${encoding}
     [Return]    ${file}
 
@@ -208,15 +211,15 @@ File Should Start With
 
 Stderr Should Be Equal To
     [Arguments]    @{expected}
-    File Should Be Equal To    ${STDERR FILE}    @{expected}
+    File Should Be Equal To    ${STDERR_FILE}    @{expected}
 
 Stderr Should Start With
     [Arguments]    @{expected}
-    File Should Start With    ${STDERR FILE}    @{expected}
+    File Should Start With    ${STDERR_FILE}    @{expected}
 
 Stderr Should Match
     [Arguments]    @{expected}
-    File Should Match    ${STDERR FILE}    @{expected}
+    File Should Match    ${STDERR_FILE}    @{expected}
 
 Stderr Should Be Empty
     ${stderr} =    Get Stderr
@@ -268,7 +271,7 @@ Get Stdout
 
 Syslog Should Contain Match
     [Arguments]    @{expected}
-    File Should Contain Match    ${SYSLOG FILE}    @{expected}
+    File Should Contain Match    ${SYSLOG_FILE}    @{expected}
 
 Syslog Should Contain
     [Arguments]    @{expected}
@@ -288,7 +291,7 @@ Syslog Should Contain Regexp
 
 Syslog Should Not Contain Regexp
     [Arguments]    @{expected}
-    File Should Not Contain Regexp    ${SYSLOG FILE}    @{expected}
+    File Should Not Contain Regexp    ${SYSLOG_FILE}    @{expected}
 
 Check Names
     [Arguments]    ${item}    ${name}    ${longprefix}=
@@ -312,8 +315,8 @@ Elapsed Time Should Be Valid
 
 Previous test should have passed
     [Arguments]    ${name}
-    Should be equal    ${PREV TEST NAME}    ${name}
-    Should be equal    ${PREV TEST STATUS}    PASS
+    Should be equal    ${PREV_TEST_NAME}    ${name}
+    Should be equal    ${PREV_TEST_STATUS}    PASS
 
 Get Stat Nodes
     [Arguments]    ${type}    ${output}=${OUTFILE}

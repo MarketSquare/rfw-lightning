@@ -21,4 +21,4 @@ def importing_standard_library_directly_fails():
 
 def importing_standard_library_through_robot_libraries_succeeds():
     from robot.libraries import BuiltIn
-    BuiltIn.BuiltIn().set_test_variable('${SET BY LIBRARY}', 42)
+    BuiltIn.BuiltIn().set_test_variable('${SET_BY_LIBRARY}', 42)

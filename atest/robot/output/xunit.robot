@@ -6,11 +6,11 @@ Suite Setup         Run Tests    -x xunit.xml -l log.html --skiponfailure täg  
 
 *** Variables ***
 ${TESTDATA}         misc/non_ascii.robot
-${PASS AND FAIL}    misc/pass_and_fail.robot
+${PASS_AND_FAIL}    misc/pass_and_fail.robot
 ${INVALID}          %{TEMPDIR}${/}ïnvälïd-xünït.xml
 ${NESTED}           misc/suites
-${METADATA SUITE}   parsing/suite_metadata.robot
-${NORMAL SUITE}     misc/normal.robot
+${METADATA_SUITE}   parsing/suite_metadata.robot
+${NORMAL_SUITE}     misc/normal.robot
 
 *** Test Cases ***
 XUnit File Is Created
@@ -79,10 +79,10 @@ XUnit File From Nested Suites
     ${failures} =    Get Elements    ${suites}[0]    testcase/failure
     Length Should Be    ${failures}    4
     Element Attribute Should be    ${failures}[0]    message    ${MESSAGES}
-    ${nested suite} =    Get Element    ${OUTDIR}/xunit.xml    xpath=testsuite[2]
-    Element Attribute Should Be       ${nested suite}    tests       13
-    Element Attribute Should Be       ${nested suite}    failures    1
-    ${properties} =    Get Elements    ${nested suite}    testsuite[6]/properties/property
+    ${nested_suite} =    Get Element    ${OUTDIR}/xunit.xml    xpath=testsuite[2]
+    Element Attribute Should Be       ${nested_suite}    tests       13
+    Element Attribute Should Be       ${nested_suite}    failures    1
+    ${properties} =    Get Elements    ${nested_suite}    testsuite[6]/properties/property
     Length Should Be    ${properties}    2
     Element Attribute Should be    ${properties}[0]    name     Documentation
     Element Attribute Should be    ${properties}[0]    value    Normal test cases
@@ -90,7 +90,7 @@ XUnit File From Nested Suites
     Element Attribute Should be    ${properties}[1]    value    My Value
 
 XUnit File Root Testsuite Properties From CLI
-    Run Tests    -M METACLI:"meta CLI" -x xunit.xml -l log.html -v META_VALUE_FROM_CLI:"cli meta"    ${NORMAL SUITE} ${METADATA SUITE}
+    Run Tests    -M METACLI:"meta CLI" -x xunit.xml -l log.html -v META_VALUE_FROM_CLI:"cli meta"    ${NORMAL_SUITE} ${METADATA_SUITE}
     Verify Outputs
     ${root} =    Get Root Node
     ${root_properties_element} =    Get Properties Node    ${root}
@@ -150,8 +150,9 @@ Suite Stats Should Be
     Element Attribute Should Be       ${elem}    skipped     ${skipped}
     Element Attribute Should Match    ${elem}    time        ?.???
     Element Attribute Should Be       ${elem}    errors      0
+    ${expect}=   Evaluate    datetime.datetime.strptime($starttime, '%Y%m%d %H:%M:%S.%f').strftime('%Y-%m-%dT%H:%M:%S.%f')
     Element Attribute Should Be       ${elem}    timestamp
-    ...    ${{datetime.datetime.strptime($starttime, '%Y%m%d %H:%M:%S.%f').strftime('%Y-%m-%dT%H:%M:%S.%f')}}
+    ...    ${expect}
 
 Verify Outputs
     Stderr should be empty

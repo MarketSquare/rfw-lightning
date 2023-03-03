@@ -47,13 +47,13 @@ Use Starttime With Single Output
     Run Rebot    --starttime 20070925-2151    ${INPUT1}
     Should Be Equal    ${SUITE.starttime}    20070925 21:51:00.000
     Should Be Equal    ${SUITE.endtime}    ${SINGLE_SUITE_ORIG_END}
-    Should Be True    ${SUITE.elapsedtime} > ${SINGLE SUITE ORIG ELAPSED}
+    Should Be True    ${SUITE.elapsedtime} > ${SINGLE_SUITE_ORIG_ELAPSED}
 
 Use Endtime With Single Output
     Run Rebot    --endtime 20070925-2151    ${INPUT1}
     Should Be Equal    ${SUITE.starttime}    ${SINGLE_SUITE_ORIG_START}
     Should Be Equal    ${SUITE.endtime}    20070925 21:51:00.000
-    Should Be True    ${SUITE.elapsedtime} < ${SINGLE SUITE ORIG ELAPSED}
+    Should Be True    ${SUITE.elapsedtime} < ${SINGLE_SUITE_ORIG_ELAPSED}
 
 Use Starttime And Endtime With Single Output
     Run Rebot    --starttime 20070925-2151 --endtime 20070925-2252    ${INPUT1}

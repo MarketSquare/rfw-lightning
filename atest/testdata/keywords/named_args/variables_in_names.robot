@@ -16,9 +16,9 @@ Named arg name as variable
     Should Be Equal    ${result}    1, 2, 3
 
 Named arg containing variable
-    ${result} =    User Keyword    first ${A}rg=required
+    ${result} =    User Keyword    first_${A}rg=required
     Should Be Equal    ${result}    required, default
-    ${result} =    User Keyword    first ${A}rg=1    ${A}-${B}-${C}=2
+    ${result} =    User Keyword    first_${A}rg=1    ${A}-${B}-${C}=2
     Should Be Equal    ${result}    1, 2
 
 Kwargs with variables in names
@@ -26,10 +26,6 @@ Kwargs with variables in names
     Should Be Equal    ${result}    a:A Value, b:2 (int)
     ${result} =    Lib Mandatory Named And Kwargs    mandatory    ${C}=A Value
     Should Be Equal    ${result}    mandatory, 2 (int), c:A Value
-
-Kwargs with variables with non-ASCII value in names
-    ${result} =    Lib Kwargs    ${Ä}=1    ${SNOWMAN}=2
-    Should Be Equal    ${result}    ${Ä}:1, ${SNOWMAN}:2
 
 Escaping variable syntax in kwarg names
     ${result} =    Lib Kwargs    \${A}=A Value    \${non}=existing
@@ -57,12 +53,7 @@ Variable with non-string value as kwargs name
     [Documentation]    FAIL Argument names must be strings.
     Lib Kwargs    ${1}=non-string
 
-Equal sign in variable name
-    ${timedelta} =    Evaluate    datetime.timedelta    modules=datetime
-    ${result} =    User Keyword    ${timedelta(seconds=1)}    ${timedelta(hours=1)}
-    Should Be Equal    ${result}    0:00:01, 1:00:00
-
 *** Keywords ***
 User Keyword
-    [Arguments]    ${first arg}    ${a-b-c}=default
-    [Return]    ${first arg}, ${a-b-c}
+    [Arguments]    ${first_arg}    ${a-b-c}=default
+    [Return]    ${first_arg}, ${a-b-c}

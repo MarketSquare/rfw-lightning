@@ -1,13 +1,13 @@
 *** Settings ***
-Test Setup         Remove File    ${MESSAGE FILE}
+Test Setup         Remove File    ${MESSAGE_FILE}
 Resource           listener_resource.robot
 
 *** Variables ***
-${MESSAGE FILE}    %{TEMPDIR}${/}messages.txt
+${MESSAGE_FILE}    %{TEMPDIR}${/}messages.txt
 
 *** Test Cases ***
 Log messages are collected on INFO level by default
-    Run Tests    --listener listeners.Messages;${MESSAGE FILE}    misc/pass_and_fail.robot
+    Run Tests    --listener listeners.Messages;${MESSAGE_FILE}    misc/pass_and_fail.robot
     Logged messages should be
     ...    INFO: Hello says "Suite Setup"!
     ...    INFO: \${assign} = JUST TESTING...
@@ -18,7 +18,7 @@ Log messages are collected on INFO level by default
     ...    FAIL: Expected failure
 
 Log messages are collected on specified level
-    Run Tests    -L DEBUG --listener listeners.Messages;${MESSAGE FILE}    misc/pass_and_fail.robot
+    Run Tests    -L DEBUG --listener listeners.Messages;${MESSAGE_FILE}    misc/pass_and_fail.robot
     Logged messages should be
     ...    INFO: Hello says "Suite Setup"!
     ...    DEBUG: Debug message
@@ -37,4 +37,4 @@ Log messages are collected on specified level
 *** Keywords ***
 Logged messages should be
     [Arguments]    @{expected}
-    Check Listener File    ${MESSAGE FILE}    @{expected}
+    Check Listener File    ${MESSAGE_FILE}    @{expected}

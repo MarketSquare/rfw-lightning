@@ -57,11 +57,11 @@ Set Tags In Test Teardown
 Using Set And Remove Tags In Suite Teardown Fails
     Should Be Equal  ${SUITE.suites[1].message}  Suite teardown failed:\n'Set Tags' cannot be used in suite teardown.
 
-Modifying ${TEST TAGS} after setting them has no affect on tags test has
-    Check Test Tags    ${TEST NAME}    force-init    set-init    new
+Modifying ${TEST_TAGS} after setting them has no affect on tags test has
+    Check Test Tags    ${TEST_NAME}    force-init    set-init    new
 
-Modifying ${TEST TAGS} after removing them has no affect on tags test has
-    Check Test Tags    ${TEST NAME}
+Modifying ${TEST_TAGS} after removing them has no affect on tags test has
+    Check Test Tags    ${TEST_NAME}
 
 *** Keywords ***
 Should Have Only Suite Tags

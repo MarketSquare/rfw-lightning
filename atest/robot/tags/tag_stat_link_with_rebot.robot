@@ -35,10 +35,12 @@ Run Tests And Rebot With Tag Stat Links
     ...  --tagstatlink d?:http://%1:Rebot_%1
     ...  --TAGSTATLINK D1:1:more:link:title
     Copy Previous Outfile
-    Run Rebot  ${opts}  ${OUTFILE COPY}
+    Run Rebot  ${opts}  ${OUTFILE_COPY}
 
 Tag link should be correct in output
     [Arguments]  ${index}  ${tag}  ${links}
     ${stats} =  Get Tag Stat Nodes
-    Should Be Equal  ${stats[${index}].text}  ${tag}
-    Should Be Equal  ${stats[${index}].attrib['links']}  ${links}
+    ${txt}=Evaluate     $stats[int($index)].text
+    ${attrlinks}=Evaluate     $stats[int($index)].attrib['doc']
+    Should Be Equal    ${txt}    ${tag}
+    Should Be Equal    ${attrlinks}    ${doc}

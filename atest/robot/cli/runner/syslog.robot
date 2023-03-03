@@ -7,8 +7,8 @@ Resource                cli_resource.robot
 
 *** Variables ***
 ${SYSLOG}               %{TEMPDIR}${/}syslog.txt
-${SYSLOG IN EXECDIR}    ${INTERPRETER.output_name}-syslog.txt
-${SYSLOG IN NEW DIR}    %{TEMPDIR}/new-dir-and/also-unix-separator-always/with/sys.log
+${SYSLOG_IN_EXECDIR}    ${INTERPRETER.output_name}-syslog.txt
+${SYSLOG_IN_NEW_DIR}    %{TEMPDIR}/new-dir-and/also-unix-separator-always/with/sys.log
 
 *** Test Cases ***
 No syslog environment variable file
@@ -23,28 +23,28 @@ Setting syslog sile
     File Should Have Correct Line Separators    ${SYSLOG}
 
 Syslog as name only
-    Set Environment Variable    ROBOT_SYSLOG_FILE    ${SYSLOG IN EXECDIR}
+    Set Environment Variable    ROBOT_SYSLOG_FILE    ${SYSLOG_IN_EXECDIR}
     Run Some Tests
-    File Should Not Be Empty    ${EXECDIR}/${SYSLOG IN EXECDIR}
-    File Should Have Correct Line Separators    ${EXECDIR}/${SYSLOG IN EXECDIR}
+    File Should Not Be Empty    ${EXECDIR}/${SYSLOG_IN_EXECDIR}
+    File Should Have Correct Line Separators    ${EXECDIR}/${SYSLOG_IN_EXECDIR}
 
 Syslog directory is automatically created
-    Set Environment Variable    ROBOT_SYSLOG_FILE    ${SYSLOG IN NEW DIR}
+    Set Environment Variable    ROBOT_SYSLOG_FILE    ${SYSLOG_IN_NEW_DIR}
     Run Some Tests
-    File Should Not Be Empty    ${SYSLOG IN NEW DIR}
-    File Should Have Correct Line Separators    ${SYSLOG IN NEW DIR}
+    File Should Not Be Empty    ${SYSLOG_IN_NEW_DIR}
+    File Should Have Correct Line Separators    ${SYSLOG_IN_NEW_DIR}
 
 Syslog file set to NONE
     Set Environment Variable    ROBOT_SYSLOG_FILE    none
     Run Some Tests
     File Should Not Exist    ${SYSLOG}
-    File Should Not Exist    ${SYSLOG IN EXECDIR}
-    File Should Not Exist    ${SYSLOG IN NEW DIR}
+    File Should Not Exist    ${SYSLOG_IN_EXECDIR}
+    File Should Not Exist    ${SYSLOG_IN_NEW_DIR}
 
 Invalid syslog file
-    Set Environment Variable    ROBOT_SYSLOG_FILE    ${CLI OUTDIR}
+    Set Environment Variable    ROBOT_SYSLOG_FILE    ${CLI_OUTDIR}
     ${result} =    Run Some Tests
-    Should Start With    ${result.stderr}    [ ERROR ] Opening syslog file '${CLI OUTDIR}' failed:
+    Should Start With    ${result.stderr}    [ ERROR ] Opening syslog file '${CLI_OUTDIR}' failed:
 
 Setting syslog Level
     Set Environment Variable    ROBOT_SYSLOG_FILE    ${SYSLOG}
@@ -67,9 +67,9 @@ Invalid syslog level
 
 *** Keywords ***
 Reset syslog
-    Set Suite Variable    ${SET SYSLOG}    False
+    Set Suite Variable    ${SET_SYSLOG}    False
     Remove Environment Variable    ROBOT_SYSLOG_FILE
     Remove Environment Variable    ROBOT_SYSLOG_LEVEL
-    Remove Files    ${SYSLOG}    ${EXECDIR}/${SYSLOG IN EXECDIR}
-    ${syslog dir}    ${_} =    Split Path    ${SYSLOG IN NEW DIR}
-    Remove Directory    ${syslog dir}    recursive=True
+    Remove Files    ${SYSLOG}    ${EXECDIR}/${SYSLOG_IN_EXECDIR}
+    ${syslog_dir}    ${_} =    Split Path    ${SYSLOG_IN_NEW_DIR}
+    Remove Directory    ${syslog_dir}    recursive=True

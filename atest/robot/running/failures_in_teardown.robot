@@ -61,13 +61,13 @@ Suite Teardown Is Executed Fully
     ${td} =    Set Variable    ${SUITE.teardown}
     Check Log Message    ${td.kws[0].msgs[0]}    Suite Message 1    FAIL
     Check Log Message    ${td.kws[1].msgs[0]}    Suite Message 2 (with ∏ön ÄßÇïï €§)    FAIL
-    Check Log Message    ${td.kws[2].msgs[0]}    Variable '\${it is ok not to exist}' not found.    FAIL
+    Check Log Message    ${td.kws[2].msgs[0]}    Variable '\${it_is_ok_not_to_exist}' not found.    FAIL
     Check Log Message    ${td.kws[3].msgs[0]}    This should be executed
     ${msg} =    Catenate    SEPARATOR=\n\n
     ...    Suite teardown failed:\nSeveral failures occurred:
     ...    1) Suite Message 1
     ...    2) Suite Message 2 (with ∏ön ÄßÇïï €§)
-    ...    3) Variable '\${it is ok not to exist}' not found.
+    ...    3) Variable '\${it_is_ok_not_to_exist}' not found.
     Should Be Equal    ${SUITE.message}    ${msg}
 
 Suite Teardown Should Stop At Fatal Error

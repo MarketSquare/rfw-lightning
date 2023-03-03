@@ -9,24 +9,24 @@ Resource          atest_resource.robot
 
 *** Test Cases ***
 Keywords With Unique Name Are Ok
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Full Name Works With Non-Unique Keyword Names
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Non-Unique Keywords Without Full Name Fails
-    Check Test Case    ${TEST NAME} 1
-    Check Test Case    ${TEST NAME} 2
-    Check Test Case    ${TEST NAME} 3
+    Check Test Case    ${TEST_NAME} 1
+    Check Test Case    ${TEST_NAME} 2
+    Check Test Case    ${TEST_NAME} 3
 
 Keyword From Test Case File Overrides Keywords From Resources And Libraries
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Keyword From Resource Overrides Keywords From Libraries
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Keyword From Test Case File Overriding Local Keyword In Resource File Is Deprecated
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     ${message} =    Catenate
     ...    Keyword 'my_resource_1.Use test case file keyword even when local keyword with same name exists' called keyword
     ...    'Keyword Everywhere' that exists both in the same resource file as the caller and in the suite file using that
@@ -35,43 +35,43 @@ Keyword From Test Case File Overriding Local Keyword In Resource File Is Depreca
     Check Log Message    ${ERRORS}[1]                     ${message}    WARN
 
 Local keyword in resource file has precedence over keywords in other resource files
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Check Log Message    ${tc.body[0].body[0].body[0].msgs[0]}    Keyword in resource 1
     Check Log Message    ${tc.body[1].body[0].body[0].msgs[0]}    Keyword in resource 2
 
 Local keyword in resource file has precedence even if search order is set
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Check Log Message    ${tc.body[0].body[0].body[0].msgs[0]}    Keyword in resource 1
     Check Log Message    ${tc.body[1].body[0].body[0].msgs[0]}    Keyword in resource 2
 
 Keyword From Custom Library Overrides Keywords From Standard Library
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Verify Override Message    ${ERRORS}[2]    ${tc.kws[0]}    Comment    BuiltIn
     Verify Override Message    ${ERRORS}[3]    ${tc.kws[1]}    Copy Directory    OperatingSystem
 
 Search order can give presedence to standard library keyword over custom keyword
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Check Keyword Data         ${tc.kws[1]}    BuiltIn.Comment    args=Used from BuiltIn
     Verify Override Message    ${ERRORS}[4]    ${tc.kws[2]}    Copy Directory    OperatingSystem
 
 Search order can give presedence to custom keyword over standard library keyword
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Check Keyword Data    ${tc.kws[1]}           MyLibrary1.Comment
     Check Log Message     ${tc.kws[1].msgs[0]}   Overrides keyword from BuiltIn library
     Check Keyword Data    ${tc.kws[2]}           MyLibrary1.Copy Directory
     Check Log Message     ${tc.kws[2].msgs[0]}   Overrides keyword from OperatingSystem library
 
 Keyword From Custom Library Overrides Keywords From Standard Library Even When Std Lib Imported With Different Name
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Verify Override Message    ${ERRORS}[5]    ${tc.kws[0]}    Replace String
     ...    String    MyLibrary2    Std With Name    My With Name
 
 No Warning When Custom Library Keyword Is Registered As RunKeyword Variant And It Has Same Name As Std Keyword
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
     Stderr Should Not Contain    Run Keyword If
 
 Keyword In More Than One Custom Library And Standard Library
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
     Syslog Should Not Contain    BuiltIn.No Operation
 
 Keywords are first searched from test case file even if they contain dot
@@ -83,17 +83,17 @@ Keywords are first searched from test case file even if they contain dot
 
 *** Keywords ***
 Verify override message
-    [Arguments]    ${error msg}    ${kw}    ${name}    ${standard}    ${custom}=MyLibrary1
-    ...    ${std with name}=    ${ctm with name}=
-    ${std imported as} =    Set Variable If    "${std with name}"    ${SPACE}imported as '${std with name}'    ${EMPTY}
-    ${ctm imported as} =    Set Variable If    "${ctm with name}"    ${SPACE}imported as '${ctm with name}'    ${EMPTY}
-    ${std long} =    Set Variable If    "${std with name}"    ${std with name}    ${standard}
-    ${ctm long} =    Set Variable If    "${ctm with name}"    ${ctm with name}    ${custom}
+    [Arguments]    ${error_msg}    ${kw}    ${name}    ${standard}    ${custom}=MyLibrary1
+    ...    ${std_with_name}=    ${ctm_with_name}=
+    ${std_imported_as} =    Set Variable If    "${std_with_name}"    ${SPACE}imported as '${std_with_name}'    ${EMPTY}
+    ${ctm_imported_as} =    Set Variable If    "${ctm_with_name}"    ${SPACE}imported as '${ctm_with_name}'    ${EMPTY}
+    ${std_long} =    Set Variable If    "${std_with_name}"    ${std_with_name}    ${standard}
+    ${ctm_long} =    Set Variable If    "${ctm_with_name}"    ${ctm_with_name}    ${custom}
     ${expected} =    Catenate
-    ...    Keyword '${name}' found both from a custom library '${custom}'${ctm imported as}
-    ...    and a standard library '${standard}'${std imported as}. The custom keyword is used.
-    ...    To select explicitly, and to get rid of this warning, use either '${ctm long}.${name}'
-    ...    or '${std long}.${name}'.
-    Check Log Message    ${error msg}    ${expected}    WARN
+    ...    Keyword '${name}' found both from a custom library '${custom}'${ctm_imported_as}
+    ...    and a standard library '${standard}'${std_imported_as}. The custom keyword is used.
+    ...    To select explicitly, and to get rid of this warning, use either '${ctm_long}.${name}'
+    ...    or '${std_long}.${name}'.
+    Check Log Message    ${error_msg}    ${expected}    WARN
     Check Log Message    ${kw.msgs[0]}    ${expected}    WARN
     Check Log Message    ${kw.msgs[1]}    Overrides keyword from ${standard} library

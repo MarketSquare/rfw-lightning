@@ -5,7 +5,8 @@ Library           Collections
 *** Keywords ***
 Verify try except and block statuses
     [Arguments]    @{types_and_statuses}    ${tc_status}=    ${path}=body[0]
-    ${tc}=    Check test status    @{{[s.split(':')[-1] for s in $types_and_statuses]}}    tc_status=${tc_status}
+    ${statuses}    Evaluate       [s.split(':')[-1] for s in $types_and_statuses]
+    ${tc}=    Check test status    @{statuses}    tc_status=${tc_status}
     Block statuses should be    ${tc.${path}}    @{types_and_statuses}
     RETURN    ${tc}
 
@@ -28,8 +29,10 @@ Block statuses should be
     Length Should Be    ${blocks}    ${expected_block_count}
     FOR    ${block}    ${type_and_status}    IN ZIP    ${blocks}    ${types_and_statuses}
         IF    ':' in $type_and_status
-            Should Be Equal    ${block.type}      ${type_and_status.split(':')[0]}
-            Should Be Equal    ${block.status}    ${type_and_status.split(':')[1]}
+            ${tsType}=Evaluate      $type_and_status.split(':')[0]
+            ${tsStatus}=Evaluate    $type_and_status.split(':')[1]
+            Should Be Equal    ${block.type}      ${tsType}
+            Should Be Equal    ${block.status}    ${tsStatus}
         ELSE
             Should Be Equal    ${block.status}    ${type_and_status}
         END

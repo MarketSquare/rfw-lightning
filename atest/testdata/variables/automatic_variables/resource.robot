@@ -39,11 +39,11 @@ Check Test Variables
 
 Check Test Tags
     [Arguments]    @{expected}
-    Log Many    @{TEST TAGS}
+    Log Many    @{TEST_TAGS}
     Log Many    @{expected}
-    Should Be Equal    ${expected}    ${TEST TAGS}
+    Should Be Equal    ${expected}    ${TEST_TAGS}
 
 Suite Metadata Should Be Correct
     [Arguments]    ${expected}
     ${expected} =    Evaluate    ${expected}
-    Dictionaries Should Be Equal    ${SUITE METADATA}    ${expected}
+    Dictionaries Should Be Equal    ${SUITE_METADATA}    ${expected}

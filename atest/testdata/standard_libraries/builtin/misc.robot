@@ -37,8 +37,8 @@ Comment
     Comment    This text is shown    as keyword arguments    but ignored otherwise
     Comment    One message
     Comment
-    Comment    Should work also with ${NON EXISTING} variable and ${OTHER NON EXISTING} variable
-    Comment    @{NON EXISTING LIST}, &{NONEX DICT} and %{NONEX_ENV_VAR} work too
+    Comment    Should work also with ${NON_EXISTING} variable and ${OTHER_NON_EXISTING} variable
+    Comment    @{NON_EXISTING_LIST}, &{NONEX_DICT} and %{NONEX_ENV_VAR} work too
 
 Regexp Escape
     ${escaped} =    Regexp Escape    f$o^o$b[a]r()?\\

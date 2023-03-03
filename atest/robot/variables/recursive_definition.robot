@@ -9,9 +9,9 @@ Direct recursion
 
 Indirect recursion
     Check Test Case    ${TESTNAME}
-    Recursion error    \${VAR 1}    8    8
-    Non-existing error    \${VAR 3}    \${VAR 1}    9     10    \${VAR 3}    \${VAR 2}
-    Non-existing error    \${VAR 2}    \${VAR 3}    10    9     \${VAR 2}
+    Recursion error    \${VAR_1}    8    8
+    Non-existing error    \${VAR_3}    \${VAR_1}    9     10    \${VAR_3}    \${VAR_2}
+    Non-existing error    \${VAR_2}    \${VAR_3}    10    9     \${VAR_2}
 
 Case-insensitive recursion
     Check Test Case    ${TESTNAME}
@@ -20,15 +20,15 @@ Case-insensitive recursion
 Recursive list variable
     Check Test Case    ${TESTNAME}
     Recursion error    \@{LIST}      5    12
-    Recursion error    \@{LIST 1}    6    13
-    Non-existing error    \@{LIST 2}    \@{LIST 1}    7    14
+    Recursion error    \@{LIST_1}    6    13
+    Non-existing error    \@{LIST_2}    \@{LIST_1}    7    14
 
 Recursion with variables used in imports
     Check Test Case    ${TESTNAME}
-    Recursion error    \${IMPORT 1}    0    15
-    Non-existing error    \${IMPORT 2}    \${IMPORT 1}    1    16    \${IMPORT 2}
-    Import error    Resource    \${IMPORT 1}    2    3
-    Import error    Library     \${IMPORT 2}    3    4
+    Recursion error    \${IMPORT_1}    0    15
+    Non-existing error    \${IMPORT_2}    \${IMPORT_1}    1    16    \${IMPORT_2}
+    Import error    Resource    \${IMPORT_1}    2    3
+    Import error    Library     \${IMPORT_2}    3    4
 
 *** Keywords ***
 Recursion error

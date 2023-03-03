@@ -5,7 +5,7 @@ Library           OperatingSystem
 
 *** Variables ***
 ${SCRIPT}         ${CURDIR}${/}files${/}script.py
-${ENCODING SCRIPT}    ${CURDIR}${/}files${/}encoding.py
+${ENCODING_SCRIPT}    ${CURDIR}${/}files${/}encoding.py
 ${COUNTDOWN}      ${CURDIR}${/}files${/}countdown.py
 ${TEMPFILE}       %{TEMPDIR}${/}terminate-process-temp.txt
 ${STARTED}        %{TEMPDIR}${/}some-process-started.txt
@@ -29,8 +29,10 @@ Stop some process
     ${running}=    Is Process Running    ${handle}
     Return From Keyword If    not $running
     ${process}=    Get Process Object    ${handle}
-    ${stdout}    ${_} =    Call Method    ${process}    communicate    ${message.encode('ASCII') + b'\n'}
-    [Return]    ${stdout.decode('ASCII').rstrip()}
+    ${encoded}=Evaluate  $message.encode('ASCII')+b'\\n'
+    ${stdout}    ${_} =    Call Method    ${process}    communicate    ${encoded}
+    ${result}=   Evaluate  $stdout.decode('ASCII').rstrip()
+    RETURN    ${result}
 
 Result should equal
     [Arguments]    ${result}    ${stdout}=    ${stderr}=    ${rc}=0

@@ -6,10 +6,10 @@ Test Setup        Empty Directory    ${MYOUTDIR}
 Resource          rebot_resource.robot
 
 *** Variables ***
-${SUITE FILE}     misc${/}many_tests.robot
-${SUITE DIR}      misc${/}suites
+${SUITE_FILE}     misc${/}many_tests.robot
+${SUITE_DIR}      misc${/}suites
 ${MYOUTDIR}       %{TEMPDIR}${/}robot-test-145567
-${INPUT FILE}     %{TEMPDIR}${/}robot-test-file.xml
+${INPUT_FILE}     %{TEMPDIR}${/}robot-test-file.xml
 
 *** Test Cases ***
 --test once
@@ -25,15 +25,15 @@ ${INPUT FILE}     %{TEMPDIR}${/}robot-test-file.xml
 --test not matching
     Failing Rebot
     ...    Suite 'Root' contains no tests matching name 'nonex'.
-    ...    --test nonex    ${INPUT FILE}
+    ...    --test nonex    ${INPUT_FILE}
 
 --test not matching with multiple inputs
     Failing Rebot
     ...    Suite 'Root & Root' contains no tests matching name 'nonex'.
-    ...    --test nonex    ${INPUT FILE} ${INPUT FILE}
+    ...    --test nonex    ${INPUT_FILE} ${INPUT_FILE}
     Failing Rebot
     ...    Suite 'My Name' contains no tests matching name 'nonex'.
-    ...    --test nonex -N "My Name"    ${INPUT FILE} ${INPUT FILE}
+    ...    --test nonex -N "My Name"    ${INPUT_FILE} ${INPUT_FILE}
 
 --suite once
     Run And Check Suites    --suite tsuite1   Tsuite1
@@ -59,15 +59,15 @@ ${INPUT FILE}     %{TEMPDIR}${/}robot-test-file.xml
 --suite not matching
     Failing Rebot
     ...    Suite 'Root' contains no tests in suites 'nonex', 'n2' or 'n3'.
-    ...    --suite nonex -s n2 -s n3    ${INPUT FILE}
+    ...    --suite nonex -s n2 -s n3    ${INPUT_FILE}
 
 --suite not matching with multiple inputs
     Failing Rebot
     ...    Suite 'Root & Root' contains no tests in suite 'nonex'.
-    ...    --suite nonex    ${INPUT FILE} ${INPUT FILE}
+    ...    --suite nonex    ${INPUT_FILE} ${INPUT_FILE}
     Failing Rebot
     ...    Suite 'CustomName' contains no tests in suite 'nonex'.
-    ...    --name CustomName --suite nonex    ${INPUT FILE} ${INPUT FILE}
+    ...    --name CustomName --suite nonex    ${INPUT_FILE} ${INPUT_FILE}
 
 --suite and --test together
     Run And Check Suites and Tests    --suite tsuite1 --suite tsuite3 --test *1first --test nomatch    Tsuite1    Suite1 First
@@ -75,7 +75,7 @@ ${INPUT FILE}     %{TEMPDIR}${/}robot-test-file.xml
 --suite and --test together not matching
     Failing Rebot
     ...     Suite 'Root' contains no tests matching name 'first', 'nonex' or '*one' in suites 'nonex' or 'suites'.
-    ...    --suite nonex --suite suites --test first --test nonex --test *one    ${INPUT FILE}
+    ...    --suite nonex --suite suites --test first --test nonex --test *one    ${INPUT_FILE}
 
 Elapsed Time
     [Documentation]    Test setting start, end and elapsed times correctly when filtering by tags
@@ -91,7 +91,7 @@ Elapsed Time
     Should Be Equal As Integers    ${SUITE.test_count}    6
     Comment    2) Filter output created in earlier step and check    that times are set accordingly.
     Copy Previous Outfile
-    Run Rebot    --test Exc* --test Incl-1    ${OUTFILE COPY}
+    Run Rebot    --test Exc* --test Incl-1    ${OUTFILE_COPY}
     Check Times    ${SUITE.tests[0]}    20061227 12:00:00.000    20061227 12:00:01.000    1000    # Incl-1
     Check Times    ${SUITE.tests[1]}    20061227 12:00:07.000    20061227 12:00:07.001    0001    # Excl-1
     Check Times    ${SUITE.tests[2]}    20061227 12:00:07.001    20061227 12:00:07.003    0002    # Excl-12
@@ -101,16 +101,16 @@ Elapsed Time
 
 *** Keywords ***
 Create Input File
-    Create Output With Robot    ${INPUT FILE}    --name Root    ${SUITE FILE} ${SUITE DIR}
+    Create Output With Robot    ${INPUT_FILE}    --name Root    ${SUITE_FILE} ${SUITE_DIR}
     Create Directory    ${MYOUTDIR}
 
 Remove Temps
     Remove Directory    ${MYOUTDIR}    recursive
-    Remove FIle    ${INPUT FILE}
+    Remove FIle    ${INPUT_FILE}
 
 Run and check Tests
     [Arguments]    ${params}    @{tests}
-    Run Rebot    ${params}    ${INPUT FILE}
+    Run Rebot    ${params}    ${INPUT_FILE}
     Stderr Should Be Empty
     Should Contain Tests    ${SUITE}    @{tests}
     Should Be True    ${SUITE.statistics.passed} == len(@{tests})
@@ -139,10 +139,10 @@ Run And Check Suites and Tests
 
 Run Suites
     [Arguments]    ${options}
-    Run Rebot    ${options}    ${INPUT FILE}
+    Run Rebot    ${options}    ${INPUT_FILE}
     Stderr Should Be Empty
 
 Failing Rebot
     [Arguments]    ${error}    ${options}    ${sources}
     Run Rebot Without Processing Output    ${options}    ${sources}
-    Stderr Should Be Equal To    [ ERROR ] ${error}${USAGE TIP}\n
+    Stderr Should Be Equal To    [ ERROR ] ${error}${USAGE_TIP}\n

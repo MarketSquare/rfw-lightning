@@ -4,7 +4,7 @@ Resource          ../keywords/resources/my_resource_1.robot
 Resource          ../keywords/resources/my_resource_2.robot
 
 *** Variables ***
-${SUITE TEARDOWN FAILED}    SEPARATOR=\n
+${SUITE_TEARDOWN_FAILED}    SEPARATOR=\n
 ...    Also parent suite teardown failed:
 ...    Several failures occurred:
 ...    ${EMPTY}
@@ -12,14 +12,14 @@ ${SUITE TEARDOWN FAILED}    SEPARATOR=\n
 ...    ${EMPTY}
 ...    2) Suite Message 2 (with ∏ön ÄßÇïï €§)
 ...    ${EMPTY}
-...    3) Variable '\${it is ok not to exist}' not found.
+...    3) Variable '\${it_is_ok_not_to_exist}' not found.
 
 *** Test Cases ***
 One Failure
     [Documentation]    FAIL    Teardown failed:
     ...    Message
     ...
-    ...    ${SUITE TEARDOWN FAILED}
+    ...    ${SUITE_TEARDOWN_FAILED}
     No Operation
     [Teardown]    One Failure
 
@@ -31,7 +31,7 @@ Multiple Failures
     ...
     ...    2) Message 2
     ...
-    ...    ${SUITE TEARDOWN FAILED}
+    ...    ${SUITE_TEARDOWN_FAILED}
     No Operation
     [Teardown]    Multiple Failures
 
@@ -39,7 +39,7 @@ Failure When Setting Variables
     [Documentation]    FAIL    Teardown failed:
     ...    Return values is None
     ...
-    ...    ${SUITE TEARDOWN FAILED}
+    ...    ${SUITE_TEARDOWN_FAILED}
     No Operation
     [Teardown]    Failure when setting variables
 
@@ -55,7 +55,7 @@ Failure In For Loop
     ...
     ...    4) again
     ...
-    ...    ${SUITE TEARDOWN FAILED}
+    ...    ${SUITE_TEARDOWN_FAILED}
     No Operation
     [Teardown]    Failures In For Loop
 
@@ -63,7 +63,7 @@ Execution Continues After Test Timeout
     [Documentation]    FAIL    Teardown failed:
     ...    This should be executed
     ...
-    ...    ${SUITE TEARDOWN FAILED}
+    ...    ${SUITE_TEARDOWN_FAILED}
     [Timeout]    0.3 seconds
     No Operation
     [Teardown]    Test Timeout Occurs
@@ -72,7 +72,7 @@ Execution Stops After Keyword Timeout
     [Documentation]    FAIL    Teardown failed:
     ...    Keyword timeout 42 milliseconds exceeded.
     ...
-    ...    ${SUITE TEARDOWN FAILED}
+    ...    ${SUITE_TEARDOWN_FAILED}
     No Operation
     [Teardown]    Keyword Timeout Occurs
 
@@ -84,7 +84,7 @@ Execution Continues After Keyword Timeout Occurs In Executed Keyword
     ...
     ...    2) This should be executed
     ...
-    ...    ${SUITE TEARDOWN FAILED}
+    ...    ${SUITE_TEARDOWN_FAILED}
     No Operation
     [Teardown]    Keyword Timeout Occurs In Executed Keyword
 
@@ -92,11 +92,11 @@ Execution Continues If Variable Does Not Exist
     [Documentation]    FAIL    Teardown failed:
     ...    Several failures occurred:
     ...
-    ...    1) Variable '\${this var does not exist}' not found.
+    ...    1) Variable '\${this_var_does_not_exist}' not found.
     ...
-    ...    2) Variable '\${neither does this one}' not found.
+    ...    2) Variable '\${neither_does_this_one}' not found.
     ...
-    ...    ${SUITE TEARDOWN FAILED}
+    ...    ${SUITE_TEARDOWN_FAILED}
     No Operation
     [Teardown]    Missing Variables
 
@@ -110,7 +110,7 @@ Execution Continues After Keyword Errors
     ...    ${SPACE*4}my_resource_1.Keyword In Both Resources
     ...    ${SPACE*4}my_resource_2.Keyword In Both Resources
     ...
-    ...    ${SUITE TEARDOWN FAILED}
+    ...    ${SUITE_TEARDOWN_FAILED}
     No Operation
     [Teardown]    Keyword Errors
 
@@ -118,7 +118,7 @@ Execution Stops After Syntax Error
     [Documentation]    FAIL    Teardown failed:
     ...    Keyword name cannot be empty.
     ...
-    ...    ${SUITE TEARDOWN FAILED}
+    ...    ${SUITE_TEARDOWN_FAILED}
     No Operation
     [Teardown]    Syntax Errors
 
@@ -126,14 +126,14 @@ Fatal Error 1
     [Documentation]    FAIL    Teardown failed:
     ...  The End
     ...
-    ...  ${SUITE TEARDOWN FAILED}
+    ...  ${SUITE_TEARDOWN_FAILED}
     No Operation
     [Teardown]    Keyword With Fatal Error
 
 Fatal Error 2
     [Documentation]    FAIL    Test execution stopped due to a fatal error.
     ...
-    ...  ${SUITE TEARDOWN FAILED}
+    ...  ${SUITE_TEARDOWN_FAILED}
     Fail    This should not be executed
 
 *** Keywords ***
@@ -170,10 +170,10 @@ Keyword Timeout Occurs In Executed Keyword
     Fail    This should be executed
 
 Missing Variables
-    Log    ${this var does not exist}
+    Log    ${this_var_does_not_exist}
     Log    This should be executed
     FOR    ${i}    IN RANGE    1
-        Fail    ${neither does this one}
+        Fail    ${neither_does_this_one}
     END
 
 Keyword Errors
@@ -192,5 +192,5 @@ Keyword With Fatal Error
 Suite Teardown With Failures
     Fail    Suite Message 1
     Fail    Suite Message 2 (with ∏ön ÄßÇïï €§)
-    Log    ${it is ok not to exist}
+    Log    ${it_is_ok_not_to_exist}
     Log    This should be executed

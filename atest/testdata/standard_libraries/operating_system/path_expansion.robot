@@ -1,8 +1,6 @@
 *** Settings ***
 Library           OperatingSystem
-
-*** Variables ***
-${WINDOWS}        ${/ != '/'}
+Suite Setup       Set Is Windows Variable
 
 *** Test Cases ***
 Tilde in path
@@ -19,12 +17,18 @@ Tilde and username in path
     Directory Should Exist    ~${user}
 
 Path as `pathlib.Path`
-    ${path} =    Normalize Path    ${{pathlib.Path('~/foo')}}
+    ${original_path}=     Evaluate    pathlib.Path('~/foo')
+    ${path} =    Normalize Path    ${original_path}
     ${home} =    Get Home
     Should Be Equal    ${path}    ${home}${/}foo
-    Directory Should Exist    ${{pathlib.Path('~')}}
+    ${original_path}=     Evaluate    pathlib.Path('~')
+    Directory Should Exist    ${original_path}
 
 *** Keywords ***
+Set Is Windows Variable
+    ${WINDOWS}     Evaluate    "${/}" != '/'
+    Set Suite Variable   $WINDOWS
+
 Get Home
     [Arguments]    ${case_normalize}=False
     IF    ${WINDOWS}

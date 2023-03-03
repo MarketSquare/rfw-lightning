@@ -36,18 +36,18 @@ Invalid Tables
     Invalid Section Error    0    invalid_table_names.robot        1     *** Error ***
     Invalid Section Error    1    invalid_table_names.robot        8     *** ***
     Invalid Section Error    2    invalid_table_names.robot        17    *one more table cause an error
-    Invalid Section Error    3    invalid_tables_resource.robot    1     *** ***                 test and task=
-    Invalid Section Error    4    invalid_tables_resource.robot    10    ***Resource Error***    test and task=
+    Invalid Section Error    3    invalid_tables_resource.robot    1     *** ***                 test_and_task=
+    Invalid Section Error    4    invalid_tables_resource.robot    10    ***Resource Error***    test_and_task=
 
 *** Keywords ***
 Check First Log Entry
-    [Arguments]    ${test case name}    ${expected}
-    ${tc} =    Check Test Case    ${test case name}
+    [Arguments]    ${test_case_name}    ${expected}
+    ${tc} =    Check Test Case    ${test_case_name}
     Check Log Message    ${tc.kws[0].msgs[0]}    ${expected}
 
 Invalid Section Error
-    [Arguments]    ${index}    ${file}    ${lineno}    ${header}    ${test and task}=, 'Test Cases', 'Tasks'
+    [Arguments]    ${index}    ${file}    ${lineno}    ${header}    ${test_and_task}=, 'Test Cases', 'Tasks'
     Error In File    ${index}    parsing/${file}    ${lineno}
     ...    Unrecognized section header '${header}'.
-    ...    Valid sections: 'Settings', 'Variables'${test and task},
+    ...    Valid sections: 'Settings', 'Variables'${test_and_task},
     ...    'Keywords' and 'Comments'.

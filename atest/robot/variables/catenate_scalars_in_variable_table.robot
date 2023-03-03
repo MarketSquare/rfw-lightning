@@ -18,7 +18,7 @@ Non-string separator
 Non-existing variable in separator
     Check Test Case    ${TESTNAME}
     Error In File    0    variables/catenate_scalars_in_variable_table.robot    13
-    ...    Setting variable '\${NONEX IN SEP}' failed: Variable '\${NON EXISTING}' not found.
+    ...    Setting variable '\${NONEX_IN_SEP}' failed: Variable '\${NON_EXISTING}' not found.
 
 Value containing variables
     Check Test Case    ${TESTNAME}
@@ -29,7 +29,7 @@ Value containing list variables
 Non-existing variable in value
     Check Test Case    ${TESTNAME}
     Error In File    1    variables/catenate_scalars_in_variable_table.robot    25
-    ...    Setting variable '\${NONEX IN VALUE}' failed: Variable '\${NON EXISTING}' not found.
+    ...    Setting variable '\${NONEX_IN_VALUE}' failed: Variable '\${NON_EXISTING}' not found.
 
 'SEPARATOR=' can be escaped
     Check Test Case    ${TESTNAME}

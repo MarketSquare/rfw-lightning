@@ -21,7 +21,7 @@ Keywords with embedded arguments
     Check Keyword Data    ${tc.kws[1].kws[0]}    BuiltIn.No Operation    status=NOT RUN
     Check Keyword Data    ${tc.kws[2]}           Some embedded and normal args    args=42
     Check Keyword Data    ${tc.kws[2].kws[0]}    BuiltIn.No Operation    status=NOT RUN
-    Check Keyword Data    ${tc.kws[3]}           Some embedded and normal args    args=\${does not exist}
+    Check Keyword Data    ${tc.kws[3]}           Some embedded and normal args    args=\${does_not_exist}
     Check Keyword Data    ${tc.kws[3].kws[0]}    BuiltIn.No Operation    status=NOT RUN
 
 Library keyword with embedded arguments
@@ -42,7 +42,7 @@ Scalar variables are not checked in keyword arguments
     [Documentation]    Variables are too often set somehow dynamically that we cannot expect them to always exist.
     ${tc}=    Check Test Case    ${TESTNAME}
     Check Keyword Data    ${tc.kws[0]}    BuiltIn.Log    status=NOT RUN    args=\${TESTNAME}
-    Check Keyword Data    ${tc.kws[1]}    BuiltIn.Log    status=NOT RUN    args=\${this does not exist}
+    Check Keyword Data    ${tc.kws[1]}    BuiltIn.Log    status=NOT RUN    args=\${this_does_not_exist}
 
 List variables are not checked in keyword arguments
     [Documentation]    See the doc of the previous test
@@ -69,7 +69,7 @@ Setup/teardown with non-existing variable is ignored
 Setup/teardown with existing variable is resolved and executed
     ${tc} =    Check Test Case    ${TESTNAME}
     Check Keyword Data    ${tc.setup}    BuiltIn.No Operation    status=NOT RUN    type=SETUP
-    Check Keyword Data    ${tc.teardown}    Teardown    args=\${nonex arg}    type=TEARDOWN
+    Check Keyword Data    ${tc.teardown}    Teardown    args=\${nonex_arg}    type=TEARDOWN
     Check Keyword Data    ${tc.teardown.body[0]}    BuiltIn.Log    args=\${arg}    status=NOT RUN
 
 User keyword return value
@@ -94,7 +94,7 @@ Keyword teardown with non-existing variable is ignored
 
 Keyword teardown with existing variable is resolved and executed
     ${tc}=    Check Test Case    ${TESTNAME}
-    Check Keyword Data    ${tc.kws[0].teardown}    Teardown    args=\${I DO NOT EXIST}    type=TEARDOWN
+    Check Keyword Data    ${tc.kws[0].teardown}    Teardown    args=\${I_DO_NOT_EXIST}    type=TEARDOWN
     Check Keyword Data    ${tc.kws[0].teardown.kws[0]}    BuiltIn.Log    args=\${arg}    status=NOT RUN
 
 Non-existing keyword name

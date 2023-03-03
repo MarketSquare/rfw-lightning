@@ -5,164 +5,164 @@ Resource          atest_resource.robot
 
 *** Test Cases ***
 Convert To Dictionary
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Set To Dictionary
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Set To Dictionary With wrong number of arguments
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Set To Dictionary With **kwargs
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Remove From Dictionary
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Check Log Message    ${tc.kws[0].msgs[0]}    Removed item with key 'b' and value '2'.
     Check Log Message    ${tc.kws[0].msgs[1]}    Key 'x' not found.
     Check Log Message    ${tc.kws[0].msgs[2]}    Key '2' not found.
 
 Keep In Dictionary
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Copy Dictionary
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Shallow Copy Dictionary
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Deep Copy Dictionary
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Get Dictionary Keys Sorted
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Get Dictionary Keys Unsorted
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Get Dictionary Values Sorted
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Get Dictionary Values Unsorted
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Get Dictionary Items Sorted
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Get Dictionary Items Unsorted
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Get Dictionary Keys/Values/Items When Keys Are Unorderable
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Get From Dictionary
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Get From Dictionary With Invalid Key
-    Check Test Case    ${TEST NAME} 1
-    Check Test Case    ${TEST NAME} 2
+    Check Test Case    ${TEST_NAME} 1
+    Check Test Case    ${TEST_NAME} 2
 
 Get From Dictionary With Default
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Dictionary Should Contain Key
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Dictionary Should Contain Key With Missing Key
-    Check Test Case    ${TEST NAME} 1
-    Check Test Case    ${TEST NAME} 2
+    Check Test Case    ${TEST_NAME} 1
+    Check Test Case    ${TEST_NAME} 2
 
 Dictionary Should Contain Item
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Dictionary Should Contain Item With Missing Key
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Dictionary Should Contain Item With Wrong Value
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Dictionary Should Contain Item With Value Looking Same But With Different Type
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Dictionary Should Contain Item With Custom Message
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Dictionary Should Not Contain Key
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Dictionary Should Not Contain Key With Existing Key
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Dictionary Should (Not) Contain Key Does Not Require `has_key`
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Dictionary Should Contain Value
-    Check Test Case    ${TEST NAME}
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
+    Check Test Case    ${TEST_NAME}
 
 Dictionary Should Contain Value With Missing Value
-    Check Test Case    ${TEST NAME} 1
-    Check Test Case    ${TEST NAME} 2
+    Check Test Case    ${TEST_NAME} 1
+    Check Test Case    ${TEST_NAME} 2
 
 Dictionary Should Not Contain Value
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Dictionary Should Not Contain Value With Existing Value
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Dictionaries Should Be Equal
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Dictionaries Of Different Type Should Be Equal
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Dictionaries Should Equal With First Dictionary Missing Keys
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Dictionaries Should Equal With Second Dictionary Missing Keys
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Dictionaries Should Equal With Both Dictionaries Missing Keys
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Dictionaries Should Be Equal With Different Keys And Own Error Message
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Dictionaries Should Be Equal With Different Keys And Own And Default Error Messages
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Dictionaries Should Be Equal With Different Values
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Dictionaries Should Be Equal With Different Values And Own Error Message
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Dictionaries Should Be Equal With Different Values And Own And Default Error Messages
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Dictionary Should Contain Sub Dictionary
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Dictionary Should Contain Sub Dictionary With Missing Keys
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Dictionary Should Contain Sub Dictionary With Missing Keys And Own Error Message
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Dictionary Should Contain Sub Dictionary With Missing Keys And Own And Default Error Message
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Dictionary Should Contain Sub Dictionary With Different Value
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Dictionary Should Contain Sub Dictionary With Different Value And Own Error Message
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Dictionary Should Contain Sub Dictionary With Different Value And Own And Default Error Message
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Log Dictionary With Different Log Levels
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     ${expected} =    Catenate    SEPARATOR=\n
     ...    Dictionary size is 3 and it contains following items:
     ...    a: 1
@@ -175,16 +175,16 @@ Log Dictionary With Different Log Levels
     Check Log Message    ${tc.kws[4].msgs[0]}    ${expected}    INFO
 
 Log Dictionary With Different Dictionaries
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Check Log Message    ${tc.kws[0].msgs[0]}    Dictionary is empty.
     Check Log Message    ${tc.kws[1].msgs[0]}    Dictionary has one item:\na: 1
     Check Log Message    ${tc.kws[3].msgs[0]}    Dictionary size is 3 and it contains following items:\nTrue: xxx\nfoo: []\n(1, 2, 3): 3.14
 
 Pop From Dictionary Without Default
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Pop From Dictionary With Default
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Check invalid dictionary argument errors
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}

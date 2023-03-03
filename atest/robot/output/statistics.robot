@@ -80,10 +80,14 @@ Node Should Be Correct
 Tag Node Should Be Correct
     [Arguments]    ${node}    ${name}    ${pass}    ${fail}    ${info}=    ${doc}=    ${links}=    ${combined}=
     Node Should Be Correct    ${node}    ${name}    ${pass}    ${fail}
-    Should be equal    ${node.attrib.get('info', '')}    ${info}
-    Should be equal    ${node.attrib.get('doc', '')}     ${doc}
-    Should be equal    ${node.attrib.get('links', '')}    ${links}
-    Should be equal    ${node.attrib.get('combined', '')}    ${combined}
+    ${value}=Evaluate  $node.attrib.get('info','')
+    Should be equal    ${value}    ${info}
+    ${value}=Evaluate  $node.attrib.get('doc','')
+    Should be equal    ${value}     ${doc}
+    ${value}=Evaluate  $node.attrib.get('links','')
+    Should be equal    ${value}    ${links}
+    ${value}=Evaluate  $node.attrib.get('combined','')
+    Should be equal    ${value}    ${combined}
 
 Suite Node Should Be Correct
     [Arguments]    ${node}    ${name}    ${pass}    ${fail}

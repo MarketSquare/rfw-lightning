@@ -104,19 +104,19 @@ Write & Read Non-ASCII
     [Setup]    Login and set prompt   terminal_emulation=True   terminal_type=vt100  encoding=UTF-8
     Write    echo Hyvää yötä    wArN
     ${out} =    Read until prompt    deBug
-    Should Be Equal    ${out}    Hyvää yötä\r\n${FULL PROMPT}
+    Should Be Equal    ${out}    Hyvää yötä\r\n${FULL_PROMPT}
 
 Write & Read non-ISO-LATIN-1
     [Setup]    Login and set prompt   terminal_emulation=True   terminal_type=vt100  encoding=UTF-8
     Write    echo \u2603    wArN
     ${out} =    Read until prompt    deBug
-    Should Be Equal    ${out}    \u2603\r\n${FULL PROMPT}
+    Should Be Equal    ${out}    \u2603\r\n${FULL_PROMPT}
 
 Write ASCII-Only Unicode When Encoding Is ASCII
     [Documentation]   FAIL STARTS: UnicodeEncodeError:
     Write    echo Only ASCII
     ${out} =    Read Until Prompt
-    Should Be Equal    ${out}    Only ASCII\r\n${FULL PROMPT}
+    Should Be Equal    ${out}    Only ASCII\r\n${FULL_PROMPT}
     Write    Tämä ei toimi
 
 Encoding can not be changed in terminal encoding

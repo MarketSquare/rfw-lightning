@@ -4,16 +4,16 @@ Resource        atest_resource.robot
 
 *** Test Cases ***
 Variables From Dict Should Be Loaded
-    Check Test Case  ${TEST NAME}
+    Check Test Case  ${TEST_NAME}
 
 Variables From My Dict Should Be Loaded
-    Check Test Case  ${TEST NAME}
+    Check Test Case  ${TEST_NAME}
 
 Variables From Mapping Should Be Loaded
-    Check Test Case  ${TEST NAME}
+    Check Test Case  ${TEST_NAME}
 
 Variables From UserDict Should Be Loaded
-    Check Test Case  ${TEST NAME}
+    Check Test Case  ${TEST_NAME}
 
 Variables From My UserDict Should Be Loaded
-    Check Test Case  ${TEST NAME}
+    Check Test Case  ${TEST_NAME}

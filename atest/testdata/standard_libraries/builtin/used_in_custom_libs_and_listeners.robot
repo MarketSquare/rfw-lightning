@@ -10,10 +10,10 @@ Keywords Using BuiltIn
     Should Be Equal    ${name}    ${TESTNAME}
     Set Secret Variable
     Should Be Equal    ${SECRET}    *****
-    Variable Should Not Exist    ${SET BY LISTENER}
+    Variable Should Not Exist    ${SET_BY_LISTENER}
 
 Listener Using BuiltIn
-    Should Be Equal    ${SET BY LISTENER}    quux
+    Should Be Equal    ${SET_BY_LISTENER}    quux
 
 Use 'Run Keyword' with non-Unicode values
     Use Run Keyword with non Unicode values

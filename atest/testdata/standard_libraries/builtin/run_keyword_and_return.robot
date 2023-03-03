@@ -1,5 +1,5 @@
 *** Variables ***
-@{ESCAPING}    c:\\temp    \${not var}    \x00\\x00    ELSE    \n\\n    ${/}
+@{ESCAPING}    c:\\temp    \${not_var}    \x00\\x00    ELSE    \n\\n    ${/}
 
 *** Test Cases ***
 Return one value
@@ -54,8 +54,8 @@ With list variable containing escaped items
     Run Keyword And Return With Variables    @{ESCAPING}
 
 Return strings that needs to be escaped
-    ${ret} =    Run Keyword And Return Given Args    \${not var}
-    Should Be Equal    ${ret}    \${not var}
+    ${ret} =    Run Keyword And Return Given Args    \${not_var}
+    Should Be Equal    ${ret}    \${not_var}
     ${ret} =    Run Keyword And Return Given Args    c:\\temp\\new
     Should Be Equal    ${ret}    c:\\temp\\new
     ${ret} =    Run Keyword And Return Given Args    @{ESCAPING}
@@ -80,8 +80,8 @@ Run Keyword And Return If with list variable containing escaped items
     Run Keyword And Return If With Variables    @{ESCAPING}
 
 Run Keyword And Return If return strings that needs to be escaped
-    ${ret} =    Run Keyword And Return Given Args If    True    \${not var}
-    Should Be Equal    ${ret}    \${not var}
+    ${ret} =    Run Keyword And Return Given Args If    True    \${not_var}
+    Should Be Equal    ${ret}    \${not_var}
     ${ret} =    Run Keyword And Return Given Args If   True    c:\\temp\\new
     Should Be Equal    ${ret}    c:\\temp\\new
     ${ret} =    Run Keyword And Return Given Args If    1 > 0    @{ESCAPING}

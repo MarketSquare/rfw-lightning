@@ -21,12 +21,12 @@ Overridden in resource file
 Overridden locally 1
     ${TRUE} =          Set Variable    ${FALSE}
     ${0} =             Set Variable    zero
-    ${TEST NAME} =     Set Variable    bad idea
+    ${TEST_NAME} =     Set Variable    bad idea
     Should Be Equal    ${TRUE}         ${FALSE}
     Should Be Equal    ${0}            zero
-    Should Be Equal    ${TEST NAME}    bad idea
+    Should Be Equal    ${TEST_NAME}    bad idea
 
 Overridden locally 2
     Should Be Equal    ${TRUE}         ${TRUE}
     Should Be Equal    ${0}            ${{0}}
-    Should Be Equal    ${TEST NAME}    Overridden locally 2
+    Should Be Equal    ${TEST_NAME}    Overridden locally 2

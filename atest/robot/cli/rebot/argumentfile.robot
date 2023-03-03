@@ -3,7 +3,7 @@ Test Setup      Create Output Directory
 Resource        rebot_cli_resource.robot
 
 *** Variables ***
-${ARG FILE}     %{TEMPDIR}/arguments.txt
+${ARG_FILE}     %{TEMPDIR}/arguments.txt
 
 *** Test Cases ***
 Argument File
@@ -16,13 +16,13 @@ Argument File
     ...    --log=none
     ...    -r=none
     ...    -o myout.xml
-    ...    --outputdir ${CLI OUTDIR}
-    ...    ${INPUT FILE}
-    Create File    ${ARG FILE}    ${content}
-    ${result} =  Run Rebot    --log disable_me.html --argumentfile ${ARG FILE}
-    ...    output=${CLI OUTDIR}/myout.xml
+    ...    --outputdir ${CLI_OUTDIR}
+    ...    ${INPUT_FILE}
+    Create File    ${ARG_FILE}    ${content}
+    ${result} =  Run Rebot    --log disable_me.html --argumentfile ${ARG_FILE}
+    ...    output=${CLI_OUTDIR}/myout.xml
     Should Be Empty    ${result.stderr}
-    Directory Should Contain    ${CLI OUTDIR}    myout.xml
+    Directory Should Contain    ${CLI_OUTDIR}    myout.xml
     Should Be Equal    ${SUITE.name}    From Arg File
     Should Be Equal    ${SUITE.doc}    Leading space is ignored
-    Should Be Equal    ${SUITE.metadata['No']}    Spaces
+    Should Be Equal    ${SUITE.metadata}[No]    Spaces

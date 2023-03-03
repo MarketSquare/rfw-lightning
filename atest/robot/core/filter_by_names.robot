@@ -3,8 +3,8 @@ Documentation      Tests for --test and --suite options.
 Resource           atest_resource.robot
 
 *** Variables ***
-${SUITE FILE}      misc/many_tests.robot
-${SUITE DIR}       misc/suites
+${SUITE_FILE}      misc/many_tests.robot
+${SUITE_DIR}       misc/suites
 
 *** Test Cases ***
 --test once
@@ -20,15 +20,15 @@ ${SUITE DIR}       misc/suites
 --test not matching
     Run Failing Test
     ...    Suite 'Many Tests' contains no tests matching name 'notexists'.
-    ...    --test notexists    ${SUITE FILE}
+    ...    --test notexists    ${SUITE_FILE}
 
 --test not matching with multiple inputs
     Run Failing Test
     ...    Suite 'Many Tests & Suites' contains no tests matching name 'notexists'.
-    ...    --test notexists    ${SUITE FILE} ${SUITE DIR}
+    ...    --test notexists    ${SUITE_FILE} ${SUITE_DIR}
     Run Failing Test
     ...    Suite 'My Name' contains no tests matching name 'notexists'.
-    ...    --name "My Name" --test notexists    ${SUITE FILE} ${SUITE DIR}
+    ...    --name "My Name" --test notexists    ${SUITE_FILE} ${SUITE_DIR}
 
 --suite once
     Run Suites    --suite tsuite1
@@ -60,7 +60,7 @@ Unnecessary files are not parsed when --suite matches files
     [Documentation]    Test that only files matching --suite are processed.
     ...                Additionally __init__ files should never be ignored.
     Previous Test Should Have Passed    Parent suite init files are processed
-    ${root} =    Normalize Path    ${DATA DIR}/${SUITE DIR}
+    ${root} =    Normalize Path    ${DATA_DIR}/${SUITE_DIR}
     Syslog Should Contain    Parsing directory '${root}'.
     Syslog Should Contain    Parsing file '${root}${/}tsuite1.robot'.
     Syslog Should Contain    Ignoring file or directory '${root}${/}tsuite2.robot'.
@@ -84,7 +84,7 @@ Unnecessary files are not parsed when --suite matches directory
     ...                This time --suite matches directory so all suites under it
     ...                should be parsed regardless their names.
     Previous Test Should Have Passed    --suite matching directory
-    ${root} =    Normalize Path    ${DATA DIR}/${SUITE DIR}
+    ${root} =    Normalize Path    ${DATA_DIR}/${SUITE_DIR}
     Syslog Should Contain    Parsing directory '${root}'.
     Syslog Should Contain    Ignoring file or directory '${root}${/}tsuite1.robot'.
     Syslog Should Contain    Ignoring file or directory '${root}${/}tsuite2.robot'.
@@ -134,15 +134,15 @@ Unnecessary files are not parsed when --suite matches directory
 --suite not matching
     Run Failing Test
     ...    Suite 'Suites' contains no tests in suite 'notexists'.
-    ...    --suite notexists    ${SUITE DIR}
+    ...    --suite notexists    ${SUITE_DIR}
 
 --suite not matching with multiple inputs
     Run Failing Test
     ...    Suite 'Suites & Many Tests' contains no tests in suite 'notexists'.
-    ...    --suite notexists    ${SUITE DIR} ${SUITE FILE}
+    ...    --suite notexists    ${SUITE_DIR} ${SUITE_FILE}
     Run Failing Test
     ...    Suite 'Custom' contains no tests in suite 'xxx'.
-    ...    --suite xxx -N Custom    ${SUITE DIR} ${SUITE FILE}
+    ...    --suite xxx -N Custom    ${SUITE_DIR} ${SUITE_FILE}
 
 --suite and --test together
     [Documentation]    Testing that only tests matching --test which are under suite matching --suite are run.
@@ -153,7 +153,7 @@ Unnecessary files are not parsed when --suite matches directory
 --suite and --test together not matching
     Run Failing Test
     ...    Suite 'Suites' contains no tests matching name 'Suite1*' or 'nomatch' in suites 'subsuites' or 'nomatch'.
-    ...    --suite subsuites -s nomatch --test Suite1* -t nomatch    ${SUITE DIR}
+    ...    --suite subsuites -s nomatch --test Suite1* -t nomatch    ${SUITE_DIR}
 
 --suite with --include/--exclude
     Run Suites    --suite tsuite? --include t? --exclude t2
@@ -178,16 +178,16 @@ Unnecessary files are not parsed when --suite matches directory
 *** Keywords ***
 Run And Check Tests
     [Arguments]    ${params}    @{tests}
-    Run Tests    ${params}    ${SUITE FILE}
+    Run Tests    ${params}    ${SUITE_FILE}
     Stderr Should Be Empty
     Should Contain Tests    ${suite}    @{tests}
 
 Run Suites
-    [Arguments]    ${options}    ${testdata}=${SUITE DIR}
+    [Arguments]    ${options}    ${testdata}=${SUITE_DIR}
     Run Tests    ${options}    ${testdata}
     Stderr Should Be Empty
 
 Run Failing Test
     [Arguments]    ${error}    ${options}    ${sources}
     Run Tests Without Processing Output    ${options}    ${sources}
-    Stderr Should Be Equal To    [ ERROR ] ${error}${USAGE TIP}\n
+    Stderr Should Be Equal To    [ ERROR ] ${error}${USAGE_TIP}\n

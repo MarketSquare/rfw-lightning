@@ -1,6 +1,6 @@
 *** Setting ***
-Suite Setup       Run Keyword If Test Failed    Fail    ${NON EXISTING}
-Suite Teardown    Run Keyword If Test Failed    Fail    ${NON EXISTING}
+Suite Setup       Run Keyword If Test Failed    Fail    ${NON_EXISTING}
+Suite Teardown    Run Keyword If Test Failed    Fail    ${NON_EXISTING}
 
 *** Test Case ***
 Run Keyword If test Failed Can't Be Used In Suite Setup or Teardown

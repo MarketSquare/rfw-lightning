@@ -86,8 +86,8 @@ Argument name as variable
     Should Be Equal    ${result}    -kwo
 
 Argument name as non-existing variable
-    [Documentation]    FAIL Variable '${i do not exist}' not found.
-    Kw Only Arg    ${i do not exist}=value
+    [Documentation]    FAIL Variable '${i_do_not_exist}' not found.
+    Kw Only Arg    ${i_do_not_exist}=value
 
 With positional argument containing equal sign
     ${result} =    Kw Only Arg With Varargs    One more time    a=1    <=    2    kwo=No escaping needed!

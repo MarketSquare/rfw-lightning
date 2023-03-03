@@ -1,25 +1,25 @@
 *** Settings ***
-Suite Setup     Check Suite Source  ${EXPECTED SUITE SOURCE}
-Suite Teardown  Check Suite Source  ${EXPECTED SUITE SOURCE}
-Test Setup      Check Suite Source  ${EXPECTED SUITE SOURCE}
-Test Teardown   Check Suite Source  ${EXPECTED SUITE SOURCE}
+Suite Setup     Check Suite Source  ${EXPECTED_SUITE_SOURCE}
+Suite Teardown  Check Suite Source  ${EXPECTED_SUITE_SOURCE}
+Test Setup      Check Suite Source  ${EXPECTED_SUITE_SOURCE}
+Test Teardown   Check Suite Source  ${EXPECTED_SUITE_SOURCE}
 Resource        resource.robot
 
 *** Variables ***
-${EXPECTED SUITE SOURCE}  ${CURDIR}${/}suite_source_in_file_suite.robot
+${EXPECTED_SUITE_SOURCE}  ${CURDIR}${/}suite_source_in_file_suite.robot
 
 *** Test Cases ***
-\${SUITE SOURCE} in file suite
-    Should Be Equal  ${SUITE SOURCE}  ${EXPECTED SUITE SOURCE}
+\${SUITE_SOURCE} in file suite
+    Should Be Equal  ${SUITE_SOURCE}  ${EXPECTED_SUITE_SOURCE}
 
-\${SUITE SOURCE} in user keyword
-    Check Suite Source  ${EXPECTED SUITE SOURCE}
+\${SUITE_SOURCE} in user keyword
+    Check Suite Source  ${EXPECTED_SUITE_SOURCE}
 
-\${SUITE SOURCE} in resource file
-    Check Suite Source In Resource File  ${EXPECTED SUITE SOURCE}
+\${SUITE_SOURCE} in resource file
+    Check Suite Source In Resource File  ${EXPECTED_SUITE_SOURCE}
 
 *** Keywords ***
 Check Suite Source
-    [Arguments]  ${expected suite source}
-    Should Be Equal  ${SUITE SOURCE}  ${expected suite source}
+    [Arguments]  ${expected_suite_source}
+    Should Be Equal  ${SUITE_SOURCE}  ${expected_suite_source}
 

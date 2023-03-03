@@ -1,7 +1,7 @@
 * Variables *
-${RESOURCE VAR}  RESOURCE VAL
+${RESOURCE_VAR}  RESOURCE VAL
 
 * Keywords*
 Set Global In Resource
-  Set Global Variable  ${GLOBAL FROM RESOURCE}  ***---***
+  Set Global Variable  ${GLOBAL_FROM_RESOURCE}  ***---***
 

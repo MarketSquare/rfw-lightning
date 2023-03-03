@@ -66,10 +66,10 @@ Variable in pattern
     END
 
 Invalid variable in pattern
-    [Documentation]    FAIL    Variable '${does not exist}' not found.
+    [Documentation]    FAIL    Variable '${does_not_exist}' not found.
     TRY
         Fail   Oh no!
-    EXCEPT    ${does not exist}
+    EXCEPT    ${does_not_exist}
         Fail   Should not be executed
     FINALLY
         Log    finally here
@@ -97,10 +97,10 @@ Variable in pattern type
     END
 
 Invalid variable in pattern type
-    [Documentation]    FAIL    Variable '${does not exist}' not found.
+    [Documentation]    FAIL    Variable '${does_not_exist}' not found.
     TRY
         Fail   Oh no!
-    EXCEPT    foo    type=${does not exist}
+    EXCEPT    foo    type=${does_not_exist}
         Fail   Should not be executed
     FINALLY
         Log    finally here

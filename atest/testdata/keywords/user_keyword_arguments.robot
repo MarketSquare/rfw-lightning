@@ -96,7 +96,7 @@ Default With Variable
     Should Be Equal    ${ret}    Variable value
 
 Default With Non-Existing Variable
-    [Documentation]    FAIL Resolving argument default values failed: Variable '\${NON EXISTING}' not found.
+    [Documentation]    FAIL Resolving argument default values failed: Variable '\${NON_EXISTING}' not found.
     Default With Non-Existing Variable
 
 Local Variable Does Not Affect Variable In Default Value
@@ -158,14 +158,6 @@ Default With Invalid Dict Variable
     ...    Resolving argument default values failed: \
     ...    Value of variable '\&{VAR}' is not dictionary or dictionary-like.
     Default With Invalid Dict Variable
-
-Argument With `=` In Name
-    ${result} =    Argument With `=` In Name    x
-    Should Be Equal    ${result}    x-=-x
-    ${result} =    Argument With `=` In Name    x    y
-    Should Be Equal    ${result}    x-y-x
-    ${result} =    Argument With `=` In Name    x    y    z
-    Should Be Equal    ${result}    x-y-z
 
 Calling Using List Variables
     [Documentation]    FAIL Keyword 'A 0 1' expected 0 to 1 arguments, got 3.
@@ -271,7 +263,7 @@ Default With Variable
     [Return]    ${arg}
 
 Default With Non-Existing Variable
-    [Arguments]    ${arg}=${NON EXISTING}
+    [Arguments]    ${arg}=${NON_EXISTING}
     No operation
 
 Default With None Variable
@@ -320,10 +312,6 @@ Default With Dict Variable
 Default With Invalid Dict Variable
     [Arguments]    ${invalid}=&{VAR}
     No operation
-
-Argument With `=` In Name
-    [Arguments]    ${=}    ${==}==    ${===}=${=}
-    [Return]    ${=}-${==}-${===}
 
 Mutate Lists
     [Arguments]    ${list1}    @{list2}

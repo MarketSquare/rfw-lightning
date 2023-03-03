@@ -36,7 +36,7 @@ Variables    non_existing.py
 Resource     ${resource_dir}/empty_resource.robot
 Resource     resources_and_variables/resources.robot   only one parameter allowed
 Resource     test_suite_dir_with_init_file/__init__.robot
-Resource     ${INIT FILE}
+Resource     ${INIT_FILE}
 Resource
 Variables    ${resource_dir}/invalid_variable_file.py
 Variables    resources_and_variables/dynamicVariables.py    ${non_existing_var_as_arg}
@@ -50,7 +50,7 @@ Resource     RESOURCES_AND_VARIABLES/resources.robot
 ${resource_dir}       ${CURDIR}${/}resources_and_variables
 ${variables2_file}    ${resource_dir}/variables2.py
 ${works}              works
-${INIT FILE}          ${CURDIR}/test_suite_dir_with_init_file/sub_suite_with_init_file/__INIT__.robot
+${INIT_FILE}          ${CURDIR}/test_suite_dir_with_init_file/sub_suite_with_init_file/__INIT__.robot
 
 *** Test Cases ***
 Normal Resource Import
@@ -69,8 +69,8 @@ Normal Variable Import
     Should Be True  @{valid_list} == ['This','is','a','list']
 
 Not Included in __all__
-    [Documentation]  FAIL Variable '\${not included}' not found.
-    Log  ${not included}
+    [Documentation]  FAIL Variable '\${not_included}' not found.
+    Log  ${not_included}
 
 Variable Import With Variables
     [Documentation]  Test that variables can be used in variable import path. Also test that path can be absolute.

@@ -3,7 +3,7 @@ Library           String
 
 *** Variables ***
 @{EXCLUDES}       a    an    the    to    is
-@{EXCLUDES 2}     (a|b|c)[.,]?
+@{EXCLUDES_2}     (a|b|c)[.,]?
 
 *** Test Cases ***
 Convert To Upper Case
@@ -75,7 +75,8 @@ Convert To Title Case with regexp excludes
 
 Convert To Title Case does not work with bytes
     [Documentation]    FAIL    TypeError: This keyword works only with Unicode strings.
-    Convert To Title Case    ${{b'xxx'}}
+    ${bytesXXX}=Evaluate   b'xxx'
+    Convert To Title Case    ${bytesXXX}
 
 *** Keywords ***
 Test upper case

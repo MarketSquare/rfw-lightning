@@ -30,13 +30,13 @@ Index
 
 Implicit handle, explicit handle, alias, and index are equivalent
     ${handle}=    Some process    alias=saila
-    ${pid by implicit handle} =    Get process id
-    ${pid by explicit handle} =    Get process id    ${handle}
-    ${pid by alias} =    Get process id    saila
-    ${pid by index} =    Get process id    1
-    Should Be Equal    ${pid by implicit handle}    ${pid by explicit handle}
-    Should Be Equal    ${pid by implicit handle}    ${pid by alias}
-    Should Be Equal    ${pid by implicit handle}    ${pid by index}
+    ${pid_by_implicit_handle} =    Get process id
+    ${pid_by_explicit_handle} =    Get process id    ${handle}
+    ${pid_by_alias} =    Get process id    saila
+    ${pid_by_index} =    Get process id    1
+    Should Be Equal    ${pid_by_implicit_handle}    ${pid_by_explicit_handle}
+    Should Be Equal    ${pid_by_implicit_handle}    ${pid_by_alias}
+    Should Be Equal    ${pid_by_implicit_handle}    ${pid_by_index}
 
 Switching active process
     Some process    one

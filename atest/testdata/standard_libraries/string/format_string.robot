@@ -3,9 +3,9 @@ Library               String
 
 *** Variables ***
 ${NSN}                nokia_siemens_networks
-${TEXT IN COLUMNS}    robot\tframework\nis\tgood\tfor\ttesting
-${FIRST LINE}         robot\tframework
-${SECOND LINE}        is\tgood\tfor\ttesting
+${TEXT_IN_COLUMNS}    robot\tframework\nis\tgood\tfor\ttesting
+${FIRST_LINE}         robot\tframework
+${SECOND_LINE}        is\tgood\tfor\ttesting
 &{USER}               name=John Doe    email=john@example.com
 
 *** Test Cases ***

@@ -22,7 +22,7 @@ Importing Python Class From Module
     Should Be Equal    ${ret2}    LibClass 2 works also
 
 Namespace is initialized during library init
-    ${importing suite} =    Get Importing Suite
-    Should Be Equal    ${importing suite}    ${SUITE NAME}
+    ${importing_suite} =    Get Importing Suite
+    Should Be Equal    ${importing_suite}    ${SUITE_NAME}
     ${lib} =    Get Other Library
     Should Be Equal    ${lib.__name__}    robot.libraries.Easter

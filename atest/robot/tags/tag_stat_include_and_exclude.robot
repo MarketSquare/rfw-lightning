@@ -3,7 +3,7 @@ Test Template     Run And Check Include And Exclude
 Resource          atest_resource.robot
 
 *** Variables ***
-${DATA SOURCE}    tags/include_and_exclude.robot
+${DATA_SOURCE}    tags/include_and_exclude.robot
 ${F}              force
 ${I1}             incl1
 ${I2}             incl 2
@@ -69,14 +69,14 @@ Non Matching Include And Exclude
 *** Keywords ***
 Run And Check Include And Exclude
     [Arguments]    ${params}    @{tags}
-    Run Tests    ${params}    ${DATA SOURCE}
+    Run Tests    ${params}    ${DATA_SOURCE}
     Stderr Should Be Empty
     Tag Statistics Should Be    @{tags}
 
 Tag Statistics Should Be
     [Arguments]    @{tags}
     ${stats} =    Get Tag Stat Nodes
-    Should Be Equal    ${{ len($stats) }}    ${{ len($tags) }}
+    Should Be Equal    ${{len($stats)}}    ${{len($tags)}}
     FOR    ${stat}    ${tag}    IN ZIP    ${stats}    ${tags}
         Should Be Equal    ${stat.text}    ${tag}
     END

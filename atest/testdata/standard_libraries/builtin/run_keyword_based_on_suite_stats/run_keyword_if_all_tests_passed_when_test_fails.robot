@@ -1,5 +1,5 @@
 *** Setting ***
-Suite Teardown    Run Keyword If All Tests Passed    Fail    ${NON EXISTING}    #Should not be executed nor evaluated
+Suite Teardown    Run Keyword If All Tests Passed    Fail    ${NON_EXISTING}    #Should not be executed nor evaluated
 
 *** Test Case ***
 Run Keyword If All tests Passed Is not Executed When Any Test Fails

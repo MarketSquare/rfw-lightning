@@ -1718,7 +1718,7 @@ Circle is 360°, Hyvää üötä, উৄ ৰ ৺ ট ৫ ৪ হ</status>
 <tag>kw</tag>
 <tag>tags</tag>
 <kw name="Log" library="BuiltIn">
-<arg>Log on ${TEST NAME}</arg>
+<arg>Log on ${TEST_NAME}</arg>
 <arg>TRACE</arg>
 <doc>Logs the given message with the given level.</doc>
 <msg timestamp="20220201 17:17:12.894" level="DEBUG">Keyword timeout 1 hour active. 3600.0 seconds left.</msg>
@@ -2247,7 +2247,7 @@ with listeners but can be used for other purposes too.</doc>
 <suite id="s1-s11" name="Suites" source="/home/peke/Devel/robotframework/atest/testdata/misc/suites">
 <suite id="s1-s11-s1" name="Fourth" source="/home/peke/Devel/robotframework/atest/testdata/misc/suites/fourth.robot">
 <kw name="Log" library="BuiltIn" type="SETUP">
-<arg>${SETUP MSG}</arg>
+<arg>${SETUP_MSG}</arg>
 <doc>Logs the given message with the given level.</doc>
 <msg timestamp="20220201 17:17:12.945" level="INFO">Suite Setup of Fourth</msg>
 <status status="PASS" starttime="20220201 17:17:12.945" endtime="20220201 17:17:12.945"/>
@@ -2299,7 +2299,7 @@ AssertionError: Expected</msg>
 <status status="FAIL" starttime="20220201 17:17:12.945" endtime="20220201 17:17:12.958">Expected</status>
 </test>
 <kw name="Log" library="BuiltIn" type="TEARDOWN">
-<arg>${TEARDOWN MSG}</arg>
+<arg>${TEARDOWN_MSG}</arg>
 <doc>Logs the given message with the given level.</doc>
 <msg timestamp="20220201 17:17:12.958" level="INFO">Suite Teardown of Fourth</msg>
 <status status="PASS" starttime="20220201 17:17:12.958" endtime="20220201 17:17:12.958"/>

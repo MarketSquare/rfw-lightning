@@ -9,8 +9,8 @@ Suite Teardown    Check Variables In Suite Teardown    ${EXP_SUITE_NAME}
 Force Tags        Force 1    include this test
 Resource          resource.robot
 Library           Collections
-Library           HelperLib.py    ${SUITE NAME}    ${SUITE DOCUMENTATION}
-...               ${SUITE METADATA}    ${SUITE SOURCE}    ${OPTIONS}
+Library           HelperLib.py    ${SUITE_NAME}    ${SUITE_DOCUMENTATION}
+...               ${SUITE_METADATA}    ${SUITE_SOURCE}    ${OPTIONS}
 
 *** Variable ***
 ${VARIABLE}          variable value
@@ -32,9 +32,9 @@ Test Name
 Test Documentation
     [Documentation]    My doc.
     ...                In 2 lines! And with ${VARIABLE}!!
-    [Setup]       Should Be Equal    ${TEST DOCUMENTATION}    My doc.\nIn 2 lines! And with ${VARIABLE}!!
-                  Should Be Equal    ${TEST DOCUMENTATION}    My doc.\nIn 2 lines! And with ${VARIABLE}!!
-    [Teardown]    Should Be Equal    ${TEST DOCUMENTATION}    My doc.\nIn 2 lines! And with ${VARIABLE}!!
+    [Setup]       Should Be Equal    ${TEST_DOCUMENTATION}    My doc.\nIn 2 lines! And with ${VARIABLE}!!
+                  Should Be Equal    ${TEST_DOCUMENTATION}    My doc.\nIn 2 lines! And with ${VARIABLE}!!
+    [Teardown]    Should Be Equal    ${TEST_DOCUMENTATION}    My doc.\nIn 2 lines! And with ${VARIABLE}!!
 
 Test Tags
     [Tags]    id-${42}    Hello, world!    ${VARIABLE}
@@ -42,10 +42,10 @@ Test Tags
                   Check Test Tags    Force 1    Hello, world!    id-42    include this test    ${VARIABLE}
     [Teardown]    Check Test Tags    Force 1    Hello, world!    id-42    include this test    ${VARIABLE}
 
-Modifying \${TEST TAGS} does not affect actual tags test has
+Modifying \${TEST_TAGS} does not affect actual tags test has
     [Documentation]    The variable is changed but not "real" tags
     [Tags]    mytag
-    Append To List    ${TEST TAGS}    not really added
+    Append To List    ${TEST_TAGS}    not really added
     Check Test Tags    Force 1    include this test    mytag    not really added
 
 Suite Name
@@ -58,15 +58,15 @@ Suite Metadata
     [Setup]    Suite Metadata Should Be Correct    ${EXP_SUITE_META}
     Suite Metadata Should Be Correct    ${EXP_SUITE_META}
     ${expected} =    Evaluate    ${EXP_SUITE_META}
-    Should Be Equal    ${SUITE METADATA}    ${expected}
-    ${result} =    Create Dictionary    &{SUITE METADATA}
+    Should Be Equal    ${SUITE_METADATA}    ${expected}
+    ${result} =    Create Dictionary    &{SUITE_METADATA}
     Should Be Equal    ${result}    ${expected}
     [Teardown]    Suite Metadata Should Be Correct    ${EXP_SUITE_META}
 
-Modifying \&{SUITE METADATA} does not affect actual metadata suite has
+Modifying \&{SUITE_METADATA} does not affect actual metadata suite has
     [Documentation]    The variable is changed but not "real" metadata
-    Set To Dictionary    ${SUITE METADATA}    Meta1    not really set
-    Set To Dictionary    ${SUITE METADATA}    NotSet    not really set
+    Set To Dictionary    ${SUITE_METADATA}    Meta1    not really set
+    Set To Dictionary    ${SUITE_METADATA}    NotSet    not really set
     Suite Metadata Should Be Correct
     ...    {'MeTa1': 'not really set', 'meta2': '${VARIABLE}', 'NotSet': 'not really set'}
 
@@ -117,7 +117,8 @@ Previous Test Variables Should Have Correct Values When That Test Fails
     ...    skip_on_failure    s o f
         ${expected} =    Evaluate    $expected.split(', ')
         Should Be Equal    ${OPTIONS.${name}}     ${expected}
-        Should Be Equal    ${OPTIONS}[${name}]    ${{[exp.upper() for exp in $expected]}}
+        ${expected_upper}=   Evaluate   [exp.upper() for exp in $expected]
+        Should Be Equal    ${OPTIONS}[${name}]    ${expected_upper}
         FOR    ${exp}    IN    @{expected}
             Should Contain    ${OPTIONS}[${name}]    ${exp}
             Should Contain    ${OPTIONS.${name}}     ${exp.upper()}

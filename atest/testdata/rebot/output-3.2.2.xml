@@ -1649,7 +1649,7 @@ Circle is 360°, Hyvää üötä, উৄ ৰ ৺ ট ৫ ৪ হ</status>
 <kw name="Log" library="BuiltIn">
 <doc>Logs the given message with the given level.</doc>
 <arguments>
-<arg>Log on ${TEST NAME}</arg>
+<arg>Log on ${TEST_NAME}</arg>
 <arg>TRACE</arg>
 </arguments>
 <msg timestamp="20210212 17:27:03.271" level="DEBUG">Keyword timeout 1 hour active. 3600.0 seconds left.</msg>

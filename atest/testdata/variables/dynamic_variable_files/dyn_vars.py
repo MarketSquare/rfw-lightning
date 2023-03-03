@@ -11,7 +11,7 @@ def get_variables(type):
 
 
 def get_dict():
-    return {'from dict': 'This From Dict', 'from dict2': 2}
+    return {'from_dict': 'This From Dict', 'from_dict2': 2}
 
 
 class MyDict(dict):
@@ -21,7 +21,7 @@ class MyDict(dict):
 
 
 def get_MyMapping():
-    data = {'from Mapping': 'This From Mapping', 'from Mapping2': 2}
+    data = {'from_Mapping': 'This From Mapping', 'from_Mapping2': 2}
 
     class MyMapping(Mapping):
 
@@ -41,11 +41,11 @@ def get_MyMapping():
 
 
 def get_UserDict():
-    return UserDict({'from UserDict': 'This From UserDict', 'from UserDict2': 2})
+    return UserDict({'from_UserDict': 'This From UserDict', 'from_UserDict2': 2})
 
 
 class MyUserDict(UserDict):
 
     def __init__(self):
-        UserDict.__init__(self, {'from MyUserDict': 'This From MyUserDict',
-                                 'from MyUserDict2': 2})
+        UserDict.__init__(self, {'from_MyUserDict': 'This From MyUserDict',
+                                 'from_MyUserDict2': 2})

@@ -3,7 +3,7 @@ Library           String
 
 *** Variables ***
 ${NSN}            nokia_siemens_networks
-${WHITE SPACES}    hello\nworld\t${SPACE*5}again
+${WHITE_SPACES}    hello\nworld\t${SPACE*5}again
 
 *** Test Cases ***
 Split String
@@ -19,7 +19,7 @@ Split String With none As Separator
     Result Should Contain Items In Given Order    ${result}    1    2    3
 
 Split String With Whitespaces and Separator Is None
-    ${result} =    Split String    ${WHITE SPACES}
+    ${result} =    Split String    ${WHITE_SPACES}
     Result Should Contain Items In Given Order    ${result}    hello    world    again
 
 Split String With Max Split 0
@@ -31,7 +31,7 @@ Split String With Max Split 1
     Result Should Contain Items In Given Order    ${result}    nokia    siemens_networks
 
 Split String With Empty Separator
-    ${result} =    Split String    ${WHITE SPACES}    ${EMPTY}    -1
+    ${result} =    Split String    ${WHITE_SPACES}    ${EMPTY}    -1
     Result Should Contain Items In Given Order    ${result}    hello    world    again
 
 Split String With Empty String
@@ -59,7 +59,7 @@ Split String From Right With none As Separator
     Result Should Contain Items In Given Order    ${result}    1    2    3
 
 Split String From Right With Whitespaces and Separator Is None
-    ${result} =    Split String From Right    ${WHITE SPACES}
+    ${result} =    Split String From Right    ${WHITE_SPACES}
     Result Should Contain Items In Given Order    ${result}    hello    world    again
 
 Split String From Right With Max Split 0
@@ -71,7 +71,7 @@ Split String From Right With Max Split 1
     Result Should Contain Items In Given Order    ${result}    nokia_siemens    networks
 
 Split String From Right With Empty Separator
-    ${result} =    Split String From Right    ${WHITE SPACES}    ${EMPTY}    -1
+    ${result} =    Split String From Right    ${WHITE_SPACES}    ${EMPTY}    -1
     Result Should Contain Items In Given Order    ${result}    hello    world    again
 
 Split String From Right With Empty String
@@ -96,9 +96,9 @@ Split Empty String To Characters
 
 *** Keywords ***
 Result Should Contain Items In Given Order
-    [Arguments]    ${result list}    @{expected}
+    [Arguments]    ${result_list}    @{expected}
     ${length} =    Get Length    ${expected}
-    Length Should Be    ${result list}    ${length}
+    Length Should Be    ${result_list}    ${length}
     FOR    ${i}    IN RANGE    ${length}
-        Should Be Equal    ${result list}[${i}]    ${expected}[${i}]
+        Should Be Equal    ${result_list}[${i}]    ${expected}[${i}]
     END

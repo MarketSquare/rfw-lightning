@@ -22,7 +22,7 @@ Nested
 
 *** Keywords ***
 Fail Two Times
-    Set Test Variable    $COUNTER    ${COUNTER + 1}
+    Set Test Variable    $COUNTER    ${COUNTER+1}
     Run Keyword If    ${COUNTER} != ${3}    FAIL    not enough tries
 
 Warn And Fail Two Times
@@ -31,7 +31,7 @@ Warn And Fail Two Times
 
 Warn On First And Fail Two Times
     Run Keyword If    ${COUNTER} == ${0}    log    danger zone    WARN
-    Set Test Variable    $COUNTER    ${COUNTER + 1}
+    Set Test Variable    $COUNTER    ${COUNTER+1}
     Fail    Until the end
 
 Nested Wait

@@ -2,14 +2,14 @@
 Library           OperatingSystem
 Library           EmbeddedArgs.py
 Variables         vars.py
-Resource          ${RESOURCE PATH_FROM_VARS}
+Resource          ${RESOURCE_PATH_FROM_VARS}
 
 Library           DoesNotExist
 Variables         wrong_path.py
 Resource          NonExisting.robot
 
 # Non-existing variables in suite setups should be fine
-Suite Setup       ${SUITE SETUP}
+Suite Setup       ${SUITE_SETUP}
 # Library keywords get NOT_RUN status. That should be OK teardown status.
 Suite Teardown    No Operation
 
@@ -28,7 +28,7 @@ Keywords with embedded arguments
     Embedded arguments here
     Embedded args rock here
     Some embedded and normal args    42
-    Some embedded and normal args    ${does not exist}
+    Some embedded and normal args    ${does_not_exist}
     This is validated
 
 Library keyword with embedded arguments
@@ -43,7 +43,7 @@ Keywords that would fail
 Scalar variables are not checked in keyword arguments
     [Documentation]    Variables are too often set somehow dynamically that we cannot expect them to always exist.
     Log    ${TESTNAME}
-    Log    ${this does not exist}
+    Log    ${this_does_not_exist}
     This is validated
 
 List variables are not checked in keyword arguments
@@ -70,14 +70,14 @@ Variables are not checked in when arguments are embedded
     This is validated
 
 Setup/teardown with non-existing variable is ignored
-    [Setup]    ${nonex setup}
+    [Setup]    ${nonex_setup}
     This is validated
-    [Teardown]   ${nonex teardown}    ${nonex arg}
+    [Teardown]   ${nonex_teardown}    ${nonex_arg}
 
 Setup/teardown with existing variable is resolved and executed
     [Setup]    ${SETUP}
     This is validated
-    [Teardown]    ${TEARDOWN}    ${nonex arg}
+    [Teardown]    ${TEARDOWN}    ${nonex_arg}
 
 User keyword return value
     ${quux}=    Some Return Value    ${foo}    ${bar}
@@ -143,7 +143,7 @@ Embedded ${args} here
     No Operation
 
 Some ${type} and normal args
-    [Arguments]    ${meaning of life}
+    [Arguments]    ${meaning_of_life}
     No Operation
 
 Keyword with Teardown
@@ -152,11 +152,11 @@ Keyword with Teardown
 
 Keyword with teardown with non-existing variable
     No Operation
-    [Teardown]    ${I DO NOT EXIST}
+    [Teardown]    ${I_DO_NOT_EXIST}
 
 Keyword with teardown with existing variable
     No Operation
-    [Teardown]    ${TEARDOWN}    ${I DO NOT EXIST}
+    [Teardown]    ${TEARDOWN}    ${I_DO_NOT_EXIST}
 
 Invalid Syntax UK
     [Arguments]    ${arg

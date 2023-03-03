@@ -41,8 +41,8 @@ Verify Variables
 
 Verify No Escaping on Resource Files
     Run Libdoc And Parse Model From JSON    ${TESTDATADIR}/default_escaping.resource
-    Check Scalar in Default    some\${text} and ${scalar} \ ${{'Hello'[1:3]}}\ with\n\t ${Say ${World}} Space
-    Check Libdoc Default    0    some\\\${text} and \${scalar} \\ \${{'Hello'[1:3]}}\\ with\\n\\t \${Say \${World}} Space
+    Check Scalar in Default    some\${text} and ${scalar} \ ${{'Hello'[1:3]}}\ with\n\t ${Say_${World}} Space
+    Check Libdoc Default    0    some\\\${text} and \${scalar} \\ \${{'Hello'[1:3]}}\\ with\\n\\t \${Say_\${World}} Space
 
 *** Keywords ***
 Check Libdoc Default

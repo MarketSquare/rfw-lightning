@@ -4,8 +4,9 @@ Library       XML
 
 *** Variables ***
 ${INT}        ${15}
+&{SECOND_DICT}     second=xXx   ignore_case=${TRUE}
 &{DICT}       A=1    B=2    C=3    ${1}=${2}    3=4    ${NONE}=${NONE}    =    ${SPACE}=${SPACE}
-...           eq=${{{'second': 'xXx', 'ignore_case': True}}}
+...           eq=${SECOND_DICT}
 &{SQUARES}    [=open    ]=close    []=both    [x[y]=mixed
 ${A}          A
 ${INVALID}    xxx
@@ -92,12 +93,12 @@ Non-hashable key
     Log    ${DICT}[@{DICT}]
 
 Non-existing variable
-    [Documentation]    FAIL Variable '\${nonex dict}' not found.
-    Log    ${nonex dict}[0]
+    [Documentation]    FAIL Variable '\${nonex_dict}' not found.
+    Log    ${nonex_dict}[0]
 
 Non-existing index variable
-    [Documentation]    FAIL Variable '\${nonex key}' not found.
-    Log    ${DICT}[${nonex key}]
+    [Documentation]    FAIL Variable '\${nonex_key}' not found.
+    Log    ${DICT}[${nonex_key}]
 
 Non-dict variable
     [Documentation]    FAIL

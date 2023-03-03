@@ -25,7 +25,7 @@ Message directly under test
 *** Keywords ***
 Run Rebot And Validate Statistics
     [Arguments]    ${path}    ${passed}    ${failed}    ${validate}=True
-    Run Rebot    ${EMPTY}    ${path}    validate output=${validate}
+    Run Rebot    ${EMPTY}    ${path}    validate_output=${validate}
     ${total}    ${passed}    ${failed} =    Evaluate    ${passed} + ${failed}, ${passed}, ${failed}
     Should Be Equal    ${SUITE.statistics.total}     ${total}
     Should Be Equal    ${SUITE.statistics.passed}    ${passed}

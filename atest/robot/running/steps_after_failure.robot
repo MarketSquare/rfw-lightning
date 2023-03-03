@@ -145,8 +145,8 @@ Failure in FOR iteration
 
 *** Keywords ***
 Should Not Be Run
-    [Arguments]    ${steps}    ${expected count}=1
+    [Arguments]    ${steps}    ${expected_count}=1
     FOR    ${step}    IN    @{steps}
         Should Be Equal    ${step.status}    NOT RUN
     END
-    Length Should Be    ${steps}    ${expected count}
+    Length Should Be    ${steps}    ${expected_count}

@@ -4,28 +4,28 @@ Resource            process_resource.robot
 
 *** Variables ***
 @{COMMAND}          python    ${CURDIR}/files/timeout.py
-@{QUICK COMMAND}    python    ${CURDIR}/files/timeout.py    0.1
+@{QUICK_COMMAND}    python    ${CURDIR}/files/timeout.py    0.1
 
 *** Test Cases ***
 Finish before timeout
-    ${result} =    Run Process    @{QUICK COMMAND}
+    ${result} =    Run Process    @{QUICK_COMMAND}
     Should not be terminated    ${result}
 
 Disable timeout with nONe
-    ${result} =    Run Process    @{QUICK COMMAND}    timeout=nONe
+    ${result} =    Run Process    @{QUICK_COMMAND}    timeout=nONe
     Should not be terminated    ${result}
 
 Disable timeout with empty string
     [Documentation]   Verifying that backwards compatibility is honored
-    ${result} =    Run Process    @{QUICK COMMAND}    timeout=
+    ${result} =    Run Process    @{QUICK_COMMAND}    timeout=
     Should not be terminated    ${result}
 
 Disable timeout with zero
-    ${result} =    Run Process    @{QUICK COMMAND}    timeout=0
+    ${result} =    Run Process    @{QUICK_COMMAND}    timeout=0
     Should not be terminated    ${result}
 
 Disable timeout with negative value
-    ${result} =    Run Process    @{QUICK COMMAND}    timeout=-1 day
+    ${result} =    Run Process    @{QUICK_COMMAND}    timeout=-1 day
     Should not be terminated    ${result}
 
 On timeout process is terminated by default (w/ default streams)

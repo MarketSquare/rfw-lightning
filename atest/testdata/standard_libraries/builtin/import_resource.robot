@@ -2,20 +2,20 @@
 Suite Setup  Import Resource  ${CURDIR}/import_resource_resource_1.robot
 
 *** Variables ***
-${VAR FROM IMPORT RESOURCE RESOURCE}  this should be overwritten
-${COMMON VAR}  this should be overwritten
+${VAR_FROM_IMPORT_RESOURCE_RESOURCE}  this should be overwritten
+${COMMON_VAR}  this should be overwritten
 
 *** Test Cases ***
 Import Resource In Suite Setup
-    Should Be Equal  ${VAR FROM IMPORT RESOURCE RESOURCE}  value 1
-    Should Be Equal  ${VAR FROM VARFILE 1}  VALUE FROM VARFILE 1
+    Should Be Equal  ${VAR_FROM_IMPORT_RESOURCE_RESOURCE}  value 1
+    Should Be Equal  ${VAR_FROM_VARFILE_1}  VALUE FROM VARFILE 1
     KW From Import Resource Resource
 
 Import Resource With Sub Resources
-    Should Be Equal   ${VAR FROM IMPORT RESOURCE RESOURCE RESOURCE}  value x
+    Should Be Equal   ${VAR_FROM_IMPORT_RESOURCE_RESOURCE_RESOURCE}  value x
     KW From Import Resource Resource Resource
     Verify OperatingSystem Is Imported
-    Should Be Equal  ${VAR FROM VARFILE X}  Default varfile value
+    Should Be Equal  ${VAR_FROM_VARFILE_X}  Default varfile value
 
 Import Resource In Test Case
     Import Resource  ${CURDIR}/import_resource_resource_2.robot
@@ -32,7 +32,7 @@ Variables And Keywords Imported In Test Are Available In Next
     Verify User Keyword Resource Import
 
 Re-Import Resource
-    Set Test Variable  ${COMMON VAR}  original value
+    Set Test Variable  ${COMMON_VAR}  original value
     Re-Import Resource And Verify Imports  1
     Re-Import Resource And Verify Imports  2
     Re-Import Resource And Verify Imports  1  upper
@@ -56,7 +56,7 @@ Import Resource In User Keyword
     Verify User Keyword Resource Import
 
 Verify User Keyword Resource Import
-    Should Be Equal  ${VAR FROM IMPORT RESOURCE RESOURCE 3}  value 3
+    Should Be Equal  ${VAR_FROM_IMPORT_RESOURCE_RESOURCE_3}  value 3
     KW From Import Resource Resource 3
     Verify String Is Imported
 
@@ -64,7 +64,7 @@ Verify User Keyword Resource Import In User Keyword
     Verify User Keyword Resource Import
 
 Verify Test Case Resource Import
-    Should Be Equal  ${VAR FROM IMPORT RESOURCE RESOURCE 2}  value 2
+    Should Be Equal  ${VAR_FROM_IMPORT_RESOURCE_RESOURCE_2}  value 2
     KW From Import Resource Resource 2
     Verify Collections Is Imported
 
@@ -75,7 +75,7 @@ Verify OperatingSystem Is Imported
     Directory Should Exist  ${CURDIR}
 
 Verify Collections Is Imported
-    Count Values In List  ${TEST TAGS}  whatever
+    Count Values In List  ${TEST_TAGS}  whatever
 
 Verify String Is Imported
     Split To Lines  whatever
@@ -85,5 +85,5 @@ Re-Import Resource And Verify Imports
     ${path} =  Set Variable  ${CURDIR}/import_resource_resource_${num}.robot
     ${path} =  Set Variable If  ${WINDOWS} and '${upper}' == 'upper'  ${path.upper()}  ${path}
     Import Resource  ${path}
-    Should Be Equal  ${COMMON VAR}  resource ${num}
+    Should Be Equal  ${COMMON_VAR}  resource ${num}
     KW From Import Resource Resource

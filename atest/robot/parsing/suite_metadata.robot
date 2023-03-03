@@ -40,4 +40,5 @@ Unescaping Metadata In Setting Table
 Validate metadata
     [Arguments]    ${name}    @{lines}
     ${value} =    Catenate    SEPARATOR=\n    @{lines}
-    Should be Equal    ${SUITE.metadata['${name}']}    ${value}
+    ${metadataname}=Evaluate    $SUITE.metadata[$name]
+    Should be Equal    ${metadataname}    ${value}

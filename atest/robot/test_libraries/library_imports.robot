@@ -33,7 +33,7 @@ Importing Python Class From Module
     Check Test Case    ${TESTNAME}
 
 Namespace is initialized during library init
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Library Import With Variables
     Run Tests    ${EMPTY}    test_libraries/library_import_with_variable.robot

@@ -2,56 +2,56 @@
 Variables         escaping_variables.py
 
 *** Variable ***
-${MY SPACE}       \ \
-${TWO SPACES}     ${MY SPACE}${MY SPACE}
-${FOUR SPACES}    \ \ \ \ \
-${PRE SPACES}     \ \ two leading spaces
-${POST SPACES}    seven trailing spaces \ \ \ \ \ \ \
+${MY_SPACE}       \ \
+${TWO_SPACES}     ${MY_SPACE}${MY_SPACE}
+${FOUR_SPACES}    \ \ \ \ \
+${PRE_SPACES}     \ \ two leading spaces
+${POST_SPACES}    seven trailing spaces \ \ \ \ \ \ \
 ${BACKSLASH}      c:\\temp\\new\\
-${BACKSLASH 2}    c:\temp\new\
+${BACKSLASH_2}    c:\temp\new\
 ${NEWLINE}        \n
 ${TABULATOR}      \t
 ${CARRIAGE}       \r
-${NL TAB CR}      \n${NEWLINE}\t${TABULATOR}\r${CARRIAGE}
-${NOT VAR}        \${whatever}
-${NOT VAR 2}      ${NOT VAR}
+${NL_TAB_CR}      \n${NEWLINE}\t${TABULATOR}\r${CARRIAGE}
+${NOT_VAR}        \${whatever}
+${NOT_VAR_2}      ${NOT_VAR}
 @{LIST}           \ \    c:\\temp\\    \n    \${xxx}
-${NON STRING}     ${None}
+${NON_STRING}     ${None}
 
 *** Test Case ***
 Spaces In Variable Table
-    Should Be Equal    ${MY SPACE}    ${SP}
-    Should Be Equal    ${MY SPACE}${MY SPACE}    ${SP}${SP}
-    Should Be Equal    ${MY SPACE * 3}    ${SP}${SP}${SP}
-    Should Be Equal    ${TWO SPACES}    ${SP}${SP}
-    Should Be Equal    ${FOUR SPACES}    ${SP}${SP}${SP}${SP}
-    Should Be True    len('${FOUR SPACES}') == 4
-    Should Be Equal    "\n${FOUR SPACES}"    "${NL}${SP}${SP}${SP}${SP}"
+    Should Be Equal    ${MY_SPACE}    ${SP}
+    Should Be Equal    ${MY_SPACE}${MY_SPACE}    ${SP}${SP}
+    Should Be Equal    ${MY_SPACE*3}    ${SP}${SP}${SP}
+    Should Be Equal    ${TWO_SPACES}    ${SP}${SP}
+    Should Be Equal    ${FOUR_SPACES}    ${SP}${SP}${SP}${SP}
+    Should Be True    len('${FOUR_SPACES}') == 4
+    Should Be Equal    "\n${FOUR_SPACES}"    "${NL}${SP}${SP}${SP}${SP}"
 
 Leading And Trailing Spaces In Variable Table
-    Should Be Equal    ${PRE SPACES}    ${SP}${SP}two leading spaces
-    Should Be Equal    ${POST SPACES}    seven trailing spaces${SP*7}
-    Should Be Equal    ${POST SPACES}${PRE SPACES}    seven trailing spaces${SP*9}two leading spaces
+    Should Be Equal    ${PRE_SPACES}    ${SP}${SP}two leading spaces
+    Should Be Equal    ${POST_SPACES}    seven trailing spaces${SP*7}
+    Should Be Equal    ${POST_SPACES}${PRE_SPACES}    seven trailing spaces${SP*9}two leading spaces
 
 Backslash In Variable Table
     Should Be Equal    ${BACKSLASH}    c:${BS}temp${BS}new${BS}
     Should Be Equal    ${BACKSLASH}${BS}${BS}    c:${BS}temp${BS}new${BS*3}
-    Should Be Equal    ${BACKSLASH}${PRE SPACES}    c:${BS}temp${BS}new${BS}${SP*2}two leading spaces
-    Should Be Equal    ${BACKSLASH 2}    c:${TAB}emp${NL}ew
+    Should Be Equal    ${BACKSLASH}${PRE_SPACES}    c:${BS}temp${BS}new${BS}${SP*2}two leading spaces
+    Should Be Equal    ${BACKSLASH_2}    c:${TAB}emp${NL}ew
 
 Newline, Tab And Carriage Return In Variable Table
     Should Be Equal    ${NEWLINE}    ${NL}
     Should Be Equal    ${TABULATOR}    ${TAB}
     Should Be Equal    ${CARRIAGE}    ${CR}
-    Should Be Equal    ${NL TAB CR}    ${NL*2}${TAB*2}${CR*2}
+    Should Be Equal    ${NL_TAB_CR}    ${NL*2}${TAB*2}${CR*2}
     Should Be Equal    ${SP}${NEWLINE}    ${SP}${NL}
 
 Escaping Variables In Variable Table
-    Should Be Equal    ${NOT VAR}    \${whatever}
-    Should Be Equal    ${NOT VAR 2}    \${whatever}
-    Should Be Equal    \\${NOT VAR}    \\\${whatever}
-    Should Be Equal    \\${NOT VAR 2}    \\\${whatever}
-    Should Start With    \${NOT VAR}    \${NOT VAR
+    Should Be Equal    ${NOT_VAR}    \${whatever}
+    Should Be Equal    ${NOT_VAR_2}    \${whatever}
+    Should Be Equal    \\${NOT_VAR}    \\\${whatever}
+    Should Be Equal    \\${NOT_VAR_2}    \\\${whatever}
+    Should Start With    \${NOT_VAR}    \${NOT_VAR
 
 Escaping From List Variable In variable Table
     Should Be Equal    ${LIST}[0]    ${SP}
@@ -61,7 +61,7 @@ Escaping From List Variable In variable Table
     Should Be True    ${LIST} == [' ', 'c:\\\\temp\\\\', '\\n', '$'+'{xxx}']
 
 Non Strings Are Ok In variable Table
-    Should Be Equal    ${NON STRING}    ${None}
+    Should Be Equal    ${NON_STRING}    ${None}
 
 Remove Spaces Before And After
     Should Be Equal    foo    foo
@@ -172,7 +172,7 @@ Escaping Variables With User Keywords
 
 Pipe
 | | Should Be Equal | \| | ${PIPE} |
-| | Should Be Equal | \||| | ${PIPE * 3} |
+| | Should Be Equal | \||| | ${PIPE*3} |
 
 *** Keyword ***
 User keyword

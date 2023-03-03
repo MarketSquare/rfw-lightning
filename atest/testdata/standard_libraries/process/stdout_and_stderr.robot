@@ -12,7 +12,8 @@ Custom stdout
     Result Should Equal    ${result}    stdout    stderr    stdout_path=${STDOUT}
 
 Custom stdout as `pathlib.Path`
-    ${result} =    Run Stdout Stderr Process    stdout=${{pathlib.Path($STDOUT)}}
+    ${stdout_path}=Evaluate   pathlib.Path($STDOUT)
+    ${result} =    Run Stdout Stderr Process    stdout=${stdout_path}
     Result Should Equal    ${result}    stdout    stderr    stdout_path=${STDOUT}
 
 Redirecting stdout to DEVNULL
@@ -27,7 +28,8 @@ Custom stderr
     Result Should Equal    ${result}    stdout    stderr    stderr_path=${STDERR}
 
 Custom stderr as `pathlib.Path`
-    ${result} =    Run Stdout Stderr Process    stderr=${{pathlib.Path($STDERR)}}
+    ${stderr_path}=Evaluate   pathlib.Path($STDERR)
+    ${result} =    Run Stdout Stderr Process    stderr=${stderr_path}
     Result Should Equal    ${result}    stdout    stderr    stderr_path=${STDERR}
 
 Custom stdout and stderr

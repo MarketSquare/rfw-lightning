@@ -3,30 +3,30 @@ Resource           modifier_resource.robot
 
 *** Test Cases ***
 Modifier as path
-    Run Tests    --prerunmodifier ${CURDIR}/ModelModifier.py -l ${LOG}   ${TEST DATA}
+    Run Tests    --prerunmodifier ${CURDIR}/ModelModifier.py -l ${LOG}   ${TEST_DATA}
     Output and log should be modified    visited
 
 Modifier as name
-    Run Tests    --prerunmodifier ModelModifier --pythonpath ${CURDIR} -l ${LOG}    ${TEST DATA}
+    Run Tests    --prerunmodifier ModelModifier --pythonpath ${CURDIR} -l ${LOG}    ${TEST_DATA}
     Output and log should be modified    visited
 
 Modifier with arguments separated with ':'
-    Run Tests    --PreRunModifier ${CURDIR}/ModelModifier.py:new:tags:named=tag -l ${LOG}    ${TEST DATA}
+    Run Tests    --PreRunModifier ${CURDIR}/ModelModifier.py:new:tags:named=tag -l ${LOG}    ${TEST_DATA}
     Output and log should be modified    new    tags    named-tag
 
 Modifier with arguments separated with ';'
-    Run Tests    --prerun "ModelModifier;1;2;3" --preru "ModelModifier;4;5;n=t" -P ${CURDIR} -l ${LOG}    ${TEST DATA}
+    Run Tests    --prerun "ModelModifier;1;2;3" --preru "ModelModifier;4;5;n=t" -P ${CURDIR} -l ${LOG}    ${TEST_DATA}
     Output and log should be modified    1    2    3    4    5    n-t
 
 Non-existing modifier
-    Run Tests    --prerunmodifier NobodyHere -l ${LOG}   ${TEST DATA}
+    Run Tests    --prerunmodifier NobodyHere -l ${LOG}   ${TEST_DATA}
     Stderr Should Match
     ...    ? ERROR ? Importing model modifier 'NobodyHere' failed: *Error:
     ...    No module named 'NobodyHere'\nTraceback (most recent call last):\n*
     Output and log should not be modified
 
 Invalid modifier
-    Run Tests    --prerunmodifier ${CURDIR}/ModelModifier.py:FAIL:Message -l ${LOG}    ${TEST DATA}
+    Run Tests    --prerunmodifier ${CURDIR}/ModelModifier.py:FAIL:Message -l ${LOG}    ${TEST_DATA}
     Stderr Should Start With
     ...    [ ERROR ] Executing model modifier 'ModelModifier' failed:
     ...    Message\nTraceback (most recent call last):\n
@@ -34,19 +34,19 @@ Invalid modifier
 
 Error if all tests removed
     ${result} =    Run Tests Without Processing Output
-    ...    --prerun ${CURDIR}/ModelModifier.py:REMOVE:ALL:TESTS    ${TEST DATA}
+    ...    --prerun ${CURDIR}/ModelModifier.py:REMOVE:ALL:TESTS    ${TEST_DATA}
     Stderr Should Be Equal To
-    ...    [ ERROR ] Suite 'Pass And Fail' contains no tests after model modifiers.${USAGE TIP}\n
+    ...    [ ERROR ] Suite 'Pass And Fail' contains no tests after model modifiers.${USAGE_TIP}\n
     Should Be Equal    ${result.rc}    ${252}
 
 --RunEmptySuite when all tests removed
-    Run Tests    --RunEmptySuite --PreRun ${CURDIR}/ModelModifier.py:REMOVE:ALL:TESTS    ${TEST DATA}
+    Run Tests    --RunEmptySuite --PreRun ${CURDIR}/ModelModifier.py:REMOVE:ALL:TESTS    ${TEST_DATA}
     Stderr Should Be Empty
     Length Should Be    ${SUITE.tests}    0
 
 Modifiers are used before normal configuration
     ${result} =    Run Tests
-    ...    --include added --prerun ${CURDIR}/ModelModifier.py:CREATE:name=Created:tags=added    ${TEST DATA}
+    ...    --include added --prerun ${CURDIR}/ModelModifier.py:CREATE:name=Created:tags=added    ${TEST_DATA}
     Stderr Should Be Empty
     Length Should Be    ${SUITE.tests}    1
     ${tc} =    Check test case    Created

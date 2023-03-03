@@ -22,9 +22,9 @@ Pass With Last Possible Try
     Wait Until Keyword Succeeds    1.1 seconds    0.3 seconds    Fail Until Retried Often Enough
 
 Pass With Returning Value Correctly
-    ${return value} =    Wait Until Keyword Succeeds    4 seconds    0 min 0 sec 1 ms
+    ${return_value} =    Wait Until Keyword Succeeds    4 seconds    0 min 0 sec 1 ms
     ...    Fail Until Retried Often Enough    ${HELLO}
-    Should Be Equal    ${return value}    ${HELLO}
+    Should Be Equal    ${return_value}    ${HELLO}
 
 Invalid Timeout Does Not Cause Uncatchable Failure
     Run Keyword And Expect Error
@@ -47,8 +47,8 @@ Failing User Keyword with Wait Until
     Wait Until Keyword Succeeds    ${0.12345}    0.02    User Keyword
 
 Passing User Keyword with Wait Until
-    ${return value} =    Wait Until Keyword Succeeds    10 minutes    10 milliseconds    User Keyword
-    Should Be Equal    ${return value}    From User Keyword
+    ${return_value} =    Wait Until Keyword Succeeds    10 minutes    10 milliseconds    User Keyword
+    Should Be Equal    ${return_value}    From User Keyword
 
 Wait Until With Longer Test Timeout
     [Documentation]    FAIL
@@ -170,8 +170,8 @@ Access Nonexisting Variable
     Fail    Should NEVER be executed
 
 Access Initially Nonexisting Variable
-    Log    ${created after accessing first time}
-    [Teardown]    Set Test Variable    ${created after accessing first time}    created in keyword teardown
+    Log    ${created_after_accessing_first_time}
+    [Teardown]    Set Test Variable    ${created_after_accessing_first_time}    created in keyword teardown
 
 Syntax Error
     FOR    ${x}    IN    cannot    have    empty    body

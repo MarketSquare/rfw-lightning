@@ -7,5 +7,5 @@ ${ZIPLIB}       ${CURDIR}/../../testresources/testlibs/ziplib.zip
 
 *** Test Cases ***
 Python Library From A Zip File
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
     Syslog Should Contain    Imported library 'ZipLib' with arguments [ ] (version <unknown>, class type, TEST scope, 1 keywords)

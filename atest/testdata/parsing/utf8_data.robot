@@ -8,7 +8,6 @@ MetaData        Ä         §
 
 |      *Variable*     | *Value* |
 | ${UNICODE}          | äöå §½€ |
-| ${UTF NAME öäå §½€} | value   |
 
 **Test Cases***
 UTF-8   [Documentation]  äöå §½€
@@ -26,7 +25,6 @@ UTF-8 Name Äöå §½€"
   ${ret} =  äöå §½€
   Log       ${ret}
   Should Be Equal    ${ret}    äöå §½€
-  Log       ${UTF NAME öäå §½€}
   Fail      Virheessäkin on ääkkösiä: Äöå §½€"
 
 

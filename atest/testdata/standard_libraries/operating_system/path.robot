@@ -41,7 +41,7 @@ Normalize Path
     Normalize Path And Check    ..    ..
     Normalize Path And Check    ..${/}abc    ..${/}abc
     Normalize Path And Check    abc${/}${/}def    abc${/}def
-    Normalize Path And Check    abc${/ * 10}def    abc${/}def
+    Normalize Path And Check    abc${/*10}def    abc${/}def
     Normalize Path And Check    ${CURDIR}${/}${/}abc${/}.${/}..${/}.${/}${/}    ${CURDIR}
 
 Case Normalize Path On Windows
@@ -110,10 +110,15 @@ With Space
     Split Extension And Check    with space.and another    with space    and another
 
 Path as `pathlib.Path`
-    Join Path And Check    foo${/}bar    ${{pathlib.Path('foo')}}    ${{pathlib.Path('bar')}}
-    Normalize Path And Check     ${{pathlib.Path('foo/../bar')}}    bar
-    Split Path And Check         ${{pathlib.Path('foo/bar')}}       foo    bar
-    Split Extension And Check    ${{pathlib.Path('foo.bar')}}       foo    bar
+    ${foo_path}=Evaluate     pathlib.Path('foo')
+    ${bar_path}=Evaluate     pathlib.Path('bar')
+    Join Path And Check    foo${/}bar    ${foo_path}    ${bar_path}
+    ${foobar}=Evaluate   pathlib.Path('foo/../bar')
+    Normalize Path And Check     ${foobar}    bar
+    ${foobar}=Evaluate   pathlib.Path('foo/bar')
+    Split Path And Check         ${foobar}       foo    bar
+    ${foobar}=Evaluate   pathlib.Path('foo.bar')
+    Split Extension And Check    ${foobar}       foo    bar
 
 *** Keywords ***
 Join Path And Check

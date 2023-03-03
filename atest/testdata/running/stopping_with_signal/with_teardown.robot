@@ -18,4 +18,4 @@ Test 2
 *** Keywords ***
 My Suite Teardown
     Log    Logging Suite Teardown
-    Sleep    ${TEARDOWN SLEEP}
+    Sleep    ${TEARDOWN_SLEEP}

@@ -3,7 +3,7 @@ Test Template       Should Be Equal
 
 *** Variables ***
 ${VARIABLE}         Variable content
-${SAME VARIABLE}    Variable content
+${SAME_VARIABLE}    Variable content
 
 *** Test Cases ***
 Using Normal Keyword Is Not Possible With Template
@@ -53,7 +53,7 @@ Template With \@{EMPTY} Variable
 
 Template With Variables And Keyword Name
     [Template]    Expect Exactly Three Args
-    ${SAME VARIABLE}    Variable content    ${VARIABLE}
+    ${SAME_VARIABLE}    Variable content    ${VARIABLE}
 
 Template With Variable And Assign Mark (=)
     [Documentation]    FAIL    1= != 2=
@@ -114,7 +114,7 @@ Template With FOR Loop
 Template With FOR Loop Containing Variables
     [Documentation]    FAIL    Variable content != 42
     [Tags]    42
-    FOR    ${item}    IN    ${VARIABLE}    ${SAME VARIABLE}    @{TEST TAGS}
+    FOR    ${item}    IN    ${VARIABLE}    ${SAME_VARIABLE}    @{TEST_TAGS}
         ${VARIABLE}    ${item}
     END
 
@@ -336,12 +336,12 @@ Templated test continues after non-syntax errors
     [Documentation]    FAIL
     ...    Several failures occurred:
     ...
-    ...    1) Variable '\${this does not exist}' not found.
+    ...    1) Variable '\${this_does_not_exist}' not found.
     ...
     ...    2) Keyword 'BuiltIn.Should Be Equal' expected 2 to 8 arguments, got 1.
     ...
     ...    3) Compared and not equal != Fails
-    ${this does not exist}    ${this does not exist either}
+    ${this_does_not_exist}    ${this_does_not_exist_either}
     Too few args
     Compared and equal        Compared and equal
     Compared and not equal    Fails

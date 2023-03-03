@@ -39,7 +39,7 @@ None
 
 Invalid
     Run Tests Without Processing Output    --Console Invalid    misc/pass_and_fail.robot
-    Stderr Should Be Equal To    [ ERROR ] Invalid console output type 'Invalid'. Available 'VERBOSE', 'DOTTED', 'QUIET' and 'NONE'.${USAGE TIP}\n
+    Stderr Should Be Equal To    [ ERROR ] Invalid console output type 'Invalid'. Available 'VERBOSE', 'DOTTED', 'QUIET' and 'NONE'.${USAGE_TIP}\n
 
 --dotted
     Run and verify tests    --dotted

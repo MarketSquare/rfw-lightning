@@ -25,14 +25,14 @@ Reload Library works
     ...                 End kw: listenerlibrary.Events Should Be
     ...                 Start kw: global_listenerlibrary.Events Should Be
     ...                 End kw: global_listenerlibrary.Events Should Be
-    ...                 End test: ${PREV TEST NAME}
-    ...                 Start test: ${TEST NAME}
+    ...                 End test: ${PREV_TEST_NAME}
+    ...                 Start test: ${TEST_NAME}
     ...                 Start kw: BuiltIn.Reload Library
     ...                 End kw: BuiltIn.Reload Library
     ...                 Start kw: global_listenerlibrary.Events Should Be
     Reload library      listenerlibrary
     listenerlibrary.Events should be
-    ...                 Start test: ${TEST NAME}
+    ...                 Start test: ${TEST_NAME}
     ...                 Start kw: BuiltIn.Reload Library
     ...                 End kw: BuiltIn.Reload Library
     ...                 Start kw: global_listenerlibrary.Events Should Be

@@ -3,7 +3,7 @@ Resource        atest_resource.robot
 
 *** Keywords ***
 Check IF/ELSE Status
-    [Arguments]    @{statuses}    ${types}=${None}    ${root}=${None}    ${test}=${TEST NAME}    ${index}=0    ${else}=${True}    ${run}=${True}
+    [Arguments]    @{statuses}    ${types}=${None}    ${root}=${None}    ${test}=${TEST_NAME}    ${index}=0    ${else}=${True}    ${run}=${True}
     IF    not $root
         ${tc} =    Check Test Case    ${test}
         ${root} =    Set Variable    ${tc.body}[${index}]

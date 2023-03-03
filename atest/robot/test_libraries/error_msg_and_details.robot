@@ -61,7 +61,7 @@ Chained exceptions
 
 Failure in library in non-ASCII directory
     [Template]    NONE
-    ${tc} =    Verify Test Case And Error In Log    ${TEST NAME}    Keyword in 'nön_äscii_dïr' fails!    index=1
+    ${tc} =    Verify Test Case And Error In Log    ${TEST_NAME}    Keyword in 'nön_äscii_dïr' fails!    index=1
     Traceback Should Be    ${tc.kws[1].msgs[1]}
     ...    test_libraries/nön_äscii_dïr/valid.py    failing_keyword_in_non_ascii_dir    raise AssertionError("Keyword in 'nön_äscii_dïr' fails!")
     ...    error=AssertionError: Keyword in 'nön_äscii_dïr' fails!
@@ -76,8 +76,8 @@ No Details For Non Existing Keywords
 
 No Details For Non Existing Variables
     [Template]    Verify Test Case, Error In Log And No Details
-    Non Existing Scalar Variable    Variable '\${non existing}' not found.
-    Non Existing List Variable    Variable '\@{non existing}' not found.
+    Non Existing Scalar Variable    Variable '\${non_existing}' not found.
+    Non Existing List Variable    Variable '\@{non_existing}' not found.
 
 Include internal traces when ROBOT_INTERNAL_TRACE is set
     [Template]    NONE
@@ -102,4 +102,4 @@ Verify Test Case And Error In Log
 Verify Test Case, Error In Log And No Details
     [Arguments]    ${name}    ${error}    ${msg_index}=${0}
     ${tc} =    Verify Test Case And Error In Log    ${name}    ${error}    0    ${msg_index}
-    Length Should Be    ${tc.kws[0].msgs}    ${msg_index + 1}
+    Length Should Be    ${tc.kws[0].msgs}    ${msg_index+1}

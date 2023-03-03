@@ -4,8 +4,8 @@ Resource        atest_resource.robot
 
 *** Test Cases ***
 Skipped with --skip
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Skipped with --SkipOnFailure
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 

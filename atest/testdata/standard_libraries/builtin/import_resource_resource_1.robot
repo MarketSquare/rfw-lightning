@@ -1,11 +1,11 @@
 *** Settings ***
-Variables  import_resource_vars.py  VAR FROM VARFILE 1  VALUE FROM VARFILE 1
+Variables  import_resource_vars.py  VAR_FROM_VARFILE_1  VALUE FROM VARFILE 1
 Resource  import_resource_resource_resource.robot
 
 
 *** Variables ***
-${VAR FROM IMPORT RESOURCE RESOURCE}  value 1
-${COMMON VAR}  resource 1
+${VAR_FROM_IMPORT_RESOURCE_RESOURCE}  value 1
+${COMMON_VAR}  resource 1
 
 
 *** Keywords ***

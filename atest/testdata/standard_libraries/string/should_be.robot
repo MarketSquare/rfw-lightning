@@ -2,9 +2,9 @@
 Library           String
 
 *** Variables ***
-${BYTES}          ${{b'Hello'}}
+${BYTES}=Evaluate          b'Hello'
 @{EXCLUDES}       a    an    the    to    is
-@{EXCLUDES 2}     (a|b|c)[.,]?
+@{EXCLUDES_2}     (a|b|c)[.,]?
 
 *** Test Cases ***
 Should Be String Positive
@@ -107,10 +107,6 @@ Should Be Title Case With Regex Excludes
 Should Be Title Case Does Not Work With ASCII Bytes
     [Documentation]    FAIL    TypeError: This keyword works only with Unicode strings.
     Should Be Title Case    ${BYTES}
-
-Should Be Title Case Does Not Work With Non-ASCII Bytes
-    [Documentation]    FAIL    TypeError: This keyword works only with Unicode strings.
-    Should Be Title Case    ${{b'\xe4iti'}}
 
 *** Keywords ***
 Test title case

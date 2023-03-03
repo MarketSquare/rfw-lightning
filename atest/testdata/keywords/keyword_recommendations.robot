@@ -5,7 +5,7 @@ Library           resources/RecLibrary1.py
 Library           resources/RecLibrary2.py    WITH NAME    Rec Library 2 With Custom Name
 
 *** Variables ***
-${INDENT}    ${SPACE * 4}
+${INDENT}    ${SPACE*4}
 
 *** Test Cases ***
 Keyword From Library Not Imported

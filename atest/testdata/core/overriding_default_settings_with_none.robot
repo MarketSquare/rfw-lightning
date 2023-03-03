@@ -9,22 +9,22 @@ Default Tags   d1  d2
 Overriding Test Setup
     [Setup]  NONE
     [Timeout]  NONE
-    ${TEST NAME}
+    ${TEST_NAME}
 
 Overriding Test Setup from Command Line
     [Setup]  ${CONFIG}
     [Timeout]  NONE
-    ${TEST NAME}
+    ${TEST_NAME}
 
 Overriding Test Teardown
     [Teardown]  NONE
     [Timeout]  NONE
-    ${TEST NAME}
+    ${TEST_NAME}
 
 Overriding Test Teardown from Command Line
     [Teardown]  ${CONFIG}
     [Timeout]  NONE
-    ${TEST NAME}
+    ${TEST_NAME}
 
 Overriding Test Template
     [Timeout]  NONE
@@ -44,12 +44,12 @@ Overriding Test Timeout from Command Line
 Overriding Default Tags
     [Tags]  NONE
     [Timeout]  NONE
-    ${TEST NAME}
+    ${TEST_NAME}
 
 Overriding Default Tags from Command Line
     [Tags]  ${CONFIG}
     [Timeout]  NONE
-    ${TEST NAME}
+    ${TEST_NAME}
 
 Overriding Is Case Insensitive
     [Setup]     none

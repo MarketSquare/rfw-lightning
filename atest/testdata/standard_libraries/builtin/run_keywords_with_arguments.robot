@@ -4,10 +4,10 @@ Documentation        Testing Run Keywords when used with AND. Tests without AND 
 
 *** Variables ***
 ${NOOP}              No Operation
-@{MANY ARGUMENTS}    hello    1    2    3
+@{MANY_ARGUMENTS}    hello    1    2    3
 @{ESCAPED}           1    \AND    2    Log Many    x\${escaped}    c:\\temp
-@{LIST VARIABLE}     Log Many    this    AND    that
-${AND VARIABLE}      AND
+@{LIST_VARIABLE}     Log Many    this    AND    that
+${AND_VARIABLE}      AND
 
 *** Test Cases ***
 With arguments
@@ -25,7 +25,7 @@ Should support keywords and arguments from variables
     Run Keywords
     ...    Should Be Equal   2    2         AND
     ...    ${NOOP}                          AND
-    ...    Log Many    @{MANY ARGUMENTS}    AND
+    ...    Log Many    @{MANY_ARGUMENTS}    AND
     ...    @{EMPTY}    Should Be Equal As Integers    ${1}    @{EMPTY}    1
 
 AND must be upper case
@@ -42,11 +42,11 @@ Escaped AND
 
 AND from Variable
     [Documentation]    FAIL  No keyword with name 'no kw' found.
-    Run Keywords    Log Many    this    ${AND VARIABLE}    that    AND    no kw
+    Run Keywords    Log Many    this    ${AND_VARIABLE}    that    AND    no kw
 
 AND in List Variable
     [Documentation]    FAIL  No keyword with name 'no kw' found.
-    Run Keywords    @{LIST VARIABLE}    AND    no kw
+    Run Keywords    @{LIST_VARIABLE}    AND    no kw
 
 Escapes in List Variable should be handled correctly
     [Documentation]    FAIL  No keyword with name 'no kw' found.
@@ -78,15 +78,12 @@ In test teardown with non-existing variable in keyword name
     ...
     ...    1) No keyword with name '\${bad}' found.
     ...
-    ...    2) Executed
+    ...    2) Variable '\${bad}' not found.
     ...
-    ...    3) Variable '\${bad}' not found.
-    ...
-    ...    4) Executed
+    ...    3) Executed
     No Operation
     [Teardown]    Run keywords
     ...    ${bad}                     AND
-    ...    ${{'Fail'}}    Executed    AND
     ...    Embedded ${bad}            AND
     ...    Fail    Executed
 

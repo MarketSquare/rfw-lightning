@@ -54,21 +54,21 @@ Emptying Dir When Directory Is File Fails
     Empty Directory    ${TESTFILE}
 
 Create And Remove Non-ASCII Directory
-    Create Directory    ${NON ASCII}
-    Directory Should Exist    ${NON ASCII}
-    Remove Directory    ${NON ASCII}
-    Should Not Exist    ${NON ASCII}
+    Create Directory    ${NON_ASCII}
+    Directory Should Exist    ${NON_ASCII}
+    Remove Directory    ${NON_ASCII}
+    Should Not Exist    ${NON_ASCII}
 
 Create And Remove Directory With Space
-    Create Directory    ${WITH SPACE}
-    Directory Should Exist    ${WITH SPACE}
-    Remove Directory    ${WITH SPACE}
-    Should Not Exist    ${WITH SPACE}
+    Create Directory    ${WITH_SPACE}
+    Directory Should Exist    ${WITH_SPACE}
+    Remove Directory    ${WITH_SPACE}
+    Should Not Exist    ${WITH_SPACE}
 
 Path as `pathlib.Path`
-    ${path} =    Set Variable    ${{pathlib.Path($TESTDIR)}}
+    ${path}=Evaluate    pathlib.Path($TESTDIR)
     Create Directory     ${path}
-    Create File          ${path/'file.txt'}
+    Create File          ${path}${/}file.txt
     File Should Exist    ${TESTDIR}/file.txt
     Empty Directory      ${path}
     Remove Directory     ${path}

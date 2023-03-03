@@ -7,11 +7,11 @@ Resource          os_resource.robot
 Should Exist
     [Documentation]    FAIL Path '${EXECDIR}${/}non-existing-file-or-dir' does not exist.
     Create File    ${TESTFILE}
-    Create File    ${WITH SPACE}
-    Create File    ${NON ASCII}
+    Create File    ${WITH_SPACE}
+    Create File    ${NON_ASCII}
     Should Exist    ${TESTFILE}
-    Should Exist    ${WITH SPACE}
-    Should Exist    ${NON ASCII}
+    Should Exist    ${WITH_SPACE}
+    Should Exist    ${NON_ASCII}
     Should Exist    ${CURDIR}
     Should Exist    non-existing-file-or-dir
 
@@ -56,8 +56,8 @@ Glob In Name Directory Should Not Exist
 Should Not Exist
     [Documentation]    FAIL Path '${CURDIR}' exists.
     Should Not Exist    ${TESTFILE}
-    Should Not Exist    ${WITH SPACE}
-    Should Not Exist    ${NON ASCII}
+    Should Not Exist    ${WITH_SPACE}
+    Should Not Exist    ${NON_ASCII}
     Should Not Exist    ${CURDIR}
 
 Should Not Exist With Non Default Message
@@ -74,11 +74,11 @@ Should Not Exist With Pattern
 File Should Exist
     [Documentation]    FAIL File '${EXECDIR}${/}non-existing-file' does not exist.
     Create File    ${TESTFILE}
-    Create File    ${WITH SPACE}
-    Create File    ${NON ASCII}
+    Create File    ${WITH_SPACE}
+    Create File    ${NON_ASCII}
     File Should Exist    ${TESTFILE}
-    File Should Exist    ${WITH SPACE}
-    File Should Exist    ${NON ASCII}
+    File Should Exist    ${WITH_SPACE}
+    File Should Exist    ${NON_ASCII}
     File Should Exist    non-existing-file
 
 File Should Exist When Dir Exists
@@ -99,8 +99,8 @@ File Should Exist With Pattern
 
 File Should Not Exist
     [Documentation]    FAIL File '${TESTFILE}' exists.
-    File Should Not Exist    ${WITH SPACE}
-    File Should Not Exist    ${NON ASCII}
+    File Should Not Exist    ${WITH_SPACE}
+    File Should Not Exist    ${NON_ASCII}
     File Should Not Exist    ${CURDIR}
     Create File    ${TESTFILE}    whatever
     File Should Not Exist    ${TESTFILE}
@@ -126,11 +126,11 @@ File Should Not Exist With Pattern Matching Multiple Files
 
 Directory Should Exist
     [Documentation]    FAIL Directory '${EXECDIR}${/}non-existing-directory' does not exist.
-    Create Directory    ${NON ASCII}
-    Create Directory    ${WITH SPACE}
+    Create Directory    ${NON_ASCII}
+    Create Directory    ${WITH_SPACE}
     Directory Should Exist    %{TEMPDIR}
-    Directory Should Exist    ${NON ASCII}
-    Directory Should Exist    ${WITH SPACE}
+    Directory Should Exist    ${NON_ASCII}
+    Directory Should Exist    ${WITH_SPACE}
     Directory Should Exist    non-existing-directory
 
 Directory Should Exist When File Exists
@@ -155,8 +155,8 @@ Directory Should Not Exist
     Create File    ${TESTFILE}
     Directory Should Not Exist    non-existing
     Directory Should Not Exist    ${TESTFILE}
-    Directory Should Not Exist    ${NON ASCII}
-    Directory Should Not Exist    ${WITH SPACE}
+    Directory Should Not Exist    ${NON_ASCII}
+    Directory Should Not Exist    ${WITH_SPACE}
     Directory Should Not Exist    ${CURDIR}
 
 Directory Should Not Exist With Non Default Message
@@ -179,12 +179,12 @@ Directory Should Not Exist With Pattern Matching Multiple Dirs
 
 Path as `pathlib.Path`
     Create File                   ${BASE}/file.txt
-    File Should Exist             ${PATH/'file.txt'}
-    Directory Should Not Exist    ${PATH/'file.txt'}
-    Should Exist                  ${PATH/'file.txt'}
+    File Should Exist             ${PATH}/file.txt
+    Directory Should Not Exist    ${PATH}/file.txt
+    Should Exist                  ${PATH}/file.txt
     File Should Not Exist         ${PATH}
     Directory Should Exist        ${PATH}
     Should Exist                  ${PATH}
-    File Should Not Exist         ${PATH/'nonex'}
-    Directory Should Not Exist    ${PATH/'nonex'}
-    Should Not Exist              ${PATH/'nonex'}
+    File Should Not Exist         ${PATH}/nonex
+    Directory Should Not Exist    ${PATH}/nonex
+    Should Not Exist              ${PATH}/nonex

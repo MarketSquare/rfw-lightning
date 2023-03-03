@@ -24,7 +24,7 @@ Re-Import Variables
     Check Test Case  ${TEST_NAME}
 
 Import Variables Arguments Are Resolved Only Once
-    Check Test Case  ${TEST NAME}
+    Check Test Case  ${TEST_NAME}
 
 Import Variables Failure Is Catchable
     Check Test Case  ${TESTNAME}

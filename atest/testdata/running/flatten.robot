@@ -1,5 +1,5 @@
 *** Variables ***
-${while limit}    ${0}
+${while_limit}    ${0}
 
 *** Test Cases ***
 A single user keyword
@@ -40,9 +40,9 @@ Loops and stuff
             CONTINUE
         END
     END
-    WHILE    ${while limit} < 5
-        Log     inside while ${while limit}
-        ${while limit}=   Set Variable   ${while limit + 1}
+    WHILE    ${while_limit} < 5
+        Log     inside while ${while_limit}
+        ${while_limit}=   Set Variable   ${while_limit+1}
     END
     IF    True
         Log    inside if

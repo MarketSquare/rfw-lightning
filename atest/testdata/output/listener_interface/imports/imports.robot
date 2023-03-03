@@ -25,4 +25,4 @@ All imports are usable
     pythonmodule.keyword
     OperatingSystem.Get file    ${CURDIR}/vars.py
     dynamically_imported_resource.Dyn
-    Log   Check variables exist: ${name} ${new} ${my var}
+    Log   Check variables exist: ${name} ${new} ${my_var}

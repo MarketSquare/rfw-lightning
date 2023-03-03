@@ -2,7 +2,7 @@
 Library           DupeDynamicKeywords.py
 
 *** Variables ***
-${INDENT}         ${SPACE * 4}
+${INDENT}         ${SPACE*4}
 
 *** Test Cases ***
 Using keyword defined multiple times fails

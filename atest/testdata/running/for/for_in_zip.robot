@@ -26,9 +26,9 @@ Three variables and lists
     Should Be True    ${result} == ['a:x:1', 'b:y:2', 'c:z:3']
 
 Six variables and lists
-    FOR    ${x}    ${y}    ${z}    ${å}    ${ä}    ${ö}    IN ZIP
+    FOR    ${x}    ${y}    ${z}    ${i}    ${j}    ${k}    IN ZIP
     ...    ${LIST1}    ${LIST2}    ${LIST3}    ${LIST3}    ${LIST2}    ${LIST1}
-        @{result} =    Create List    @{result}    ${x}:${y}:${z}:${å}:${ä}:${ö}
+        @{result} =    Create List    @{result}    ${x}:${y}:${z}:${i}:${j}:${k}
     END
     Should Be True    ${result} == ['a:x:1:1:x:a', 'b:y:2:2:y:b', 'c:z:3:3:z:c']
 

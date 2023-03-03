@@ -1,14 +1,14 @@
 *** Settings ***
-Suite Setup       Run Tests    --listener "ListenImports;${IMPORTS FILE}"    ${LISTENER DIR}/imports/imports.robot
+Suite Setup       Run Tests    --listener "ListenImports;${IMPORTS_FILE}"    ${LISTENER_DIR}/imports/imports.robot
 Suite Teardown    Remove Listener Files
 Resource          listener_resource.robot
 
 *** Variables ***
-${IMPORTS FILE}    %{TEMPDIR}/listener_imports.txt
+${IMPORTS_FILE}    %{TEMPDIR}/listener_imports.txt
 
 *** Test Cases ***
 All imports are usable
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Listen Imports
     Init Expect
@@ -90,7 +90,7 @@ Listen Imports
     Verify Expected
 
 Failed Impors Are Listed In Errors
-    ${path} =    Normalize Path    ${LISTENER DIR}/imports/imports.robot
+    ${path} =    Normalize Path    ${LISTENER_DIR}/imports/imports.robot
     Error in file    0    ${path}    9
     ...    Resource file 'resource that does not exist and fails' does not exist.
     Error in file    1    ${path}    10

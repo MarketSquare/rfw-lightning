@@ -59,5 +59,5 @@ Saved XML has correct content and no namespaces
 
 Attribute namespaces are not stripped
     [Setup]    NONE
-    ${root} =    Parse XML    ${ATTR NS}    strip_namespaces=true
+    ${root} =    Parse XML    ${ATTR_NS}    strip_namespaces=true
     Test Attribute Namespace Parsing With lxml    ${root}

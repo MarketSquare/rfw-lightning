@@ -11,17 +11,17 @@ ${ATTR_TYPE_FILE}    listener_attrs.txt
 ${SUITE_MSG}      2 tests, 1 passed, 1 failed
 ${SUITE_MSG_2}    2 tests, 1 passed, 1 failed
 ${LISTENERS}      ${CURDIR}${/}..${/}..${/}..${/}testresources${/}listeners
-${EMPTY TB}       \nTraceback (most recent call last):\n${SPACE*2}None\n
-${LISTENER DIR}   ${DATADIR}/output/listener_interface
+${EMPTY_TB}       \nTraceback (most recent call last):\n${SPACE*2}None\n
+${LISTENER_DIR}   ${DATADIR}/output/listener_interface
 
 *** Keywords ***
 Listener Import Message Should Be In Syslog
-    [Arguments]    ${type}    ${name or path}    ${source}=    ${count}=1
-    ${name or path} =    Normalize Path    ${name or path}
+    [Arguments]    ${type}    ${name_or_path}    ${source}=    ${count}=1
+    ${name_or_path} =    Normalize Path    ${name_or_path}
     ${module_path} =    Join Path    ${LISTENERS}    ${source}
     ${location} =    Set Variable If    '${source}'    '${module_path}    unknown location.
     ${syslog} =    Get syslog
-    Should Contain X Times    ${syslog}    Imported listener ${type} '${name or path}' from ${location}    ${count}
+    Should Contain X Times    ${syslog}    Imported listener ${type} '${name_or_path}' from ${location}    ${count}
 
 Remove Listener Files
     Remove Files

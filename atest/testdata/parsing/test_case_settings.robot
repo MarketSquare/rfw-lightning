@@ -2,15 +2,15 @@
 Test Setup        Log    Default setup
 Test Teardown     Log    Default teardown    INFO
 Force Tags        \    force-1       # Empty tags should be ignored
-Default Tags      @{DEFAULT TAGS}    \    default-3
+Default Tags      @{DEFAULT_TAGS}    \    default-3
 Test Timeout      ${TIMEOUT} milliseconds
 
 *** Variables ***
 ${VARIABLE}           variable
-${DOC VERSION}        1.2
-@{DEFAULT TAGS}       default-1    default-2    # default-3 added separately
-${TAG BASE}           test
-@{TEST TAGS}          ${TAG BASE}-1    ${TAG BASE}-2    ${TAG BASE}-3
+${DOC_VERSION}        1.2
+@{DEFAULT_TAGS}       default-1    default-2    # default-3 added separately
+${TAG_BASE}           test
+@{TEST_TAGS}          ${TAG_BASE}-1    ${TAG_BASE}-2    ${TAG_BASE}-3
 ${LOG}                Log
 ${TIMEOUT}            99999
 
@@ -21,7 +21,7 @@ Normal name
 test_case names are NOT _forMatted_
     No Operation
 
-Name with ${VARIABLE}s works since RF ${{float($DOC_VERSION) + 2}}
+Name with ${VARIABLE}s works since RF ${{float($DOC_VERSION)+2}}
     No Operation
 
 Name with ${NON-EXISTING VARIABLE}
@@ -60,7 +60,7 @@ Documentation in multiple rows
     No Operation
 
 Documentation with variables
-    [Documentation]    ${VARIABLE.title()}s work in documentation since RF ${DOC VERSION}.
+    [Documentation]    ${VARIABLE.title()}s work in documentation since RF ${DOC_VERSION}.
     No Operation
 
 Documentation with non-existing variables
@@ -104,7 +104,7 @@ Duplicate tags are ignored and first used format has precedence
 
 Tags in multiple rows
     [Tags]    test-0    ${EMPTY}
-    ...    @{TEST TAGS}
+    ...    @{TEST_TAGS}
     ...    test-4    TEST-0
     ...    \    test-5
     No Operation
@@ -121,11 +121,11 @@ Override default tags using NONE
     No Operation
 
 Tags with variables
-    [TAGS]    @{TEST TAGS}    ${TAG BASE}-${4}    ${EMPTY}    test-5
+    [TAGS]    @{TEST_TAGS}    ${TAG_BASE}-${4}    ${EMPTY}    test-5
     No Operation
 
 Tags with non-existing variables
-    [tags]    @{non_existing}    ${TAG BASE}    ${non_existing}    ${4}${2}
+    [tags]    @{non_existing}    ${TAG_BASE}    ${non_existing}    ${4}${2}
     Log    It's a bit questionable that non-existing variables are OK.
     Log    But they are OK also in docs, with keyword tags, etc.
 

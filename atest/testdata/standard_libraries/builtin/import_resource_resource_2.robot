@@ -3,8 +3,8 @@ Library  Collections
 
 
 *** Variables ***
-${VAR FROM IMPORT RESOURCE RESOURCE 2}  value 2
-${COMMON VAR}  resource 2
+${VAR_FROM_IMPORT_RESOURCE_RESOURCE_2}  value 2
+${COMMON_VAR}  resource 2
 
 
 *** Keywords ***

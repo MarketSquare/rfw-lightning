@@ -52,7 +52,7 @@ Prefixes are mangled when XML is saved
     [Teardown]    Remove Output File
 
 Attribute namespaces
-    ${elem} =    Parse XML    ${ATTR NS}    keep_clark_notation=yes
+    ${elem} =    Parse XML    ${ATTR_NS}    keep_clark_notation=yes
     Test Attribute Namespace Parsing    ${elem}
 
 *** Keywords ***

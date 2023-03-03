@@ -5,12 +5,12 @@ Suite Teardown    My Teardown
 Library           OperatingSystem
 
 *** Variables ***
-${TEARDOWN FILE}    %{TEMPDIR}/robot-suite-teardown-executed.txt
+${TEARDOWN_FILE}    %{TEMPDIR}/robot-suite-teardown-executed.txt
 
 *** Test Case ***
 Verify Suite Setup
     [Documentation]    PASS
-    Should Be Equal    ${SUITE SETUP}    Suite Setup Executed
+    Should Be Equal    ${SUITE_SETUP}    Suite Setup Executed
 
 *** Keyword ***
 My Setup
@@ -20,7 +20,7 @@ My Setup
 My Teardown
     Comment    Testing that suite teardown can be also a user keyword
     No Operation
-    Create File    ${TEARDOWN FILE}
+    Create File    ${TEARDOWN_FILE}
 
 My keyword
-    Set Suite Variable    $SUITE SETUP    Suite Setup Executed
+    Set Suite Variable    $SUITE_SETUP    Suite Setup Executed

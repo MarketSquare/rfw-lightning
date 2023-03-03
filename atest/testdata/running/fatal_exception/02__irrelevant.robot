@@ -4,7 +4,7 @@ Resource     NotEither.txt
 Variables    NotHere.py
 
 *** Variables ***
-${VAR}       ${NON EXISTING}
+${VAR}       ${NON_EXISTING}
 
 *** Test Cases ***
 Test That Should Not Be Run 2.1

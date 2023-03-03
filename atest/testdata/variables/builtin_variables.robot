@@ -8,7 +8,7 @@ Integer Variables
     ${one} =    Convert To Integer    1
     ${minus_two} =    Convert To Integer    -2
     Should Be Equal    ${1}    ${one}
-    Should Be Equal    ${ - 2 }    ${minus_two}
+    Should Be Equal    ${-2}    ${minus_two}
     Should Be True    repr(${12345}) == '12345'
     Should Be True    repr(${123456789012345678901234567890}).strip('L') == '123456789012345678901234567890'
     Log    No automatic hex conversion ${FF}
@@ -16,7 +16,7 @@ Integer Variables
 Integer Variables With Base
     [Documentation]    FAIL STARTS:    Variable '${0b123}' not found.
     Should Be Equal    ${0xFF}    ${255}
-    Should Be Equal    ${ 0 X A}    ${10}
+    Should Be Equal    ${0XA}    ${10}
     Should Be Equal    ${0b1010}    ${10}
     Should Be Equal    ${0B0}    ${0O0}
     Should Be Equal    ${0o10}    ${8}
@@ -25,19 +25,19 @@ Integer Variables With Base
 Float Variables
     ${pi} =    Convert To Number    3.14
     Should Be Equal    ${3.14}    ${pi}
-    Should Be Equal    ${ + 3 . 1 4 }    ${pi}
+    Should Be Equal    ${+3.14}    ${pi}
     Should Be Equal    ${1E6}    ${1000000}
-    Should Be Equal    ${+1 e 3}    ${1000}
+    Should Be Equal    ${+1e3}    ${1000}
     Should Be True    ${-2.1e3} == ${-2100} == ${-2100.0}
     Should Be True    ${123456789012345.67890} < ${1.235e14}
 
 Boolean Variables
     Should Be True    ${TRUE}
     Should Be True    ${true}
-    Should Be True    ${ t R u E }
+    Should Be True    ${tRuE}
     Should Not Be True    ${FALSE}
     Should Not Be True    ${false}
-    Should Not Be True    ${F a ls E}
+    Should Not Be True    ${F_a_ls_E}
     ${t} =    Evaluate    True
     ${f} =    Evaluate    False
     Should Be Equal    ${TRUE}    ${t}
@@ -47,30 +47,30 @@ Boolean Variables
 \${None} And \${null}
     ${n} =    Evaluate    None
     Should Be Equal    ${None}    ${n}
-    Should Be Equal    ${n u l l}    ${None}
-    Should Not Be Equal    ${no ne}    None
+    Should Be Equal    ${n_u_l_l}    ${None}
+    Should Not Be Equal    ${no_ne}    None
     Should Be Equal    ${None} catenated with ${null}    None catenated with None
 
 \${SPACE}
     Should Be Equal    ${SPACE}    \ \
-    Should Be Equal    ${SPACE * 5}    \ \ \ \ \ \
+    Should Be Equal    ${SPACE*5}    \ \ \ \ \ \
     Should Be Equal    -${SPACE}-${SPACE*2}-${SPACE}-    - - \ - -
 
 \${EMPTY}
     Should Be Equal    ${EMPTY}    \
-    Should Be Equal    ${EMPTY * 5}    \
-    Should Be Equal    -${empty}-${emp_ty*2}-${EMP ty}-    ----
+    Should Be Equal    ${EMPTY*5}    \
+    Should Be Equal    -${empty}-${emp_ty*2}-${EMP_ty}-    ----
 
 \@{EMPTY}
     Should Be True    @{EMPTY} == []
     Should Be True    @{EMPTY}+@{EMPTY} == []
-    Should Be Equal    @{empty}    value    @{emp_ty}    value    @{EMP ty}
+    Should Be Equal    @{empty}    value    @{emp_ty}    value    @{EMP_ty}
     ${value} =    Catenate    @{EMPTY}    @{EMPTY}
     Should Be Equal    ${value}    ${EMPTY}
 
 \&{EMPTY}
     Should Be True    &{EMPTY} == {}
-    Should Be Equal    value    value    &{empty}    &{emp_ty}    &{EMP ty}
+    Should Be Equal    value    value    &{empty}    &{emp_ty}    &{EMP_ty}
 
 \@{EMPTY} and \&{EMPTY} cannot be modified
     ${result} =    Create Dictionary    list=@{EMPTY}    dict=&{EMPTY}
@@ -119,7 +119,7 @@ $CURDIR
     # ${CURDIR} is resolved differently than other variables and cannot be escaped with a backslash before it
     Should Start With    $\{CURDIR}    $
 
-\${LOG LEVEL}
+\${LOG_LEVEL}
     Should Be Equal    ${LOG_LEVEL}    INFO
     Set Log Level    trace
     Should Be Equal    ${LOG_LEVEL}    TRACE

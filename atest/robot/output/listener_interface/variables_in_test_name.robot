@@ -11,13 +11,13 @@ Test case name with variable
     \${2}       2       \@{EMPTY}       []
 
 Test case name with non-existing variable
-    \${NAME}    Name    \${UNKNOWN VARIABLE}    \${UNKNOWN VARIABLE}
+    \${NAME}    Name    \${UNKNOWN_VARIABLE}    \${UNKNOWN_VARIABLE}
 
 *** Keywords ***
 Run With Listeners
     ${listeners} =    Catenate
-    ...    --listener ${LISTENER DIR}/original_and_resolved_name_v2.py
-    ...    --listener ${LISTENER DIR}/original_and_resolved_name_v3.py
+    ...    --listener ${LISTENER_DIR}/original_and_resolved_name_v2.py
+    ...    --listener ${LISTENER_DIR}/original_and_resolved_name_v3.py
     Run Tests    ${listeners}    output/listener_interface/variables_in_test_name.robot
 
 Original and resolved name should be available

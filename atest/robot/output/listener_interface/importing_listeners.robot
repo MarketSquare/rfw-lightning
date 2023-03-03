@@ -36,7 +36,7 @@ Listener With Wrong Number Of Arguments
 
 Non Existing Listener
     [Template]    Importing Listener Failed
-    2    NonExistingListener    *${EMPTY TB}PYTHONPATH:*    pattern=True
+    2    NonExistingListener    *${EMPTY_TB}PYTHONPATH:*    pattern=True
 
 *** Keywords ***
 Run Tests With Listeners

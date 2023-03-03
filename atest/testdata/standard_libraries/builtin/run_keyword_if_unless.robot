@@ -1,11 +1,11 @@
 *** Variable ***
 ${EXECUTED}             This is executed
-@{ARGS WITH ELSE}       ELSE    ${EXECUTED}
-@{ARGS WITH ELSE IF}    ELSE IF    ${EXECUTED}
+@{ARGS_WITH_ELSE}       ELSE    ${EXECUTED}
+@{ARGS_WITH_ELSE_IF}    ELSE IF    ${EXECUTED}
 ${CATENATE}             Catenate
 ${FAIL}                 Fail
-@{CATENATE STUFF}       Catenate    1    2    \${escaped}    c:\\temp
-@{EXPR AND CATENATE}    True    Catenate    \${foo}    ELSE IF    zig    ELSE    bar
+@{CATENATE_STUFF}       Catenate    1    2    \${escaped}    c:\\temp
+@{EXPR_AND_CATENATE}    True    Catenate    \${foo}    ELSE IF    zig    ELSE    bar
 
 
 *** Test Case ***
@@ -13,7 +13,7 @@ Run Keyword If With True Expression
     Run Keyword If    ${True}    Log    ${EXECUTED}
 
 Run Keyword If With False Expression
-    Run Keyword If    0 == 1    Log    ${NON EXISTING}
+    Run Keyword If    0 == 1    Log    ${NON_EXISTING}
 
 Run Keyword In User Keyword
     Conditional User Keyword    PASS    ${EXECUTED}
@@ -33,18 +33,18 @@ Keyword Name in ELSE as variable
     Should Be Equal    ${ret}    a b
 
 Keyword Name in ELSE as list variable
-    ${ret} =    Run Keyword If    ${0}    ${FAIL}    ELSE    @{CATENATE STUFF}
+    ${ret} =    Run Keyword If    ${0}    ${FAIL}    ELSE    @{CATENATE_STUFF}
     Should Be Equal    ${ret}    1 2 \${escaped} c:\\temp
-    ${ret} =    Run Keyword If    ${0}    ${FAIL}    ELSE    @{EMPTY}    @{CATENATE STUFF}    foo
+    ${ret} =    Run Keyword If    ${0}    ${FAIL}    ELSE    @{EMPTY}    @{CATENATE_STUFF}    foo
     Should Be Equal    ${ret}    1 2 \${escaped} c:\\temp foo
 
 Keyword Name in ELSE as non-existing variable 1
-    [Documentation]    FAIL Variable '\${NON EXISTING}' not found.
-    Run Keyword If    ${1}    ${NON EXISTING}    ELSE    ${FAIL}
+    [Documentation]    FAIL Variable '\${NON_EXISTING}' not found.
+    Run Keyword If    ${1}    ${NON_EXISTING}    ELSE    ${FAIL}
 
 Keyword Name in ELSE as non-existing variable 2
-    [Documentation]    FAIL Variable '\${NON EXISTING}' not found.
-    Run Keyword If    ${0}    ${FAIL}    ELSE    ${NON EXISTING}
+    [Documentation]    FAIL Variable '\${NON_EXISTING}' not found.
+    Run Keyword If    ${0}    ${FAIL}    ELSE    ${NON_EXISTING}
 
 ELSE without keyword is invalid 1
     [Documentation]    FAIL ELSE requires keyword.
@@ -105,22 +105,22 @@ Keyword Name in ELSE IF as variable
     Should Be Equal    ${ret}    ${None}
 
 Keyword Name in ELSE IF as list variable
-    ${ret} =    Run Keyword If    ${0}    ${FAIL}    ELSE IF    ${1}   @{CATENATE STUFF}
+    ${ret} =    Run Keyword If    ${0}    ${FAIL}    ELSE IF    ${1}   @{CATENATE_STUFF}
     Should Be Equal    ${ret}    1 2 \${escaped} c:\\temp
-    ${ret} =    Run Keyword If    ${0}    ${FAIL}    ELSE IF    ${1}   @{EMPTY}    @{CATENATE STUFF}    foo
+    ${ret} =    Run Keyword If    ${0}    ${FAIL}    ELSE IF    ${1}   @{EMPTY}    @{CATENATE_STUFF}    foo
     Should Be Equal    ${ret}    1 2 \${escaped} c:\\temp foo
 
 Keyword Name in ELSE IF as non-existing variable 1
-    [Documentation]    FAIL Variable '\${NON EXISTING}' not found.
-    Run Keyword If    ${1}    ${NON EXISTING}    ELSE IF    ${1}    ${FAIL}
+    [Documentation]    FAIL Variable '\${NON_EXISTING}' not found.
+    Run Keyword If    ${1}    ${NON_EXISTING}    ELSE IF    ${1}    ${FAIL}
 
 Keyword Name in ELSE If as non-existing variable 2
-    [Documentation]    FAIL Variable '\${NON EXISTING}' not found.
-    Run Keyword If    ${0}    ${FAIL}    ELSE IF    ${1}    ${NON EXISTING}
+    [Documentation]    FAIL Variable '\${NON_EXISTING}' not found.
+    Run Keyword If    ${0}    ${FAIL}    ELSE IF    ${1}    ${NON_EXISTING}
 
 Keyword Name in ELSE If as non-existing variable 3
-    [Documentation]    FAIL Variable '\${NON EXISTING}' not found.
-    Run Keyword If    ${0}    ${FAIL}    ELSE IF    ${0}    ${NON EXISTING}
+    [Documentation]    FAIL Variable '\${NON_EXISTING}' not found.
+    Run Keyword If    ${0}    ${FAIL}    ELSE IF    ${0}    ${NON_EXISTING}
 
 ELSE IF without keyword is invalid 1
     [Documentation]    FAIL ELSE IF requires condition and keyword.
@@ -144,11 +144,11 @@ ELSE before ELSE IF is ignored
     ...    ELSE IF    ${True}     Log    ${EXECUTED}
 
 ELSE and ELSE IF inside list arguments should be escaped
-    ${result}=    Run Keyword If    False    Keyword    ELSE IF    @{EXPR AND CATENATE}
+    ${result}=    Run Keyword If    False    Keyword    ELSE IF    @{EXPR_AND_CATENATE}
     Should be equal    ${result}    \${foo} ELSE IF zig ELSE bar
-    ${result}=    Run Keyword If    False    Keyword    ELSE    Catenate    @{EXPR AND CATENATE}
+    ${result}=    Run Keyword If    False    Keyword    ELSE    Catenate    @{EXPR_AND_CATENATE}
     Should be equal    ${result}    True Catenate \${foo} ELSE IF zig ELSE bar
-    ${result}=    Run Keyword If    @{EXPR AND CATENATE}
+    ${result}=    Run Keyword If    @{EXPR_AND_CATENATE}
     Should be equal    ${result}    \${foo} ELSE IF zig ELSE bar
 
 ELSE and ELSE IF must be upper case
@@ -164,17 +164,17 @@ Run Keyword With Escaped ELSE and ELSE IF
     Run Keyword If    ${True}    Log Many    \ELSE IF   ${EXECUTED}
 
 Run Keyword With ELSE and ELSE IF from Variable
-    Run Keyword If    ${True}    Log Many    @{ARGS WITH ELSE}
-    Run Keyword If    ${True}    Log Many    @{ARGS WITH ELSE}    ELSE    Fail
-    Run Keyword If    ${True}    Log Many    @{ARGS WITH ELSE IF}
-    Run Keyword If    ${True}    Log Many    @{ARGS WITH ELSE IF}    ELSE    Fail
+    Run Keyword If    ${True}    Log Many    @{ARGS_WITH_ELSE}
+    Run Keyword If    ${True}    Log Many    @{ARGS_WITH_ELSE}    ELSE    Fail
+    Run Keyword If    ${True}    Log Many    @{ARGS_WITH_ELSE_IF}
+    Run Keyword If    ${True}    Log Many    @{ARGS_WITH_ELSE_IF}    ELSE    Fail
 
 Run Keyword Unless With False Expression
-    ${empty list} =    Create List
-    Run Keyword Unless    ${empty list}    Log    ${EXECUTED}
+    ${empty_list} =    Create List
+    Run Keyword Unless    ${empty_list}    Log    ${EXECUTED}
 
 Run Keyword Unless With True Expression
-    Run Keyword Unless    ${0} == ${0}    Log    ${NON EXISTING}
+    Run Keyword Unless    ${0} == ${0}    Log    ${NON_EXISTING}
 
 
 *** Keyword ***

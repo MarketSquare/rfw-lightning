@@ -1,25 +1,25 @@
 *** Variables ***
 ${COUNTER}         ${0}
-${PASS MESSAGE}    -PASSED -ALL
-${FAIL MESSAGE}    -ALL +PASSED
-${REMOVED FOR MESSAGE}     -FOR -ALL
-${KEPT FOR MESSAGE}        +FOR -ALL
-${REMOVED WHILE MESSAGE}     -WHILE -ALL
-${KEPT WHILE MESSAGE}        +WHILE -ALL
-${REMOVED WUKS MESSAGE}    -WUKS -ALL
-${KEPT WUKS MESSAGE}       +WUKS -ALL
-${REMOVED BY NAME MESSAGE}    -BYNAME -ALL
-${KEPT BY NAME MESSAGE}    +BYNAME -ALL
-${REMOVED BY PATTERN MESSAGE}    -BYPATTERN -ALL
-${KEPT BY PATTERN MESSAGE}    +BYPATTERN -ALL
+${PASS_MESSAGE}    -PASSED -ALL
+${FAIL_MESSAGE}    -ALL +PASSED
+${REMOVED_FOR_MESSAGE}     -FOR -ALL
+${KEPT_FOR_MESSAGE}        +FOR -ALL
+${REMOVED_WHILE_MESSAGE}     -WHILE -ALL
+${KEPT_WHILE_MESSAGE}        +WHILE -ALL
+${REMOVED_WUKS_MESSAGE}    -WUKS -ALL
+${KEPT_WUKS_MESSAGE}       +WUKS -ALL
+${REMOVED_BY_NAME_MESSAGE}    -BYNAME -ALL
+${KEPT_BY_NAME_MESSAGE}    +BYNAME -ALL
+${REMOVED_BY_PATTERN_MESSAGE}    -BYPATTERN -ALL
+${KEPT_BY_PATTERN_MESSAGE}    +BYPATTERN -ALL
 
 *** Test Case ***
 Passing
-    Log    ${PASS MESSAGE}
+    Log    ${PASS_MESSAGE}
 
 Failing
     [Documentation]    FAIL Message
-    Log     ${FAIL MESSAGE}
+    Log     ${FAIL_MESSAGE}
     Fail    Message
 
 FOR when test fails
@@ -98,9 +98,9 @@ Warnings and errors are preserved
 My FOR
     FOR    ${item}    IN    one    two    three    LAST
         IF    "${item}" == "LAST"
-            Log    ${KEPT FOR MESSAGE} ${item}
+            Log    ${KEPT_FOR_MESSAGE} ${item}
         ELSE
-            Log    ${REMOVED FOR MESSAGE} ${item}
+            Log    ${REMOVED_FOR_MESSAGE} ${item}
         END
     END
 
@@ -108,45 +108,45 @@ My WHILE
     ${i}=    Set variable     ${1}
     WHILE    $i < 5
         IF    $i == 4
-            Log    ${KEPT WHILE MESSAGE} ${i}
+            Log    ${KEPT_WHILE_MESSAGE} ${i}
         ELSE
-            Log    ${REMOVED WHILE MESSAGE} ${i}
+            Log    ${REMOVED_WHILE_MESSAGE} ${i}
         END
         ${i}=    Evaluate    $i + 1
     END
 
 My WUKS
-    Set Test Variable    $COUNTER    ${COUNTER + 1}
-    Run Keyword If    ${COUNTER} < 10    Fail    ${REMOVED WUKS MESSAGE}
-    Run Keyword If    ${COUNTER} == 10    Fail    ${KEPT WUKS MESSAGE}
+    Set Test Variable    $COUNTER    ${COUNTER+1}
+    Run Keyword If    ${COUNTER} < 10    Fail    ${REMOVED_WUKS_MESSAGE}
+    Run Keyword If    ${COUNTER} == 10    Fail    ${KEPT_WUKS_MESSAGE}
 
 Remove By Name
     [Arguments]    ${whatever}=default
-    Log    ${REMOVED BY NAME MESSAGE}
+    Log    ${REMOVED_BY_NAME_MESSAGE}
     [Return]    ${whatever}
 
 Do not remove by name
     Remove By Name
-    Log    ${KEPT BY NAME MESSAGE}
+    Log    ${KEPT_BY_NAME_MESSAGE}
 
 This should be removed
     [Arguments]    ${whatever}=default
-    Log    ${REMOVED BY PATTERN MESSAGE}
+    Log    ${REMOVED_BY_PATTERN_MESSAGE}
     [Return]    ${whatever}
 
 This should be removed also
-    Log    ${REMOVED BY PATTERN MESSAGE}
+    Log    ${REMOVED_BY_PATTERN_MESSAGE}
 
 This should not be removed
     This should be removed
-    Log    ${KEPT BY PATTERN MESSAGE}
+    Log    ${KEPT_BY_PATTERN_MESSAGE}
 
 RemoveYES
-    Log    ${REMOVED BY PATTERN MESSAGE}
+    Log    ${REMOVED_BY_PATTERN_MESSAGE}
 
 RemoveNO
     RemoveYES
-    Log    ${KEPT BY PATTERN MESSAGE}
+    Log    ${KEPT_BY_PATTERN_MESSAGE}
 
 Tag but no remove
     [Tags]   hello    kitty

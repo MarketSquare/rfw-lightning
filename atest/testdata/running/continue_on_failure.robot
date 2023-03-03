@@ -6,17 +6,17 @@ Library              Exceptions
 ${HEADER}                 Several failures occurred:
 ${EXC}                    ContinuableApocalypseException
 ${ERROR}                  ${EXC}: Can be continued
-${TEARDOWN ERROR}         Also parent suite teardown failed:\nContinuableApocalypseException: Can be continued
-${ERROR WITH TEARDOWN}    ${ERROR}\n\n${TEARDOWN ERROR}
+${TEARDOWN_ERROR}         Also parent suite teardown failed:\nContinuableApocalypseException: Can be continued
+${ERROR_WITH_TEARDOWN}    ${ERROR}\n\n${TEARDOWN_ERROR}
 
 *** Test Cases ***
 Continue in test
-    [Documentation]    FAIL ${ERROR WITH TEARDOWN}
+    [Documentation]    FAIL ${ERROR_WITH_TEARDOWN}
     Raise Continuable Failure
     Log    This should be executed
 
 Continue in user keyword
-    [Documentation]    FAIL ${ERROR WITH TEARDOWN}
+    [Documentation]    FAIL ${ERROR_WITH_TEARDOWN}
     Continuable Failure In User Keyword In Test Case
 
 Continue in test with several continuable failures
@@ -24,7 +24,7 @@ Continue in test with several continuable failures
     ...    1) ${EXC}: A\n\n
     ...    2) ${EXC}: B\n\n
     ...    3) ${EXC}: C\n\n
-    ...    ${TEARDOWN ERROR}
+    ...    ${TEARDOWN_ERROR}
     Raise Continuable Failure    A
     Log    This should be executed
     Raise Continuable Failure    B
@@ -40,7 +40,7 @@ Continue in user keyword with several continuable failures
     ...    4) ${EXC}: 1\n\n
     ...    5) ${EXC}: 2\n\n
     ...    6) ${EXC}: 3\n\n
-    ...    ${TEARDOWN ERROR}
+    ...    ${TEARDOWN_ERROR}
     Several Continuable Failures In User Keyword In Test Case
     Several Continuable Failures In User Keyword In Test Case, Again
 
@@ -48,7 +48,7 @@ Continuable and regular failure
     [Documentation]     FAIL ${HEADER}\n\n
     ...    1) ${ERROR}\n\n
     ...    2) Stopping here!! (with ∏ön ÄßÇïï €§)\n\n
-    ...    ${TEARDOWN ERROR}
+    ...    ${TEARDOWN_ERROR}
     Raise Continuable Failure
     Log    This should be executed
     Fail    Stopping here!! (with ∏ön ÄßÇïï €§)
@@ -61,7 +61,7 @@ Continue in nested user keyword
     ...    3) ${EXC}: 2\n\n
     ...    4) ${EXC}: 3\n\n
     ...    5) ${ERROR} in top level after nesting (with ∏ön ÄßÇïï €§)\n\n
-    ...    ${TEARDOWN ERROR}
+    ...    ${TEARDOWN_ERROR}
     Continuable Failure In Nested UK
 
 Continuable and regular failure in UK
@@ -69,7 +69,7 @@ Continuable and regular failure in UK
     ...    1) ${EXC}: one\n\n
     ...    2) ${EXC}: two\n\n
     ...    3) Stop!!\n\n
-    ...    ${TEARDOWN ERROR}
+    ...    ${TEARDOWN_ERROR}
     Continuable and regular failure
     Fail    This should not be executed
 
@@ -90,7 +90,7 @@ Several continuable failures and regular failure in nested UK
     ...    13) ${EXC}: one\n\n
     ...    14) ${EXC}: two\n\n
     ...    15) Stop!!\n\n
-    ...    ${TEARDOWN ERROR}
+    ...    ${TEARDOWN_ERROR}
     Continuable Failure In Nested UK
     Continuable and regular failure in nested UK
     Fail    This should not be executed
@@ -101,7 +101,7 @@ Continue when setting variables
     ...    2) ${ERROR}\n\n
     ...    3) ${ERROR}\n\n
     ...    4) No jokes\n\n
-    ...    ${TEARDOWN ERROR}
+    ...    ${TEARDOWN_ERROR}
     ${ret}=    Raise Continuable Failure
     Should Be Equal    ${ret}    ${None}
     ${r1}    ${r2}    ${r3}=    Raise Continuable Failure
@@ -115,19 +115,19 @@ Continuable failure in user keyword returning value
     ...    1) Continuable failure\n\n
     ...    2) Another continuable failure\n\n
     ...    3) Continuable failure\n\n
-    ...    ${TEARDOWN ERROR}
+    ...    ${TEARDOWN_ERROR}
     ${ret} =    Continuable failure in user keyword returning value
     Should Be Equal    ${ret}    return value
     ${ret} =    Continuable failure in nested user keyword returning value
     Should Be Equal    ${ret}    return value 2
 
 Continue in test setup
-    [Documentation]    FAIL Setup failed:\n${ERROR WITH TEARDOWN}
+    [Documentation]    FAIL Setup failed:\n${ERROR_WITH_TEARDOWN}
     [Setup]    Continuable Failure In User Keyword In Test Setup
     Fail    This should not be executed (with ∏ön ÄßÇïï €§)
 
 Continue in test teardown
-    [Documentation]    FAIL Teardown failed:\n${ERROR WITH TEARDOWN}
+    [Documentation]    FAIL Teardown failed:\n${ERROR_WITH_TEARDOWN}
     No operation
     [Teardown]    Continuable Failure In User Keyword In Test Teardown
 
@@ -142,7 +142,7 @@ Continue many times in test setup and teardown
     ...    1) ${EXC}: 1\n\n
     ...    2) ${EXC}: 2\n\n
     ...    3) ${EXC}: 3\n\n
-    ...    ${TEARDOWN ERROR}
+    ...    ${TEARDOWN_ERROR}
     [Setup]    Several Continuable Failures In User Keyword In Test Setup
     Fail    This should not be executed
     [Teardown]    Several Continuable Failures In User Keyword In Test Teardown
@@ -154,7 +154,7 @@ Continue in for loop
     ...    3) ContinuableApocalypseException: 2\n\n
     ...    4) ContinuableApocalypseException: 3\n\n
     ...    5) ContinuableApocalypseException: 4\n\n
-    ...    ${TEARDOWN ERROR}
+    ...    ${TEARDOWN_ERROR}
     FOR    ${i}    IN RANGE    0    5
         Raise Continuable Failure    ${i}
         Log    This should be executed inside for loop
@@ -167,7 +167,7 @@ Continuable and regular failure in for loop
     ...    2) ContinuableApocalypseException: jussi\n\n
     ...    3) ContinuableApocalypseException: keijo\n\n
     ...    4) keijo == keijo\n\n
-    ...    ${TEARDOWN ERROR}
+    ...    ${TEARDOWN_ERROR}
     FOR    ${name}    IN    janne    jussi    keijo    juha    jooseppi
         Raise Continuable Failure    ${name}
         Should Not Be Equal    ${name}    keijo
@@ -179,7 +179,7 @@ robot.api.ContinuableFailure
     ...    1) 1\n\n
     ...    2) 2\n\n
     ...    3) 3\n\n
-    ...    ${TEARDOWN ERROR}
+    ...    ${TEARDOWN_ERROR}
     Raise Continuable Failure    1    standard=True
     Raise Continuable Failure    2    standard=True
     Fail    3

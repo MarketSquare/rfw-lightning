@@ -4,7 +4,7 @@ Suite Teardown    Run Keywords    Fail    first    AND    Fail    second
 Default Tags      tag1    tag2
 
 *** Variables ***
-${TEARDOWN FAILURES}    SEPARATOR=\n\n
+${TEARDOWN_FAILURES}    SEPARATOR=\n\n
 ...    Several failures occurred:
 ...    1) first
 ...    2) second
@@ -13,7 +13,7 @@ ${TEARDOWN FAILURES}    SEPARATOR=\n\n
 Passing
     [Documentation]    FAIL
     ...    Parent suite teardown failed:
-    ...    ${TEARDOWN FAILURES}
+    ...    ${TEARDOWN_FAILURES}
     Log    This is executed normally
     My Keyword
 
@@ -22,7 +22,7 @@ Failing
     ...    Expected fail
     ...
     ...    Also parent suite teardown failed:
-    ...    ${TEARDOWN FAILURES}
+    ...    ${TEARDOWN_FAILURES}
     Fail    Expected fail
 
 Skipping
@@ -30,7 +30,7 @@ Skipping
     ...    Expected skip
     ...
     ...    Also parent suite teardown failed:
-    ...    ${TEARDOWN FAILURES}
+    ...    ${TEARDOWN_FAILURES}
     Skip    Expected skip
 
 *** Keyword ***

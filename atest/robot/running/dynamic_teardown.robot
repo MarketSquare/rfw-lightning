@@ -4,4 +4,4 @@ Resource          atest_resource.robot
 
 *** Test cases ***
 Setting teardowns with variables dynamically
-     Check test case   ${TEST NAME}
+     Check test case   ${TEST_NAME}

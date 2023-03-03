@@ -23,7 +23,7 @@ IF condition with non-existing variable
     [Documentation]    FAIL Evaluating IF condition failed: Variable '\${ooop}' not found.
     IF    ${ooop}
         Fail    Should not be run
-    ELSE IF    ${not evaluated}
+    ELSE IF    ${not_evaluated}
         Not run
     END
 

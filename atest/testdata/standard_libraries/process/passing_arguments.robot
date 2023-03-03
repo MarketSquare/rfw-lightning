@@ -15,17 +15,17 @@ Command and arguments in shell as single argument
     Script result should equal    ${result}    stdout=my    stderr=args
 
 Non-ASCII arguments separately
-    ${result} =    Run Process    python    ${ENCODING SCRIPT}    stdout:hyvää    stderr:päivää    encoding:UTF-8
+    ${result} =    Run Process    python    ${ENCODING_SCRIPT}    stdout:hyvää    stderr:päivää    encoding:UTF-8
     ...    output_encoding=UTF-8
     Result should equal    ${result}    stdout=hyvää    stderr=päivää
 
 Non-ASCII arguments separately when using shell
-    ${result} =    Run Process    python    ${ENCODING SCRIPT}    stdout:hyvää    stderr:päivää    encoding:UTF-8
+    ${result} =    Run Process    python    ${ENCODING_SCRIPT}    stdout:hyvää    stderr:päivää    encoding:UTF-8
     ...    output_encoding=UTF-8    shell=True
     Result should equal    ${result}    stdout=hyvää    stderr=päivää
 
 Non-ASCII arguments in as string when using shell
-    ${result} =    Run Process    python ${ENCODING SCRIPT} stdout:hyvää stderr:päivää encoding:UTF-8
+    ${result} =    Run Process    python ${ENCODING_SCRIPT} stdout:hyvää stderr:päivää encoding:UTF-8
     ...    output_encoding=UTF-8    shell=True
     Result should equal    ${result}    stdout=hyvää    stderr=päivää
 

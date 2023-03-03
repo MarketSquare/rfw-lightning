@@ -6,8 +6,8 @@ Library           files/HelperLib.py
 
 *** Variable ***
 ${NAME}           EXAMPLE_ENV_VAR_32FDHT
-${NON STRING}     ${2138791}
-${NON ASCII}      HYVÄÄ_YÖTÄ
+${NON_STRING}     ${2138791}
+${NON_ASCII}      HYVÄÄ_YÖTÄ
 
 *** Test Case ***
 Get Environment Variable
@@ -98,31 +98,31 @@ Get And Log Environment Variables
     Set Environment Variable    isä    äiti
     ${vars} =    Get Environment Variables
     Should Contain    ${vars}    PATH
-    Should Be Equal    ${vars['0']}    value
-    Run Keyword If    "${:}" == ":"    Should Be Equal    ${vars[u'is\xe4']}    äiti
-    Run Keyword If    "${:}" == ";"    Should Be Equal    ${vars[u'IS\xc4']}    äiti
-    Should Be Equal    ${vars['NON_ASCII_BY_RUNNER']}    I can häs åäö?!??!¿¿¡¡
+    Should Be Equal    ${vars}[0]    value
+    Run Keyword If    "${:}" == ":"    Should Be Equal    ${vars}[isä]    äiti
+    Run Keyword If    "${:}" == ";"    Should Be Equal    ${vars}[ISÄ]    äiti
+    Should Be Equal    ${vars}[NON_ASCII_BY_RUNNER]    I can häs åäö?!??!¿¿¡¡
     ${v2} =    Log Environment Variables
     Should Be Equal    ${vars}    ${v2}
     [Teardown]    Remove Environment Variable    0    1    isä
 
 Non-string names and values are converted to strings automatically
-    Set Environment Variable    ${NON STRING}    ${NON STRING}
-    ${value} =    Get Environment Variable    ${NON STRING}
-    Should Be Equal As Strings    ${value}    ${NON STRING}
-    Environment Variable Should Be Set    ${NON STRING}
-    Remove Environment Variable    ${NON STRING}
-    Environment Variable Should Not Be Set    ${NON STRING}
-    [Teardown]    Remove Environment Variable    ${NON STRING}
+    Set Environment Variable    ${NON_STRING}    ${NON_STRING}
+    ${value} =    Get Environment Variable    ${NON_STRING}
+    Should Be Equal As Strings    ${value}    ${NON_STRING}
+    Environment Variable Should Be Set    ${NON_STRING}
+    Remove Environment Variable    ${NON_STRING}
+    Environment Variable Should Not Be Set    ${NON_STRING}
+    [Teardown]    Remove Environment Variable    ${NON_STRING}
 
 Non-ASCII names and values are encoded automatically
-    Set Environment Variable    ${NON ASCII}    ${NON ASCII}
-    ${value} =    Get Environment Variable    ${NON ASCII}
-    Should Be Equal    ${value}    ${NON ASCII}
-    Environment Variable Should Be Set    ${NON ASCII}
-    Remove Environment Variable    ${NON ASCII}
-    Environment Variable Should Not Be Set    ${NON ASCII}
-    [Teardown]    Remove Environment Variable    ${NON ASCII}
+    Set Environment Variable    ${NON_ASCII}    ${NON_ASCII}
+    ${value} =    Get Environment Variable    ${NON_ASCII}
+    Should Be Equal    ${value}    ${NON_ASCII}
+    Environment Variable Should Be Set    ${NON_ASCII}
+    Remove Environment Variable    ${NON_ASCII}
+    Environment Variable Should Not Be Set    ${NON_ASCII}
+    [Teardown]    Remove Environment Variable    ${NON_ASCII}
 
 Non-ASCII variable set before execution
     ${value} =    Get Environment Variable    NON_ASCII_BY_RUNNER
@@ -132,5 +132,5 @@ Non-ASCII variable set before execution
     Should Be Equal    ${value}    I cän överwrite?!?!?!
 
 Use NON-ASCII variable in child process
-    Set Environment Variable    ${NAME}    ${NON ASCII}
+    Set Environment Variable    ${NAME}    ${NON_ASCII}
     Test Env Var In Child Process    ${NAME}

@@ -79,7 +79,7 @@ In start_keyword and end_keyword with FOR loop
     ${for} =              Set Variable                             ${tc.body[1]}
     Should Be Equal       ${for.type}                              FOR
     Length Should Be      ${for.body}                              5
-    Length Should Be      ${for.body.filter(keywords=True)}        2
+    Length Should Be      ${for.body.filter(True)}        2
     Should Be Equal       ${for.body[0].name}                      BuiltIn.Log
     Check Log Message     ${for.body[0].body[0]}                   start_keyword
     Should Be Equal       ${for.body[-1].name}                     BuiltIn.Log
@@ -90,7 +90,7 @@ In start_keyword and end_keyword with WHILE
     ${while} =            Set Variable                             ${tc.body[2]}
     Should Be Equal       ${while.type}                            WHILE
     Length Should Be      ${while.body}                            7
-    Length Should Be      ${while.body.filter(keywords=True)}      2
+    Length Should Be      ${while.body.filter(True)}      2
     Should Be Equal       ${while.body[0].name}                    BuiltIn.Log
     Check Log Message     ${while.body[0].body[0]}                 start_keyword
     Should Be Equal       ${while.body[-1].name}                   BuiltIn.Log
@@ -139,7 +139,7 @@ In start_keyword and end_keyword with RETURN
 
 *** Keywords ***
 Run Tests With Keyword Running Listener
-    ${path} =    Normalize Path    ${LISTENER DIR}/keyword_running_listener.py
+    ${path} =    Normalize Path    ${LISTENER_DIR}/keyword_running_listener.py
     ${files} =    Catenate
     ...    misc/normal.robot
     ...    misc/setups_and_teardowns.robot
@@ -147,7 +147,7 @@ Run Tests With Keyword Running Listener
     ...    misc/while.robot
     ...    misc/if_else.robot
     ...    misc/try_except.robot
-    Run Tests    --listener ${path}    ${files}    validate output=True
+    Run Tests    --listener ${path}    ${files}    validate_output=True
     Should Be Empty    ${ERRORS}
 
 Validate IF branch

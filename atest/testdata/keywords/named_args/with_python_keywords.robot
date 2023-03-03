@@ -221,9 +221,9 @@ Execute working combinations with everything
     Should be equal    ${expected}    ${res}
 
 Execute illegal combinations with everything
-    [Arguments]    ${expected error}    @{args}
+    [Arguments]    ${expected_error}    @{args}
     ${res} =    Get result or error    Lib Mandatory Named varargs and kwargs    @{args}
-    Should be equal    ${res}    Keyword 'python_library.Lib Mandatory Named Varargs And Kwargs' ${expected error}
+    Should be equal    ${res}    Keyword 'python_library.Lib Mandatory Named Varargs And Kwargs' ${expected_error}
 
 Execute working named vararg combination with result
     [Arguments]    ${expected}    @{args}
@@ -231,14 +231,14 @@ Execute working named vararg combination with result
     Should be equal    ${expected}    ${res}
 
 Execute illegal named vararg combination
-    [Arguments]    ${expected error}    @{args}
+    [Arguments]    ${expected_error}    @{args}
     ${res} =    Get result or error    Lib Mandatory Named and varargs    @{args}
-    Should be equal    ${res}    Keyword 'python_library.Lib Mandatory Named And Varargs' ${expected error}
+    Should be equal    ${res}    Keyword 'python_library.Lib Mandatory Named And Varargs' ${expected_error}
 
 Execute illegal combinations with kwargs
-    [Arguments]    ${expected error}    @{args}
+    [Arguments]    ${expected_error}    @{args}
     ${res} =    Get result or error    Lib Mandatory Named and Kwargs    @{args}
-    Should be equal    ${res}    Keyword 'python_library.Lib Mandatory Named And Kwargs' ${expected error}
+    Should be equal    ${res}    Keyword 'python_library.Lib Mandatory Named And Kwargs' ${expected_error}
 
 Execute working named combination with result
     [Arguments]    ${expected}    @{args}
@@ -246,6 +246,6 @@ Execute working named combination with result
     Should be equal    ${expected}    ${res}
 
 Execute illegal named combination
-    [Arguments]    ${expected error}    @{args}
+    [Arguments]    ${expected_error}    @{args}
     ${res} =    Get result or error    Lib Mandatory and Named    @{args}
-    Should be equal    ${res}    Keyword 'python_library.Lib Mandatory And Named' ${expected error}
+    Should be equal    ${res}    Keyword 'python_library.Lib Mandatory And Named' ${expected_error}

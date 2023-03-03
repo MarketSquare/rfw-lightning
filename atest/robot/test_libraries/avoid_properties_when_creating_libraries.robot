@@ -4,4 +4,4 @@ Resource          atest_resource.robot
 
 *** Test Case ***
 Python Property
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}

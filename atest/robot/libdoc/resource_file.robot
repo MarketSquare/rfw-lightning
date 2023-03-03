@@ -117,7 +117,7 @@ Keyword Source Info
     Source Should Be                  ${TESTDATADIR}/resource.resource
     Lineno Should Be                  1
     Keyword Name Should Be            2    Yay, I got new extension!
-    Keyword Arguments Should Be       2    Awesome!!
+    Keyword Arguments Should Be       2    Awesome
     Keyword Doc Should Be             2    Yeah!!!
     Keyword Should Not Have Source    2
     Keyword Lineno Should Be          2    5

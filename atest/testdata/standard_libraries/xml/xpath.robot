@@ -93,9 +93,9 @@ Xpath should match element
     Run Keyword If    '''${text}''' != 'IGNORE'    Should Be Equal    ${element.text}    ${text}
 
 Xpath should match elements
-    [Arguments]    ${xpath}    @{expected texts}
+    [Arguments]    ${xpath}    @{expected_texts}
     ${texts} =    Get Elements Texts    ${TEST}    ${xpath}    normalize_whitespace=yes
-    Lists Should be Equal    ${texts}    ${expected texts}
+    Lists Should be Equal    ${texts}    ${expected_texts}
 
 Add Etree Version to Suite Metadata
     ${version}=    Get Etree Version

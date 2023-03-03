@@ -11,7 +11,7 @@ ${SCALAR}         dhrfad
 
 *** Test Cases ***
 Automatic and Command Line Variables
-    Variables Should Contain    \${/}    \${cmd line}
+    Variables Should Contain    \${/}    \${cmd_line}
 
 Variable Table Scalar
     Variables Should Contain    \${SCALAR}
@@ -24,17 +24,17 @@ Variable Table Dict
 
 Global Variables
     Set Global In Resource
-    Variables Should Contain    \${Global from suite setup}    \${GLOBAL FROM RESOURCE}
+    Variables Should Contain    \${Global_from_suite_setup}    \${GLOBAL_FROM_RESOURCE}
 
 Suite Variables
-    Set Suite Variable    ${Suite Var From Test}    Other value
-    Variables Should Contain    \${Suite Var from suite setup}    \${Suite Var From Test}
+    Set Suite Variable    ${Suite_Var_From_Test}    Other value
+    Variables Should Contain    \${Suite_Var_from_suite_setup}    \${Suite_Var_From_Test}
 
 Suite Variables 2
-    Variables Should Contain    \${Suite Var from suite setup}    \${Suite Var From Test}
+    Variables Should Contain    \${Suite_Var_from_suite_setup}    \${Suite_Var_From_Test}
 
 Resource File
-    Variables Should Contain    \${RESOURCE VAR}
+    Variables Should Contain    \${RESOURCE_VAR}
 
 Variable File
     Variables Should Contain    \${var_in_variable_file}
@@ -45,17 +45,17 @@ Local Variables in Test Case do not Leak
     Variables Should Not Contain    \${local}
 
 Test Case Variable
-    Set Test Variable    ${tc var}    tc
-    Variables Should Contain    \${tc var}
+    Set Test Variable    ${tc_var}    tc
+    Variables Should Contain    \${tc_var}
 
 Variables Are Returned as NormalizedDict
     ${variables}=    Get Variables
     Should Be Equal    ${variables.__class__.__name__}    NormalizedDict
     Dictionary Should Contain Key    ${variables}    \${SCALAR}
-    Dictionary Should Contain Key    ${variables}    \${__Scala__ R}
+    Dictionary Should Contain Key    ${variables}    \${__Scala___R}
     ${copy}=    Copy Dictionary    ${variables}
     Dictionary Should Contain Key    ${copy}    \${SCALAR}
-    Dictionary Should Contain Key    ${copy}    \${__Scala__ R}
+    Dictionary Should Contain Key    ${copy}    \${__Scala___R}
 
 Modifying Returned Variables Has No Effect On Real Variables
     ${variables}=    Get Variables    no_decoration=false
@@ -64,20 +64,20 @@ Modifying Returned Variables Has No Effect On Real Variables
 
 Getting variables without decoration
     ${variables} =    Get Variables    no_decoration=true
-    Should be equal   ${variables['SCALAR']}    ${SCALAR}
+    Should be equal   ${variables}[SCALAR]    ${SCALAR}
 
 Getting variables without decoration has no effect on real variables
     ${original} =    Set variable  ${SCALAR}
     ${variables} =    Get Variables    no_decoration=yes
-    Should be equal   ${variables['SCALAR']}    ${SCALAR}
+    Should be equal   ${variables}[SCALAR]    ${SCALAR}
     Set to dictionary   ${variables}    scalar    MY_VALUE
-    Should be equal   ${variables['SCALAR']}    MY_VALUE
+    Should be equal   ${variables}[SCALAR]    MY_VALUE
     Should be equal   ${SCALAR}    ${original}
 
 *** Keywords ***
 Set Some Variables
-    Set Suite Variable    ${Suite Var from suite setup}    Some value
-    Set Global Variable    ${Global from Suite setup}    Some value
+    Set Suite Variable    ${Suite_Var_from_suite_setup}    Some value
+    Set Global Variable    ${Global_from_Suite_setup}    Some value
 
 Variables Should Contain
     [Arguments]    @{keys}

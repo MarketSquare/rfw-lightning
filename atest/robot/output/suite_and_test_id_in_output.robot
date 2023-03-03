@@ -8,7 +8,7 @@ Ids in output after test run
 
 Ids in output after rebot
     Copy Previous Outfile
-    Run Rebot    ${EMPTY}    ${OUTFILE COPY}
+    Run Rebot    ${EMPTY}    ${OUTFILE_COPY}
     Suite And Test Ids Should Be Correct
 
 *** Keywords ***

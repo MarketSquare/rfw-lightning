@@ -55,7 +55,7 @@ My Setup
     ...    --tagstatexclude t2
     ...    --TagStatComb F1NOTT_1
     ...    --SetTag XxX
-    Run Rebot    ${options}    ${OUTFILE COPY}
+    Run Rebot    ${options}    ${OUTFILE_COPY}
 
 Node Should Be Correct
     [Arguments]    ${node}    ${name}    ${pass}    ${fail}
@@ -66,5 +66,7 @@ Node Should Be Correct
 Tag Node Should Be Correct
     [Arguments]    ${node}    ${name}    ${pass}    ${fail}    ${info}=    ${combined}=
     Node Should Be Correct    ${node}    ${name}    ${pass}    ${fail}
-    Should be equal    ${node.attrib.get('info', '')}    ${info}
-    Should be equal    ${node.attrib.get('combined', '')}    ${combined}
+    ${info_value}=Evaluate   $node.attrib.get('info','')
+    Should be equal    ${info_value}    ${info}
+    ${combined_value}=Evaluate    $node.attrib.get('combined','')
+    Should be equal    ${combined_value}    ${combined}

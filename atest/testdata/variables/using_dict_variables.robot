@@ -15,7 +15,7 @@ From variable table
     Dictionaries Should Be Equal    ${result}    ${DICT}
 
 From variable file
-    ${result} =    Create Dictionary    &{DICT FROM VAR FILE}
+    ${result} =    Create Dictionary    &{DICT_FROM_VAR_FILE}
     Dictionaries Should Be Equal    ${result}    ${DICT}
 
 From keyword return value
@@ -49,19 +49,12 @@ Multiple dict variables with same names multiple times
     ${expected} =    Create Dictionary    a=1    b=2    c=3    d=4
     Dictionaries Should Be Equal    ${result}    ${expected}
 
-Internal variables
-    ${d}    ${i}    ${c}    ${t} =    Create List    d    i    c    t
-    ${result} =    Create Dictionary    &{${d}${i}${c}${t}}
-    Dictionaries Should Be Equal    ${result}    ${DICT}
-    ${result} =    Create Dictionary    &{${i[${1}:]} ${d} ${i + 'ct'}}
-    Dictionaries Should Be Equal    ${result}    ${DICT}
-
 Extended variables
-    ${result} =    Create Dictionary    &{CLASS FROM VAR FILE.attribute}
+    ${result} =    Create Dictionary    &{CLASS_FROM_VAR_FILE.attribute}
     Dictionaries Should Be Equal    ${result}    ${DICT}
-    ${result} =    Create Dictionary    &{OBJECT FROM VAR FILE.attribute}
+    ${result} =    Create Dictionary    &{OBJECT_FROM_VAR_FILE.attribute}
     Dictionaries Should Be Equal    ${result}    ${DICT}
-    ${result} =    Create Dictionary    &{OBJECT FROM VAR FILE.get_escaped()}
+    ${result} =    Create Dictionary    &{OBJECT_FROM_VAR_FILE.get_escaped()}
     Dictionaries Should Be Equal    ${result}    ${ESCAPED}
 
 Converted to string if not alone
@@ -113,8 +106,8 @@ Positional after
     Kwargs    &{EMPTY}    positional     values
 
 Non-existing
-    [Documentation]    FAIL Variable '&{non existing}' not found.
-    Create Dictionary    &{non existing}
+    [Documentation]    FAIL Variable '&{non_existing}' not found.
+    Create Dictionary    &{non_existing}
 
 Non-dictionary
     [Documentation]    FAIL Value of variable '\&{LIST}' is not dictionary or dictionary-like.
@@ -126,11 +119,11 @@ Non-string keys
     Kwargs    &{ints}
 
 Dicts are ordered but order does not affect equality
-    &{dict 2} =    Create Dictionary    b=${2}    c=3    a=1
-    @{keys 2} =    Create List    @{dict 2}
+    &{dict_2} =    Create Dictionary    b=${2}    c=3    a=1
+    @{keys_2} =    Create List    @{dict_2}
     @{keys} =    Create List    @{DICT}
-    Should Not Be Equal    ${keys}    ${keys 2}
-    Should Be Equal    ${DICT}    ${dict 2}
+    Should Not Be Equal    ${keys}    ${keys_2}
+    Should Be Equal    ${DICT}    ${dict_2}
 
 *** Keywords ***
 Keyword

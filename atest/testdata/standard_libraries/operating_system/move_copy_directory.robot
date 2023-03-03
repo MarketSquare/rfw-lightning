@@ -56,22 +56,22 @@ Copy Directory To Non-Existing Directory Tree
 
 Move Directory Using Just Directory Name
     Create File    rf_test_1/file    contents
-    ${contents 1} =    Get File    rf_test_1/file
+    ${contents_1} =    Get File    rf_test_1/file
     Move Directory    rf_test_1    rf_test_2
     Should Not Exist    rf_test_1
     Should Exist    ${EXECDIR}/rf_test_2
-    ${contents 2} =    Get File    rf_test_2/file
-    Should Be Equal    -${contents 1}-${contents 2}-    -contents-contents-
+    ${contents_2} =    Get File    rf_test_2/file
+    Should Be Equal    -${contents_1}-${contents_2}-    -contents-contents-
     [Teardown]    Remove Just Name Dirs
 
 Copy Directory Using Just Directory Name
     Create File    rf_test_1/file    contents
-    ${contents 1} =    Get File    rf_test_1/file
+    ${contents_1} =    Get File    rf_test_1/file
     Copy Directory    rf_test_1    rf_test_2
     Should Exist    rf_test_1
     Should Exist    ${EXECDIR}/rf_test_2
-    ${contents 2} =    Get File    rf_test_2/file
-    Should Be Equal    -${contents 1}-${contents 2}-    -contents-contents-
+    ${contents_2} =    Get File    rf_test_2/file
+    Should Be Equal    -${contents_1}-${contents_2}-    -contents-contents-
     [Teardown]    Remove Just Name Dirs
 
 Moving Non-Existing Directory Fails
@@ -84,8 +84,10 @@ Copying Non-Existing Directory Fails
 
 Path as `pathlib.Path`
     Create Directory              ${BASE}/dir
-    Move Directory                ${PATH/'dir'}    ${PATH/'new'}
-    Copy Directory                ${PATH/'new'}    ${PATH/'copy'}
+    ${new_path}=Evaluate    $PATH/'new'
+    Move Directory                ${PATH}/dir    ${new_path}
+    ${copy_path}=Evaluate   $PATH/'copy'
+    Copy Directory                ${new_path}    ${copy_path}
     Directory Should Not Exist    ${BASE}/dir
     Directory Should Exist        ${BASE}/new
     Directory Should Exist        ${BASE}/copy

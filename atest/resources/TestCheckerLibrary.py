@@ -309,7 +309,7 @@ class TestCheckerLibrary:
     def test_should_have_correct_keywords(self, *kw_names, **config):
         get_var = BuiltIn().get_variable_value
         suite = get_var('${SUITE}')
-        name = config.get('name', get_var('${TEST NAME}'))
+        name = config.get('name', get_var('${TEST_NAME}'))
         kw_index = int(config.get('kw_index', 0))
         test = self._get_test_from_suite(suite, name)
         self._check_test_status(test)

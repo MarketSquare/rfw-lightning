@@ -12,7 +12,8 @@ Parse file using system path separator
     Should be equal     ${root.tag}     test
 
 Parse file using pathlib.Path
-    ${root} =   Parse XML     ${{pathlib.Path('${CURDIR}/test.xml')}}
+    ${test_xml_path}=Evaluate   pathlib.Path('${CURDIR}/test.xml')
+    ${root} =   Parse XML     ${test_xml_path}
     Should be equal     ${root.tag}     test
 
 Parse string

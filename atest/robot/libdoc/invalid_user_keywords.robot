@@ -16,7 +16,7 @@ Duplicate name
     ...    Keyword with same name defined multiple times
 
 Duplicate name with embedded arguments
-    Keyword Name Should Be    1    same \${embedded match}
+    Keyword Name Should Be    1    same \${embedded_match}
     Keyword Doc Should Be     1    ${EMPTY}
     Keyword Name Should Be    2    Same \${embedded}
     Keyword Doc Should Be     2    This is an error only at run time.

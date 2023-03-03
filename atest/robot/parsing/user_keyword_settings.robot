@@ -42,7 +42,7 @@ Documentation with escaping
 
 Arguments
     [Documentation]    Tested more thoroughly elsewhere.
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Check Log Message    ${tc.kws[0].kws[0].msgs[0]}    mandatory
     Check Log Message    ${tc.kws[0].kws[0].msgs[1]}    default
     Should Be True       ${tc.kws[0].args} == ('mandatory',)
@@ -67,16 +67,16 @@ Teardown with escaping
     Verify Teardown    \${notvar} is not a variable
 
 Return
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Return using variables
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Return multiple
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Return with escaping
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Timeout
     Verify Timeout    2 minutes 3 seconds
@@ -93,22 +93,22 @@ Multiple settings
     Verify Timeout  6 minutes
 
 Invalid setting
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
     Error In File    0    parsing/user_keyword_settings.robot    198
     ...    Non-existing setting 'Invalid Setting'.
     Error In File    1    parsing/user_keyword_settings.robot    202
     ...    Non-existing setting 'invalid'.
 
 Setting not valid with user keywords
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
     Error In File    2    parsing/user_keyword_settings.robot    206
     ...    Setting 'Metadata' is not allowed with user keywords.
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
     Error In File    3    parsing/user_keyword_settings.robot    207
     ...    Setting 'Template' is not allowed with user keywords.
 
 Small typo should provide recommendation
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
     Error In File    4    parsing/user_keyword_settings.robot    211
     ...    SEPARATOR=\n
     ...    Non-existing setting 'Doc Umentation'. Did you mean:
@@ -121,17 +121,17 @@ Invalid empty line continuation in arguments should throw an error
 
 *** Keywords ***
 Verify Documentation
-    [Arguments]    ${doc}    ${test}=${TEST NAME}
+    [Arguments]    ${doc}    ${test}=${TEST_NAME}
     ${tc} =    Check Test Case    ${test}
     Should Be Equal    ${tc.kws[0].doc}    ${doc}
 
 Verify Teardown
     [Arguments]    ${message}
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Should Be Equal    ${tc.kws[0].teardown.name}    BuiltIn.Log
     Check Log Message    ${tc.kws[0].teardown.msgs[0]}    ${message}
 
 Verify Timeout
     [Arguments]    ${timeout}
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Should Be Equal    ${tc.kws[0].timeout}    ${timeout}

@@ -54,7 +54,7 @@ Invalid
     Run Tests Without Processing Output    --maxass oops    cli/console/max_assign_length.robot
     Stderr Should Be Equal To
     ...    [ ERROR ] Invalid value for option '--maxassignlength':
-    ...    Expected integer, got 'oops'.${USAGE TIP}\n
+    ...    Expected integer, got 'oops'.${USAGE_TIP}\n
 
 
 *** Keywords ***

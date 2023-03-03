@@ -1,12 +1,12 @@
 *** Settings ***
 Test Setup        Create Output Directory
-Suite Teardown    Remove Files    ${ARGFILE}    ${ARGFILE 2}    ${ÄRGFÏLË}
+Suite Teardown    Remove Files    ${ARGFILE}    ${ARGFILE_2}    ${ARGUMENT_FILE}
 Resource          cli_resource.robot
 
 *** Variables ***
 ${ARGFILE}        %{TEMPDIR}/arg_file_1.txt
-${ARGFILE 2}      %{TEMPDIR}/arg_file_2.txt
-${ÄRGFÏLË}        %{TEMPDIR}/ärg_fïlë_3.txt
+${ARGFILE_2}      %{TEMPDIR}/arg_file_2.txt
+${ARGUMENT_FILE}        %{TEMPDIR}/ärg_fïlë_3.txt
 ${BOM}            \uFEFF
 
 *** Test Cases ***
@@ -20,12 +20,12 @@ Argument File
     ...    \# comment line
     ...    ${EMPTY}
     ...    \# another comment
-    ...    -d ${CLI OUTDIR}
+    ...    -d ${CLI_OUTDIR}
     ...    -l=none
     ...    --report=none
     ...    -o${SPACE*5}output.xml
     ${result} =    Run Tests    -M Meta1:Overwritten --argumentfile ${ARGFILE} -M Meta2:cli    ${TESTFILE}
-    ...    output=${CLI OUTDIR}/output.xml
+    ...    output=${CLI_OUTDIR}/output.xml
     Execution Should Have Succeeded    ${result}
     Should Be Equal    ${SUITE.name}    From Argfile With Spaces
     Should Be Equal as Strings    ${SUITE.metadata}    {Meta1: From AF, Meta2: cli, Something: My Value}
@@ -35,29 +35,29 @@ Two Argument Files
     Create Argument File    ${ARGFILE2}    --metadata A2:Value2
     ${result} =    Run Tests    -A ${ARGFILE} --Argument-File ${ARGFILE2}    ${TESTFILE}
     Execution Should Have Succeeded    ${result}
-    Should Be Equal    ${SUITE.metadata['A1']}    Value1
-    Should Be Equal    ${SUITE.metadata['A2']}    Value2
+    Should Be Equal    ${SUITE.metadata}[A1]    Value1
+    Should Be Equal    ${SUITE.metadata}[A2]    Value2
 
 Recursive Argument File
     Create Argument File    ${ARGFILE}    -M First:1    -M Second:overwritten    --ARGUMENTFILE ${ARGFILE2}
     Create Argument File    ${ARGFILE2}    --metadata Second:2
     ${result} =    Run Tests    -A ${ARGFILE}    ${TESTFILE}
     Execution Should Have Succeeded    ${result}
-    Should Be Equal    ${SUITE.metadata['First']}    1
-    Should Be Equal    ${SUITE.metadata['Second']}    2
+    Should Be Equal    ${SUITE.metadata}[First]    1
+    Should Be Equal    ${SUITE.metadata}[Second]    2
 
 Argument File with Non-ASCII Characters
     ${path} =    Copy File    ${DATADIR}/parsing/non_ascii_paths/test-auml-ouml.robot    %{TEMPDIR}/testäö.robot
-    Create Argument File    ${ÄRGFÏLË}    -D äëïöüÿ    -C off    ${path}
-    ${result} =    Run Tests    --argumentfile ${ÄRGFÏLË}
+    Create Argument File    ${ARGUMENT_FILE}    -D äëïöüÿ    -C off    ${path}
+    ${result} =    Run Tests    --argumentfile ${ARGUMENT_FILE}
     Execution Should Have Succeeded    ${result}
     Should Contain    ${result.stdout}    Testäö :: äëïöüÿ
 
 Arguments From Stdin
-    ${test dir} =    Normalize Path    ${DATADIR}/misc/
-    Create Argument File Without BOM    ${ARG FILE}
+    ${test_dir} =    Normalize Path    ${DATADIR}/misc/
+    Create Argument File Without BOM    ${ARG_FILE}
     ...    --name My Name with Nön Äscii
-    ...    ${test dir}${/}normal.robot
+    ...    ${test_dir}${/}normal.robot
     ${cmd} =    Join Command Line
     ...    @{INTERPRETER.runner}
     ...    --output    NONE
@@ -65,9 +65,9 @@ Arguments From Stdin
     ...    --log       NONE
     ...    --doc    from command line
     ...    --argumentfile    stdin
-    ...    ${test dir}${/}pass_and_fail.robot
-    ${result} =    Run Process    ${cmd} < ${ARG FILE}    shell=True
-    ...    stdout=${STDOUT FILE}    stderr=${STDERR FILE}
+    ...    ${test_dir}${/}pass_and_fail.robot
+    ${result} =    Run Process    ${cmd} < ${ARG_FILE}    shell=True
+    ...    stdout=${STDOUT_FILE}    stderr=${STDERR_FILE}
     Execution Should Have Succeeded    ${result}    rc=1
     Should Contain    ${result.stdout}    Normal
     Should Contain    ${result.stdout}    Pass And Fail
@@ -108,4 +108,4 @@ Execution Should Have Succeeded
 Execution Should Have Failed
     [Arguments]    ${result}    ${error}    ${rc}=252
     Should Be Equal As Integers    ${result.rc}    ${rc}
-    Should Be Equal    ${result.stderr}    [ ERROR ] ${error}${USAGE TIP}
+    Should Be Equal    ${result.stderr}    [ ERROR ] ${error}${USAGE_TIP}

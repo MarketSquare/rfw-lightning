@@ -65,9 +65,9 @@ Split command line with escaping
     "\\\\\\"\\\\"                     \\"\\                        escaping=True
 
 Join command line basics
-    [Template]    Join command line should succeed
     FOR    ${i}    IN RANGE    ${BASICS}
-        ${C${i}.replace("'", '"')}    @{L${i}}
+        ${val}=Evaluate   $C${i}.replace("'",'"')
+        Join command line should succeed    ${val}    @{L${i}}
     END
 
 Join command line with internal quotes

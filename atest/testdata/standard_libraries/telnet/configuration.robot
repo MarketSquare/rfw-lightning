@@ -216,10 +216,10 @@ Telnetlib's Debug Messages Are Not Logged On Log Level None
 
 *** Keywords ***
 Prompt Should Be
-    [Arguments]    ${expected prompt}    ${expected regexp}
+    [Arguments]    ${expected_prompt}    ${expected_regexp}
     ${prompt}    ${regexp} =    Set Prompt    prompt
-    Should Be Equal    ${prompt}    ${expected prompt}
-    Should Be Equal    ${regexp}    ${expected regexp}
+    Should Be Equal    ${prompt}    ${expected_prompt}
+    Should Be Equal    ${regexp}    ${expected_regexp}
     ${prompt}    ${regexp} =    Set Prompt    ${prompt}    ${regexp}
     Should Be Equal    ${prompt}    prompt
     Should Be Equal    ${regexp}    ${FALSE}
@@ -239,10 +239,10 @@ Newline Should Be
     Should Be Equal    ${newline}    \r\n
 
 Encoding Should Be
-    [Arguments]    ${expected encoding}    ${expected errors}
+    [Arguments]    ${expected_encoding}    ${expected_errors}
     ${encoding}    ${errors} =    Set Encoding    ASCII    ignore
-    Should Be Equal    ${encoding}    ${expected encoding}
-    Should Be Equal    ${errors}    ${expected errors}
+    Should Be Equal    ${encoding}    ${expected_encoding}
+    Should Be Equal    ${errors}    ${expected_errors}
     ${encoding}    ${errors} =    Set Encoding    ${encoding}    ${errors}
     Should Be Equal    ${encoding}    ASCII
     Should Be Equal    ${errors}    ignore
@@ -262,9 +262,9 @@ Telnetlib Log Level Should Be
     Should Be Equal    ${level}    WARN
 
 Window Size Should Be
-    [Arguments]    ${expected rows}    ${expected columns}
+    [Arguments]    ${expected_rows}    ${expected_columns}
     ${output}=   Execute Command    stty -a
-    Should Contain    ${output}    rows ${expected rows}; columns ${expected columns}    Window size does not match!
+    Should Contain    ${output}    rows ${expected_rows}; columns ${expected_columns}    Window size does not match!
 
 Verify Successful Login With User Option
     Read Until    Password:

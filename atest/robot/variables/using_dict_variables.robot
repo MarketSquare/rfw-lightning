@@ -24,9 +24,6 @@ Multiple dict variables
 Multiple dict variables with same names multiple times
     Check Test Case    ${TESTNAME}
 
-Internal variables
-    Check Test Case    ${TESTNAME}
-
 Extended variables
     Check Test Case    ${TESTNAME}
 

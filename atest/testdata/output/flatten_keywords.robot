@@ -102,7 +102,7 @@ Countdown
     [Arguments]    ${count}=${3}
     IF    ${count} > 0
         Log    ${count}
-        Countdown    ${count - 1}
+        Countdown    ${count-1}
     ELSE
         Log    BANG!
     END

@@ -38,11 +38,11 @@ Non-existing Library
 Non-existing Variable In Library Name
     Error in file    6    test_libraries/library_import_failing.robot    8
     ...    Replacing variables from setting 'Library' failed:
-    ...    Variable '\${non existing nön äscii}' not found.
+    ...    Variable '\${non_existing_ascii}' not found.
 
 Non-existing Variable In Library Arguments
     Error in file    7    test_libraries/library_import_failing.robot    9
-    ...    Variable '\${nön existing}' not found.
+    ...    Variable '\${vars_here}' not found.
 
 Library Import Without Name
     Error in file    8    test_libraries/library_import_failing.robot    10

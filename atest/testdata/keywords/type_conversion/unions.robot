@@ -2,6 +2,11 @@
 Library           unions.py
 Resource          conversion.resource
 
+*** Variables ***
+${fract_1_3}=Evaluate   fractions.Fraction(1,3)
+${a_b}=Evaluate         ['a','b']
+${list_1_2}=Evaluate    [1,2]
+
 *** Test Cases ***
 Union
     [Template]    Union of int float and string
@@ -36,14 +41,14 @@ Union with ABC
 Union with subscripted generics
     [Template]    Union with subscripted generics
     \[1, 2]        [1, 2]
-    ${{[1, 2]}}    [1, 2]
+    ${list_1_2}    [1, 2]
     42             42
     ${42}          42
 
 Union with subscripted generics and str
     [Template]    Union with subscripted generics and str
     \['a', 'b']        "['a', 'b']"
-    ${{['a', 'b']}}    ['a', 'b']
+    ${a_b}             ['a', 'b']
     foo                "foo"
 
 Union with TypedDict
@@ -72,7 +77,8 @@ Union with unrecognized type
     Unrecognized type    ${myobject}    MyObject
     Unrecognized type    ${42}          str
     Unrecognized type    ${CUSTOM}      str
-    Unrecognized type    ${{type('StrFails', (), {'__str__': lambda self: 1/0})()}}
+    ${strfail}=          Evaluate       type('StrFails',(),{'__str__':lambda self: 1/0})()
+    Unrecognized type    ${strfail}
     ...                  StrFails
 
 Union with only unrecognized types
@@ -141,7 +147,7 @@ Avoid unnecessary conversion with ABC
     Hyvä!                            Hyvä!
     1                                1
     ${1}                             ${1}
-    ${{fractions.Fraction(1, 3)}}    ${{fractions.Fraction(1, 3)}}
+    ${fract_1_3}    ${fract_1_3}
 
 Default value type
     [Documentation]    Default value type is used if conversion fails.

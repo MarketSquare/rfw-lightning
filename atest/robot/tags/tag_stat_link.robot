@@ -38,5 +38,7 @@ Run Tests With Tag Stat Links
 Tag link should be correct in output
     [Arguments]  ${index}  ${tag}  ${links}
     ${stats} =  Get Tag Stat Nodes
-    Should Be Equal  ${stats[${index}].text}  ${tag}
-    Should Be Equal  ${stats[${index}].attrib['links']}  ${links}
+    ${txt}=Evaluate     $stats[int($index)].text
+    ${attrlinks}=Evaluate     $stats[int($index)].attrib['links']
+    Should Be Equal    ${txt}    ${tag}
+    Should Be Equal    ${attrlinks}    ${doc}

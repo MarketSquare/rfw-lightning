@@ -8,5 +8,5 @@ Defined Twice In Resource
 Embedded ${arguments} twice in resource
     Fail    This is not executed
 
-Embedded ${arguments match} TWICE IN RESOURCE
+Embedded ${arguments_match} TWICE IN RESOURCE
     Fail    This is not executed

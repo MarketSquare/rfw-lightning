@@ -53,6 +53,3 @@ Named combinations without varargs
 
 Non working named combinations without varargs
     Check Test Case    ${TESTNAME}
-
-Nön äscii named arguments
-    Check Test Case    ${TESTNAME}

@@ -3,14 +3,14 @@ Resource        formats_resource.robot
 
 *** Test Cases ***
 One ROBOT
-    Run sample file and check tests    ${EMPTY}    ${ROBOT DIR}/sample.robot
+    Run sample file and check tests    ${EMPTY}    ${ROBOT_DIR}/sample.robot
 
 ROBOT With ROBOT Resource
     Previous Run Should Have Been Successful
     Check Test Case    Resource File
 
 ROBOT Directory
-    Run Suite Dir And Check Results    ${EMPTY}    ${ROBOT DIR}
+    Run Suite Dir And Check Results    ${EMPTY}    ${ROBOT_DIR}
 
 Directory With ROBOT Init
     Previous Run Should Have Been Successful

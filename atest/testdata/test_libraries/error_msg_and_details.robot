@@ -67,9 +67,9 @@ Non existing Keyword
     Non Existing Keyword
 
 Non Existing Scalar Variable
-    [Documentation]    FAIL Variable '\${non existing}' not found.
-    Log    ${non existing}
+    [Documentation]    FAIL Variable '\${non_existing}' not found.
+    Log    ${non_existing}
 
 Non Existing List Variable
-    [Documentation]    FAIL Variable '\@{non existing}' not found.
-    Log Many    @{non existing}.
+    [Documentation]    FAIL Variable '\@{non_existing}' not found.
+    Log Many    @{non_existing}.

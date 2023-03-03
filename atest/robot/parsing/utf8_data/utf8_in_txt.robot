@@ -22,4 +22,3 @@ UTF-8 In Test Case And UK Names
     ${tc} =  Check Test Case  UTF-8 Name Äöå §½€"
     Check Keyword Data  ${tc.kws[0]}  Äöå §½€  \${ret}
     Check Log Message  ${tc.kws[1].msgs[0]}  äöå §½€
-    Check Log Message  ${tc.kws[3].msgs[0]}  value

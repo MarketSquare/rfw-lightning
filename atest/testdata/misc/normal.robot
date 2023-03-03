@@ -26,7 +26,7 @@ Second One
 logs on trace
     [Timeout]    1 hour
     [Tags]    kw    tags
-    Log    Log on ${TEST NAME}    TRACE
+    Log    Log on ${TEST_NAME}    TRACE
 
 Delay
     Sleep    ${DELAY}

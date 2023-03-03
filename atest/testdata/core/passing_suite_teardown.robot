@@ -1,10 +1,10 @@
 *** Setting ***
 Documentation     Passing suite teardown using base keyword.
-Suite Teardown    Create File    ${TEARDOWN FILE}
+Suite Teardown    Create File    ${TEARDOWN_FILE}
 Library           OperatingSystem
 
 *** Variables ***
-${TEARDOWN FILE}    %{TEMPDIR}/robot-suite-teardown-executed.txt
+${TEARDOWN_FILE}    %{TEMPDIR}/robot-suite-teardown-executed.txt
 
 *** Test Case ***
 Test

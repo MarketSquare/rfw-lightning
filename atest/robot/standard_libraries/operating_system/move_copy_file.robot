@@ -3,7 +3,7 @@ Suite Setup       Run Tests    ${EMPTY}    standard_libraries/operating_system/m
 Resource          atest_resource.robot
 
 *** Variables ***
-${SAME FILE}      Source '*' and destination '*' point to the same file.
+${SAME_FILE}      Source '*' and destination '*' point to the same file.
 
 *** Test Cases ***
 Move File
@@ -56,29 +56,29 @@ Name Contains Glob
 
 Copy File to same path
     ${tc} =    Check Test Case    ${TESTNAME}
-    Check Log Message    ${tc.kws[1].msgs[0]}    ${SAME FILE}    pattern=True    html=True
+    Check Log Message    ${tc.kws[1].msgs[0]}    ${SAME_FILE}    pattern=True    html=True
 
 Move File to same path
     ${tc} =    Check Test Case    ${TESTNAME}
-    Check Log Message    ${tc.kws[1].msgs[0]}    ${SAME FILE}    pattern=True    html=True
+    Check Log Message    ${tc.kws[1].msgs[0]}    ${SAME_FILE}    pattern=True    html=True
 
 Copy File to same directory
     ${tc} =    Check Test Case    ${TESTNAME}
-    Check Log Message    ${tc.kws[1].msgs[0]}    ${SAME FILE}    pattern=True    html=True
+    Check Log Message    ${tc.kws[1].msgs[0]}    ${SAME_FILE}    pattern=True    html=True
 
 Move File to same directory
     ${tc} =    Check Test Case    ${TESTNAME}
-    Check Log Message    ${tc.kws[1].msgs[0]}    ${SAME FILE}    pattern=True    html=True
+    Check Log Message    ${tc.kws[1].msgs[0]}    ${SAME_FILE}    pattern=True    html=True
 
 Copy File to same path with different case on Windows
     [Tags]    require-windows
     ${tc} =    Check Test Case    ${TESTNAME}
-    Check Log Message    ${tc.kws[1].msgs[0]}    ${SAME FILE}    pattern=True    html=True
+    Check Log Message    ${tc.kws[1].msgs[0]}    ${SAME_FILE}    pattern=True    html=True
 
 Move File to same path with different case on Windows
     [Tags]    require-windows
     ${tc} =    Check Test Case    ${TESTNAME}
-    Check Log Message    ${tc.kws[1].msgs[0]}    ${SAME FILE}    pattern=True    html=True
+    Check Log Message    ${tc.kws[1].msgs[0]}    ${SAME_FILE}    pattern=True    html=True
 
 Copy File to same path when file doesn't exist
     Check Test Case    ${TESTNAME}

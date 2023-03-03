@@ -2,7 +2,7 @@
 D                   Example documentation.
 
 *** H V ***
-${RESOURCE FILE}    variable in resource file
+${RESOURCE_FILE}    variable in resource file
 
 *** H k ***
 Keyword In Resource

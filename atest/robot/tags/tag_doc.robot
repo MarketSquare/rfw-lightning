@@ -32,5 +32,7 @@ Run Tests With Tag Docs
 Tag doc should be correct in output
     [Arguments]    ${index}    ${tag}    ${doc}
     ${stats} =    Get Tag Stat Nodes
-    Should Be Equal    ${stats[${index}].text}    ${tag}
-    Should Be Equal    ${stats[${index}].attrib['doc']}    ${doc}
+    ${txt}=Evaluate     $stats[int($index)].text
+    ${attrdoc}=Evaluate     $stats[int($index)].attrib['doc']
+    Should Be Equal    ${txt}    ${tag}
+    Should Be Equal    ${attrdoc}    ${doc}

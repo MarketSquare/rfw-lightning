@@ -2,7 +2,7 @@
 Resource          dupe_keywords.resource
 
 *** Variables ***
-${INDENT}         ${SPACE * 4}
+${INDENT}         ${SPACE*4}
 
 *** Test Cases ***
 Using keyword defined twice fails
@@ -16,16 +16,16 @@ Using keyword defined thrice fails as well
 Keyword with embedded arguments defined twice fails at run-time: Called with embedded args
     [Documentation]    FAIL
     ...    Multiple keywords matching name 'Embedded arguments twice' found:
-    ...    ${INDENT}Embedded \${arguments match} TWICE
+    ...    ${INDENT}Embedded \${arguments_match} TWICE
     ...    ${INDENT}Embedded \${arguments} twice
     Embedded arguments twice
 
 Keyword with embedded arguments defined twice fails at run-time: Called with exact name
     [Documentation]    FAIL
-    ...    Multiple keywords matching name 'Embedded \${arguments match} twice' found:
-    ...    ${INDENT}Embedded \${arguments match} TWICE
+    ...    Multiple keywords matching name 'Embedded \${arguments_match} twice' found:
+    ...    ${INDENT}Embedded \${arguments_match} TWICE
     ...    ${INDENT}Embedded \${arguments} twice
-    Embedded ${arguments match} twice
+    Embedded ${arguments_match} twice
 
 Using keyword defined multiple times in resource fails
     [Documentation]    FAIL Keyword with same name defined multiple times.
@@ -34,7 +34,7 @@ Using keyword defined multiple times in resource fails
 Keyword with embedded arguments defined multiple times in resource fails at run-time
     [Documentation]    FAIL
     ...    Multiple keywords matching name 'Embedded arguments twice in resource' found:
-    ...    ${INDENT}dupe_keywords.Embedded \${arguments match} TWICE IN RESOURCE
+    ...    ${INDENT}dupe_keywords.Embedded \${arguments_match} TWICE IN RESOURCE
     ...    ${INDENT}dupe_keywords.Embedded \${arguments} twice in resource
     Embedded arguments twice in resource
 
@@ -57,5 +57,5 @@ DEFINED THRICE
 Embedded ${arguments} twice
     Fail    This is not executed
 
-Embedded ${arguments match} TWICE
+Embedded ${arguments_match} TWICE
     Fail    This is not executed

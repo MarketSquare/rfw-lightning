@@ -104,75 +104,75 @@ Scopes And Overriding
     Check Test Case    ${TESTNAME} 3
 
 Overiding Variable When It Has Non-string Value
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Set Test/Suite/Global Variables With Normal Variable Syntax
     Check Test Case    ${TESTNAME} 1
     Check Test Case    ${TESTNAME} 2
 
 Set Test/Suite/Global Variable Using Empty List Variable
-    Check Test Case    ${TEST NAME} 1
-    Check Test Case    ${TEST NAME} 2
+    Check Test Case    ${TEST_NAME} 1
+    Check Test Case    ${TEST_NAME} 2
 
 Set Test/Suite/Global Variable Using Empty Dict Variable
-    Check Test Case    ${TEST NAME} 1
-    Check Test Case    ${TEST NAME} 2
+    Check Test Case    ${TEST_NAME} 1
+    Check Test Case    ${TEST_NAME} 2
 
 Set Test/Suite/Global Variable In User Keyword When Variable Name Is Used As Argument
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Setting Test/Suite/Global Variable Which Value Is In Variable Like Syntax
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Setting Test/Suite/Global Variable Which Value Is In Variable Syntax
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Set Test/Suite/Global Variable With Internal Variables In Name
     [Documentation]    This obscure test is here to prevent this bug from reappearing:
     ...                https://github.com/robotframework/robotframework/issues/397
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Mutating scalar variable set using `Set Test/Suite/Global Variable` keywords
-    Check Test Case    ${TEST NAME} 1
-    Check Test Case    ${TEST NAME} 2
-    Check Test Case    ${TEST NAME} 3
+    Check Test Case    ${TEST_NAME} 1
+    Check Test Case    ${TEST_NAME} 2
+    Check Test Case    ${TEST_NAME} 3
 
 Mutating list variable set using `Set Test/Suite/Global Variable` keywords
-    Check Test Case    ${TEST NAME} 1
-    Check Test Case    ${TEST NAME} 2
-    Check Test Case    ${TEST NAME} 3
+    Check Test Case    ${TEST_NAME} 1
+    Check Test Case    ${TEST_NAME} 2
+    Check Test Case    ${TEST_NAME} 3
 
 Mutating dict variable set using `Set Test/Suite/Global Variable` keywords
-    Check Test Case    ${TEST NAME} 1
-    Check Test Case    ${TEST NAME} 2
-    Check Test Case    ${TEST NAME} 3
+    Check Test Case    ${TEST_NAME} 1
+    Check Test Case    ${TEST_NAME} 2
+    Check Test Case    ${TEST_NAME} 3
 
 Using \@{EMPTY} with `Set Test/Suite/Global Variable` keywords
-    Check Test Case    ${TEST NAME}
-    Check Test Case    ${TEST NAME} 2
+    Check Test Case    ${TEST_NAME}
+    Check Test Case    ${TEST_NAME} 2
 
 If setting test/suite/global variable fails, old value is preserved
-    Check Test Case    ${TEST NAME} 1
-    Check Test Case    ${TEST NAME} 2
-    Check Test Case    ${TEST NAME} 3
-    Check Test Case    ${TEST NAME} 4
+    Check Test Case    ${TEST_NAME} 1
+    Check Test Case    ${TEST_NAME} 2
+    Check Test Case    ${TEST_NAME} 3
+    Check Test Case    ${TEST_NAME} 4
 
 Setting non-dict value to test/suite/global level dict variable
-    Check Test Case    ${TEST NAME} - test
-    Check Test Case    ${TEST NAME} - suite
-    Check Test Case    ${TEST NAME} - global
+    Check Test Case    ${TEST_NAME} - test
+    Check Test Case    ${TEST_NAME} - suite
+    Check Test Case    ${TEST_NAME} - global
 
 Setting scalar test variable with list value is not possible
-    Check Test Case    ${TEST NAME} 1
-    Check Test Case    ${TEST NAME} 2
+    Check Test Case    ${TEST_NAME} 1
+    Check Test Case    ${TEST_NAME} 2
 
 Setting scalar suite variable with list value is not possible
-    Check Test Case    ${TEST NAME} 1
-    Check Test Case    ${TEST NAME} 2
+    Check Test Case    ${TEST_NAME} 1
+    Check Test Case    ${TEST_NAME} 2
 
 Setting scalar global variable with list value is not possible
-    Check Test Case    ${TEST NAME} 1
-    Check Test Case    ${TEST NAME} 2
+    Check Test Case    ${TEST_NAME} 1
+    Check Test Case    ${TEST_NAME} 2
 
 *** Keyword ***
 Check Suite Teardown Passed

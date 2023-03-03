@@ -24,8 +24,8 @@ Test tags can be modified
    Check Test Tags    Fail    [end]  [start]
 
 Metadata can be modified
-   Should be equal    ${SUITE.metadata['suite']}   [start] [end]
-   Should be equal    ${SUITE.metadata['tests']}   xxx
+   Should be equal    ${SUITE.metadata}[suite]   [start] [end]
+   Should be equal    ${SUITE.metadata}[tests]   xxx
 
 Log messages and timestamps can be changed
    ${tc}=   Get test case    Pass

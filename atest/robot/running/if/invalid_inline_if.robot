@@ -64,7 +64,7 @@ Unnecessary END
 
 Invalid END after inline header
     [Template]    NONE
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Check IF/ELSE Status    PASS    root=${tc.body[0]}
     Check Log Message     ${tc.body[0].body[0].body[0].body[0]}   Executed inside inline IF
     Check Log Message     ${tc.body[1].body[0]}                   Executed outside IF

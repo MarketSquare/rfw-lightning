@@ -72,7 +72,7 @@ Positional with defaults, varargs and kwargs
 Kwargs are ordered
     &{kwargs} =    Kwargs are ordered    first=1    override=this    third=3
     ...    4=${4}    =5    override=again    this\=is\=key=6    \==7    8=8
-    ...    9=9    10=${0 + 10}    nön-äscii=11    12=12    override=2
+    ...    9=9    10=${0+10}    nön-äscii=11    12=12    override=2
     ...    lucky?=13    2nd last=14    last=15
     ${values} =    Catenate    @{kwargs.values()}
     Should Be Equal    ${values}    1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
@@ -154,7 +154,7 @@ Positional, varargs and kwargs
     Run Keyword And Return    Varags and kwargs    ${arg}    @{varargs}    &{kwargs}
 
 Positional with defaults, varargs and kwargs
-    [Arguments]    ${arg1}="${EMPTY}"    ${arg2}=${40 + 2}    @{varargs}    &{kwargs}
+    [Arguments]    ${arg1}="${EMPTY}"    ${arg2}=${40+2}    @{varargs}    &{kwargs}
     Run Keyword And Return    Varags and kwargs    ${arg1}    ${arg2}    @{varargs}    &{kwargs}
 
 Kwargs are ordered

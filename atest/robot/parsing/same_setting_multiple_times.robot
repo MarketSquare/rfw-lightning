@@ -8,7 +8,7 @@ Suite Documentation
     Setting multiple times    0    3    Documentation
 
 Suite Metadata
-    Should Be Equal    ${SUITE.metadata['Foo']}    M2
+    Should Be Equal    ${SUITE.metadata}[Foo]    M2
 
 Suite Setup
     Should Be Equal    ${SUITE.setup.name}    BuiltIn.Log Many

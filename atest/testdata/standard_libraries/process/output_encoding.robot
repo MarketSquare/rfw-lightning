@@ -46,6 +46,6 @@ Run Process With Output Encoding
     [Arguments]    ${encoding}    ${output_encoding}=${NONE}
     ...    ${stdout}=${NONE}    ${stderr}=${NONE}
     ${output_encoding} =    Evaluate    $output_encoding or $encoding
-    ${result} =    Run Process    python    ${ENCODING SCRIPT}    encoding:${encoding}
-    ...    stdout=${stdout}    stderr=${stderr}    output_encoding=${output encoding}
+    ${result} =    Run Process    python    ${ENCODING_SCRIPT}    encoding:${encoding}
+    ...    stdout=${stdout}    stderr=${stderr}    output_encoding=${output_encoding}
     [Return]    ${result}

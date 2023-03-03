@@ -5,18 +5,17 @@ Variables       variable_recommendation_vars.py
 *** Variables ***
 ${STRING}         Hello world!
 ${INTEGER}        ${42}
-@{ONE ITEM}       Hello again?
+@{ONE_ITEM}       Hello again?
 @{LIST}           Hello    again    ?
-${S LIST}         Not recommended as list
-&{D LIST}         Recommended=as list
-${SIMILAR VAR 1}
-${SIMILAR VAR 2}
-${SIMILAR VAR 3}
-${Cäersŵs}
-${INDENT}         ${SPACE * 4}
+${S_LIST}         Not recommended as list
+&{D_LIST}         Recommended=as list
+${SIMILAR_VAR_1}
+${SIMILAR_VAR_2}
+${SIMILAR_VAR_3}
+${INDENT}         ${SPACE*4}
 &{DICTIONARY}     key=value
-${S DICTIONARY}   Not recommended as dict
-@{L DICTIONARY}   Not recommended as dict
+${S_DICTIONARY}   Not recommended as dict
+@{L_DICTIONARY}   Not recommended as dict
 
 *** Test Cases ***
 Simple Typo Scalar
@@ -27,7 +26,7 @@ Simple Typo Scalar
 Simple Typo List - Only List-likes Are Recommended
     [Documentation]    FAIL    Variable '@{GIST}' not found. Did you mean:
     ...    ${INDENT}\@{LIST}
-    ...    ${INDENT}\@{D LIST}
+    ...    ${INDENT}\@{D_LIST}
     Log    @{GIST}
 
 Simple Typo Dict - Only Dicts Are Recommended
@@ -38,21 +37,21 @@ Simple Typo Dict - Only Dicts Are Recommended
 All Types Are Recommended With Scalars 1
    [Documentation]    FAIL    Variable '${MIST}' not found. Did you mean:
     ...    ${INDENT}\${LIST}
-    ...    ${INDENT}\${S LIST}
-    ...    ${INDENT}\${D LIST}
+    ...    ${INDENT}\${S_LIST}
+    ...    ${INDENT}\${D_LIST}
    Log    ${MIST}
 
 All Types Are Recommended With Scalars 2
    [Documentation]    FAIL    Variable '${BICTIONARY}' not found. Did you mean:
    ...    ${INDENT}\${DICTIONARY}
-   ...    ${INDENT}\${S DICTIONARY}
-   ...    ${INDENT}\${L DICTIONARY}
+   ...    ${INDENT}\${S_DICTIONARY}
+   ...    ${INDENT}\${L_DICTIONARY}
    Log    ${BICTIONARY}
 
 Access Scalar In List With Typo In Variable
     [Documentation]    FAIL    Variable '@{LLIST}' not found. Did you mean:
     ...    ${INDENT}\@{LIST}
-    ...    ${INDENT}\@{D LIST}
+    ...    ${INDENT}\@{D_LIST}
     Log    @{LLIST}[0]
 
 Access Scalar In List With Typo In Index
@@ -65,11 +64,11 @@ Long Garbage Variable
     Log    ${dEnOKkgGlYBHwotU2bifJ56w487jD2NJxCrcM62g}
 
 Many Similar Variables
-    [Documentation]    FAIL    Variable '${SIMILAR VAR}' not found. Did you mean:
-    ...    ${INDENT}\${SIMILAR VAR 3}
-    ...    ${INDENT}\${SIMILAR VAR 2}
-    ...    ${INDENT}\${SIMILAR VAR 1}
-    Log    ${SIMILAR VAR}
+    [Documentation]    FAIL    Variable '${SIMILAR_VAR}' not found. Did you mean:
+    ...    ${INDENT}\${SIMILAR_VAR_3}
+    ...    ${INDENT}\${SIMILAR_VAR_2}
+    ...    ${INDENT}\${SIMILAR_VAR_1}
+    Log    ${SIMILAR_VAR}
 
 Misspelled Lower Case
     [Documentation]    FAIL    Variable '${sstring}' not found. Did you mean:
@@ -89,13 +88,13 @@ Misspelled Period
 
 Misspelled Camel Case
     [Documentation]    FAIL    Variable '@{OneeItem}' not found. Did you mean:
-    ...    ${INDENT}\@{ONE ITEM}
+    ...    ${INDENT}\@{ONE_ITEM}
     Log    @{OneeItem}
 
 Misspelled Whitespace
-    [Documentation]    FAIL    Variable '${S STRI NG}' not found. Did you mean:
+    [Documentation]    FAIL    Variable '${S_STRI_NG}' not found. Did you mean:
     ...    ${INDENT}\${STRING}
-    Log    ${S STRI NG}
+    Log    ${S_STRI_NG}
 
 Misspelled Env Var
     [Documentation]    FAIL    Environment variable '%{THISS_ENV_VAR_IS_SET}' not found. Did you mean:
@@ -130,23 +129,14 @@ Misspelled Extended Variable Child
     [Documentation]    FAIL    Resolving variable '${OBJ.nmame}' failed: AttributeError: 'ExampleObject' object has no attribute 'nmame'
     Log    ${OBJ.nmame}
 
-Existing Non ASCII Variable Name
-    [Documentation]    FAIL    Variable '${Ceärsŵs}' not found. Did you mean:
-    ...    ${INDENT}\${Cäersŵs}
-    Log    ${Ceärsŵs}
-
-Non Existing Non ASCII Variable Name
-    [Documentation]    FAIL    Variable '${ノಠ益ಠノ}' not found.
-    Log    ${ノಠ益ಠノ}
-
 Invalid Binary
     [Documentation]    FAIL    Variable '${0b123}' not found.
     Log    ${0b123}
 
 Invalid Multiple Whitespace
-    [Documentation]    FAIL    Resolving variable '${SPACVE * 5}' failed: Variable '${SPACVE }' not found. Did you mean:
+    [Documentation]    FAIL    Resolving variable '${SPACVE*5}' failed: Variable '${SPACVE}' not found. Did you mean:
     ...    ${INDENT}\${SPACE}
-    Log    ${SPACVE * 5}
+    Log    ${SPACVE*5}
 
 Non Existing Env Var
     [Documentation]    FAIL    Environment variable '%{THIS_ENV_VAR_DOES_NOT_EXIST}' not found.

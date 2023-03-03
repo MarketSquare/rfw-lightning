@@ -4,49 +4,49 @@ Test Template          Rebot and validate RPA tasks
 Resource               rebot_resource.robot
 
 *** Variables ***
-${TASKS 1}             %{TEMPDIR}${/}tasks1.xml
-${TASKS 2}             %{TEMPDIR}${/}tasks2.xml
+${TASKS_1}             %{TEMPDIR}${/}tasks1.xml
+${TASKS_2}             %{TEMPDIR}${/}tasks2.xml
 ${TESTS}               %{TEMPDIR}${/}tests.xml
 
 *** Test Cases ***
 Rebot tasks
-    ${EMPTY}           ${TASKS 1}               Task
+    ${EMPTY}           ${TASKS_1}               Task
 
 Combine tasks
-    ${EMPTY}           ${TASKS 1} ${TASKS 2}    Task    Failing    Passing
+    ${EMPTY}           ${TASKS_1} ${TASKS_2}    Task    Failing    Passing
 
 Rebot tests with --rpa
     --rpa              ${TESTS}                 Test
     --RPA              ${TESTS} ${TESTS}        Test    Test
 
 Merge tasks
-    --merge            ${TASKS 2} ${TASKS 1}    Failing    Passing    Task=PASS:*HTML* Task added from merged output.
+    --merge            ${TASKS_2} ${TASKS_1}    Failing    Passing    Task=PASS:*HTML* Task added from merged output.
 
 Merge tasks so that results are merged
     --rpa --merge      ${TESTS} ${TESTS}        Test=PASS:*HTML* <span class="merge">Task has been re-executed and results merged.</span><hr><span class="new-status">New status:</span> <span class="pass">PASS</span><br><hr><span class="old-status">Old status:</span> <span class="pass">PASS</span><br>
 
 Rebot tasks with --norpa
     [Template]    Rebot and validate test cases
-    --norpa            ${TASKS 1}               Task
-    --NORpa            ${TASKS 1} ${TASKS 2}    Task    Failing    Passing
-    --merge --NORpa    ${TASKS 2} ${TASKS 1}    Failing    Passing    Task=PASS:*HTML* Test added from merged output.
+    --norpa            ${TASKS_1}               Task
+    --NORpa            ${TASKS_1} ${TASKS_2}    Task    Failing    Passing
+    --merge --NORpa    ${TASKS_2} ${TASKS_1}    Failing    Passing    Task=PASS:*HTML* Test added from merged output.
 
 Conflicting output files cause error
     [Template]    Rebot and validate conflict
-    ${EMPTY}    ${TESTS} ${TASKS 1}               ${TASKS 1}    tasks    tests
-    --merge     ${TASKS 1} ${TESTS} ${TASKS 2}    ${TESTS}      tests    tasks
+    ${EMPTY}    ${TESTS} ${TASKS_1}               ${TASKS_1}    tasks    tests
+    --merge     ${TASKS_1} ${TESTS} ${TASKS_2}    ${TESTS}      tests    tasks
 
 Conflicking output files with --rpa are fine
-    --rpa              ${TESTS} ${TASKS 1}    Test    Task
-    --RPA --merge      ${TESTS} ${TASKS 1}    Test    Task=PASS:*HTML* Task added from merged output.
+    --rpa              ${TESTS} ${TASKS_1}    Test    Task
+    --RPA --merge      ${TESTS} ${TASKS_1}    Test    Task=PASS:*HTML* Task added from merged output.
 
 Conflicting output files with --norpa are fine
     [Template]    Rebot and validate test cases
-    --NOrPA            ${TESTS} ${TASKS 1}    Test    Task
-    --merge --norpa    ${TESTS} ${TASKS 1}    Test    Task=PASS:*HTML* Test added from merged output.
+    --NOrPA            ${TESTS} ${TASKS_1}    Test    Task
+    --merge --norpa    ${TESTS} ${TASKS_1}    Test    Task=PASS:*HTML* Test added from merged output.
 
 --task as alias for --test
-    --task Passing    ${TASKS 2}    Passing
+    --task Passing    ${TASKS_2}    Passing
 
 Error message is correct if no task match --task or other options
     [Template]    Rebot and validate no task found
@@ -56,21 +56,21 @@ Error message is correct if no task match --task or other options
 
 *** Keywords ***
 Create inputs for Rebot
-    Create output with Robot    ${TASKS 1}    --name "Same name to support merging"    rpa/tasks1.robot
-    Create output with Robot    ${TASKS 2}    --name "Same name to support merging"    rpa/tasks2.robot
+    Create output with Robot    ${TASKS_1}    --name "Same name to support merging"    rpa/tasks1.robot
+    Create output with Robot    ${TASKS_2}    --name "Same name to support merging"    rpa/tasks2.robot
     Create output with Robot    ${TESTS}      --name "Same name to support merging"    rpa/tests.robot
 
 Rebot and validate RPA tasks
-    [Arguments]    ${options}    ${sources}    @{tasks}    &{tasks with statuses}
+    [Arguments]    ${options}    ${sources}    @{tasks}    &{tasks_with_statuses}
     Run Rebot     --log log --report report ${options}   ${sources}
     Outputs should contain correct mode information    rpa=true
-    Should contain tests    ${SUITE}    @{tasks}    &{tasks with statuses}
+    Should contain tests    ${SUITE}    @{tasks}    &{tasks_with_statuses}
 
 Rebot and validate test cases
-    [Arguments]    ${options}    ${sources}    @{tasks}    &{tasks with statuses}
+    [Arguments]    ${options}    ${sources}    @{tasks}    &{tasks_with_statuses}
     Run Rebot     --log log --report report ${options}   ${sources}
     Outputs should contain correct mode information    rpa=false
-    Should contain tests    ${SUITE}    @{tasks}    &{tasks with statuses}
+    Should contain tests    ${SUITE}    @{tasks}    &{tasks_with_statuses}
 
 Rebot and validate conflict
     [Arguments]    ${options}    ${paths}    ${conflicting}    ${this}    ${that}
@@ -80,12 +80,12 @@ Rebot and validate conflict
     ...    [ ERROR ] Conflicting execution modes.
     ...    File '${conflicting}' has ${this} but files parsed earlier have ${that}.
     ...    Use '--rpa' or '--norpa' options to set the execution mode explicitly.
-    Stderr Should Be Equal To    ${message}${USAGE TIP}\n
+    Stderr Should Be Equal To    ${message}${USAGE_TIP}\n
 
 Rebot and validate no task found
     [Arguments]    ${options}    ${message}
-    Run Rebot without processing output    ${options} --rpa --name Tasks    ${TASKS 1}
-    Stderr Should Be Equal To    [ ERROR ] Suite 'Tasks' contains no tasks ${message}.${USAGE TIP}\n
+    Run Rebot without processing output    ${options} --rpa --name Tasks    ${TASKS_1}
+    Stderr Should Be Equal To    [ ERROR ] Suite 'Tasks' contains no tasks ${message}.${USAGE_TIP}\n
 
 Outputs should contain correct mode information
     [Arguments]    ${rpa}

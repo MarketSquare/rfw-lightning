@@ -4,15 +4,15 @@ Resource          atest_resource.robot
 
 *** Test Case ***
 Reserved Syntax \*{var}
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Reserved With Variable Indise
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 There should Be A Warning About Using Reserved Syntax In Stderr
     Validate Reserved Warning    \*{var}                    0
     Validate Reserved Warning    \*{this_causes_warning}    1
-    Validate Reserved Warning    \*{Hello, world!}          2
+    Validate Reserved Warning    \*{Hello_world}          2
 
 *** Keywords ***
 Validate Reserved Warning

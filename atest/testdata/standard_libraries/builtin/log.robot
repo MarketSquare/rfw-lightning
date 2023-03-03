@@ -87,18 +87,18 @@ formatter=str
     Log    ${nfd}    formatter=str
 
 formatter=repr pretty prints
-    ${long string} =    Evaluate    ' '.join(['Robot Framework'] * 1000)
-    Log    ${long string}    formatter=repr
-    ${small dict} =    Evaluate    {'small': 'dict', 3: b'items', 'a': 'sorted'}
-    Log    ${small dict}    formatter=repr    console=TRUE
-    ${big dict} =    Evaluate    {'big': 'dict', 'long': '${long string}', 'nested': ${small dict}, 'list': [1, 2, 3]}
-    Log    ${big dict}    html=NO    formatter=repr
-    ${small list} =    Evaluate    ['small', b'list', 'not sorted', 4]
-    Log    ${small list}    console=gyl    formatter=repr
-    ${big list} =    Evaluate    ['big', 'list', '${long string}', b'${long string}', ['nested', ('tuple', 2)], ${small dict}]
-    Log    ${big list}    formatter=repr
-    ${non ascii} =    Evaluate    ['hyv\\xe4', b'hyv\\xe4', {'\\u2603': b'\\x00\\xff'}]
-    Log    ${non ascii}    formatter=repr
+    ${long_string} =    Evaluate    ' '.join(['Robot Framework'] * 1000)
+    Log    ${long_string}    formatter=repr
+    ${small_dict} =    Evaluate    {'small': 'dict', 3: b'items', 'a': 'sorted'}
+    Log    ${small_dict}    formatter=repr    console=TRUE
+    ${big_dict} =    Evaluate    {'big': 'dict', 'long': '${long_string}', 'nested': ${small_dict}, 'list': [1, 2, 3]}
+    Log    ${big_dict}    html=NO    formatter=repr
+    ${small_list} =    Evaluate    ['small', b'list', 'not sorted', 4]
+    Log    ${small_list}    console=gyl    formatter=repr
+    ${big_list} =    Evaluate    ['big', 'list', '${long_string}', b'${long_string}', ['nested', ('tuple', 2)], ${small_dict}]
+    Log    ${big_list}    formatter=repr
+    ${non_ascii} =    Evaluate    ['hyv\\xe4', b'hyv\\xe4', {'\\u2603': b'\\x00\\xff'}]
+    Log    ${non_ascii}    formatter=repr
 
 formatter=len
     [Documentation]    FAIL STARTS: TypeError:
@@ -149,8 +149,8 @@ Log Many with positional, named and dict arguments
     Log Many    @{LIST}    &{DICT}    @{LIST}    &{DICT}
 
 Log Many with non-existing variable
-    [Documentation]    FAIL Variable '${no such variable}' not found.
-    Log Many    ${no such variable}
+    [Documentation]    FAIL Variable '${no_such_variable}' not found.
+    Log Many    ${no_such_variable}
 
 Log Many with list variable containing non-list
     [Documentation]    FAIL Value of variable '@{HTML}' is not list or list-like.

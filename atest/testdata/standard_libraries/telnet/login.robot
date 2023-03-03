@@ -30,8 +30,8 @@ Login and verify output
     Should Contain Once    ${output}    login: test\r\n
     Should Not Contain     ${output}    test\n
     Should Contain Once    ${output}    Password: \r\n
-    Should Contain Once    ${output}    ${FULL PROMPT}
-    Should End With        ${output}    ${FULL PROMPT}
+    Should Contain Once    ${output}    ${FULL_PROMPT}
+    Should End With        ${output}    ${FULL_PROMPT}
 
 Should Contain Once
     [Arguments]    ${output}    ${expected}

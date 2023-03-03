@@ -2,17 +2,17 @@
 Resource            atest_resource.robot
 
 *** Variables ***
-${INPUT 1}          ${DATADIR}${/}misc${/}normal.robot
-${INPUT 2}          ${DATADIR}${/}misc${/}suites
-${INPUT 3}          ${DATADIR}${/}testdoc
+${INPUT_1}          ${DATADIR}${/}misc${/}normal.robot
+${INPUT_2}          ${DATADIR}${/}misc${/}suites
+${INPUT_3}          ${DATADIR}${/}testdoc
 ${OUTFILE}          %{TEMPDIR}/testdoc-output.html
-${ARGFILE 1}        %{TEMPDIR}/testdoc_argfile_1.txt
-${ARGFILE 2}        %{TEMPDIR}/testdoc_argfile_2.txt
+${ARGFILE_1}        %{TEMPDIR}/testdoc_argfile_1.txt
+${ARGFILE_2}        %{TEMPDIR}/testdoc_argfile_2.txt
 
 *** Keyword ***
 Run TestDoc
     [Arguments]    @{args}    ${rc}=0    ${remove_outfile}=True
-    Run Keyword If    ${remove outfile}    Remove File    ${OUTFILE}
+    Run Keyword If    ${remove_outfile}    Remove File    ${OUTFILE}
     ${result} =    Run Process    @{INTERPRETER.testdoc}    @{args}    ${OUTFILE}    stderr=STDOUT
     Should Be Equal As Integers    ${result.rc}    ${rc}
     ...    Unpexted rc ${result.rc}. Output was:\n${result.stdout}    values=False
@@ -21,7 +21,7 @@ Run TestDoc
 TestDoc Run Should Fail
     [Arguments]    ${error}    @{args}    ${remove_outfile}=True
     Run TestDoc    @{args}    rc=252    remove_outfile=${remove_outfile}
-    Should Match    ${OUTPUT}    ${error}${USAGE TIP}
+    Should Match    ${OUTPUT}    ${error}${USAGE_TIP}
 
 Testdoc Should Contain
     [Arguments]    @{expected}

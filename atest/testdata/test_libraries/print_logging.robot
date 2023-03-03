@@ -32,12 +32,12 @@ Logging Non-ASCII As Unicode
     Print    Hyvää päivää stderr!    stderr
 
 Logging Non-ASCII As Bytes
-    ${bytes} =    Encode String To Bytes    Hyvää päivää!    ${CONSOLE ENCODING}
+    ${bytes} =    Encode String To Bytes    Hyvää päivää!    ${CONSOLE_ENCODING}
     Print    ${bytes}
     Print    ${bytes}    stderr
 
 Logging Mixed Non-ASCII Unicode And Bytes
-    ${bytes} =    Encode String To Bytes    Hyvä byte!    ${CONSOLE ENCODING}
+    ${bytes} =    Encode String To Bytes    Hyvä byte!    ${CONSOLE_ENCODING}
     Print Many    ${bytes}    Hyvä Unicode!
 
 Logging HTML

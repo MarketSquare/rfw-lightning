@@ -164,10 +164,10 @@ Pass Execution If when condition is false
     Should Be Executed
 
 Pass Execution If resolves variables only condition is true
-    [Documentation]    FAIL    Variable '${this is not ok}' not found.
-    Pass Execution If    False    Message    ${ok not to exist}
+    [Documentation]    FAIL    Variable '${this_is_not_ok}' not found.
+    Pass Execution If    False    Message    ${ok_not_to_exist}
     Should Be Executed
-    Pass Execution If    True    Message    ${this is not ok}
+    Pass Execution If    True    Message    ${this_is_not_ok}
     Should Not Be Executed
 
 Pass Execution If with multiple variables

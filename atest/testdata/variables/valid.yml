@@ -1,10 +1,10 @@
-string in yml:   Hello, YML!
-integer in yml:  42
-float in yml:    3.14
-list in yml:
+string_in_yml:   Hello, YML!
+integer_in_yml:  42
+float_in_yml:    3.14
+list_in_yml:
 - one
 - 2
-dict in yml:
+dict_in_yml:
   a: '1'
   b: 2
   3: [one, 2]

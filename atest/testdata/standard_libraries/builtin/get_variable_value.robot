@@ -5,8 +5,8 @@ Library         OperatingSystem
 ${VAR}            var table
 @{LIST}           1    2
 &{DICT}           a=1    1=b
-${EMBEDDED 1}     embedded 1
-${EMBEDDED 2}     embedded 2
+${EMBEDDED_1}     embedded 1
+${EMBEDDED_2}     embedded 2
 
 *** Test Cases ***
 Get value when variable exists
@@ -28,7 +28,8 @@ Get value when default value is none
 Default value contains variables
     ${x} =    Get Variable Value    ${nonex}    ${VAR}
     Should be equal    ${x}    var table
-    ${y} =    Get Variable Value    ${nonex}    <${VAR.replace(' ', '')}>
+    ${val}=   Evaluate    $VAR.replace(' ', '')
+    ${y} =    Get Variable Value    ${nonex}    <${val}>
     Should be equal    ${y}    <vartable>
     ${z} =    Get Variable Value    ${nonex}    ${42}
     Should be equal    ${z}    ${42}
@@ -56,23 +57,23 @@ Extended variable syntax
     Should Be Equal    ${x}    default
     ${x} =    Get Variable Value    ${LIST[0]}
     Should Be Equal    ${x}    1
-    ${x} =    Get Variable Value    ${DICT['a']}
+    ${x} =    Get Variable Value    ${DICT}[a]
     Should Be Equal    ${x}    1
-    ${x} =    Get Variable Value    ${LIST[2]}    default
+    ${x} =    Get Variable Value    ${LIST}[2]    default
     Should Be Equal    ${x}    default
-    ${x} =    Get Variable Value    ${DICT['c']}    default
+    ${x} =    Get Variable Value    ${DICT}[c]    default
     Should Be Equal    ${x}    default
 
 Nested variable
-    ${x} =    Get Variable Value    ${EMBEDDED ${1}}
+    ${x} =    Get Variable Value    ${EMBEDDED_${1}}
     Should Be Equal    ${x}    embedded 1
-    ${x} =    Get Variable Value    ${EMBEDDED ${LIST}[1]}
+    ${x} =    Get Variable Value    ${EMBEDDED_${LIST}[1]}
     Should Be Equal    ${x}    embedded 2
-    ${x} =    Get Variable Value    ${EMBEDDED ${LIST}[5]}    default
+    ${x} =    Get Variable Value    ${EMBEDDED_${LIST}[5]}    default
     Should Be Equal    ${x}    default
-    ${x} =    Get Variable Value    ${DICT['${DICT['a']}']}
+    ${x} =    Get Variable Value    ${DICT}[${DICT}[a]]
     Should Be Equal    ${x}    b
-    ${x} =    Get Variable Value    ${DICT['${DICT['nonex']}']}    default
+    ${x} =    Get Variable Value    ${DICT}[${DICT}[nonex]]    default
     Should Be Equal    ${x}    default
 
 List and dict variable items

@@ -65,18 +65,18 @@ Documentation with non-existing variables
     ...    are replaced: "99999"
 
 Documentation with unclosed variables
-    Verify Documentation    No closing curly at \${all     test=${TEST NAME} 1
-    Verify Documentation    Not \${properly {closed}       test=${TEST NAME} 2
-    Verify Documentation    2nd not \${properly}[closed    test=${TEST NAME} 3
+    Verify Documentation    No closing curly at \${all     test=${TEST_NAME} 1
+    Verify Documentation    Not \${properly {closed}       test=${TEST_NAME} 2
+    Verify Documentation    2nd not \${properly}[closed    test=${TEST_NAME} 3
 
 Documentation with escaping
     Verify Documentation    \${VERSION}\nc:\\temp\n\n\\
 
 Name and documentation on console
-    Stdout Should Contain    Normal name${SPACE * 59}| PASS |
-    Stdout Should Contain    test_case names are NOT _forMatted_${SPACE * 35}| PASS |
-    Stdout Should Contain    Documentation :: Documentation in single line and column.${SPACE * 13}| PASS |
-    Stdout Should Contain    Documentation in multiple rows :: 1st logical line is shortdoc.${SPACE * 7}| PASS |
+    Stdout Should Contain    Normal name${SPACE*59}| PASS |
+    Stdout Should Contain    test_case names are NOT _forMatted_${SPACE*35}| PASS |
+    Stdout Should Contain    Documentation :: Documentation in single line and column.${SPACE*13}| PASS |
+    Stdout Should Contain    Documentation in multiple rows :: 1st logical line is shortdoc.${SPACE*7}| PASS |
     Stdout Should Contain    Documentation with non-existing variables :: Starting from RF ${2}.1 ... | PASS |
 
 Tags
@@ -122,15 +122,15 @@ Setup and teardown with variables
     Verify Teardown    Logged using variables 2
 
 Setup and teardown with non-existing variables
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Override setup and teardown using empty settings
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Setup Should Not Be Defined     ${tc}
     Teardown Should Not Be Defined     ${tc}
 
 Override setup and teardown using NONE
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Setup Should Not Be Defined     ${tc}
     Teardown Should Not Be Defined     ${tc}
 
@@ -140,7 +140,7 @@ Setup and teardown with escaping
 
 Template
     [Documentation]    Mainly tested elsewhere
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Check Log Message    ${tc.kws[0].msgs[0]}    Hello, world!
     Check Log Message    ${tc.kws[1].msgs[0]}    Hi, tellus!
 
@@ -175,20 +175,20 @@ Multiple settings
     Verify Timeout          12 seconds 345 milliseconds
 
 Invalid setting
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
     Error In File    1    parsing/test_case_settings.robot    217
     ...    Non-existing setting 'Invalid'.
 
 Setting not valid with tests
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
     Error In File    2    parsing/test_case_settings.robot    221
     ...    Setting 'Metadata' is not allowed with tests or tasks.
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
     Error In File    3    parsing/test_case_settings.robot    222
     ...    Setting 'Arguments' is not allowed with tests or tasks.
 
 Small typo should provide recommendation
-    Check Test Doc    ${TEST NAME}
+    Check Test Doc    ${TEST_NAME}
     Error In File    4    parsing/test_case_settings.robot    226
     ...    SEPARATOR=\n
     ...    Non-existing setting 'Doc U ment a tion'. Did you mean:
@@ -196,28 +196,28 @@ Small typo should provide recommendation
 
 *** Keywords ***
 Verify Documentation
-    [Arguments]    @{doc}    ${test}=${TEST NAME}
+    [Arguments]    @{doc}    ${test}=${TEST_NAME}
     ${tc} =    Check Test Case    ${test}
     ${doc} =    Catenate    SEPARATOR=\n    @{doc}
     Should Be Equal    ${tc.doc}    ${doc}
 
 Verify Tags
     [Arguments]    @{tags}
-    Check Test Tags    ${TEST NAME}    @{tags}
+    Check Test Tags    ${TEST_NAME}    @{tags}
 
 Verify Setup
     [Arguments]    ${message}
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Should Be Equal    ${tc.setup.name}    BuiltIn.Log
     Check Log Message    ${tc.setup.msgs[0]}    ${message}
 
 Verify Teardown
     [Arguments]    ${message}
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Should Be Equal    ${tc.teardown.name}    BuiltIn.Log
     Check Log Message    ${tc.teardown.msgs[0]}    ${message}
 
 Verify Timeout
     [Arguments]    ${timeout}
-    ${tc} =    Check Test Case    ${TEST NAME}
+    ${tc} =    Check Test Case    ${TEST_NAME}
     Should Be Equal    ${tc.timeout}    ${timeout}

@@ -52,7 +52,7 @@ Multiline import
     Directory Should Exist    .
 
 Multiline variables
-    Should Be Equal    ${STRING}    first${SPACE * 2}third${SPACE}
+    Should Be Equal    ${STRING}    first${SPACE*2}third${SPACE}
     Should Be True    $LIST    ['...', 'hello', 'world', '...', '!!!']
 
 Multiline arguments with library keyword
@@ -120,7 +120,7 @@ Multiline for Loop declaration
     ...    IN
     ...    c
     ...    b
-        ${result} =    Set Variable    ${result.replace('${item}', '')}
+        ${result} =    Evaluate    $result.replace($item,'')
     END
     Should Be Equal    ${result}    a
     FOR
@@ -139,12 +139,12 @@ Multiline for Loop declaration
     Should Be Equal    ${result}    a1b2c3
     FOR    ${item}    IN
         ...    a    b    c
-        ${result} =    Set Variable    ${result.replace('${item}', '')}
+        ${result} =    Evaluate    $result.replace($item,'')
     END
     Should Be Equal    ${result}    123
     FOR    ${item}    IN RANGE    1
        ...    4
-       ${result} =    Set Variable    ${result.replace('${item}', '')}
+       ${result} = Evaluate    $result.replace(str($item),'')
     END
     Should Be Equal    ${result}    ${EMPTY}
 

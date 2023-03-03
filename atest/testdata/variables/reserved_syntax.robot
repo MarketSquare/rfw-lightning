@@ -6,4 +6,4 @@ Reserved Syntax *{var}
 
 Reserved With Variable Indise
     ${var} =    Set Variable    Hello
-    Should Be Equal    *{${var}, world!}    \*{Hello, world!}
+    Should Be Equal    *{${var}_world}    \*{Hello_world}

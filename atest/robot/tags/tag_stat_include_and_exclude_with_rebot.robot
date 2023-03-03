@@ -1,12 +1,12 @@
 *** Settings ***
-Suite Setup       Create Output With Robot    ${INPUT FILE}    ${EMPTY}    ${DATA SOURCE}
-Suite Teardown    Remove File    ${INPUT FILE}
+Suite Setup       Create Output With Robot    ${INPUT_FILE}    ${EMPTY}    ${DATA_SOURCE}
+Suite Teardown    Remove File    ${INPUT_FILE}
 Test Template     Run And Check Include And Exclude
 Resource          rebot_resource.robot
 
 *** Variables ***
-${DATA SOURCE}    tags/include_and_exclude.robot
-${INPUT FILE}     %{TEMPDIR}${/}robot-test-tagstat.xml
+${DATA_SOURCE}    tags/include_and_exclude.robot
+${INPUT_FILE}     %{TEMPDIR}${/}robot-test-tagstat.xml
 ${F}              force
 ${I1}             incl1
 ${I2}             incl 2
@@ -72,14 +72,14 @@ Non Matching Include And Exclude
 *** Keywords ***
 Run And Check Include And Exclude
     [Arguments]    ${params}    @{tags}
-    Run Rebot    ${params}    ${INPUT FILE}
+    Run Rebot    ${params}    ${INPUT_FILE}
     Stderr Should Be Empty
     Tag Statistics Should Be    @{tags}
 
 Tag Statistics Should Be
     [Arguments]    @{tags}
     ${stats} =    Get Tag Stat Nodes
-    Should Be Equal    ${{ len($stats) }}    ${{ len($tags) }}
+    Should Be Equal    ${{len($stats)}}    ${{len($tags)}}
     FOR    ${stat}    ${tag}    IN ZIP    ${stats}    ${tags}
         Should Be Equal    ${stat.text}    ${tag}
     END

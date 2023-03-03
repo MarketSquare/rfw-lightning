@@ -24,6 +24,6 @@ Multiline documentation with split short doc
 
 *** Keywords ***
 Verify Documentation
-    [Arguments]    ${doc}    ${test}=${TEST NAME}
+    [Arguments]    ${doc}    ${test}=${TEST_NAME}
     ${tc} =    Check Test Case    ${test}
     Should Be Equal    ${tc.kws[0].doc}    ${doc}

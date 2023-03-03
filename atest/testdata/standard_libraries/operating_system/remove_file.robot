@@ -67,6 +67,9 @@ Path as `pathlib.Path`
     Create File         ${BASE}/file2.txt
     Create File         ${BASE}/file3.txt
     Create File         ${BASE}/file4.txt
-    Remove File         ${PATH/'file1.txt'}
-    Remove Files        ${PATH/'file2.txt'}    ${PATH/'file[34].txt'}
+    ${path_file1}=Evaluate   $PATH/'file1.txt'
+    ${path_file2}=Evaluate   $PATH/'file2.txt'
+    ${path_file34}=Evaluate   $PATH/'file[34].txt'
+    Remove File         ${path_file1}
+    Remove Files        ${path_file2}    ${path_file34}
     Should Not Exist    ${BASE}/file*.txt

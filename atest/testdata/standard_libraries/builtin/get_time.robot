@@ -27,15 +27,15 @@ Get Time As Parts
     Should Be True    0 <= int('${sec}') <= 59
 
 When Time Is Seconds After Epoch
-    ${secs after epoch} =    Get Timestamp From Date    2007    4    27    9    14    27
-    ${converted date string} =    Get Time    ${EMPTY}    ${secs after epoch}
-    Should Be Equal    ${converted date string}    2007-04-27 09:14:27
+    ${secs_after_epoch} =    Get Timestamp From Date    2007    4    27    9    14    27
+    ${converted_date_string} =    Get Time    ${EMPTY}    ${secs_after_epoch}
+    Should Be Equal    ${converted_date_string}    2007-04-27 09:14:27
 
 When Time Is Seconds After Epoch As String
-    ${secs after epoch} =    Get Timestamp From Date    2007    4    27    9    14    27
-    ${secs after epoch} =    Convert To String    ${secs after epoch}
-    ${converted date string} =    Get Time    time_=${secs after epoch}
-    Should Be Equal    ${converted date string}    2007-04-27 09:14:27
+    ${secs_after_epoch} =    Get Timestamp From Date    2007    4    27    9    14    27
+    ${secs_after_epoch} =    Convert To String    ${secs_after_epoch}
+    ${converted_date_string} =    Get Time    time_=${secs_after_epoch}
+    Should Be Equal    ${converted_date_string}    2007-04-27 09:14:27
 
 When Time Is Timestamp
     ${secs} =    Get Time    secs    2007-04-27 09:14:27
@@ -49,9 +49,9 @@ When Time Is Now
 
 When Time Is Now +- Something
     ${time} =    Get Time    epoch    NOW
-    ${time minus} =    Get Time    epoch    NOW - 1 hour
-    ${time plus} =    Get Time    epoch    NOW + 2 minutes 1 second
-    Should Be True    ${time minus} < ${time} < ${time plus}
+    ${time_minus} =    Get Time    epoch    NOW - 1 hour
+    ${time_plus} =    Get Time    epoch    NOW + 2 minutes 1 second
+    Should Be True    ${time_minus} < ${time} < ${time_plus}
 
 Empty Format Is Interpreted As Timestamp When Time Given
     ${time} =    Get Time    ${EMPTY}    2007-04-27 09:14:27
@@ -69,9 +69,9 @@ When Time Is UTC
 
 When Time Is UTC +- Something
     ${time} =    Get Time    epoch    UTC
-    ${time minus} =    Get Time    epoch    UTC - 1 hour
-    ${time plus} =    Get Time    epoch    UTC + 2 minutes 1 second
-    Should Be True    ${time minus} < ${time} < ${time plus}
+    ${time_minus} =    Get Time    epoch    UTC - 1 hour
+    ${time_plus} =    Get Time    epoch    UTC + 2 minutes 1 second
+    Should Be True    ${time_minus} < ${time} < ${time_plus}
 
 DST is handled correctly when adding or substracting time
     FOR    ${i}    IN    91    183    274

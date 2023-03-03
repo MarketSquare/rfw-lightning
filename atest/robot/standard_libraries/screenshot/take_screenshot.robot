@@ -22,7 +22,7 @@ Basename With Extension Turns Off Index Generation
 
 Name as `pathlib.Path`
     ${tc}=  Check Test Case  ${TESTNAME}
-    Check Embedding In Log  ${tc.kws[0].msgs[1]}  name.jpg
+    Check Embedding In Log  ${tc.kws[1].msgs[1]}  name.jpg
 
 Screenshot Width Can Be Given
     ${tc}=  Check Test Case  ${TESTNAME}

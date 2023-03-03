@@ -2,7 +2,7 @@
 Library  String
 
 *** Variables ***
-${VAR FROM IMPORT RESOURCE RESOURCE 3}  value 3
+${VAR_FROM_IMPORT_RESOURCE_RESOURCE_3}  value 3
 
 
 *** Keywords ***

@@ -8,25 +8,25 @@ ${VARFILEDIR}  ${DATADIR}/variables/resvarfiles
 
 *** Test Cases ***
 Variables From Variable File
-    Check Test Case  ${TEST NAME}
+    Check Test Case  ${TEST_NAME}
 
 Arguments To Variable Files
-    Check Test Case  ${TEST NAME}
+    Check Test Case  ${TEST_NAME}
 
 Arguments To Variable Files Using Semicolon Separator
-    Check Test Case  ${TEST NAME}
+    Check Test Case  ${TEST_NAME}
 
 Variable File From PYTHONPATH
-    Check Test Case  ${TEST NAME}
+    Check Test Case  ${TEST_NAME}
 
 Variable File From PYTHONPATH with arguments
-    Check Test Case  ${TEST NAME}
+    Check Test Case  ${TEST_NAME}
 
 Variable File From PYTHONPATH as module
-    Check Test Case  ${TEST NAME}
+    Check Test Case  ${TEST_NAME}
 
 Variable File From PYTHONPATH as submodule
-    Check Test Case  ${TEST NAME}
+    Check Test Case  ${TEST_NAME}
 
 Non-Existing Variable File
     Stderr Should Contain  [ ERROR ] Variable file '${VF3}' does not exist.

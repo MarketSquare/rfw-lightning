@@ -30,7 +30,7 @@ Invalid END
 
 IF with wrong case
     [Template]    NONE
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 ELSE IF without condition
     FAIL    NOT RUN    NOT RUN
@@ -66,15 +66,15 @@ Multiple errors
 
 Invalid data causes syntax error
     [Template]    NONE
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Invalid condition causes normal error
     [Template]    NONE
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 Non-existing variable in condition causes normal error
     [Template]    NONE
-    Check Test Case    ${TEST NAME}
+    Check Test Case    ${TEST_NAME}
 
 *** Keywords ***
 Branch statuses should be

@@ -50,11 +50,11 @@ Create File With Console Encoding
 
 Create File With Non-ASCII Name
     [Template]    Create and Verify File
-    ASCII content    path=${NON ASCII}
-    Спасибо          path=${NON ASCII}
+    ASCII content    path=${NON_ASCII}
+    Спасибо          path=${NON_ASCII}
 
 Create File With Space In Name
-    Create And Verify File    path=${WITH SPACE}
+    Create And Verify File    path=${WITH_SPACE}
 
 Create File To Non-Existing Directory
     Create And Verify File    path=${TESTDIR}${/}file.txt
@@ -96,9 +96,9 @@ Append To File
     Verify File       ${TESTFILE}    First line${\n}Second line${\n}3${\n}${\n}${\n}Lääst läin${\n}${\n}
 
 Path as `pathlib.Path`
-    Create And Verify File    path=${PATH/'file.txt'}
-    Append To File    ${PATH/'file.txt'}    xxx
-    Create And Verify Binary File Using Bytes    path=${PATH/'file.txt'}
+    Create And Verify File    path=${PATH}${/}file.txt
+    Append To File    ${PATH}${/}file.txt    xxx
+    Create And Verify Binary File Using Bytes    path=${PATH}${/}file.txt
 
 *** Keywords ***
 Create And Verify File

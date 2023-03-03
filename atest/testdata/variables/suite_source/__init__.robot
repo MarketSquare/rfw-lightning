@@ -5,6 +5,6 @@ Resource        resource.robot
 
 *** Keywords ***
 Check Suite Source
-    [Arguments]  ${expected suite source}
-    Should Be Equal  ${SUITE SOURCE}  ${expected suite source}
+    [Arguments]  ${expected_suite_source}
+    Should Be Equal  ${SUITE_SOURCE}  ${expected_suite_source}
 

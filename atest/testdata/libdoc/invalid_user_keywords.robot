@@ -14,5 +14,5 @@ Same ${embedded}
     [Documentation]    This is an error only at run time.
     No Operation
 
-same ${embedded match}
+same ${embedded_match}
     No Operation

@@ -53,7 +53,7 @@ Invalid arguments spec
 *** Keywords ***
 Verify Invalid Argument Spec
     [Arguments]    ${index}    ${lineno}    ${name}    ${error}
-    Check Test Case    ${TEST NAME}: ${name}
+    Check Test Case    ${TEST_NAME}: ${name}
     Error In File    ${index}    keywords/user_keyword_kwargs.robot    ${lineno}
     ...    Creating keyword '${name}' failed:
     ...    Invalid argument specification: ${error}

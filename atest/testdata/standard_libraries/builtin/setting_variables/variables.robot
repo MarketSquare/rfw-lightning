@@ -9,8 +9,8 @@ Library           Collections
 ${SCALAR}         Hi tellus
 @{LIST}           Hello    world
 &{DICT}           key=value    foo=bar
-${PARENT SUITE SETUP CHILD SUITE VAR 1}    This is overridden by __init__
-${SCALAR LIST ERROR}
+${PARENT_SUITE_SETUP_CHILD_SUITE_VAR_1}    This is overridden by __init__
+${SCALAR_LIST_ERROR}
 ...               Setting list value to scalar variable '\${SCALAR}' is not
 ...               supported anymore. Create list variable '\@{SCALAR}' instead.
 
@@ -132,15 +132,15 @@ Set Test Variable - Dicts
     Should Be Equal    ${new.new}    dict
 
 Dict Set To Scalar Is Dot Accessible 1
-    Set Suite Variable    ${SCALAR DICT}    &{DICT}
-    Should Be Equal    ${SCALAR DICT.key}    value
-    ${SCALAR DICT.new} =    Set Variable   item
-    Should Be Equal    ${SCALAR DICT.new}    item
+    Set Suite Variable    ${SCALAR_DICT}    &{DICT}
+    Should Be Equal    ${SCALAR_DICT.key}    value
+    ${SCALAR_DICT.new} =    Set Variable   item
+    Should Be Equal    ${SCALAR_DICT.new}    item
     Variable Should Not Exist    ${DICT.new}
 
 Dict Set To Scalar Is Dot Accessible 2
-    Should Be Equal    ${SCALAR DICT.key}    value
-    Should Be Equal    ${SCALAR DICT.new}    item
+    Should Be Equal    ${SCALAR_DICT.key}    value
+    Should Be Equal    ${SCALAR_DICT.new}    item
 
 Set Test Variable Needing Escaping
     Set Test Variable    $var1    One backslash \\ and \${notvar}
@@ -169,10 +169,10 @@ Set Test Variable Needing Escaping
     Should Be True    ${var5} == {'this=is=key': 'value', 'path': 'c:\\\\temp', 'not var': '\${nv}'}
 
 Set Test Variable Affect Subsequent Keywords
-    Set Test Variable    ${TEST VAR}    Set in test level
+    Set Test Variable    ${TEST_VAR}    Set in test level
     Test Variable Should Be Set To      Set in test level
     Test Variable Should Be Set To      Set in test level
-    Set Test Variable    ${TEST VAR}    Set again in test level
+    Set Test Variable    ${TEST_VAR}    Set again in test level
     Test Variable Should Be Set To      Set again in test level
 
 Set Test Variable In User Keyword
@@ -199,10 +199,10 @@ Set Test Variable Not Affecting Other Tests
     Check Test Variables Not Available In UK
 
 Set Task Variable as alias for Set Test Variable
-    Set Task Variable    ${TEST VAR}    Set in test level
+    Set Task Variable    ${TEST_VAR}    Set in test level
     Test Variable Should Be Set To      Set in test level
     Test Variable Should Be Set To      Set in test level
-    Set Task Variable    ${TEST VAR}    Set again in test level
+    Set Task Variable    ${TEST_VAR}    Set again in test level
     Test Variable Should Be Set To      Set again in test level
 
 Set Suite Variable 1
@@ -240,19 +240,19 @@ Set Suite Variable 2
     Set Suite Variable    invalid
 
 Set Child Suite Variable 1
-    Should Be Equal    ${PARENT SUITE SETUP CHILD SUITE VAR 1}    Set in __init__
-    Should Be True    ${PARENT SUITE SETUP CHILD SUITE VAR 2} == ['Set in', '__init__']
-    Should Be Equal    ${PARENT SUITE SETUP CHILD SUITE VAR 3}    Only seen in this suite
-    Set Global Variable    ${PARENT SUITE SETUP CHILD SUITE VAR 2}    Overridden by global
-    Should Be Equal    ${PARENT SUITE SETUP CHILD SUITE VAR 2}    Overridden by global
-    Set Suite Variable    ${PARENT SUITE SETUP CHILD SUITE VAR 3}    Only seen, and overridden, in this suite    children=${TRUE}
+    Should Be Equal    ${PARENT_SUITE_SETUP_CHILD_SUITE_VAR_1}    Set in __init__
+    Should Be True    ${PARENT_SUITE_SETUP_CHILD_SUITE_VAR_2} == ['Set in', '__init__']
+    Should Be Equal    ${PARENT_SUITE_SETUP_CHILD_SUITE_VAR_3}    Only seen in this suite
+    Set Global Variable    ${PARENT_SUITE_SETUP_CHILD_SUITE_VAR_2}    Overridden by global
+    Should Be Equal    ${PARENT_SUITE_SETUP_CHILD_SUITE_VAR_2}    Overridden by global
+    Set Suite Variable    ${PARENT_SUITE_SETUP_CHILD_SUITE_VAR_3}    Only seen, and overridden, in this suite    children=${TRUE}
 
 Set Child Suite Variable 2
-    [Documentation]    FAIL Variable '${NON EXISTING}' not found.
-    Should Be Equal    ${PARENT SUITE SETUP CHILD SUITE VAR 1}    Set in __init__
-    Should Be Equal    ${PARENT SUITE SETUP CHILD SUITE VAR 2}    Overridden by global
-    Should Be Equal    ${PARENT SUITE SETUP CHILD SUITE VAR 3}    Only seen, and overridden, in this suite
-    Set Suite Variable    ${VAR}    value    children=${NON EXISTING}
+    [Documentation]    FAIL Variable '${NON_EXISTING}' not found.
+    Should Be Equal    ${PARENT_SUITE_SETUP_CHILD_SUITE_VAR_1}    Set in __init__
+    Should Be Equal    ${PARENT_SUITE_SETUP_CHILD_SUITE_VAR_2}    Overridden by global
+    Should Be Equal    ${PARENT_SUITE_SETUP_CHILD_SUITE_VAR_3}    Only seen, and overridden, in this suite
+    Set Suite Variable    ${VAR}    value    children=${NON_EXISTING}
 
 Set Global Variable 1
     [Documentation]    FAIL Variable '\${non_existing}' not found.
@@ -272,7 +272,7 @@ Set Global Variable 1
     Should Be Equal    ${sub_uk_level_global_var}    Global var set in sub user keyword
     Should Be True    ${sub_uk_level_global_var_list} == [ 'Global var set in', 'sub user keyword' ]
     Check Global Variables Available In UK
-    Set Global Variable    ${VARIABLE TABLE IN VARIABLES 2 (3)}    Set by test in "variables.robot"
+    Set Global Variable    ${VARIABLE_TABLE_IN_VARIABLES_2_(3)}    Set by test in "variables.robot"
     Set Global Variable    @non_existing
 
 Set Global Variable 2
@@ -287,43 +287,43 @@ Set Global Variable 2
     Set Global Variable    Ö    Name is shorter than 2 on purpose
 
 Set Test/Suite/Global Variables With Normal Variable Syntax 1
-    Set Test Variable    ${new test var 1}    test
-    Set Suite Variable    @{new suite var 1}    suite    variable
-    Set Global Variable    @{new global var 1}    global with \ escapes \\    ${CURDIR} ${TEMPDIR} \${escaped and not a var}
-    Should Be Equal    ${new test var 1}    test
-    Should Be True    ${new suite var 1} == 'suite variable'.split()
-    Should Be Equal    ${new global var 1}[0]    global with \ escapes \\
-    Should Be Equal    ${new global var 1}[1]    ${CURDIR} ${TEMPDIR} \${escaped and not a var}
+    Set Test Variable    ${new_test_var_1}    test
+    Set Suite Variable    @{new_suite_var_1}    suite    variable
+    Set Global Variable    @{new_global_var_1}    global with \ escapes \\    ${CURDIR} ${TEMPDIR} \${escaped_and_not_a_var}
+    Should Be Equal    ${new_test_var_1}    test
+    Should Be True    ${new_suite_var_1} == 'suite variable'.split()
+    Should Be Equal    ${new_global_var_1}[0]    global with \ escapes \\
+    Should Be Equal    ${new_global_var_1}[1]    ${CURDIR} ${TEMPDIR} \${escaped_and_not_a_var}
 
 Set Test/Suite/Global Variables With Normal Variable Syntax 2
-    Should Be True    ${new suite var 1} == 'suite variable'.split()
-    Should Be Equal    ${new global var 1}[0]    global with \ escapes \\
-    Should Be Equal    ${new global var 1}[1]    ${CURDIR} ${TEMPDIR} \${escaped and not a var}
+    Should Be True    ${new_suite_var_1} == 'suite variable'.split()
+    Should Be Equal    ${new_global_var_1}[0]    global with \ escapes \\
+    Should Be Equal    ${new_global_var_1}[1]    ${CURDIR} ${TEMPDIR} \${escaped_and_not_a_var}
 
 Set Test/Suite/Global Variable Using Empty List Variable 1
-    @{empty list} =    Create List
-    Set Test Variable    @{new test var 2}    @{empty list}
-    Set Suite Variable    @{new suite var 2}    @{empty list}
-    Set Global Variable    @{new global var 2}    @{empty list}
-    Should Be True    ${new test var 2} == []
-    Should Be True    ${new suite var 2} == []
-    Should Be True    ${new global var 2} == []
+    @{empty_list} =    Create List
+    Set Test Variable    @{new_test_var_2}    @{empty_list}
+    Set Suite Variable    @{new_suite_var_2}    @{empty_list}
+    Set Global Variable    @{new_global_var_2}    @{empty_list}
+    Should Be True    ${new_test_var_2} == []
+    Should Be True    ${new_suite_var_2} == []
+    Should Be True    ${new_global_var_2} == []
 
 Set Test/Suite/Global Variable Using Empty List Variable 2
-    Should Be True    ${new suite var 2} == []
-    Should Be True    ${new global var 2} == []
+    Should Be True    ${new_suite_var_2} == []
+    Should Be True    ${new_global_var_2} == []
 
 Set Test/Suite/Global Variable Using Empty Dict Variable 1
-    Set Test Variable    &{new test var 3}    &{EMPTY}
-    Set Suite Variable    ${new suite var 3}    &{EMPTY}
-    Set Global Variable    &{new global var 3}    &{EMPTY}
-    Should Be True    ${new test var 3} == {}
-    Should Be True    ${new suite var 3} == {}
-    Should Be True    ${new global var 3} == {}
+    Set Test Variable    &{new_test_var_3}    &{EMPTY}
+    Set Suite Variable    ${new_suite_var_3}    &{EMPTY}
+    Set Global Variable    &{new_global_var_3}    &{EMPTY}
+    Should Be True    ${new_test_var_3} == {}
+    Should Be True    ${new_suite_var_3} == {}
+    Should Be True    ${new_global_var_3} == {}
 
 Set Test/Suite/Global Variable Using Empty Dict Variable 2
-    Should Be True    ${new suite var 3} == {}
-    Should Be True    ${new global var 3} == {}
+    Should Be True    ${new_suite_var_3} == {}
+    Should Be True    ${new_global_var_3} == {}
 
 Scopes And Overriding 1
     Should Be Equal    ${cli_var_1}    CLI1
@@ -335,13 +335,13 @@ Scopes And Overriding 1
     Set Global Variable    $parent_suite_setup_global_var_to_reset    Set in test!
     Set Global Variable    $parent_suite_var_to_reset    Set using Set Global Variable
     Set Suite Variable    $parent_suite_var_to_reset    This has no effect to parent suite
-    Set Global Variable    $NEW GLOBAL VAR    ${42}
+    Set Global Variable    $NEW_GLOBAL_VAR    ${42}
     Should Be Equal    ${cli_var_1}    New value 1
     Should Be Equal    ${cli_var_2}    New value 2
     Should Be Equal    ${cli_var_3}    New value 3
     Should Be Equal    ${parent_suite_setup_global_var_to_reset}    Set in test!
     Should Be Equal    ${parent_suite_var_to_reset}    This has no effect to parent suite
-    Should Be Equal    ${NEW GLOBAL VAR}    ${42}
+    Should Be Equal    ${NEW_GLOBAL_VAR}    ${42}
 
 Scopes And Overriding 2
     Should Be Equal    ${cli_var_1}    CLI1
@@ -384,76 +384,76 @@ Set Test/Suite/Global Variable With Internal Variables In Name
     ...                https://github.com/robotframework/robotframework/issues/397
     ...                FAIL    Variable '\${nonexisting}' not found.
     ${x} =    Set Variable    bar
-    Set Test Variable    \${foo ${x}}    value
-    Should Be Equal    ${foo bar}    value
+    Set Test Variable    \${foo_${x}}    value
+    Should Be Equal    ${foo_bar}    value
     Set Suite Variable    ${${x}${x[:-1]}ari}    conan
     Should Be Equal    ${barbaari}    conan
     Set Global Variable    $${x}    pub
     Should Be Equal    ${bar}    pub
-    Set Test Variable    ${xxx ${nonexisting}}    whatever
+    Set Test Variable    ${xxx_${nonexisting}}    whatever
 
 Mutating scalar variable set using `Set Test/Suite/Global Variable` keywords 1
     ${mutating} =    Create List
-    Set Test Variable      ${MUTANT TEST}      ${mutating}
-    Set Suite Variable     ${MUTANT SUITE}     ${mutating}
-    Set Global Variable    ${MUTANT GLOBAL}    ${mutating}
+    Set Test Variable      ${MUTANT_TEST}      ${mutating}
+    Set Suite Variable     ${MUTANT_SUITE}     ${mutating}
+    Set Global Variable    ${MUTANT_GLOBAL}    ${mutating}
     Mutating user keyword    ${mutating}
     # Using same instance in all scopes
     Should Be True    ${mutating} == list('atsg')
-    Should Be True    ${MUTANT TEST} == list('atsg')
-    Should Be True    ${MUTANT SUITE} == list('atsg')
-    Should Be True    ${MUTANT GLOBAL} == list('atsg')
+    Should Be True    ${MUTANT_TEST} == list('atsg')
+    Should Be True    ${MUTANT_SUITE} == list('atsg')
+    Should Be True    ${MUTANT_GLOBAL} == list('atsg')
 
 Mutating scalar variable set using `Set Test/Suite/Global Variable` keywords 2
     Mutating user keyword 2
-    Should Be True    ${MUTANT SUITE} == list('atsg') + ['s2', 'g2']
-    Should Be True    ${MUTANT GLOBAL} == list('atsg') + ['s2', 'g2']
+    Should Be True    ${MUTANT_SUITE} == list('atsg') + ['s2', 'g2']
+    Should Be True    ${MUTANT_GLOBAL} == list('atsg') + ['s2', 'g2']
 
 Mutating scalar variable set using `Set Test/Suite/Global Variable` keywords 3
-    Should Be True    ${MUTANT SUITE} == list('atsg') + ['s2', 'g2']
-    Should Be True    ${MUTANT GLOBAL} == list('atsg') + ['s2', 'g2']
+    Should Be True    ${MUTANT_SUITE} == list('atsg') + ['s2', 'g2']
+    Should Be True    ${MUTANT_GLOBAL} == list('atsg') + ['s2', 'g2']
 
 Mutating list variable set using `Set Test/Suite/Global Variable` keywords 1
     @{mutating} =    Create List
-    Set Test Variable      @{MUTANT TEST}      @{mutating}
-    Set Suite Variable     @{MUTANT SUITE}     @{mutating}
-    Set Global Variable    @{MUTANT GLOBAL}    @{mutating}
+    Set Test Variable      @{MUTANT_TEST}      @{mutating}
+    Set Suite Variable     @{MUTANT_SUITE}     @{mutating}
+    Set Global Variable    @{MUTANT_GLOBAL}    @{mutating}
     Mutating user keyword    ${mutating}
     # Using different instance in all scopes
     Should Be True    ${mutating} == ['a']
-    Should Be True    ${MUTANT TEST} == ['t']
-    Should Be True    ${MUTANT SUITE} == ['s']
-    Should Be True    ${MUTANT GLOBAL} == ['g']
+    Should Be True    ${MUTANT_TEST} == ['t']
+    Should Be True    ${MUTANT_SUITE} == ['s']
+    Should Be True    ${MUTANT_GLOBAL} == ['g']
 
 Mutating list variable set using `Set Test/Suite/Global Variable` keywords 2
     Mutating user keyword 2
-    Should Be True    ${MUTANT SUITE} == ['s', 's2']
-    Should Be True    ${MUTANT GLOBAL} == ['g', 'g2']
+    Should Be True    ${MUTANT_SUITE} == ['s', 's2']
+    Should Be True    ${MUTANT_GLOBAL} == ['g', 'g2']
 
 Mutating list variable set using `Set Test/Suite/Global Variable` keywords 3
-    Should Be True    ${MUTANT SUITE} == ['s', 's2']
-    Should Be True    ${MUTANT GLOBAL} == ['g', 'g2']
+    Should Be True    ${MUTANT_SUITE} == ['s', 's2']
+    Should Be True    ${MUTANT_GLOBAL} == ['g', 'g2']
 
 Mutating dict variable set using `Set Test/Suite/Global Variable` keywords 1
     &{mutating} =    Create Dictionary
-    Set Test Variable      &{MUTANT TEST}      &{mutating}
-    Set Suite Variable     &{MUTANT SUITE}     &{mutating}
-    Set Global Variable    &{MUTANT GLOBAL}    &{mutating}
+    Set Test Variable      &{MUTANT_TEST}      &{mutating}
+    Set Suite Variable     &{MUTANT_SUITE}     &{mutating}
+    Set Global Variable    &{MUTANT_GLOBAL}    &{mutating}
     Dict mutating user keyword    ${mutating}
     # Using different instance in all scope
     Should Be True    ${mutating} == {'a': 1}
-    Should Be True    ${MUTANT TEST} == {'t': 1}
-    Should Be True    ${MUTANT SUITE} == {'s': 1}
-    Should Be True    ${MUTANT GLOBAL} == {'g': 1}
+    Should Be True    ${MUTANT_TEST} == {'t': 1}
+    Should Be True    ${MUTANT_SUITE} == {'s': 1}
+    Should Be True    ${MUTANT_GLOBAL} == {'g': 1}
 
 Mutating dict variable set using `Set Test/Suite/Global Variable` keywords 2
     Dict mutating user keyword 2
-    Should Be True    ${MUTANT SUITE} == {'s': 1, 's2': 2}
-    Should Be True    ${MUTANT GLOBAL} == {'g': 1, 'g2': 2}
+    Should Be True    ${MUTANT_SUITE} == {'s': 1, 's2': 2}
+    Should Be True    ${MUTANT_GLOBAL} == {'g': 1, 'g2': 2}
 
 Mutating dict variable set using `Set Test/Suite/Global Variable` keywords 3
-    Should Be True    ${MUTANT SUITE} == {'s': 1, 's2': 2}
-    Should Be True    ${MUTANT GLOBAL} == {'g': 1, 'g2': 2}
+    Should Be True    ${MUTANT_SUITE} == {'s': 1, 's2': 2}
+    Should Be True    ${MUTANT_GLOBAL} == {'g': 1, 'g2': 2}
 
 Using \@{EMPTY} with `Set Test/Suite/Global Variable` keywords
     Set Test Variable    @{LIST}    @{EMPTY}
@@ -476,26 +476,26 @@ Using \@{EMPTY} with `Set Test/Suite/Global Variable` keywords 2
     Should Be True    ${NEW} == ['global']
 
 If setting test/suite/global variable fails, old value is preserved 1
-    [Documentation]    FAIL Variable '\${SETTING NONEX FAILS}' not found.
-    Set Test Variable    ${VALID TEST}    valid test
-    Set Suite Variable    @{VALID SUITE}    valid suite
-    Set Global Variable    &{VALID GLOBAL}    valid=global
-    Set Test Variable    ${VALID TEST}    ${SETTING NONEX FAILS}
-    [Teardown]    Should Be Equal    ${VALID TEST}    valid test
+    [Documentation]    FAIL Variable '\${SETTING_NONEX_FAILS}' not found.
+    Set Test Variable    ${VALID_TEST}    valid test
+    Set Suite Variable    @{VALID_SUITE}    valid suite
+    Set Global Variable    &{VALID_GLOBAL}    valid=global
+    Set Test Variable    ${VALID_TEST}    ${SETTING_NONEX_FAILS}
+    [Teardown]    Should Be Equal    ${VALID_TEST}    valid test
 
 If setting test/suite/global variable fails, old value is preserved 2
-    [Documentation]    FAIL Variable '\@{SETTING NONEX FAILS}' not found.
-    Set Suite Variable    @{VALID SUITE}    @{SETTING NONEX FAILS}
-    [Teardown]    Should Be Equal    @{VALID SUITE}    valid suite
+    [Documentation]    FAIL Variable '\@{SETTING_NONEX_FAILS}' not found.
+    Set Suite Variable    @{VALID_SUITE}    @{SETTING_NONEX_FAILS}
+    [Teardown]    Should Be Equal    @{VALID_SUITE}    valid suite
 
 If setting test/suite/global variable fails, old value is preserved 3
-    [Documentation]    FAIL Variable '\&{SETTING NONEX FAILS}' not found.
-    Set Global Variable    &{VALID GLOBAL}    &{SETTING NONEX FAILS}
-    [Teardown]    Should Be Equal    ${VALID GLOBAL.valid}    global
+    [Documentation]    FAIL Variable '\&{SETTING_NONEX_FAILS}' not found.
+    Set Global Variable    &{VALID_GLOBAL}    &{SETTING_NONEX_FAILS}
+    [Teardown]    Should Be Equal    ${VALID_GLOBAL.valid}    global
 
 If setting test/suite/global variable fails, old value is preserved 4
-    Should Be Equal    @{VALID SUITE}    valid suite
-    Should Be Equal    ${VALID GLOBAL}[valid]    global
+    Should Be Equal    @{VALID_SUITE}    valid suite
+    Should Be Equal    ${VALID_GLOBAL}[valid]    global
 
 Setting non-dict value to test/suite/global level dict variable - test
     [Documentation]    FAIL
@@ -516,27 +516,27 @@ Setting non-dict value to test/suite/global level dict variable - global
     Set Global Variable    &{DICT}    oops\=i did it again
 
 Setting scalar test variable with list value is not possible 1
-    [Documentation]    FAIL ${SCALAR LIST ERROR}
+    [Documentation]    FAIL ${SCALAR_LIST_ERROR}
     Set Test Variable    ${SCALAR}    This    does    not    work
 
 Setting scalar test variable with list value is not possible 2
-    [Documentation]    FAIL ${SCALAR LIST ERROR}
+    [Documentation]    FAIL ${SCALAR_LIST_ERROR}
     Set Test Variable    ${SCALAR}    @{EMPTY}
 
 Setting scalar suite variable with list value is not possible 1
-    [Documentation]    FAIL ${SCALAR LIST ERROR}
+    [Documentation]    FAIL ${SCALAR_LIST_ERROR}
     Set Suite Variable    ${SCALAR}    This    does    not    work
 
 Setting scalar suite variable with list value is not possible 2
-    [Documentation]    FAIL ${SCALAR LIST ERROR}
+    [Documentation]    FAIL ${SCALAR_LIST_ERROR}
     Set Suite Variable    ${SCALAR}    @{EMPTY}
 
 Setting scalar global variable with list value is not possible 1
-    [Documentation]    FAIL ${SCALAR LIST ERROR}
+    [Documentation]    FAIL ${SCALAR_LIST_ERROR}
     Set Global Variable    ${SCALAR}    This    does    not    work
 
 Setting scalar global variable with list value is not possible 2
-    [Documentation]    FAIL ${SCALAR LIST ERROR}
+    [Documentation]    FAIL ${SCALAR_LIST_ERROR}
     Set Global Variable    ${SCALAR}    @{EMPTY}
 
 *** Keyword ***
@@ -556,11 +556,11 @@ My Suite Setup
     Variable Should Not Exist    $parent_suite_setup_suite_var
     Variable Should Not Exist    $parent_suite_setup_suite_var_2
     Should Be Equal    ${parent_suite_setup_global_var}    Set in __init__
-    Should Be Equal    ${PARENT SUITE SETUP CHILD SUITE VAR 1}    Set in __init__
-    Should Be True    ${PARENT SUITE SETUP CHILD SUITE VAR 2} == ['Set in', '__init__']
-    Should Be True    ${PARENT SUITE SETUP CHILD SUITE VAR 3} == {'Set': 'in __init__'}
-    Set Suite Variable    ${PARENT SUITE SETUP CHILD SUITE VAR 3}    Only seen in this suite    children=true
-    Set Global Variable    ${VARIABLE TABLE IN VARIABLES 2 (2)}    Set by suite setup in "variables.robot"
+    Should Be Equal    ${PARENT_SUITE_SETUP_CHILD_SUITE_VAR_1}    Set in __init__
+    Should Be True    ${PARENT_SUITE_SETUP_CHILD_SUITE_VAR_2} == ['Set in', '__init__']
+    Should Be True    ${PARENT_SUITE_SETUP_CHILD_SUITE_VAR_3} == {'Set': 'in __init__'}
+    Set Suite Variable    ${PARENT_SUITE_SETUP_CHILD_SUITE_VAR_3}    Only seen in this suite    children=true
+    Set Global Variable    ${VARIABLE_TABLE_IN_VARIABLES_2_(2)}    Set by suite setup in "variables.robot"
 
 My Suite Teardown
     Set Suite Variable    $suite_teardown_suite_var    Suite var set in suite teardown
@@ -577,18 +577,18 @@ My Suite Teardown
     Should Be Equal    ${suite_teardown_global_var}    Global var set in suite teardown
     Check Suite Variables Available In UK
     Check Global Variables Available In UK
-    Should Be Equal    ${PARENT SUITE SETUP CHILD SUITE VAR 1}    Set in __init__
-    Should Be Equal    ${PARENT SUITE SETUP CHILD SUITE VAR 2}    Overridden by global
-    Should Be Equal    ${PARENT SUITE SETUP CHILD SUITE VAR 3}    Only seen, and overridden, in this suite
+    Should Be Equal    ${PARENT_SUITE_SETUP_CHILD_SUITE_VAR_1}    Set in __init__
+    Should Be Equal    ${PARENT_SUITE_SETUP_CHILD_SUITE_VAR_2}    Overridden by global
+    Should Be Equal    ${PARENT_SUITE_SETUP_CHILD_SUITE_VAR_3}    Only seen, and overridden, in this suite
 
 Test Variable Should Be Set To
     [Arguments]    ${expected}
-    Should Be Equal    ${TEST VAR}    ${expected}
+    Should Be Equal    ${TEST_VAR}    ${expected}
     Test Variable Should Be Set To 2    ${expected}
 
 Test Variable Should Be Set To 2
     [Arguments]    ${expected}
-    Should Be Equal    ${TEST VAR}    ${expected}
+    Should Be Equal    ${TEST_VAR}    ${expected}
 
 Set Test Variables In UK
     Variable Should Not Exist    ${local}
@@ -678,26 +678,26 @@ Test Setting Variable In User Keyword
     Should Be Equal    ${variable}    value    Value is not set to variable \${variable} even it should
 
 Mutating user keyword
-    [Arguments]    ${mutant argument}
-    Append To List    ${mutant argument}    a
-    Append To List    ${MUTANT TEST}        t
-    Append To List    ${MUTANT SUITE}       s
-    Append To List    ${MUTANT GLOBAL}      g
+    [Arguments]    ${mutant_argument}
+    Append To List    ${mutant_argument}    a
+    Append To List    ${MUTANT_TEST}        t
+    Append To List    ${MUTANT_SUITE}       s
+    Append To List    ${MUTANT_GLOBAL}      g
 
 Mutating user keyword 2
-    Append To List    ${MUTANT SUITE}       s2
-    Append To List    ${MUTANT GLOBAL}      g2
+    Append To List    ${MUTANT_SUITE}       s2
+    Append To List    ${MUTANT_GLOBAL}      g2
 
 Dict mutating user keyword
-    [Arguments]    ${mutant argument}
-    Set To Dictionary    ${mutant argument}    a    ${1}
-    Set To Dictionary    ${MUTANT TEST}        t    ${1}
-    Set To Dictionary    ${MUTANT SUITE}       s    ${1}
-    Set To Dictionary    ${MUTANT GLOBAL}      g    ${1}
+    [Arguments]    ${mutant_argument}
+    Set To Dictionary    ${mutant_argument}    a    ${1}
+    Set To Dictionary    ${MUTANT_TEST}        t    ${1}
+    Set To Dictionary    ${MUTANT_SUITE}       s    ${1}
+    Set To Dictionary    ${MUTANT_GLOBAL}      g    ${1}
 
 Dict mutating user keyword 2
-    Set To Dictionary    ${MUTANT SUITE}       s2    ${2}
-    Set To Dictionary    ${MUTANT GLOBAL}      g2    ${2}
+    Set To Dictionary    ${MUTANT_SUITE}       s2    ${2}
+    Set To Dictionary    ${MUTANT_GLOBAL}      g2    ${2}
 
 Verify @{EMPTY} is still empty
     No Operation    @{EMPTY}

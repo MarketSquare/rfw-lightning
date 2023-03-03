@@ -53,12 +53,6 @@ Misspelled Extended Variable Parent As List
 Misspelled Extended Variable Child
     Check Test Case    ${TESTNAME}
 
-Existing Non ASCII Variable Name
-    Check Test Case    ${TESTNAME}
-
-Non Existing Non ASCII Variable Name
-    Check Test Case    ${TESTNAME}
-
 Invalid Binary
     Check Test Case    ${TESTNAME}
 

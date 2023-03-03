@@ -178,5 +178,5 @@ In user keyword
 
 RETURN after failure
     Fail    This fails
-    RETURN    ${not evaluated}
+    RETURN    ${not_evaluated}
     Not executed

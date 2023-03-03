@@ -10,13 +10,13 @@ Screenshot Should Exist
     ...  timestamp set in test setup.
     File Should Exist  ${path}
     ${filetime} =  Get Modified Time  ${path}
-    Should Be True  '${filetime}' >= '${START TIME}'
+    Should Be True  '${filetime}' >= '${START_TIME}'
 
 Save Start Time
-    ${start time} =  Get Time
-    Set Test Variable  \${START TIME}
+    ${start_time} =  Get Time
+    Set Test Variable  \${START_TIME}
 
 Screenshots Should Exist
     [Arguments]  ${directory}  @{files}
-    @{actual files}=  List Directory  ${directory}  *.jp*g
-    Lists Should Be Equal  ${actual files}  ${files}
+    @{actual_files}=  List Directory  ${directory}  *.jp*g
+    Lists Should Be Equal  ${actual_files}  ${files}

@@ -38,8 +38,8 @@ Suite Teardown
 
 Test Setup
     Should Be Equal    ${VARIABLE}         variable value
-    Should Be Equal    ${RESOURCE FILE}    variable in resource file
-    Should Be Equal    ${VARIABLE FILE}    variable in variable file
+    Should Be Equal    ${RESOURCE_FILE}    variable in resource file
+    Should Be Equal    ${VARIABLE_FILE}    variable in variable file
 
 Test Teardown
     No Operation

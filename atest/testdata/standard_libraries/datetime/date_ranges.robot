@@ -4,7 +4,8 @@ Variables         datesandtimes.py
 
 *** Test Cases ***
 Date is not altered
-    FOR    ${date}    IN    @{ALL_DAYS_FOR_YEAR(2015)}
+    ${range}=Evaluate    $ALL_DAYS_FOR_YEAR(2015)
+    FOR    ${date}    IN    @{range}
         Date conversion should not alter value    ${date}
     END
 
@@ -16,18 +17,21 @@ Date is not altered during DST changes
     END
 
 Timestamps support years since 1900
-    FOR    ${date}    IN    @{YEAR_RANGE(1900, 2200)}
+    ${range}=Evaluate    $YEAR_RANGE(1900,2200)
+    FOR    ${date}    IN    @{range}
         Date conversion should not alter value    ${date}    format=timestamp
     END
 
 Datetime supports years since 1
-    FOR    ${date}    IN    @{YEAR_RANGE(1, 2200, 10, format='datetime')}
+    ${range}=Evaluate    $YEAR_RANGE(1,2200,10,'datetime')
+    FOR    ${date}    IN    @{range}
         Date conversion should not alter value    ${date}    format=datetime
     END
 
 Epoch supports years since 1970
     [Documentation]    This is minimum. Some platforms support 1900 or even earlier.
-    FOR    ${date}    IN    @{YEAR_RANGE(1970, 2200, format='epoch')}
+    ${range}=Evaluate    $YEAR_RANGE(1970,2200,1,'epoch')
+    FOR    ${date}    IN    @{range}
         Date conversion should not alter value    ${date}    format=epoch
     END
 

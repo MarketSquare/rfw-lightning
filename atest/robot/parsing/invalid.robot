@@ -3,7 +3,7 @@ Resource          data_formats/formats_resource.robot
 
 *** Variables ***
 ${PARSING}            ${DATADIR}/parsing
-${SUITE DIR}          %{TEMPDIR}/tmp
+${SUITE_DIR}          %{TEMPDIR}/tmp
 
 *** Test Cases ***
 Directory Containing No Test Cases
@@ -56,22 +56,22 @@ Multisource Containing File With Invalid Encoding
 
 File without read permission
     [Tags]    no-windows
-    [Setup]    Create test data without permissions    ${SUITE DIR}/sample.robot
+    [Setup]    Create test data without permissions    ${SUITE_DIR}/sample.robot
     Run tests and check parsing error
-    ...    ${SUITE DIR}/sample.robot
+    ...    ${SUITE_DIR}/sample.robot
     ...    (IOError|PermissionError): .*
-    ...    ${SUITE DIR}/sample.robot
-    [Teardown]    Remove test data without permissions    ${SUITE DIR}/sample.robot
+    ...    ${SUITE_DIR}/sample.robot
+    [Teardown]    Remove test data without permissions    ${SUITE_DIR}/sample.robot
 
 Directory without read permission
     [Tags]    no-windows
-    [Setup]    Create test data without permissions    ${SUITE DIR}
+    [Setup]    Create test data without permissions    ${SUITE_DIR}
     Run tests and check parsing error
-    ...    ${SUITE DIR}
+    ...    ${SUITE_DIR}
     ...    (OSError|PermissionError): .*
-    ...    ${SUITE DIR}
+    ...    ${SUITE_DIR}
     ...    Reading directory
-    [Teardown]    Remove test data without permissions    ${SUITE DIR}
+    [Teardown]    Remove test data without permissions    ${SUITE_DIR}
 
 *** Keywords ***
 Run tests and check error
@@ -87,12 +87,12 @@ Run tests and check parsing error
     Run tests and check error    ${paths}    ${prefix} '${path}' failed: ${error}
 
 Create test data without permissions
-    [Arguments]    ${remove permissions}
-    Create directory    ${SUITE DIR}
-    Copy file   ${ROBOTDIR}/sample.robot   ${SUITE DIR}
-    Remove permissions    ${remove permissions}
+    [Arguments]    ${remove_permissions}
+    Create directory    ${SUITE_DIR}
+    Copy file   ${ROBOTDIR}/sample.robot   ${SUITE_DIR}
+    Remove permissions    ${remove_permissions}
 
 Remove test data without permissions
-    [Arguments]    ${remove permissions}
-    Set read write execute      ${remove permissions}
-    Remove directory    ${SUITE DIR}    recursive=True
+    [Arguments]    ${remove_permissions}
+    Set read write execute      ${remove_permissions}
+    Remove directory    ${SUITE_DIR}    recursive=True

@@ -6,9 +6,9 @@ Library           ExampleLibrary
 Library           OperatingSystem
 
 *** Variables ***
-${TIMEOUT TEMP}    %{TEMPDIR}${/}robot_timeout_tests
-${TEST STOPPED}    ${TIMEOUT TEMP}${/}test_stopped.txt
-${KW STOPPED}      ${TIMEOUT TEMP}${/}kw_stopped.txt
+${TIMEOUT_TEMP}    %{TEMPDIR}${/}robot_timeout_tests
+${TEST_STOPPED}    ${TIMEOUT_TEMP}${/}test_stopped.txt
+${KW_STOPPED}      ${TIMEOUT_TEMP}${/}kw_stopped.txt
 
 *** Test Cases ***
 Passing
@@ -75,13 +75,13 @@ Stopped After Test Timeout
     [Documentation]    Keyword that is stopped after test timeout should not write to a file.
     ...    FAIL Test timeout 200 milliseconds exceeded.
     [Timeout]    0.2s
-    Write To File After Sleeping    ${TEST STOPPED}    2
+    Write To File After Sleeping    ${TEST_STOPPED}    2
 
 Stopped After Keyword Timeout
     [Documentation]    Keyword that is stopped after keyword timeout should not write to a file.
     ...    FAIL Keyword timeout 200 milliseconds exceeded.
     [Timeout]    1 minute
-    Timeouted Write To File After Sleeping    ${KW STOPPED}    2
+    Timeouted Write To File After Sleeping    ${KW_STOPPED}    2
 
 Timout Defined For One Test
     [Documentation]    FAIL Test timeout 42 milliseconds exceeded.

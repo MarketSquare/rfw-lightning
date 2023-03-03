@@ -6,11 +6,11 @@ Library            String
 *** Variables ***
 ${TEST} =          ${CURDIR}/test.xml
 ${NS} =            ${CURDIR}/namespaces.xml
-${NO NS IN NS} =   <ns:root xmlns:ns="uri"><no><ns:yes><no>.</no></ns:yes></no></ns:root>
+${NO_NS_IN_NS} =   <ns:root xmlns:ns="uri"><no><ns:yes><no>.</no></ns:yes></no></ns:root>
 ${SIMPLE} =        <root><child id="1">text</child><c2><gc /></c2></root>
-${ATTR NS} =       <root id="1" p:id="2" xmlns:p="xxx" />
+${ATTR_NS} =       <root id="1" p:id="2" xmlns:p="xxx" />
 ${OUTPUT} =        %{TEMPDIR}/xmllib.xml
-${INDENT} =        ${SPACE * 4}
+${INDENT} =        ${SPACE*4}
 
 *** Keywords ***
 Get Etree Version
@@ -51,12 +51,12 @@ Saved XML Should Equal File
     Lists Should Be Equal    ${content}    ${expected}
 
 Run Keyword Depending On Etree Version
-    [Arguments]    ${etree 1.3 keyword}    ${etree 1.2 keyword}=No Operation
+    [Arguments]    ${etree_1.3_keyword}    ${etree_1.2_keyword}=No Operation
     ${version} =    Get Etree Version
     @{result} =    Run Keyword If    "${version}" >= "1.3"
-    ...    ${etree 1.3 keyword}
+    ...    ${etree_1.3_keyword}
     ...    ELSE
-    ...    ${etree 1.2 keyword}
+    ...    ${etree_1.2_keyword}
     [Return]    @{result}
 
 Test Attribute Namespace Parsing

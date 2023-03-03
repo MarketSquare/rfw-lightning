@@ -50,19 +50,19 @@ Generate Random String With [NUMBERS]
 
 *** Keywords ***
 String Length Should Be And It Should Consist Of
-    [Arguments]    ${string}    ${length}    ${allowed chars}
+    [Arguments]    ${string}    ${length}    ${allowed_chars}
     Length Should Be    ${string}    ${length}
     FOR    ${i}    IN RANGE    0    ${length}
-        Should Contain    ${allowed chars}    ${string[${i}]}
-        ...    String '${string}' contains character '${string[${i}]}' which is not in allowed characters '${allowed chars}'.
+        Should Contain    ${allowed_chars}    ${string[${i}]}
+        ...    String '${string}' contains character '${string[${i}]}' which is not in allowed characters '${allowed_chars}'.
     END
 
 String Length Should Be Within
-    [Arguments]     ${string}    ${lower limit}    ${upper limit}
+    [Arguments]     ${string}    ${lower_limit}    ${upper_limit}
     ${length} =    Get Length    ${string}
-    Should Be True    ${lower limit} <= ${length} <= ${upper limit}
+    Should Be True    ${lower_limit} <= ${length} <= ${upper_limit}
 
 Test Random String With
-    [Arguments]    ${expected characters}    ${given characters}
-    ${result} =    Generate Random String    100    ${given characters}
-    String Length Should Be And It Should Consist Of    ${result}    100    ${expected characters}
+    [Arguments]    ${expected_characters}    ${given_characters}
+    ${result} =    Generate Random String    100    ${given_characters}
+    String Length Should Be And It Should Consist Of    ${result}    100    ${expected_characters}

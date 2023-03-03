@@ -4,18 +4,18 @@ Suite Teardown    Remove Temp Files
 Resource          rebot_resource.robot
 
 *** Variables ***
-${TEMP OUT 1}     %{TEMPDIR}${/}rebot-test-1.xml
-${TEMP OUT 2}     %{TEMPDIR}${/}rebot-test-2.xml
-${COMB OUT 1}     %{TEMPDIR}${/}rebot-test-3.xml
-${COMB OUT 2}     %{TEMPDIR}${/}rebot-test-4.xml
-${COMB OUT 3}     %{TEMPDIR}${/}rebot-test-5.xml
-${COMB OUT 4}     %{TEMPDIR}${/}rebot-test-6.xml
-${OUT PATTERN}    %{TEMPDIR}${/}rebot-test-?.*
+${TEMP_OUT_1}     %{TEMPDIR}${/}rebot-test-1.xml
+${TEMP_OUT_2}     %{TEMPDIR}${/}rebot-test-2.xml
+${COMB_OUT_1}     %{TEMPDIR}${/}rebot-test-3.xml
+${COMB_OUT_2}     %{TEMPDIR}${/}rebot-test-4.xml
+${COMB_OUT_3}     %{TEMPDIR}${/}rebot-test-5.xml
+${COMB_OUT_4}     %{TEMPDIR}${/}rebot-test-6.xml
+${OUT_PATTERN}    %{TEMPDIR}${/}rebot-test-?.*
 ${SUITE1}         Set in suite setup by combining Pass And Fail and Normal w/o options.
 ${SUITE2}         As previous but with --name, --doc, etc.
 ${SUITE3}         Combined from Pass And Fail, Normal and Times
 ${SUITE4}         Combined from SUITE2 (recombine) and Times
-@{PASS FAIL}      Pass         Fail
+@{PASS_FAIL}      Pass         Fail
 @{NORMAL}         First One    Second One
 @{TIMES}          Incl-1       Incl-12    Incl-123    Excl-1    Excl-12    Excl-123
 
@@ -23,27 +23,27 @@ ${SUITE4}         Combined from SUITE2 (recombine) and Times
 Combining Two
     Should Contain Suites    ${SUITE1}    Pass And Fail    Normal
     Should Contain Suites    ${SUITE2}    Pass And Fail    Normal
-    Should Contain Tests    ${SUITE1}    @{PASS FAIL}    @{NORMAL}
-    Should Contain Tests    ${SUITE1.suites[0]}    @{PASS FAIL}
+    Should Contain Tests    ${SUITE1}    @{PASS_FAIL}    @{NORMAL}
+    Should Contain Tests    ${SUITE1.suites[0]}    @{PASS_FAIL}
     Should Contain Tests    ${SUITE1.suites[1]}    @{NORMAL}
-    Should Contain Tests    ${SUITE2}    @{PASS FAIL}    @{NORMAL}
-    Should Contain Tests    ${SUITE2.suites[0]}    @{PASS FAIL}
+    Should Contain Tests    ${SUITE2}    @{PASS_FAIL}    @{NORMAL}
+    Should Contain Tests    ${SUITE2.suites[0]}    @{PASS_FAIL}
     Should Contain Tests    ${SUITE2.suites[1]}    @{NORMAL}
 
 Combining Three
     Should Contain Suites    ${SUITE3}    Pass And Fail    Normal    Times
-    Should Contain Tests    ${SUITE3}    @{PASS FAIL}    @{NORMAL}    @{TIMES}
-    Should Contain Tests    ${SUITE3.suites[0]}    @{PASS FAIL}
+    Should Contain Tests    ${SUITE3}    @{PASS_FAIL}    @{NORMAL}    @{TIMES}
+    Should Contain Tests    ${SUITE3.suites[0]}    @{PASS_FAIL}
     Should Contain Tests    ${SUITE3.suites[1]}    @{NORMAL}
     Should Contain Tests    ${SUITE3.suites[2]}    @{TIMES}
 
 Recombining
     Should Contain Suites    ${SUITE4}    Times    New Name
     Should Contain Suites    ${SUITE4.suites[1]}    Pass And Fail    Normal
-    Should Contain Tests    ${SUITE4}    @{TIMES}    @{PASS FAIL}    @{NORMAL}
+    Should Contain Tests    ${SUITE4}    @{TIMES}    @{PASS_FAIL}    @{NORMAL}
     Should Contain Tests    ${SUITE4.suites[0]}    @{TIMES}
-    Should Contain Tests    ${SUITE4.suites[1]}    @{PASS FAIL}    @{NORMAL}
-    Should Contain Tests    ${SUITE4.suites[1].suites[0]}    @{PASS FAIL}
+    Should Contain Tests    ${SUITE4.suites[1]}    @{PASS_FAIL}    @{NORMAL}
+    Should Contain Tests    ${SUITE4.suites[1].suites[0]}    @{PASS_FAIL}
     Should Contain Tests    ${SUITE4.suites[1].suites[1]}    @{NORMAL}
 
 Default Suite Name When Combining Two
@@ -78,7 +78,8 @@ Suite Documemtation
 Suite Metadata
     Should Be True    ${SUITE1.metadata} == {}
     Should Be Equal    ${SUITE2.metadata['Name']}    value
-    Should Be Equal    ${SUITE2.metadata['Other Meta']}    Another value
+    ${other_meta}=     Evaluate     $SUITE2.metadata['Other Meta']
+    Should Be Equal    ${other_meta}    Another value
 
 Suite Times
     Should Be Equal    ${SUITE3.starttime}    ${NONE}
@@ -116,27 +117,27 @@ Suite Times In Recombine
     Should Be Equal    ${SUITE4.suites[1].suites[1].elapsedtime}    ${MILLIS2}
 
 Elapsed Time Should Be Written To Output When Start And End Time Are Not Known
-    ${combined} =    Get Element    ${COMB OUT 1}    suite/status
+    ${combined} =    Get Element    ${COMB_OUT_1}    suite/status
     Element Attribute Should Be    ${combined}    starttime    N/A
     Element Attribute Should Be    ${combined}    endtime    N/A
     Should Be True    int($combined.get('elapsedtime')) >= 0
-    ${originals} =    Get Elements    ${COMB OUT 1}    suite/suite/status
+    ${originals} =    Get Elements    ${COMB_OUT_1}    suite/suite/status
     Element Attribute Should Match    ${originals[0]}    starttime    20?????? ??:??:??.???
     Element Attribute Should Match    ${originals[0]}    endtime    20?????? ??:??:??.???
     Element Should Not Have Attribute    ${originals[0]}    elapsedtime
 
 Combined Suite Names Are Correct In Statistics
-    ${suites} =    Get Suite Stat Nodes    ${COMB OUT 1}
+    ${suites} =    Get Suite Stat Nodes    ${COMB_OUT_1}
     Should Be Equal    ${suites[0].text}    Pass And Fail & Normal
     Should Be Equal    ${suites[1].text}    Pass And Fail & Normal.Pass And Fail
     Should Be Equal    ${suites[2].text}    Pass And Fail & Normal.Normal
-    ${suites} =    Get Suite Stat Nodes    ${COMB OUT 2}
+    ${suites} =    Get Suite Stat Nodes    ${COMB_OUT_2}
     Should Be Equal    ${suites[0].text}    New Name
     Should Be Equal    ${suites[1].text}    New Name.Pass And Fail
     Should Be Equal    ${suites[2].text}    New Name.Normal
 
 Wildcards
-    Run Rebot    ${EMPTY}    ${OUT PATTERN}
+    Run Rebot    ${EMPTY}    ${OUT_PATTERN}
     Should Contain Suites    ${SUITE}    Pass And Fail    Normal    Pass And Fail & Normal
     ...    New Name    Pass And Fail & Normal & Times    Times & New Name
 
@@ -151,17 +152,17 @@ Create inputs for Rebot
     Prevent accidental usage of ${SUITE} variable
 
 Create first input for Rebot
-    Create Output With Robot    ${TEMP OUT 1}    ${EMPTY}    misc/pass_and_fail.robot
-    Set Suite Variable    $MILLIS1    ${ORIG ELAPSED}
+    Create Output With Robot    ${TEMP_OUT_1}    ${EMPTY}    misc/pass_and_fail.robot
+    Set Suite Variable    $MILLIS1    ${ORIG_ELAPSED}
 
 Create second input for Rebot
-    Create Output With Robot    ${TEMP OUT 2}    ${EMPTY}    misc/normal.robot
-    Set Suite Variable    $MILLIS2    ${ORIG ELAPSED}
+    Create Output With Robot    ${TEMP_OUT_2}    ${EMPTY}    misc/normal.robot
+    Set Suite Variable    $MILLIS2    ${ORIG_ELAPSED}
 
 Combine without options
-    Run Rebot    ${EMPTY}    ${TEMP OUT 1} ${TEMP OUT 2}
+    Run Rebot    ${EMPTY}    ${TEMP_OUT_1} ${TEMP_OUT_2}
     Set Suite Variable    $SUITE1    ${SUITE}
-    Copy File    ${OUT FILE}    ${COMB OUT 1}
+    Copy File    ${OUT_FILE}    ${COMB_OUT_1}
 
 Combine with options
     ${options} =    Catenate
@@ -169,22 +170,22 @@ Combine with options
     ...    --doc "My fine doc"
     ...    --metadata Name:value
     ...    -M "Other Meta:Another value"
-    Run Rebot    ${options}    ${TEMP OUT 1} ${TEMP OUT 2}
+    Run Rebot    ${options}    ${TEMP_OUT_1} ${TEMP_OUT_2}
     Set Suite Variable    $SUITE2    ${SUITE}
-    Copy File    ${OUT FILE}    ${COMB OUT 2}
+    Copy File    ${OUT_FILE}    ${COMB_OUT_2}
 
 Combine with output with known times
-    Run Rebot    ${EMPTY}    ${TEMP OUT 1} ${TEMP OUT 2} rebot/times.xml
-    Copy File    ${OUT FILE}    ${COMB OUT 3}
+    Run Rebot    ${EMPTY}    ${TEMP_OUT_1} ${TEMP_OUT_2} rebot/times.xml
+    Copy File    ${OUT_FILE}    ${COMB_OUT_3}
     Set Suite Variable    $SUITE3    ${SUITE}
 
 Recombine
-    Run Rebot    ${EMPTY}    rebot/times.xml ${COMB OUT 2}
+    Run Rebot    ${EMPTY}    rebot/times.xml ${COMB_OUT_2}
     Set Suite Variable    $SUITE4    ${SUITE}
-    Copy File    ${OUT FILE}    ${COMB OUT 4}
+    Copy File    ${OUT_FILE}    ${COMB_OUT_4}
 
 Prevent accidental usage of ${SUITE} variable
     Set Suite Variable    $SUITE    ${None}
 
 Remove Temp Files
-    Remove Files    ${OUT PATTERN}
+    Remove Files    ${OUT_PATTERN}

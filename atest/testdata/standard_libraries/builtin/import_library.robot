@@ -38,9 +38,9 @@ Import Library Using Physical Path, Arguments And WITH NAME
     Params With Path.Parameters Should Be    first param    ${2}
 
 Import Library Arguments Are Resolved Only Once
-    ${var} =    Set Variable    \${not var}
+    ${var} =    Set Variable    \${not_var}
     Import Library    ParameterLibrary    c:\\temp    ${var}    WITH NAME    Escaping
-    Escaping.Parameters Should Be    c:\\temp    \${not var}
+    Escaping.Parameters Should Be    c:\\temp    \${not_var}
 
 Import Library With Named Arguments
     Import Library    ParameterLibrary    port=${2}    host=first    WITH NAME    Named

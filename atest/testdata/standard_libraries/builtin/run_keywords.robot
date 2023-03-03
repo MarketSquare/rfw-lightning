@@ -15,28 +15,28 @@ ${ERRORS}         SEPARATOR=\n\n
 ...               Several failures occurred:
 ...               1) Expected error message
 ...               2) AssertionError
-${TD ERR}         Parent suite teardown failed:\n${ERRORS}
-${ATD ERR}        \n\nAlso parent suite teardown failed:\n${ERRORS}
+${TD_ERR}         Parent suite teardown failed:\n${ERRORS}
+${ATD_ERR}        \n\nAlso parent suite teardown failed:\n${ERRORS}
 
 *** Test Cases ***
 Passing keywords
-    [Documentation]    FAIL ${TD ERR}
+    [Documentation]    FAIL ${TD_ERR}
     Run keywords    No Operation    Passing    Log Variables
 
 Failing keyword
-    [Documentation]    FAIL Expected error message${ATD ERR}
+    [Documentation]    FAIL Expected error message${ATD_ERR}
     Run keywords    Passing    Failing    Not Executed
 
 Embedded arguments
-    [Documentation]    FAIL ${TD ERR}
+    [Documentation]    FAIL ${TD_ERR}
     Run keywords    Embedded "arg"    Embedded "${1}"    Embedded object "${OBJECT}"
 
 Embedded arguments with library keywords
-    [Documentation]    FAIL ${TD ERR}
+    [Documentation]    FAIL ${TD_ERR}
     Run keywords    Embedded "arg" in library    Embedded "${1}" in library    Embedded object "${OBJECT}" in library
 
 Keywords names needing escaping
-    [Documentation]    FAIL ${TD ERR}
+    [Documentation]    FAIL ${TD_ERR}
     Run keywords    Needs \\escaping \\\${notvar}
 
 Continuable failures
@@ -52,37 +52,37 @@ Continuable failures
     ...
     ...    5) Continuable 4/4
     ...
-    ...    6) Expected error message${ATD ERR}
+    ...    6) Expected error message${ATD_ERR}
     Run keywords    Continuable failure    Multiple continuables    Failing    Not Exec
 
 Keywords as variables
-    [Documentation]    FAIL Expected error message${ATD ERR}
+    [Documentation]    FAIL Expected error message${ATD_ERR}
     Run keywords    ${NOOP}    ${PASSING}    @{KEYWORDS}    ${FAILING}
 
 Keywords names needing escaping as variable
-    [Documentation]    FAIL ${TD ERR}
+    [Documentation]    FAIL ${TD_ERR}
     @{names} =    Create List    Needs \\escaping \\\${notvar}
     Run keywords    @{names}    ${names}[0]
 
 Non-existing variable as keyword name
-    [Documentation]    FAIL Variable '\${NONEXISTING}' not found.${ATD ERR}
+    [Documentation]    FAIL Variable '\${NONEXISTING}' not found.${ATD_ERR}
     Run keywords    Passing    ${NONEXISTING}    Not Executed
 
 Non-existing variable inside executed keyword
-    [Documentation]    FAIL Variable '\${this variable does not exist}' not found.${ATD ERR}
+    [Documentation]    FAIL Variable '\${this_variable_does_not_exist}' not found.${ATD_ERR}
     Run keywords    Passing    Non-existing Variable    Failing
 
 Non-existing keyword
-    [Documentation]    FAIL No keyword with name 'Non-Existing' found.${ATD ERR}
+    [Documentation]    FAIL No keyword with name 'Non-Existing' found.${ATD_ERR}
     Run keywords    Passing    Non-Existing    Non-Existing But Not Executed
 
 Wrong number of arguments to keyword
-    [Documentation]    FAIL Keyword 'BuiltIn.Log' expected 1 to 6 arguments, got 0.${ATD ERR}
+    [Documentation]    FAIL Keyword 'BuiltIn.Log' expected 1 to 6 arguments, got 0.${ATD_ERR}
     Run keywords    Passing    Log    This isn't argument to Log keyword
 
 In test setup
     [Documentation]    FAIL Setup failed:
-    ...    Expected error message${ATD ERR}
+    ...    Expected error message${ATD_ERR}
     [Setup]    Run keywords    ${NOOP}    Passing    ${FAILING}    Not executed
     No Operation
 
@@ -93,13 +93,13 @@ In test teardown
     ...
     ...    1) Expected error message
     ...
-    ...    2) Variable '\${this variable does not exist}' not found.
+    ...    2) Variable '\${this_variable_does_not_exist}' not found.
     ...
     ...    3) AssertionError
     ...
     ...    4) No keyword with name 'Non-Existing Keyword' found.
     ...
-    ...    5) Keyword name cannot be empty.${ATD ERR}
+    ...    5) Keyword name cannot be empty.${ATD_ERR}
     No Operation
     [Teardown]    Run keywords    Passing    ${NOOP}    Failing    ${NOOP}
     ...    Non-existing Variable    Fail    Non-Existing Keyword
@@ -112,20 +112,17 @@ In test teardown with non-existing variable in keyword name
     ...
     ...    1) No keyword with name '\${bad}' found.
     ...
-    ...    2) AssertionError
+    ...    2) Variable '\${bad}' not found.
     ...
-    ...    3) Variable '\${bad}' not found.
-    ...
-    ...    4) AssertionError${ATD ERR}
+    ...    3) AssertionError${ATD_ERR}
     No Operation
     [Teardown]    Run keywords
     ...    ${bad}
-    ...    ${{'Fail'}}
     ...    Embedded "${bad}"
     ...    Fail
 
 In test teardown with ExecutionPassed exception
-    [Documentation]    FAIL Stop here${ATD ERR}
+    [Documentation]    FAIL Stop here${ATD_ERR}
     No Operation
     Fail    Do not run me either
     [Teardown]    Run Keywords    Returning keyword
@@ -133,7 +130,7 @@ In test teardown with ExecutionPassed exception
     ...    AND    Fail    Do not run me please
 
 In test teardown with ExecutionPassed exception after continuable failure
-    [Documentation]    FAIL Stop here${ATD ERR}
+    [Documentation]    FAIL Stop here${ATD_ERR}
     No Operation
     Fail    Do not run me either
     [Teardown]    Run Keywords    Continuable failure
@@ -162,7 +159,7 @@ Returning keyword
     Fail    Do not run me please
 
 Non-existing Variable
-    Log    ${this variable does not exist}
+    Log    ${this_variable_does_not_exist}
 
 Syntax Error
     ${invalid}
