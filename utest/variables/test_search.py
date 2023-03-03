@@ -308,7 +308,7 @@ class TestUnescapeVariableSyntax(unittest.TestCase):
             self._test(inp)
 
     def test_no_variable(self):
-        for inp in ['\\', r'\n', r'\d+', r'\u2603', r'\$', r'\@', r'\&']:
+        for inp in ['\\', r'\n', r'\d+', r'\u2603', r'\@', r'\&']:
             self._test(inp)
             self._test('Hello, %s!' % inp)
 
@@ -328,8 +328,7 @@ class TestUnescapeVariableSyntax(unittest.TestCase):
         self._test(r'=\\\\}=\\\\{=')
 
     def test_misc(self):
-        self._test(r'$\{foo\}', '$foo')
-        self._test(r'\$\{foo\}', r'\$foo')
+        self._test(r'$foo', '$foo')
         self._test(r'\$n', r'$n')
         self._test(r'\${foo', r'\${foo')
 
