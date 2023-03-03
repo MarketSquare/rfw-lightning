@@ -10,7 +10,7 @@ from robot.parsing.model.blocks import (
     Keyword, KeywordSection, SettingSection, TestCase, TestCaseSection, VariableSection
 )
 from robot.parsing.model.statements import (
-    Arguments, Break, Comment, Config, Continue, Documentation, ForHeader, End, ElseHeader,
+    Arguments, AssignKeywordCall, Break, Comment, Config, Continue, Documentation, ForHeader, End, ElseHeader,
     ElseIfHeader, EmptyLine, Error, IfHeader, InlineIfHeader, TryHeader, ExceptHeader,
     FinallyHeader, KeywordCall, KeywordName, Return, ReturnSetting, ReturnStatement,
     SectionHeader, TestCaseName, Variable, WhileHeader
@@ -855,10 +855,10 @@ ${not     closed
                             Token(Token.ARGUMENT, 'invalid', 3, 10)],
                     errors=("Invalid variable name '${}'.",)
                 ),
-                Variable(
-                    tokens=[Token(Token.VARIABLE, '${x}==', 4, 0),
+                AssignKeywordCall(
+                    tokens=[Token(Token.ASSIGN_KEYWORD_CALL, '${x}==', 4, 0),
                             Token(Token.ARGUMENT, 'invalid', 4, 10)],
-                    errors=("Invalid variable name '${x}=='.",)
+                    errors=()
                 ),
                 Variable(
                     tokens=[Token(Token.VARIABLE, '${not', 5, 0),

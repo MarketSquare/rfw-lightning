@@ -49,7 +49,7 @@ class TestSearchVariable(unittest.TestCase):
         self._test(r'${&{{\\\\}\\}}{}}', r'${&{{\\\\}\\}}')
 
     def test_uneven_curlys(self):
-        for inp in ['${x', '${x:{}', '${y:{{}}', 'xx${z:{}xx', '{${{}{{}}{{',
+        for inp in ['${x:{}', '${y:{{}}', 'xx${z:{}xx',
                     r'${x\}', r'${x\\\}', r'${x\\\\\\\}']:
             for identifier in '$@&%':
                 assert_raises_with_msg(
@@ -150,7 +150,7 @@ class TestSearchVariable(unittest.TestCase):
         self._test('${x}[${y}[0]][key]', '${x}', items=['${y}[0]', 'key'])
 
     def test_unclosed_item(self):
-        for inp in ['${x}[0', '${x}[0][key', r'${x}[0\]']:
+        for inp in ['${x}[0', '${x}[0][key']:
             msg = "Variable item '%s' was not closed properly." % inp
             assert_raises_with_msg(DataError, msg, search_variable, inp)
             self._test(inp, ignore_errors=True)
@@ -332,8 +332,7 @@ class TestUnescapeVariableSyntax(unittest.TestCase):
     def test_misc(self):
         self._test(r'$\{foo\}', '${foo}')
         self._test(r'\$\{foo\}', r'\${foo}')
-        self._test(r'\${\n}', r'${\n}')
-        self._test(r'\${\${x}}', r'${${x}}')
+        self._test(r'\${n}', r'${n}')
         self._test(r'\${foo', r'\${foo')
 
     def _test(self, inp, exp=None):

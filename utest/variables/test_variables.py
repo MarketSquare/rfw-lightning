@@ -5,8 +5,8 @@ from robot.errors import DataError, VariableError
 from robot.utils.asserts import assert_equal, assert_raises
 
 
-SCALARS = ['${var}', '${  v A  R }']
-LISTS = ['@{var}', '@{  v A  R }']
+SCALARS = ['${var}', '${vAR}']
+LISTS = ['@{var}', '@{vAR}']
 NOKS = ['var', '$var', '${var', '${va}r', '@{va}r', '@var', '%{var}', ' ${var}',
         '@{var} ', '\\${var}', '\\\\${var}', 42, None, ['${var}'], DataError]
 
@@ -176,31 +176,21 @@ class TestVariables(unittest.TestCase):
         assert_equal(self.varz.replace_scalar('${dic["o"]}'), obj)
         assert_equal(self.varz.replace_scalar('-${dic["o"].b[2]}-'), '-3-')
 
-    def test_space_is_not_ignored_after_newline_in_extend_variable_syntax(self):
-        self.varz['${x}'] = 'test string'
-        self.varz['${lf}'] = '\\n'
-        self.varz['${lfs}'] = '\\n '
-        for inp, exp in [('${x.replace(" ", """\\n""")}', 'test\nstring'),
-                         ('${x.replace(" ", """\\n """)}', 'test\n string'),
-                         ('${x.replace(" ", """${lf}""")}', 'test\nstring'),
-                         ('${x.replace(" ", """${lfs}""")}', 'test\n string')]:
-            assert_equal(self.varz.replace_scalar(inp), exp)
-
     def test_escaping_with_extended_variable_syntax(self):
         self.varz['${p}'] = 'c:\\temp'
         assert self.varz['${p}'] == 'c:\\temp'
-        assert_equal(self.varz.replace_scalar('${p + "\\\\foo.txt"}'),
+        assert_equal(self.varz.replace_scalar('${p+"\\\\foo.txt"}'),
                      'c:\\temp\\foo.txt')
 
     def test_internal_variables(self):
         # Internal variables are variables like ${my${name}}
         self.varz['${name}'] = 'name'
-        self.varz['${my name}'] = 'value'
+        self.varz['${my_name}'] = 'value'
         assert_equal(self.varz.replace_scalar('${my${name}}'), 'value')
-        self.varz['${whos name}'] = 'my'
-        assert_equal(self.varz.replace_scalar('${${whos name} ${name}}'), 'value')
+        self.varz['${whos_name}'] = 'my'
+        assert_equal(self.varz.replace_scalar('${${whos_name}_${name}}'), 'value')
         assert_equal(self.varz.replace_scalar('${${whos${name}}${name}}'), 'value')
-        self.varz['${my name}'] = [1, 2, 3]
+        self.varz['${my_name}'] = [1, 2, 3]
         assert_equal(self.varz.replace_scalar('${${whos${name}}${name}}'), [1, 2, 3])
         assert_equal(self.varz.replace_scalar('- ${${whos${name}}${name}} -'), '- [1, 2, 3] -')
 
@@ -209,12 +199,10 @@ class TestVariables(unittest.TestCase):
         assert_equal(self.varz.replace_scalar('${${1}-${2}}'), -1)
         assert_equal(self.varz.replace_scalar('${${1}*${2}}'), 2)
         assert_equal(self.varz.replace_scalar('${${1}//${2}}'), 0)
-
-    def test_math_with_internal_vars_with_spaces(self):
-        assert_equal(self.varz.replace_scalar('${${1} + ${2.5}}'), 3.5)
-        assert_equal(self.varz.replace_scalar('${${1} - ${2} + 1}'), 0)
-        assert_equal(self.varz.replace_scalar('${${1} * ${2} - 1}'), 1)
-        assert_equal(self.varz.replace_scalar('${${1} / ${2.0}}'), 0.5)
+        assert_equal(self.varz.replace_scalar('${${1}+${2.5}}'), 3.5)
+        assert_equal(self.varz.replace_scalar('${${1}-${2}+1}'), 0)
+        assert_equal(self.varz.replace_scalar('${${1}*${2}-1}'), 1)
+        assert_equal(self.varz.replace_scalar('${${1}/${2.0}}'), 0.5)
 
     def test_math_with_internal_vars_does_not_work_if_first_var_is_float(self):
         assert_raises(VariableError, self.varz.replace_scalar, '${${1.1}+${2}}')

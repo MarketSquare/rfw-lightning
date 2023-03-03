@@ -42,9 +42,9 @@ class TestTokenizeVariables(unittest.TestCase):
             token = Token(token_type, 'Nothing to see hear!')
             assert_equal(list(token.tokenize_variables()),
                          [token])
-            token = Token(token_type, '${var only}')
+            token = Token(token_type, '${var_only}')
             assert_equal(list(token.tokenize_variables()),
-                         [Token(Token.VARIABLE, '${var only}')])
+                         [Token(Token.VARIABLE, '${var_only}')])
             token = Token(token_type, 'Hello, ${var}!', 1, 0)
             assert_equal(list(token.tokenize_variables()),
                          [Token(token_type, 'Hello, ', 1, 0),

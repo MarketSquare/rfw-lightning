@@ -8,9 +8,9 @@ from robot.variables import (contains_variable,
                              search_variable)
 
 
-SCALARS = ['${var}', '${  v A  R }']
-LISTS = ['@{var}', '@{  v A  R }']
-DICTS = ['&{var}', '&{  v A  R }']
+SCALARS = ['${var}', '${vAR}']
+LISTS = ['@{var}', '@{vAR}']
+DICTS = ['&{var}', '&{vAR}']
 NOKS = ['', 'nothing', '$not', '${not', '@not', '&{not', '${not}[oops',
         '%{not}', '*{not}', r'\${var}', r'\\\${var}', 42, None, ['${var}']]
 NOK_ASSIGNS = NOKS + ['${${internal}}', '${var}[item]',

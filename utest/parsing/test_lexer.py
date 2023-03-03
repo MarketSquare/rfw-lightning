@@ -1835,6 +1835,27 @@ do something
         assert_tokens(data, expected, get_tokens=get_init_tokens,
                       data_only=True, tokenize_variables=True)
 
+    def test_valid_assign_keyword_call(self):
+        data = '''\
+*** Keywords ***
+do something
+    ${a}=do nothing
+'''
+        expected = [(T.KEYWORD_HEADER, '*** Keywords ***', 1, 0),
+                    (T.EOS, '', 1, 16),
+                    (T.KEYWORD_NAME, 'do something', 2, 0),
+                    (T.EOS, '', 2, 12),
+                    (T.ASSIGN_KEYWORD_CALL, '${a}=do nothing', 3, 4),
+                    (T.EOS, '', 3, 19)]
+
+        assert_tokens(data, expected, get_tokens=get_tokens,
+                      data_only=True, tokenize_variables=True)
+        assert_tokens(data, expected, get_tokens=get_resource_tokens,
+                      data_only=True, tokenize_variables=True)
+        assert_tokens(data, expected, get_tokens=get_init_tokens,
+                      data_only=True, tokenize_variables=True)        
+
+
     def test_invalid_assign_not_closed_should_be_keyword(self):
         data = '''\
 *** Keywords ***

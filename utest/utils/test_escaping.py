@@ -180,14 +180,14 @@ class TestSplitFromEquals(unittest.TestCase):
             self._test(inp, inp, None)
 
     def test_no_split_in_variable(self):
-        self._test(r'${a=b}', '${a=b}', None)
-        self._test(r'=${a=b}', '', '${a=b}')
-        self._test(r'${a=b}=', '${a=b}', '')
-        self._test(r'\=${a=b}', r'\=${a=b}', None)
-        self._test(r'${a=b}=${c=d}', '${a=b}', '${c=d}')
-        self._test(r'${a=b}\=${c=d}', r'${a=b}\=${c=d}', None)
-        self._test(r'${a=b}${c=d}${e=f}\=${g=h}=${i=j}',
-                   r'${a=b}${c=d}${e=f}\=${g=h}', '${i=j}')
+        self._test(r'${a_b}', '${a_b}', None)
+        self._test(r'=${a_b}', '', '${a_b}')
+        self._test(r'${a_b}=', '${a_b}', '')
+        self._test(r'\=${a_b}', r'\=${a_b}', None)
+        self._test(r'${a_b}=${c_d}', '${a_b}', '${c_d}')
+        self._test(r'${a_b}\=${c_d}', r'${a_b}\=${c_d}', None)
+        self._test(r'${a_b}${c_d}${e_f}\=${g_h}=${i_j}',
+                   r'${a_b}${c_d}${e_f}\=${g_h}', '${i_j}')
 
     def test_broken_variable(self):
         self._test('${foo=bar', '${foo', 'bar')

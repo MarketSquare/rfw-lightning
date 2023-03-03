@@ -148,21 +148,21 @@ class TestSuiteSetupAndTeardown(unittest.TestCase):
         assert_test(suite.tests[0], 'Test with setup and teardown', 'PASS')
 
     def test_failing_setup(self):
-        suite = run(self.suite, variable='SUITE SETUP:Fail')
+        suite = run(self.suite, variable='SUITE_SETUP:Fail')
         assert_suite(suite, 'Setups And Teardowns', 'FAIL',
                      'Suite setup failed:\nAssertionError', 4)
         assert_test(suite.tests[0], 'Test with setup and teardown', 'FAIL',
                     msg='Parent suite setup failed:\nAssertionError')
 
     def test_failing_teardown(self):
-        suite = run(self.suite, variable='SUITE TEARDOWN:Fail')
+        suite = run(self.suite, variable='SUITE_TEARDOWN:Fail')
         assert_suite(suite, 'Setups And Teardowns', 'FAIL',
                      'Suite teardown failed:\nAssertionError', 4)
         assert_test(suite.tests[0], 'Test with setup and teardown', 'FAIL',
                     msg='Parent suite teardown failed:\nAssertionError')
 
     def test_failing_test_with_failing_teardown(self):
-        suite = run(self.suite, variable=['SUITE SETUP:Fail', 'SUITE TEARDOWN:Fail'])
+        suite = run(self.suite, variable=['SUITE_SETUP:Fail', 'SUITE_TEARDOWN:Fail'])
         assert_suite(suite, 'Setups And Teardowns', 'FAIL',
                      'Suite setup failed:\nAssertionError\n\n'
                      'Also suite teardown failed:\nAssertionError', 4)
@@ -174,7 +174,7 @@ class TestSuiteSetupAndTeardown(unittest.TestCase):
         root = TestSuite(name='Root')
         root.teardown.config(name='Fail', args=['Top level'], type='teardown')
         root.suites.append(self.suite)
-        suite = run(root, variable=['SUITE SETUP:Fail', 'SUITE TEARDOWN:Fail'])
+        suite = run(root, variable=['SUITE_SETUP:Fail', 'SUITE_TEARDOWN:Fail'])
         assert_suite(suite, 'Root', 'FAIL',
                      'Suite teardown failed:\nTop level', 0)
         assert_suite(suite.suites[0], 'Setups And Teardowns', 'FAIL',
