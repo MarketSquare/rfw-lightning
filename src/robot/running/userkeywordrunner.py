@@ -126,11 +126,11 @@ class UserKeywordRunner:
         for name, value in chain(zip(spec.positional, args), kwonly):
             if isinstance(value, DefaultValue):
                 value = value.resolve(variables)
-            variables['${%s}' % name] = value
+            variables['$%s' % name] = value
         if spec.var_positional:
-            variables['@{%s}' % spec.var_positional] = varargs
+            variables['@%s' % spec.var_positional] = varargs
         if spec.var_named:
-            variables['&{%s}' % spec.var_named] = DotDict(kwargs)
+            variables['&%s' % spec.var_named] = DotDict(kwargs)
 
     def _split_args_and_varargs(self, args):
         if not self.arguments.var_positional:

@@ -73,8 +73,9 @@ class SuiteRunner(SuiteVisitor):
         EXECUTION_CONTEXTS.start_suite(result, ns, self._output,
                                        self._settings.dry_run)
         self._context.set_suite_variables(result)
+        delayed_variables = []
         if not self._suite_status.failed:
-            ns.handle_imports()
+            delayed_variables = ns.handle_imports()
             ns.variables.resolve_delayed()
         result.doc = self._resolve_setting(result.doc)
         result.metadata = [(self._resolve_setting(n), self._resolve_setting(v))
@@ -85,6 +86,8 @@ class SuiteRunner(SuiteVisitor):
                                                suites=suite.suites,
                                                test_count=suite.test_count))
         self._output.register_error_listener(self._suite_status.error_occurred)
+        for delayed_variable in [d for d in suite.resource.delayed_variables] + delayed_variables:
+            self._run_setup_or_teardown(delayed_variable)
         self._run_setup(suite.setup, self._suite_status)
 
     def _resolve_setting(self, value):

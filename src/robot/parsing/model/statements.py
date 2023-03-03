@@ -767,6 +767,27 @@ class KeywordCall(Statement):
 
 
 @Statement.register
+class AssignKeywordCall(KeywordCall):
+    type = Token.ASSIGN_KEYWORD_CALL
+
+    @property
+    def keyword(self):
+        parts = self.get_value(Token.ASSIGN_KEYWORD_CALL)
+        _, tail = parts.split("=", 1)
+        return tail.lstrip()
+
+    @property
+    def args(self):
+        return self.get_values(Token.ARGUMENT)
+
+    @property
+    def assign(self):
+        parts = self.get_value(Token.ASSIGN_KEYWORD_CALL)
+        head, _ = parts.split("=", 1)
+        return (head.rstrip(),)
+
+
+@Statement.register
 class TemplateArguments(Statement):
     type = Token.ARGUMENT
 
@@ -860,17 +881,12 @@ class IfHeader(IfElseHeader):
 
     @property
     def condition(self):
-        values = self.get_values(Token.ARGUMENT)
-        if len(values) != 1:
-            return ', '.join(values) if values else None
-        return values[0]
+        return self.get_values(Token.ARGUMENT)
 
     def validate(self, ctx: 'ValidationContext'):
         conditions = len(self.get_tokens(Token.ARGUMENT))
         if conditions == 0:
             self.errors += ('%s must have a condition.' % self.type,)
-        if conditions > 1:
-            self.errors += ('%s cannot have more than one condition.' % self.type,)
 
 
 @Statement.register

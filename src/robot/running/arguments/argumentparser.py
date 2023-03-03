@@ -178,7 +178,7 @@ class DynamicArgumentParser(ArgumentSpecParser):
         return arg[:2] == '**'
 
     def _format_var_named(self, kwargs):
-        return kwargs[2:]
+        return kwargs[1:]
 
     def _is_var_positional(self, arg):
         return arg and arg[0] == '*'
@@ -208,7 +208,7 @@ class UserKeywordArgumentParser(ArgumentSpecParser):
         return arg and arg[0] == '&'
 
     def _format_var_named(self, kwargs):
-        return kwargs[2:-1]
+        return kwargs[1:]
 
     def _is_var_positional(self, arg):
         return arg and arg[0] == '@'
@@ -217,7 +217,7 @@ class UserKeywordArgumentParser(ArgumentSpecParser):
         return arg == '@{}'
 
     def _format_var_positional(self, varargs):
-        return varargs[2:-1]
+        return varargs[1:]
 
     def _format_arg(self, arg):
-        return arg[2:-1]
+        return arg[1:]

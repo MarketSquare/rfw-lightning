@@ -573,6 +573,41 @@ class Variable(ModelObject):
         return data
 
 
+class DelayedVariable(ModelObject):
+    repr_args = ('name', 'name', 'args', 'assign')
+
+    def __init__(self, name, keyword, args=(), parent=None, lineno=None, error=None):
+        self.assign = name
+        self.name = keyword
+        self.args = args
+        self.parent = parent
+        self.lineno = lineno
+        self.error = error
+        self.type=BodyItem.KEYWORD
+
+    @property
+    def source(self):
+        return self.parent.source if self.parent is not None else None
+
+    def report_invalid_syntax(self, message, level='ERROR'):
+        source = self.source or '<unknown>'
+        line = f' on line {self.lineno}' if self.lineno else ''
+        LOGGER.write(f"Error in file '{source}'{line}: "
+                     f"Setting variable '{self.name}' failed: {message}", level)
+
+    @classmethod
+    def from_dict(cls, data):
+        return cls(**data)
+
+    def to_dict(self):
+        data = {'name': self.name, 'keyword': self.keyword, 'args': list(self.args)}
+        if self.lineno:
+            data['lineno'] = self.lineno
+        if self.error:
+            data['error'] = self.error
+        return data
+
+
 class ResourceFile(ModelObject):
     repr_args = ('source',)
     __slots__ = ('_source', 'parent', 'doc')
@@ -583,6 +618,7 @@ class ResourceFile(ModelObject):
         self.doc = doc
         self.imports = []
         self.variables = []
+        self.delayed_variables = []
         self.keywords = []
 
     @property
@@ -606,6 +642,10 @@ class ResourceFile(ModelObject):
     @setter
     def variables(self, variables):
         return model.ItemList(Variable, {'parent': self}, items=variables)
+
+    @setter
+    def delayed_variables(self, delayed_variables):
+        return model.ItemList(DelayedVariable, {'parent': self}, items=delayed_variables)
 
     @setter
     def keywords(self, keywords):

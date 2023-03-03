@@ -102,6 +102,8 @@ class ForInRunner:
             else:
                 run = True
         result = ForResult(data.variables, data.flavor, data.values)
+        if len(data.values) == 1:
+            data.values = self._resolve_values(data.values)[0]
         with StatusReporter(data, result, self._context, run) as status:
             if run:
                 try:
@@ -465,8 +467,29 @@ class IfRunner:
             return True
         try:
             condition = variables.replace_scalar(condition)
-            if is_string(condition):
-                return evaluate_expression(condition, variables.current.store)
+            if isinstance(condition, tuple) and len(condition) == 3:
+                condition = [variables.replace_scalar(c) for c in condition]
+                match condition[1]:
+                    case '==':
+                        return condition[0] == condition[2]
+                    case 'is':
+                        return condition[0] is condition[2]
+                    case 'in':
+                        return condition[0] in condition[2]
+                    case '!=':
+                        return condition[0] != condition[2]
+                    case '>':
+                        return condition[0] > condition[2]
+                    case '<':
+                        return condition[0] < condition[2]
+                    case '>=':
+                        return condition[0] >= condition[2]
+                    case '<=':
+                        return condition[0] <= condition[2]
+                    case 'not in':
+                        return condition[0] not in condition[2]
+                    case _:
+                        raise Exception(f"Unknown condition {condition}")
             return bool(condition)
         except Exception:
             msg = get_error_message()

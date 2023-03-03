@@ -28,7 +28,7 @@ from .statementlexers import (Lexer,
                               TestOrKeywordSettingLexer,
                               KeywordCallLexer,
                               IfHeaderLexer, ElseIfHeaderLexer, ElseHeaderLexer,
-                              InlineIfHeaderLexer, EndLexer,
+                              EndLexer,
                               TryHeaderLexer, ExceptHeaderLexer, FinallyHeaderLexer,
                               ForHeaderLexer, WhileHeaderLexer,
                               ContinueLexer, BreakLexer, ReturnLexer)
@@ -199,7 +199,7 @@ class TestOrKeywordLexer(BlockLexer):
 
     def lexer_classes(self):
         return (TestOrKeywordSettingLexer, BreakLexer, ContinueLexer,
-                ForLexer, InlineIfLexer, IfLexer, ReturnLexer, TryLexer,
+                ForLexer, IfLexer, ReturnLexer, TryLexer,
                 WhileLexer, KeywordCallLexer)
 
 
@@ -245,7 +245,7 @@ class ForLexer(NestedBlockLexer):
         return ForHeaderLexer.handles(statement, ctx)
 
     def lexer_classes(self):
-        return (ForHeaderLexer, InlineIfLexer, IfLexer, TryLexer, WhileLexer, EndLexer,
+        return (ForHeaderLexer, IfLexer, TryLexer, WhileLexer, EndLexer,
                 ReturnLexer, ContinueLexer, BreakLexer, KeywordCallLexer)
 
 
@@ -256,7 +256,7 @@ class WhileLexer(NestedBlockLexer):
         return WhileHeaderLexer.handles(statement, ctx)
 
     def lexer_classes(self):
-        return (WhileHeaderLexer, ForLexer, InlineIfLexer, IfLexer, TryLexer, EndLexer,
+        return (WhileHeaderLexer, ForLexer, IfLexer, TryLexer, EndLexer,
                 ReturnLexer, ContinueLexer, BreakLexer, KeywordCallLexer)
 
 
@@ -268,7 +268,7 @@ class TryLexer(NestedBlockLexer):
 
     def lexer_classes(self):
         return (TryHeaderLexer, ExceptHeaderLexer, ElseHeaderLexer, FinallyHeaderLexer,
-                ForLexer, InlineIfLexer, IfLexer, WhileLexer, EndLexer, ReturnLexer,
+                ForLexer, IfLexer, WhileLexer, EndLexer, ReturnLexer,
                 BreakLexer, ContinueLexer, KeywordCallLexer)
 
 
@@ -279,58 +279,7 @@ class IfLexer(NestedBlockLexer):
         return IfHeaderLexer.handles(statement, ctx)
 
     def lexer_classes(self):
-        return (InlineIfLexer, IfHeaderLexer, ElseIfHeaderLexer, ElseHeaderLexer,
+        return (IfHeaderLexer, ElseIfHeaderLexer, ElseHeaderLexer,
                 ForLexer, TryLexer, WhileLexer, EndLexer, ReturnLexer, ContinueLexer,
                 BreakLexer, KeywordCallLexer)
 
-
-class InlineIfLexer(BlockLexer):
-
-    @classmethod
-    def handles(cls, statement: list, ctx: TestOrKeywordContext):
-        if len(statement) <= 2:
-            return False
-        return InlineIfHeaderLexer.handles(statement, ctx)
-
-    def accepts_more(self, statement: list):
-        return False
-
-    def lexer_classes(self):
-        return (InlineIfHeaderLexer, ElseIfHeaderLexer, ElseHeaderLexer,
-                ReturnLexer, ContinueLexer, BreakLexer, KeywordCallLexer)
-
-    def input(self, statement: list):
-        for part in self._split(statement):
-            if part:
-                super().input(part)
-        return self
-
-    def _split(self, statement):
-        current = []
-        expect_condition = False
-        for token in statement:
-            if expect_condition:
-                if token is not statement[-1]:
-                    token._add_eos_after = True
-                current.append(token)
-                yield current
-                current = []
-                expect_condition = False
-            elif token.value == 'IF':
-                current.append(token)
-                expect_condition = True
-            elif normalize_whitespace(token.value) == 'ELSE IF':
-                token._add_eos_before = True
-                yield current
-                current = [token]
-                expect_condition = True
-            elif token.value == 'ELSE':
-                token._add_eos_before = True
-                if token is not statement[-1]:
-                    token._add_eos_after = True
-                yield current
-                current = []
-                yield [token]
-            else:
-                current.append(token)
-        yield current

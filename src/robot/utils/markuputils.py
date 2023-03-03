@@ -42,6 +42,8 @@ def html_format(text):
 
 
 def attribute_escape(attr):
+    if isinstance(attr, tuple):
+        attr = ' '.join(attr)
     attr = _escape(attr, _attribute_escapes)
     return _illegal_chars_in_xml.sub('', attr)
 

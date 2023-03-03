@@ -78,8 +78,8 @@ class _ExecutionContext:
 
     @contextmanager
     def test_teardown(self, test):
-        self.variables.set_test('${TEST_STATUS}', test.status)
-        self.variables.set_test('${TEST_MESSAGE}', test.message)
+        self.variables.set_test('$TEST_STATUS', test.status)
+        self.variables.set_test('$TEST_MESSAGE', test.message)
         self.in_test_teardown = True
         self._remove_timeout(test.timeout)
         try:
@@ -89,8 +89,8 @@ class _ExecutionContext:
 
     @contextmanager
     def keyword_teardown(self, error):
-        self.variables.set_keyword('${KEYWORD_STATUS}', 'FAIL' if error else 'PASS')
-        self.variables.set_keyword('${KEYWORD_MESSAGE}', str(error or ''))
+        self.variables.set_keyword('$KEYWORD_STATUS', 'FAIL' if error else 'PASS')
+        self.variables.set_keyword('$KEYWORD_MESSAGE', str(error or ''))
         self.in_keyword_teardown += 1
         try:
             yield
@@ -152,31 +152,31 @@ class _ExecutionContext:
         return False
 
     def end_suite(self, suite):
-        for name in ['${PREV_TEST_NAME}',
-                     '${PREV_TEST_STATUS}',
-                     '${PREV_TEST_MESSAGE}']:
+        for name in ['$PREV_TEST_NAME',
+                     '$PREV_TEST_STATUS',
+                     '$PREV_TEST_MESSAGE']:
             self.variables.set_global(name, self.variables[name])
         self.output.end_suite(suite)
         self.namespace.end_suite(suite)
         EXECUTION_CONTEXTS.end_suite()
 
     def set_suite_variables(self, suite):
-        self.variables['${SUITE_NAME}'] = suite.longname
-        self.variables['${SUITE_SOURCE}'] = str(suite.source or '')
-        self.variables['${SUITE_DOCUMENTATION}'] = suite.doc
-        self.variables['${SUITE_METADATA}'] = suite.metadata.copy()
+        self.variables['$SUITE_NAME'] = suite.longname
+        self.variables['$SUITE_SOURCE'] = str(suite.source or '')
+        self.variables['$SUITE_DOCUMENTATION'] = suite.doc
+        self.variables['$SUITE_METADATA'] = suite.metadata.copy()
 
     def report_suite_status(self, status, message):
-        self.variables['${SUITE_STATUS}'] = status
-        self.variables['${SUITE_MESSAGE}'] = message
+        self.variables['$SUITE_STATUS'] = status
+        self.variables['$SUITE_MESSAGE'] = message
 
     def start_test(self, test):
         self.test = test
         self._add_timeout(test.timeout)
         self.namespace.start_test()
-        self.variables.set_test('${TEST_NAME}', test.name)
-        self.variables.set_test('${TEST_DOCUMENTATION}', test.doc)
-        self.variables.set_test('@{TEST_TAGS}', list(test.tags))
+        self.variables.set_test('$TEST_NAME', test.name)
+        self.variables.set_test('$TEST_DOCUMENTATION', test.doc)
+        self.variables.set_test('$TEST_TAGS', list(test.tags))
 
     def _add_timeout(self, timeout):
         if timeout:
@@ -191,9 +191,9 @@ class _ExecutionContext:
         self.test = None
         self._remove_timeout(test.timeout)
         self.namespace.end_test()
-        self.variables.set_suite('${PREV_TEST_NAME}', test.name)
-        self.variables.set_suite('${PREV_TEST_STATUS}', test.status)
-        self.variables.set_suite('${PREV_TEST_MESSAGE}', test.message)
+        self.variables.set_suite('$PREV_TEST_NAME', test.name)
+        self.variables.set_suite('$PREV_TEST_STATUS', test.status)
+        self.variables.set_suite('$PREV_TEST_MESSAGE', test.message)
         self.timeout_occurred = False
 
     def start_keyword(self, keyword):

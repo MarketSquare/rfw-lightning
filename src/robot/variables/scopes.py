@@ -187,31 +187,31 @@ class GlobalVariables(Variables):
             self['${%s}' % name] = value
 
     def _set_built_in_variables(self, settings):
-        for name, value in [('${TEMPDIR}', abspath(tempfile.gettempdir())),
-                            ('${EXECDIR}', abspath('.')),
-                            ('${OPTIONS}', DotDict({
+        for name, value in [('$TEMPDIR', abspath(tempfile.gettempdir())),
+                            ('$EXECDIR', abspath('.')),
+                            ('$OPTIONS', DotDict({
                                 'include': Tags(settings.include),
                                 'exclude': Tags(settings.exclude),
                                 'skip': Tags(settings.skip),
                                 'skip_on_failure': Tags(settings.skip_on_failure)
                             })),
-                            ('${/}', os.sep),
-                            ('${:}', os.pathsep),
-                            ('${\\n}', os.linesep),
-                            ('${SPACE}', ' '),
-                            ('${True}', True),
-                            ('${False}', False),
-                            ('${None}', None),
-                            ('${null}', None),
-                            ('${OUTPUT_DIR}', settings.output_directory),
-                            ('${OUTPUT_FILE}', settings.output or 'NONE'),
-                            ('${REPORT_FILE}', settings.report or 'NONE'),
-                            ('${LOG_FILE}', settings.log or 'NONE'),
-                            ('${DEBUG_FILE}', settings.debug_file or 'NONE'),
-                            ('${LOG_LEVEL}', settings.log_level),
-                            ('${PREV_TEST_NAME}', ''),
-                            ('${PREV_TEST_STATUS}', ''),
-                            ('${PREV_TEST_MESSAGE}', '')]:
+                            ('$/', os.sep),
+                            ('$:', os.pathsep),
+                            ('$\\n', os.linesep),
+                            ('$SPACE', ' '),
+                            ('$True', True),
+                            ('$False', False),
+                            ('$None', None),
+                            ('$null', None),
+                            ('$OUTPUT_DIR', settings.output_directory),
+                            ('$OUTPUT_FILE', settings.output or 'NONE'),
+                            ('$REPORT_FILE', settings.report or 'NONE'),
+                            ('$LOG_FILE', settings.log or 'NONE'),
+                            ('$DEBUG_FILE', settings.debug_file or 'NONE'),
+                            ('$LOG_LEVEL', settings.log_level),
+                            ('$PREV_TEST_NAME', ''),
+                            ('$PREV_TEST_STATUS', ''),
+                            ('$PREV_TEST_MESSAGE', '')]:
             self[name] = GlobalVariableValue(value)
 
 

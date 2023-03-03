@@ -111,6 +111,15 @@ class SuiteBuilder(NodeVisitor):
                                              lineno=node.lineno,
                                              error=format_error(node.errors))
 
+    def visit_AssignKeywordCall(self, node):
+        self.suite.resource.delayed_variables.create(
+            name=node.assign,
+            keyword=node.keyword,
+            args=node.args,
+            lineno=node.lineno,
+            error=format_error(node.errors)
+            )
+
     def visit_TestCaseSection(self, node):
         if self.rpa is None:
             self.rpa = node.tasks
@@ -155,6 +164,15 @@ class ResourceBuilder(NodeVisitor):
                                        value=node.value,
                                        lineno=node.lineno,
                                        error=format_error(node.errors))
+    
+    def visit_AssignKeywordCall(self, node):
+        self.resource.delayed_variables.create(
+            name=node.assign,
+            keyword=node.keyword,
+            args=node.args,
+            lineno=node.lineno,
+            error=format_error(node.errors)
+            )
 
     def visit_Keyword(self, node):
         KeywordBuilder(self.resource, self.defaults).visit(node)
@@ -251,6 +269,10 @@ class TestCaseBuilder(NodeVisitor):
         self.test.body.create_keyword(name=node.keyword, args=node.args,
                                       assign=node.assign, lineno=node.lineno)
 
+    def visit_AssignKeywordCall(self, node):
+        self.test.body.create_keyword(name=node.keyword, args=node.args,
+                                      assign=node.assign, lineno=node.lineno)
+
     def visit_ReturnStatement(self, node):
         self.test.body.create_return(node.values, lineno=node.lineno,
                                      error=format_error(node.errors))
@@ -306,6 +328,10 @@ class KeywordBuilder(NodeVisitor):
         self.kw.body.create_keyword(name=node.keyword, args=node.args,
                                     assign=node.assign, lineno=node.lineno)
 
+    def visit_AssignKeywordCall(self, node):
+        self.kw.body.create_keyword(name=node.keyword, args=node.args,
+                                      assign=node.assign, lineno=node.lineno)
+
     def visit_ReturnStatement(self, node):
         self.kw.body.create_return(node.values, lineno=node.lineno,
                                    error=format_error(node.errors))
@@ -355,6 +381,10 @@ class ForBuilder(NodeVisitor):
     def visit_KeywordCall(self, node):
         self.model.body.create_keyword(name=node.keyword, args=node.args,
                                        assign=node.assign, lineno=node.lineno)
+
+    def visit_AssignKeywordCall(self, node):
+        self.model.body.create_keyword(name=node.keyword, args=node.args,
+                                      assign=node.assign, lineno=node.lineno)
 
     def visit_TemplateArguments(self, node):
         self.model.body.create_keyword(args=node.args, lineno=node.lineno)
@@ -426,6 +456,10 @@ class IfBuilder(NodeVisitor):
     def visit_KeywordCall(self, node):
         self.model.body.create_keyword(name=node.keyword, args=node.args,
                                        assign=node.assign, lineno=node.lineno)
+
+    def visit_AssignKeywordCall(self, node):
+        self.model.body.create_keyword(name=node.keyword, args=node.args,
+                                      assign=node.assign, lineno=node.lineno)
 
     def visit_TemplateArguments(self, node):
         self.model.body.create_keyword(args=node.args, lineno=node.lineno)
@@ -513,6 +547,10 @@ class TryBuilder(NodeVisitor):
     def visit_KeywordCall(self, node):
         self.model.body.create_keyword(name=node.keyword, args=node.args,
                                        assign=node.assign, lineno=node.lineno)
+    
+    def visit_AssignKeywordCall(self, node):
+        self.model.body.create_keyword(name=node.keyword, args=node.args,
+                                      assign=node.assign, lineno=node.lineno)
 
     def visit_TemplateArguments(self, node):
         self.template_error = 'Templates cannot be used with TRY.'
@@ -542,6 +580,10 @@ class WhileBuilder(NodeVisitor):
     def visit_KeywordCall(self, node):
         self.model.body.create_keyword(name=node.keyword, args=node.args,
                                        assign=node.assign, lineno=node.lineno)
+    
+    def visit_AssignKeywordCall(self, node):
+        self.model.body.create_keyword(name=node.keyword, args=node.args,
+                                      assign=node.assign, lineno=node.lineno)
 
     def visit_TemplateArguments(self, node):
         self.model.body.create_keyword(args=node.args, lineno=node.lineno)

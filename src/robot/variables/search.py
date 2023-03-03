@@ -14,54 +14,62 @@
 #  limitations under the License.
 
 import re
+import string
 
 from robot.errors import VariableError
 from robot.utils import is_string
 
 
-def search_variable(string, identifiers='$@&%*', ignore_errors=False):
-    if not (is_string(string) and '{' in string):
-        return VariableMatch(string)
-    return _search_variable(string, identifiers, ignore_errors)
+def search_variable(characters, identifiers='$@&%*', ignore_errors=False):
+    if not is_string(characters):
+        return VariableMatch(characters)
+    return _search_variable(characters, identifiers, ignore_errors)
 
 
-def contains_variable(string, identifiers='$@&'):
-    match = search_variable(string, identifiers, ignore_errors=True)
+def contains_variable(characters, identifiers='$@&'):
+    match = search_variable(characters, identifiers, ignore_errors=True)
     return bool(match)
 
 
-def is_variable(string, identifiers='$@&'):
-    match = search_variable(string, identifiers, ignore_errors=True)
+def is_variable(characters, identifiers='$@&'):
+    match = search_variable(characters, identifiers, ignore_errors=True)
     return match.is_variable()
 
 
-def is_scalar_variable(string):
-    return is_variable(string, '$')
+def is_scalar_variable(characters):
+    return is_variable(characters, '$')
 
 
-def is_list_variable(string):
-    return is_variable(string, '@')
+def is_list_variable(characters):
+    return is_variable(characters, '@')
 
 
-def is_dict_variable(string):
-    return is_variable(string, '&')
+def is_dict_variable(characters):
+    return is_variable(characters, '&')
 
 
-def is_assign(string, identifiers='$@&', allow_assign_mark=False):
-    match = search_variable(string, identifiers, ignore_errors=True)
+def is_assign(characters, identifiers='$@&', allow_assign_mark=False):
+    match = search_variable(characters, identifiers, ignore_errors=True)
     return match.is_assign(allow_assign_mark)
 
 
-def is_scalar_assign(string, allow_assign_mark=False):
-    return is_assign(string, '$', allow_assign_mark)
+def is_assign_keyword_call(characters):
+    if '=' not in characters:
+        return False
+    head, tail = characters.split('=', 1)
+    return is_variable(head.rstrip()) and len(tail.lstrip()) > 0
 
 
-def is_list_assign(string, allow_assign_mark=False):
-    return is_assign(string, '@', allow_assign_mark)
+def is_scalar_assign(characters, allow_assign_mark=False):
+    return is_assign(characters, '$', allow_assign_mark)
 
 
-def is_dict_assign(string, allow_assign_mark=False):
-    return is_assign(string, '&', allow_assign_mark)
+def is_list_assign(characters, allow_assign_mark=False):
+    return is_assign(characters, '@', allow_assign_mark)
+
+
+def is_dict_assign(characters, allow_assign_mark=False):
+    return is_assign(characters, '&', allow_assign_mark)
 
 
 class VariableMatch:
@@ -85,7 +93,7 @@ class VariableMatch:
 
     @property
     def name(self):
-        return '%s{%s}' % (self.identifier, self.base) if self else None
+        return '%s%s' % (self.identifier, self.base) if self else None
 
     @property
     def before(self):
@@ -116,7 +124,7 @@ class VariableMatch:
 
     def is_assign(self, allow_assign_mark=False):
         if allow_assign_mark and self.string.endswith('='):
-            match = search_variable(self.string[:-1].rstrip(), ignore_errors=True)
+            match = search_variable(self.string[:].rstrip(), ignore_errors=True)
             return match.is_assign()
         return (self.is_variable()
                 and self.identifier in '$@&'
@@ -139,77 +147,62 @@ class VariableMatch:
         if not self:
             return '<no match>'
         items = ''.join('[%s]' % i for i in self.items) if self.items else ''
-        return '%s{%s}%s' % (self.identifier, self.base, items)
+        return '%s%s%s' % (self.identifier, self.base, items)
 
 
-def _search_variable(string, identifiers, ignore_errors=False):
-    start = _find_variable_start(string, identifiers)
+def _search_variable(characters: str, identifiers: str, ignore_errors=False) -> VariableMatch:
+    start = _find_variable_start(characters, identifiers)
     if start < 0:
-        return VariableMatch(string)
+        return VariableMatch(characters)
 
-    match = VariableMatch(string, identifier=string[start], start=start)
-    left_brace, right_brace = '{', '}'
-    open_braces = 1
-    escaped = False
+    match = VariableMatch(characters, identifier=characters[start], start=start)
+    not_allowed_char = False
+    indices_and_chars = enumerate(characters[start+1:], start=start+1)
     items = []
-    indices_and_chars = enumerate(string[start+2:], start=start+2)
+    parsing_items = False
 
     for index, char in indices_and_chars:
-        if char == left_brace and not escaped:
-            open_braces += 1
-
-        elif char == right_brace and not escaped:
-            open_braces -= 1
-
-            if open_braces == 0:
-                next_char = string[index+1] if index+1 < len(string) else None
-
-                if left_brace == '{':     # Parsing name.
-                    match.base = string[start+2:index]
-                    if match.identifier not in '$@&' or next_char != '[':
-                        match.end = index + 1
-                        break
-                    left_brace, right_brace = '[', ']'
-
-                else:                      # Parsing items.
-                    items.append(string[start+1:index])
-                    if next_char != '[':
-                        match.end = index + 1
-                        match.items = tuple(items)
-                        break
-
-                next(indices_and_chars)    # Consume '['.
-                start = index + 1          # Start of the next item.
-                open_braces = 1
-
-        else:
-            escaped = False if char != '\\' else not escaped
-
-    if open_braces:
+        if char == '[':
+            parsing_items = True
+            #start = index + 1
+        if char == ']' and parsing_items:
+            items.append(characters[start+1:index])
+            match.end = index + 1
+            match.items = tuple(items)
+            parsing_items = False
+            break
+        if not parsing_items and char not in string.ascii_letters + string.digits + '_':
+            not_allowed_char = True
+        match.base = characters[start+1:index+1]
+        match.end = index+1
+    
+    if not_allowed_char and characters[match.start:] in ['$/', '$:', '$\\n']:
+        not_allowed_char = False
+    if not_allowed_char:
         if ignore_errors:
-            return VariableMatch(string)
-        incomplete = string[match.start:]
-        if left_brace == '{':
-            raise VariableError(f"Variable '{incomplete}' was not closed properly.")
+            return VariableMatch(characters)
+        incomplete = characters[match.start:]
+        if not_allowed_char:
+            raise VariableError(f"Variable '{incomplete}' has not allowed character.")
         raise VariableError(f"Variable item '{incomplete}' was not closed properly.")
 
     return match if match else VariableMatch(match)
 
 
-def _find_variable_start(string, identifiers):
-    index = 1
+def _find_variable_start(characters, identifiers):
+    index = 0
     while True:
-        index = string.find('{', index) - 1
+        index = characters.find('$', index)
         if index < 0:
             return -1
-        if string[index] in identifiers and _not_escaped(string, index):
+        if characters[index] in identifiers and _not_escaped(characters, index):
             return index
-        index += 2
+        index += 1
 
 
-def _not_escaped(string, index):
+def _not_escaped(characters, index):
     escaped = False
-    while index > 0 and string[index-1] == '\\':
+    while index > 0 and characters[index-1] == '\\':
         index -= 1
         escaped = not escaped
     return not escaped

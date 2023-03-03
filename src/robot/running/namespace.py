@@ -18,9 +18,10 @@ import os
 from collections import OrderedDict
 from itertools import chain
 
-from robot.errors import DataError, KeywordError
+from robot.errors import DataError, ExecutionFailed, ExecutionStatus, KeywordError
 from robot.libraries import STDLIBS
 from robot.output import LOGGER, Message
+from robot.running.bodyrunner import KeywordRunner
 from robot.utils import (RecommendationFinder, eq, find_file, is_string, normalize,
                          printable_name, seq2str2)
 
@@ -55,26 +56,30 @@ class Namespace:
 
     def handle_imports(self):
         self._import_default_libraries()
-        self._handle_imports(self._imports)
+        return self._handle_imports(self._imports)
 
     def _import_default_libraries(self):
         for name in self._default_libraries:
             self.import_library(name, notify=name == 'BuiltIn')
 
     def _handle_imports(self, import_settings):
+        delayed_variables = []
         for item in import_settings:
             try:
                 if not item.name:
                     raise DataError(f'{item.setting_name} setting requires value.')
-                self._import(item)
+                delayed_vars = self._import(item)
+                if delayed_vars:
+                    delayed_variables += delayed_vars
             except DataError as err:
                 item.report_invalid_syntax(err.message)
+        return delayed_variables
 
     def _import(self, import_setting):
         action = import_setting.select(self._import_library,
                                        self._import_resource,
                                        self._import_variables)
-        action(import_setting)
+        return action(import_setting)
 
     def import_resource(self, name, overwrite=True):
         self._import_resource(Import(Import.RESOURCE, name), overwrite=overwrite)
@@ -91,9 +96,11 @@ class Namespace:
             LOGGER.imported("Resource", user_library.name,
                             importer=str(import_setting.source),
                             source=path)
+            return [d for d in resource.delayed_variables]
         else:
             LOGGER.info(f"Resource file '{path}' already imported by "
                         f"suite '{self._suite_name}'.")
+        return []
 
     def _validate_not_importing_init_file(self, path):
         name = os.path.splitext(os.path.basename(path))[0]
@@ -119,6 +126,7 @@ class Namespace:
             if args:
                 msg += f" with arguments {seq2str2(args)}"
             LOGGER.info(f"{msg} already imported by suite '{self._suite_name}'.")
+        return []
 
     def import_library(self, name, args=(), alias=None, notify=True):
         self._import_library(Import(Import.LIBRARY, name, args, alias), notify=notify)
@@ -141,6 +149,7 @@ class Namespace:
         lib.start_suite()
         if self._running_test:
             lib.start_test()
+        return []
 
     def _resolve_name(self, setting):
         name = setting.name

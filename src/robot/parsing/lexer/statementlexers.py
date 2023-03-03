@@ -15,7 +15,7 @@
 
 from robot.errors import DataError
 from robot.utils import normalize_whitespace
-from robot.variables import is_assign
+from robot.variables import is_assign, is_assign_keyword_call
 
 from .context import FileContext, LexingContext, TestOrKeywordContext
 from .tokens import Token
@@ -155,6 +155,13 @@ class TestOrKeywordSettingLexer(SettingLexer):
 class VariableLexer(TypeAndArguments):
     token_type = Token.VARIABLE
 
+    def lex(self):
+        TypeAndArguments.lex(self)
+        first_token = self.statement[0]
+        if is_assign_keyword_call(first_token.value):
+            first_token.type = Token.ASSIGN_KEYWORD_CALL
+        
+
 
 class KeywordCallLexer(StatementLexer):
     ctx: TestOrKeywordContext
@@ -176,6 +183,9 @@ class KeywordCallLexer(StatementLexer):
                 token.type = Token.ARGUMENT
             elif is_assign(token.value, allow_assign_mark=True):
                 token.type = Token.ASSIGN
+            elif is_assign_keyword_call(token.value):
+                token.type = Token.ASSIGN_KEYWORD_CALL
+                keyword_seen = True
             else:
                 token.type = Token.KEYWORD
                 keyword_seen = True
@@ -206,31 +216,7 @@ class IfHeaderLexer(TypeAndArguments):
 
     @classmethod
     def handles(cls, statement: list, ctx: TestOrKeywordContext):
-        return statement[0].value == 'IF' and len(statement) <= 2
-
-
-class InlineIfHeaderLexer(StatementLexer):
-    token_type = Token.INLINE_IF
-
-    @classmethod
-    def handles(cls, statement: list, ctx: TestOrKeywordContext):
-        for token in statement:
-            if token.value == 'IF':
-                return True
-            if not is_assign(token.value, allow_assign_mark=True):
-                return False
-        return False
-
-    def lex(self):
-        if_seen = False
-        for token in self.statement:
-            if if_seen:
-                token.type = Token.ARGUMENT
-            elif token.value == 'IF':
-                token.type = Token.INLINE_IF
-                if_seen = True
-            else:
-                token.type = Token.ASSIGN
+        return statement[0].value == 'IF' and len(statement) > 1
 
 
 class ElseIfHeaderLexer(TypeAndArguments):

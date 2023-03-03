@@ -24,7 +24,7 @@ from .evaluation import evaluate_expression
 from .notfound import variable_not_found
 from .scopes import VariableScopes
 from .search import (search_variable, contains_variable,
-                     is_variable, is_assign,
+                     is_variable, is_assign, is_assign_keyword_call,
                      is_scalar_variable, is_scalar_assign,
                      is_dict_variable, is_dict_assign,
                      is_list_variable, is_list_assign,
