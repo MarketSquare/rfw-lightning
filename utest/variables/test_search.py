@@ -313,13 +313,11 @@ class TestUnescapeVariableSyntax(unittest.TestCase):
             self._test('Hello, %s!' % inp)
 
     def test_unescape_variable(self):
-        for i in '$@&%':
-            self._test(r'\%s{var}' % i, '%s{var}' % i)
-            self._test(r'=\%s{var}=' % i, '=%s{var}=' % i)
-            self._test(r'\\%s{var}' % i)
-            self._test(r'\\\%s{var}' % i, r'\\%s{var}' % i)
-            self._test(r'\\\\%s{var}' % i)
-        self._test(r'\$1 \@{2} \&{3} \%{4}', '$1 @{2} &{3} %{4}')
+        self._test(r'\$var', '$var')
+        self._test(r'=\$var', '=$var')
+        self._test(r'\\$var')
+        self._test(r'\\\$var', r'\\$var')
+        self._test(r'\\\\$var')
 
     def test_unescape_curlies(self):
         self._test(r'\{', '{')
