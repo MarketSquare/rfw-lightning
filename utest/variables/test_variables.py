@@ -7,7 +7,7 @@ from robot.utils.asserts import assert_equal, assert_raises
 
 SCALARS = ['$var', '$vAR']
 LISTS = ['@{var}', '@{vAR}']
-NOKS = ['var', '$var', '${var', '$var', '@{va}r', '@var', '%{var}', ' $var',
+NOKS = ['var', '${var', '@{va}r', '@var', '%{var}', ' $var',
         '@{var} ', '\\$var', '\\\\$var', 42, None, ['$var'], DataError]
 
 
