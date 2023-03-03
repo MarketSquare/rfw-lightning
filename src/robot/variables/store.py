@@ -49,7 +49,7 @@ class VariableStore:
             if name in self.data:
                 self.data.pop(name)
                 value.report_error(err)
-            variable_not_found('${%s}' % name, self.data)
+            variable_not_found('$%s' % name, self.data)
         return self.data[name]
 
     def _is_resolvable(self, value):
@@ -60,7 +60,7 @@ class VariableStore:
 
     def __getitem__(self, name):
         if name not in self.data:
-            variable_not_found('${%s}' % name, self.data)
+            variable_not_found('$%s' % name, self.data)
         return self._resolve_delayed(name, self.data[name])
 
     def get(self, name, default=NOT_SET, decorated=True):
@@ -90,7 +90,7 @@ class VariableStore:
     def _undecorate(self, name):
         if not is_assign(name):
             raise VariableError("Invalid variable name '%s'." % name)
-        return name[2:-1]
+        return name[1:]
 
     def _undecorate_and_validate(self, name, value):
         undecorated = self._undecorate(name)
@@ -126,9 +126,9 @@ class VariableStore:
 
     def _decorate(self, name, value):
         if is_dict_like(value):
-            name = '&{%s}' % name
+            name = '&%s' % name
         elif is_list_like(value):
-            name = '@{%s}' % name
+            name = '@%s' % name
         else:
-            name = '${%s}' % name
+            name = '$%s' % name
         return name, value

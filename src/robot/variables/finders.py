@@ -71,7 +71,7 @@ class NumberFinder:
     identifiers = '$'
 
     def find(self, name):
-        number = normalize(name)[2:-1]
+        number = normalize(name)[1:]
         for converter in self._get_int, float:
             try:
                 return converter(number)
@@ -101,7 +101,7 @@ class InlinePythonFinder:
         self._variables = variables
 
     def find(self, name):
-        base = name[2:-1]
+        base = name[1:]
         if not base or base[0] != '{' or base[-1] != '}':
             return NOT_FOUND
         try:
@@ -121,7 +121,7 @@ class ExtendedFinder:
         self._find_variable = finder.find
 
     def find(self, name):
-        match = self._match_extended(name[2:-1])
+        match = self._match_extended(name[1:])
         if match is None:
             return NOT_FOUND
         base_name, extended = match.groups()
@@ -141,7 +141,7 @@ class EnvironmentFinder:
     identifiers = '%'
 
     def find(self, name):
-        var_name, has_default, default_value = name[2:-1].partition('=')
+        var_name, has_default, default_value = name[1:].partition('=')
         value = get_env_var(var_name)
         if value is not None:
             return value
