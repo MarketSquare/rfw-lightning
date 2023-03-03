@@ -85,7 +85,7 @@ class EmbeddedArgumentParser:
         custom_patterns = {}
         name_regexp = ['^']
         for before, variable, string in VariableIterator(string, identifiers='$'):
-            name, pattern, custom = self._get_name_and_pattern(variable[2:-1])
+            name, pattern, custom = self._get_name_and_pattern(variable[1:])
             args.append(name)
             if custom:
                 custom_patterns[name] = pattern

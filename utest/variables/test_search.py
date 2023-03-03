@@ -220,7 +220,7 @@ class TestSearchVariable(unittest.TestCase):
             is_var = is_scal_var = is_list_var = is_dict_var = False
         else:
             identifier = variable[0]
-            base = variable[2:-1]
+            base = variable[1:]
             end = start + len(variable)
             is_var = inp == variable
             if items:

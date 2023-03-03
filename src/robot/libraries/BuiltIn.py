@@ -1533,7 +1533,7 @@ class _Variables(_BuiltInBase):
     def log_variables(self, level='INFO'):
         """Logs all variables in the current scope with given log level."""
         variables = self.get_variables()
-        for name in sorted(variables, key=lambda s: s[2:-1].lower()):
+        for name in sorted(variables, key=lambda s: s[1:].lower()):
             name, value = self._get_logged_variable(name, variables)
             msg = format_assign_message(name, value, cut_long=False)
             self.log(msg, level)

@@ -42,7 +42,7 @@ class VariableTableSetter:
             except DataError as err:
                 var.report_invalid_syntax(err)
             else:
-                yield var.name[2:-1], value
+                yield var.name[1:], value
 
 
 def VariableTableValue(value, name, error_reporter=None):
