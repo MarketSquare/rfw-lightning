@@ -62,18 +62,18 @@ class TestUserLibrary(unittest.TestCase):
         assert_true('kw 2' in lib.handlers)
 
     def test_creating_keyword_when_kw_name_has_embedded_arg(self):
-        lib = self._get_userlibrary('Embedded ${arg}')
+        lib = self._get_userlibrary('Embedded $arg')
         self._lib_has_embedded_arg_keyword(lib)
 
     def test_creating_keywords_when_normal_and_embedded_arg_kws(self):
-        lib = self._get_userlibrary('kw1', 'Embedded ${arg}', 'kw2')
+        lib = self._get_userlibrary('kw1', 'Embedded $arg', 'kw2')
         assert_equal(len(lib.handlers), 3)
         assert_true('kw1' in lib.handlers)
         assert_true('kw 2' in lib.handlers)
         self._lib_has_embedded_arg_keyword(lib)
 
     def test_creating_duplicate_embedded_arg_keyword_in_resource_file(self):
-        lib = self._get_userlibrary('Embedded ${arg}', 'kw', 'Embedded ${arg}')
+        lib = self._get_userlibrary('Embedded $arg', 'kw', 'Embedded $arg')
         assert_equal(len(lib.handlers), 3)
         assert_true(not hasattr(lib.handlers['kw'], 'error'))
         self._lib_has_embedded_arg_keyword(lib, count=2)
@@ -106,10 +106,10 @@ class TestUserLibrary(unittest.TestCase):
         )
 
     def test_handlers_getitem_with_multiple_matching_keywords(self):
-        lib = self._get_userlibrary('Embedded ${a}', 'Embedded ${b}')
+        lib = self._get_userlibrary('Embedded $a', 'Embedded $b')
         assert_raises_with_msg(
             ValueError,
-            "Multiple handlers matching name 'Embedded x' found: 'Embedded ${a}' and 'Embedded ${b}'",
+            "Multiple handlers matching name 'Embedded x' found: 'Embedded $a' and 'Embedded $b'",
             lib.handlers.__getitem__, 'Embedded x'
         )
 
@@ -124,11 +124,11 @@ class TestUserLibrary(unittest.TestCase):
         return UserLibrary(resource, resource_file='source' in conf)
 
     def _lib_has_embedded_arg_keyword(self, lib, count=1):
-        assert_true('Embedded ${arg}' in lib.handlers)
+        assert_true('Embedded $arg' in lib.handlers)
         embedded = lib.handlers._embedded
         assert_equal(len(embedded), count)
         for template in embedded:
-            assert_equal(template.name, 'Embedded ${arg}')
+            assert_equal(template.name, 'Embedded $arg')
 
 
 if __name__ == '__main__':

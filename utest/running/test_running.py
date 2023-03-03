@@ -69,9 +69,9 @@ class TestRunning(unittest.TestCase):
     def test_assign(self):
         suite = TestSuite(name='Suite')
         test = suite.tests.create(name='Test')
-        test.body.create_keyword(assign=['${var}'], name='Set Variable',
+        test.body.create_keyword(assign=['$var'], name='Set Variable',
                                  args=['value in variable'])
-        test.body.create_keyword('Fail', args=['${var}'])
+        test.body.create_keyword('Fail', args=['$var'])
         result = run(suite)
         assert_suite(result, 'Suite', 'FAIL')
         assert_test(result.tests[0], 'Test', 'FAIL', msg='value in variable')
@@ -90,17 +90,17 @@ class TestRunning(unittest.TestCase):
         suite = TestSuite(name='Suite')
         suite.tests.create(name='Test')\
             .body.create_keyword('User keyword', args=['From uk'])
-        uk = suite.resource.keywords.create(name='User keyword', args=['${msg}'])
-        uk.body.create_keyword(name='Fail', args=['${msg}'])
+        uk = suite.resource.keywords.create(name='User keyword', args=['$msg'])
+        uk.body.create_keyword(name='Fail', args=['$msg'])
         result = run(suite)
         assert_suite(result, 'Suite', 'FAIL')
         assert_test(result.tests[0], 'Test', 'FAIL', msg='From uk')
 
     def test_variables(self):
         suite = TestSuite(name='Suite')
-        suite.resource.variables.create('${ERROR}', 'Error message')
+        suite.resource.variables.create('$ERROR', 'Error message')
         suite.resource.variables.create('@{LIST}', ['Error', 'added tag'])
-        suite.tests.create(name='T1').body.create_keyword('Fail', args=['${ERROR}'])
+        suite.tests.create(name='T1').body.create_keyword('Fail', args=['$ERROR'])
         suite.tests.create(name='T2').body.create_keyword('Fail', args=['@{LIST}'])
         result = run(suite)
         assert_suite(result, 'Suite', 'FAIL', tests=2)
@@ -228,9 +228,9 @@ class TestCustomStreams(RunningTestCase):
 
     def _run(self, stdout=None, stderr=None, **options):
         suite = TestSuite(name='My Suite')
-        suite.resource.variables.create('${MESSAGE}', 'Hello, world!')
+        suite.resource.variables.create('$MESSAGE', 'Hello, world!')
         suite.tests.create(name='My Test')\
-            .body.create_keyword('Log', args=['${MESSAGE}', 'WARN'])
+            .body.create_keyword('Log', args=['$MESSAGE', 'WARN'])
         run(suite, stdout=stdout, stderr=stderr, **options)
 
     def _assert_normal_stdout_stderr_are_empty(self):

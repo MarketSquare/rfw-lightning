@@ -424,8 +424,8 @@ class TestBranches(unittest.TestCase):
 class TestDeprecatedKeywordSpecificAttributes(unittest.TestCase):
 
     def test_deprecated_keyword_specific_properties(self):
-        for_ = For(['${x}', '${y}'], 'IN', ['a', 'b', 'c', 'd'])
-        for name, expected in [('name', '${x} | ${y} IN [ a | b | c | d ]'),
+        for_ = For(['$x', '$y'], 'IN', ['a', 'b', 'c', 'd'])
+        for name, expected in [('name', '$x | $y IN [ a | b | c | d ]'),
                                ('args', ()),
                                ('assign', ()),
                                ('tags', Tags()),

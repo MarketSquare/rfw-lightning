@@ -60,7 +60,7 @@ Test Setup       No Operation
 Library          ExampleLibrary
 
 *** Variables ***
-${VAR}           Value
+$VAR           Value
 
 *** Test Cases ***
 Example
@@ -129,7 +129,7 @@ Keyword
         assert_equal(suite.rpa, rpa)
         assert_equal(suite.resource.imports[0].type, 'LIBRARY')
         assert_equal(suite.resource.imports[0].name, 'ExampleLibrary')
-        assert_equal(suite.resource.variables[0].name, '${VAR}')
+        assert_equal(suite.resource.variables[0].name, '$VAR')
         assert_equal(suite.resource.variables[0].value, ('Value',))
         assert_equal(suite.resource.keywords[0].name, 'Keyword')
         assert_equal(suite.resource.keywords[0].body[0].name, 'Log')
@@ -251,15 +251,15 @@ class TestToFromDict(unittest.TestCase):
     def test_keyword(self):
         self._verify(Keyword(), name='')
         self._verify(Keyword('Name'), name='Name')
-        self._verify(Keyword('N', tuple('args'), ('${result}',)),
-                     name='N', args=list('args'), assign=['${result}'])
+        self._verify(Keyword('N', tuple('args'), ('$result',)),
+                     name='N', args=list('args'), assign=['$result'])
         self._verify(Keyword('Setup', type=Keyword.SETUP, lineno=1),
                      name='Setup', lineno=1)
 
     def test_for(self):
         self._verify(For(), type='FOR', variables=[], flavor='IN', values=[], body=[])
-        self._verify(For(['${i}'], 'IN RANGE', ['10'], lineno=2),
-                     type='FOR', variables=['${i}'], flavor='IN RANGE', values=['10'],
+        self._verify(For(['$i'], 'IN RANGE', ['10'], lineno=2),
+                     type='FOR', variables=['$i'], flavor='IN RANGE', values=['10'],
                      body=[], lineno=2)
 
     def test_while(self):
@@ -298,8 +298,8 @@ class TestToFromDict(unittest.TestCase):
     def test_try_branch(self):
         self._verify(TryBranch(), type='TRY', body=[])
         self._verify(TryBranch(Try.EXCEPT), type='EXCEPT', patterns=[], body=[])
-        self._verify(TryBranch(Try.EXCEPT, ['Pa*'], 'glob', '${err}'), type='EXCEPT',
-                     patterns=['Pa*'], pattern_type='glob', variable='${err}', body=[])
+        self._verify(TryBranch(Try.EXCEPT, ['Pa*'], 'glob', '$err'), type='EXCEPT',
+                     patterns=['Pa*'], pattern_type='glob', variable='$err', body=[])
         self._verify(TryBranch(Try.ELSE, lineno=7), type='ELSE', body=[], lineno=7)
         self._verify(TryBranch(Try.FINALLY, lineno=8), type='FINALLY', body=[], lineno=8)
 
@@ -401,7 +401,7 @@ class TestToFromDict(unittest.TestCase):
         resource.imports.library('L', 'a', 'A', 1)
         resource.imports.resource('R', 2)
         resource.imports.variables('V', 'a', 3)
-        resource.variables.create('${x}', ('value',))
+        resource.variables.create('$x', ('value',))
         resource.variables.create('@{y}', ('v1', 'v2'), lineno=4)
         resource.variables.create('&{z}', ['k=v'], error='E')
         resource.keywords.create('UK').body.create_keyword('K')
@@ -413,7 +413,7 @@ class TestToFromDict(unittest.TestCase):
                               {'type': 'RESOURCE', 'name': 'R', 'lineno': 2},
                               {'type': 'VARIABLES', 'name': 'V', 'args': ['a'],
                                'lineno': 3}],
-                     variables=[{'name': '${x}', 'value': ['value']},
+                     variables=[{'name': '$x', 'value': ['value']},
                                 {'name': '@{y}', 'value': ['v1', 'v2'], 'lineno': 4},
                                 {'name': '&{z}', 'value': ['k=v'], 'error': 'E'}],
                      keywords=[{'name': 'UK', 'body': [{'name': 'K'}]}])

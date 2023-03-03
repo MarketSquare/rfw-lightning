@@ -8,14 +8,14 @@ from robot.variables import (contains_variable,
                              search_variable)
 
 
-SCALARS = ['${var}', '${vAR}']
+SCALARS = ['$var', '$vAR']
 LISTS = ['@{var}', '@{vAR}']
 DICTS = ['&{var}', '&{vAR}']
-NOKS = ['', 'nothing', '$not', '${not', '@not', '&{not', '${not}[oops',
-        '%{not}', '*{not}', r'\${var}', r'\\\${var}', 42, None, ['${var}']]
-NOK_ASSIGNS = NOKS + ['${${internal}}', '${var}[item]',
-                      '@{${internal}}', '@{var}[item]',
-                      '&{${internal}}', '&{var}[item]']
+NOKS = ['', 'nothing', '$not', '${not', '@not', '&{not', '$not[oops',
+        '%{not}', '*{not}', r'\$var', r'\\\$var', 42, None, ['$var']]
+NOK_ASSIGNS = NOKS + ['${$internal}', '$var[item]',
+                      '@{$internal}', '@{var}[item]',
+                      '&{$internal}', '&{var}[item]']
 
 
 class TestIsVariable(unittest.TestCase):
@@ -66,7 +66,7 @@ class TestIsVariable(unittest.TestCase):
             assert not search_variable(nok, ignore_errors=True).is_dict_variable()
 
     def test_contains_variable(self):
-        for ok in SCALARS + LISTS + DICTS + [r'\${no ${yes}!']:
+        for ok in SCALARS + LISTS + DICTS + [r'\${no $yes!']:
             assert contains_variable(ok)
             assert contains_variable(ok + '[item]')
             assert contains_variable('hello %s world' % ok)

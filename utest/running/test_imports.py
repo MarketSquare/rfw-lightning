@@ -70,7 +70,7 @@ class TestImports(unittest.TestCase):
         suite.resource.imports.variables('variables_file.py')
         suite.tests.create(name='Test').body.create_keyword(
             'Should Be Equal As Strings',
-            args=['${MY_VARIABLE}', 'An example string']
+            args=['$MY_VARIABLE', 'An example string']
         )
         self.run_and_check_pass(suite)
 

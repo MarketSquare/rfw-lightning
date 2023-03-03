@@ -50,7 +50,7 @@ class TestStatementFromTokens(unittest.TestCase):
 
     def test_keyword_call_with_assignment(self):
         tokens = [Token(Token.SEPARATOR, '  '),
-                  Token(Token.ASSIGN, '${var}'),
+                  Token(Token.ASSIGN, '$var'),
                   Token(Token.SEPARATOR, '  '),
                   Token(Token.KEYWORD, 'Keyword'),
                   Token(Token.SEPARATOR, '  '),
@@ -60,7 +60,7 @@ class TestStatementFromTokens(unittest.TestCase):
 
     def test_inline_if_with_assignment(self):
         tokens = [Token(Token.SEPARATOR, '  '),
-                  Token(Token.ASSIGN, '${var}'),
+                  Token(Token.ASSIGN, '$var'),
                   Token(Token.SEPARATOR, '  '),
                   Token(Token.INLINE_IF, 'IF'),
                   Token(Token.SEPARATOR, '  '),
@@ -70,7 +70,7 @@ class TestStatementFromTokens(unittest.TestCase):
 
     def test_assign_only(self):
         tokens = [Token(Token.SEPARATOR, '  '),
-                  Token(Token.ASSIGN, '${var}'),
+                  Token(Token.ASSIGN, '$var'),
                   Token(Token.EOL)]
         assert_statements(Statement.from_tokens(tokens), KeywordCall(tokens))
 
@@ -113,79 +113,79 @@ class TestCreateStatementsFromParams(unittest.TestCase):
             )
 
     def test_SuiteSetup(self):
-        # Suite Setup    Setup Keyword    ${arg1}    ${arg2}
+        # Suite Setup    Setup Keyword    $arg1    $arg2
         tokens = [
             Token(Token.SUITE_SETUP, 'Suite Setup'),
             Token(Token.SEPARATOR, '    '),
             Token(Token.NAME, 'Setup Keyword'),
             Token(Token.SEPARATOR, '    '),
-            Token(Token.ARGUMENT, '${arg1}'),
+            Token(Token.ARGUMENT, '$arg1'),
             Token(Token.SEPARATOR, '    '),
-            Token(Token.ARGUMENT, '${arg2}'),
+            Token(Token.ARGUMENT, '$arg2'),
             Token(Token.EOL, '\n')
         ]
         assert_created_statement(
             tokens,
             SuiteSetup,
             name='Setup Keyword',
-            args=['${arg1}', '${arg2}']
+            args=['$arg1', '$arg2']
         )
 
     def test_SuiteTeardown(self):
-        # Suite Teardown    Teardown Keyword    ${arg1}    ${arg2}
+        # Suite Teardown    Teardown Keyword    $arg1    $arg2
         tokens = [
             Token(Token.SUITE_TEARDOWN, 'Suite Teardown'),
             Token(Token.SEPARATOR, '    '),
             Token(Token.NAME, 'Teardown Keyword'),
             Token(Token.SEPARATOR, '    '),
-            Token(Token.ARGUMENT, '${arg1}'),
+            Token(Token.ARGUMENT, '$arg1'),
             Token(Token.SEPARATOR, '    '),
-            Token(Token.ARGUMENT, '${arg2}'),
+            Token(Token.ARGUMENT, '$arg2'),
             Token(Token.EOL, '\n')
         ]
         assert_created_statement(
             tokens,
             SuiteTeardown,
             name='Teardown Keyword',
-            args=['${arg1}', '${arg2}']
+            args=['$arg1', '$arg2']
         )
 
     def test_TestSetup(self):
-        # Test Setup    Setup Keyword    ${arg1}    ${arg2}
+        # Test Setup    Setup Keyword    $arg1    $arg2
         tokens = [
             Token(Token.TEST_SETUP, 'Test Setup'),
             Token(Token.SEPARATOR, '    '),
             Token(Token.NAME, 'Setup Keyword'),
             Token(Token.SEPARATOR, '    '),
-            Token(Token.ARGUMENT, '${arg1}'),
+            Token(Token.ARGUMENT, '$arg1'),
             Token(Token.SEPARATOR, '    '),
-            Token(Token.ARGUMENT, '${arg2}'),
+            Token(Token.ARGUMENT, '$arg2'),
             Token(Token.EOL, '\n')
         ]
         assert_created_statement(
             tokens,
             TestSetup,
             name='Setup Keyword',
-            args=['${arg1}', '${arg2}']
+            args=['$arg1', '$arg2']
         )
 
     def test_TestTeardown(self):
-        # Test Teardown    Teardown Keyword    ${arg1}    ${arg2}
+        # Test Teardown    Teardown Keyword    $arg1    $arg2
         tokens = [
             Token(Token.TEST_TEARDOWN, 'Test Teardown'),
             Token(Token.SEPARATOR, '    '),
             Token(Token.NAME, 'Teardown Keyword'),
             Token(Token.SEPARATOR, '    '),
-            Token(Token.ARGUMENT, '${arg1}'),
+            Token(Token.ARGUMENT, '$arg1'),
             Token(Token.SEPARATOR, '    '),
-            Token(Token.ARGUMENT, '${arg2}'),
+            Token(Token.ARGUMENT, '$arg2'),
             Token(Token.EOL, '\n')
         ]
         assert_created_statement(
             tokens,
             TestTeardown,
             name='Teardown Keyword',
-            args=['${arg1}', '${arg2}']
+            args=['$arg1', '$arg2']
         )
 
     def test_TestTemplate(self):
@@ -233,9 +233,9 @@ class TestCreateStatementsFromParams(unittest.TestCase):
         )
 
     def test_Variable(self):
-        # ${variable_name}  {'a': 4, 'b': 'abc'}
+        # $variable_name  {'a': 4, 'b': 'abc'}
         tokens = [
-            Token(Token.VARIABLE, '${variable_name}'),
+            Token(Token.VARIABLE, '$variable_name'),
             Token(Token.SEPARATOR, '    '),
             Token(Token.ARGUMENT, "{'a': 4, 'b': 'abc'}"),
             Token(Token.EOL, '\n')
@@ -243,13 +243,13 @@ class TestCreateStatementsFromParams(unittest.TestCase):
         assert_created_statement(
             tokens,
             Variable,
-            name='${variable_name}',
+            name='$variable_name',
             value="{'a': 4, 'b': 'abc'}"
         )
-        # ${var}    first    second    third
+        # $var    first    second    third
         # @{var}    first    second    third
         # &{var}    first    second    third
-        for name in ['${var}', '@{var}', '&{var}']:
+        for name in ['$var', '@{var}', '&{var}']:
             tokens = [
                 Token(Token.VARIABLE, name),
                 Token(Token.SEPARATOR, '    '),
@@ -276,49 +276,49 @@ class TestCreateStatementsFromParams(unittest.TestCase):
         )
 
     def test_KeywordName(self):
-        tokens = [Token(Token.KEYWORD_NAME, 'Keyword Name With ${embedded} Var'), Token(Token.EOL, '\n')]
+        tokens = [Token(Token.KEYWORD_NAME, 'Keyword Name With $embedded Var'), Token(Token.EOL, '\n')]
         assert_created_statement(
             tokens,
             KeywordName,
-            name='Keyword Name With ${embedded} Var'
+            name='Keyword Name With $embedded Var'
         )
 
     def test_Setup(self):
         # Test
-        #     [Setup]    Setup Keyword    ${arg1}
+        #     [Setup]    Setup Keyword    $arg1
         tokens = [
             Token(Token.SEPARATOR, '    '),
             Token(Token.SETUP, '[Setup]'),
             Token(Token.SEPARATOR, '    '),
             Token(Token.NAME, 'Setup Keyword'),
             Token(Token.SEPARATOR, '    '),
-            Token(Token.ARGUMENT, '${arg1}'),
+            Token(Token.ARGUMENT, '$arg1'),
             Token(Token.EOL, '\n')
         ]
         assert_created_statement(
             tokens,
             Setup,
             name='Setup Keyword',
-            args=['${arg1}']
+            args=['$arg1']
         )
 
     def test_Teardown(self):
         # Test
-        #     [Teardown]    Teardown Keyword    ${arg1}
+        #     [Teardown]    Teardown Keyword    $arg1
         tokens = [
             Token(Token.SEPARATOR, '    '),
             Token(Token.TEARDOWN, '[Teardown]'),
             Token(Token.SEPARATOR, '    '),
             Token(Token.NAME, 'Teardown Keyword'),
             Token(Token.SEPARATOR, '    '),
-            Token(Token.ARGUMENT, '${arg1}'),
+            Token(Token.ARGUMENT, '$arg1'),
             Token(Token.EOL, '\n')
         ]
         assert_created_statement(
             tokens,
             Teardown,
             name='Teardown Keyword',
-            args=['${arg1}']
+            args=['$arg1']
         )
 
     def test_LibraryImport(self):
@@ -590,71 +590,71 @@ class TestCreateStatementsFromParams(unittest.TestCase):
 
     def test_Arguments(self):
         # Keyword
-        #     [Arguments]    ${arg1}    ${arg2}=4
+        #     [Arguments]    $arg1    $arg2=4
         tokens = [
             Token(Token.SEPARATOR, '    '),
             Token(Token.ARGUMENTS, '[Arguments]'),
             Token(Token.SEPARATOR, '    '),
-            Token(Token.ARGUMENT, '${arg1}'),
+            Token(Token.ARGUMENT, '$arg1'),
             Token(Token.SEPARATOR, '    '),
-            Token(Token.ARGUMENT, '${arg2}=4'),
+            Token(Token.ARGUMENT, '$arg2=4'),
             Token(Token.EOL, '\n')
         ]
         assert_created_statement(
             tokens,
             Arguments,
-            args=['${arg1}', '${arg2}=4']
+            args=['$arg1', '$arg2=4']
         )
 
     def test_ReturnSetting(self):
         # Keyword
-        #     [Return]    ${arg1}    ${arg2}=4
+        #     [Return]    $arg1    $arg2=4
         tokens = [
             Token(Token.SEPARATOR, '    '),
             Token(Token.RETURN, '[Return]'),
             Token(Token.SEPARATOR, '    '),
-            Token(Token.ARGUMENT, '${arg1}'),
+            Token(Token.ARGUMENT, '$arg1'),
             Token(Token.SEPARATOR, '    '),
-            Token(Token.ARGUMENT, '${arg2}=4'),
+            Token(Token.ARGUMENT, '$arg2=4'),
             Token(Token.EOL, '\n')
         ]
         assert_created_statement(
             tokens,
             ReturnSetting,
-            args=['${arg1}', '${arg2}=4']
+            args=['$arg1', '$arg2=4']
         )
 
     def test_KeywordCall(self):
         # Test
-        #     ${return1}    ${return2}    Keyword Call    ${arg1}    ${arg2}
+        #     $return1    $return2    Keyword Call    $arg1    $arg2
         tokens = [
             Token(Token.SEPARATOR, '    '),
-            Token(Token.ASSIGN, '${return1}'),
+            Token(Token.ASSIGN, '$return1'),
             Token(Token.SEPARATOR, '    '),
-            Token(Token.ASSIGN, '${return2}'),
+            Token(Token.ASSIGN, '$return2'),
             Token(Token.SEPARATOR, '    '),
             Token(Token.KEYWORD, 'Keyword Call'),
             Token(Token.SEPARATOR, '    '),
-            Token(Token.ARGUMENT, '${arg1}'),
+            Token(Token.ARGUMENT, '$arg1'),
             Token(Token.SEPARATOR, '    '),
-            Token(Token.ARGUMENT, '${arg2}'),
+            Token(Token.ARGUMENT, '$arg2'),
             Token(Token.EOL, '\n')
         ]
         assert_created_statement(
             tokens,
             KeywordCall,
             name='Keyword Call',
-            assign=['${return1}', '${return2}'],
-            args=['${arg1}', '${arg2}']
+            assign=['$return1', '$return2'],
+            args=['$arg1', '$arg2']
         )
 
     def test_TemplateArguments(self):
         # Test
         #     [Template]   Templated Keyword
-        #     ${arg1}    2
+        #     $arg1    2
         tokens = [
             Token(Token.SEPARATOR, '    '),
-            Token(Token.ARGUMENT, '${arg1}'),
+            Token(Token.ARGUMENT, '$arg1'),
             Token(Token.SEPARATOR, '    '),
             Token(Token.ARGUMENT, '2'),
             Token(Token.EOL, '\n')
@@ -662,50 +662,50 @@ class TestCreateStatementsFromParams(unittest.TestCase):
         assert_created_statement(
             tokens,
             TemplateArguments,
-            args=['${arg1}', '2']
+            args=['$arg1', '2']
         )
 
     def test_ForHeader(self):
         # Keyword
-        #     FOR  ${value1}  ${value2}  IN ZIP  ${list1}  ${list2}
+        #     FOR  $value1  $value2  IN ZIP  $list1  $list2
         tokens = [
             Token(Token.SEPARATOR, '    '),
             Token(Token.FOR),
             Token(Token.SEPARATOR, '  '),
-            Token(Token.VARIABLE, '${value1}'),
+            Token(Token.VARIABLE, '$value1'),
             Token(Token.SEPARATOR, '  '),
-            Token(Token.VARIABLE, '${value2}'),
+            Token(Token.VARIABLE, '$value2'),
             Token(Token.SEPARATOR, '  '),
             Token(Token.FOR_SEPARATOR, 'IN ZIP'),
             Token(Token.SEPARATOR, '  '),
-            Token(Token.ARGUMENT, '${list1}'),
+            Token(Token.ARGUMENT, '$list1'),
             Token(Token.SEPARATOR, '  '),
-            Token(Token.ARGUMENT, '${list2}'),
+            Token(Token.ARGUMENT, '$list2'),
             Token(Token.EOL, '\n')
         ]
         assert_created_statement(
             tokens,
             ForHeader,
             flavor='IN ZIP',
-            variables=['${value1}', '${value2}'],
-            values=['${list1}', '${list2}'],
+            variables=['$value1', '$value2'],
+            values=['$list1', '$list2'],
             separator='  '
         )
 
     def test_IfHeader(self):
         # Test/Keyword
-        #     IF    ${var} not in [@{list}]
+        #     IF    $var not in [@{list}]
         tokens = [
             Token(Token.SEPARATOR, '    '),
             Token(Token.IF),
             Token(Token.SEPARATOR, '    '),
-            Token(Token.ARGUMENT, '${var} not in [@{list}]'),
+            Token(Token.ARGUMENT, '$var not in [@{list}]'),
             Token(Token.EOL, '\n')
         ]
         assert_created_statement(
             tokens,
             IfHeader,
-            condition='${var} not in [@{list}]'
+            condition='$var not in [@{list}]'
         )
 
     def test_InlineIfHeader(self):
@@ -725,18 +725,18 @@ class TestCreateStatementsFromParams(unittest.TestCase):
 
     def test_ElseIfHeader(self):
         # Test/Keyword
-        #     ELSE IF    ${var} not in [@{list}]
+        #     ELSE IF    $var not in [@{list}]
         tokens = [
             Token(Token.SEPARATOR, '    '),
             Token(Token.ELSE_IF),
             Token(Token.SEPARATOR, '    '),
-            Token(Token.ARGUMENT, '${var} not in [@{list}]'),
+            Token(Token.ARGUMENT, '$var not in [@{list}]'),
             Token(Token.EOL, '\n')
         ]
         assert_created_statement(
             tokens,
             ElseIfHeader,
-            condition='${var} not in [@{list}]'
+            condition='$var not in [@{list}]'
         )
 
     def test_ElseHeader(self):
@@ -788,7 +788,7 @@ class TestCreateStatementsFromParams(unittest.TestCase):
             ExceptHeader,
             patterns=['one']
         )
-        # EXCEPT    one    two    AS    ${var}
+        # EXCEPT    one    two    AS    $var
         tokens = [
             Token(Token.SEPARATOR, '    '),
             Token(Token.EXCEPT),
@@ -799,14 +799,14 @@ class TestCreateStatementsFromParams(unittest.TestCase):
             Token(Token.SEPARATOR, '    '),
             Token(Token.AS, 'AS'),
             Token(Token.SEPARATOR, '    '),
-            Token(Token.VARIABLE, '${var}'),
+            Token(Token.VARIABLE, '$var'),
             Token(Token.EOL, '\n')
         ]
         assert_created_statement(
             tokens,
             ExceptHeader,
             patterns=['one', 'two'],
-            variable='${var}'
+            variable='$var'
         )
         # EXCEPT    Example: *    type=glob
         tokens = [
@@ -824,7 +824,7 @@ class TestCreateStatementsFromParams(unittest.TestCase):
             patterns=['Example: *'],
             type='glob'
         )
-        # EXCEPT    Error \\d    (x|y)    type=regexp    AS    ${var}
+        # EXCEPT    Error \\d    (x|y)    type=regexp    AS    $var
         tokens = [
             Token(Token.SEPARATOR, '    '),
             Token(Token.EXCEPT),
@@ -837,14 +837,14 @@ class TestCreateStatementsFromParams(unittest.TestCase):
             Token(Token.SEPARATOR, '    '),
             Token(Token.AS, 'AS'),
             Token(Token.SEPARATOR, '    '),
-            Token(Token.VARIABLE, '${var}'),
+            Token(Token.VARIABLE, '$var'),
             Token(Token.EOL, '\n')]
         assert_created_statement(
             tokens,
             ExceptHeader,
             patterns=['Error \\d', '(x|y)'],
             type='regexp',
-            variable='${var}'
+            variable='$var'
         )
 
     def test_FinallyHeader(self):

@@ -192,7 +192,7 @@ class TestRemoveKeywords(unittest.TestCase):
         test = suite.tests.create(status='PASS')
         loop = test.body.create_for(status='PASS')
         for i in range(100):
-            loop.body.create_iteration({'${i}': i}, status='PASS')\
+            loop.body.create_iteration({'$i': i}, status='PASS')\
                 .body.create_keyword(kwname='k%d' % i, status='PASS')\
                 .body.create_message(message='something')
         return suite, loop

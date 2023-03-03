@@ -118,7 +118,7 @@ class TestJsonConverter(unittest.TestCase):
                      timeout='1 minute 42 seconds')
         test_convert(suite['tests'][1],
                      name='Test Timeout With Variable',
-                     timeout='${100}')
+                     timeout='$100')
         test_convert(suite['tests'][2],
                      name='No Timeout',
                      timeout='')
@@ -145,27 +145,27 @@ class TestJsonConverter(unittest.TestCase):
 
     def test_test_setup_and_teardown(self):
         test_convert(self.suite['suites'][9]['tests'][0]['keywords'][0],
-                     name='${TEST_SETUP}',
+                     name='$TEST_SETUP',
                      arguments='',
                      type='SETUP')
         test_convert(self.suite['suites'][9]['tests'][0]['keywords'][2],
-                     name='${TEST_TEARDOWN}',
+                     name='$TEST_TEARDOWN',
                      arguments='',
                      type='TEARDOWN')
 
     def test_for_loops(self):
         test_convert(self.suite['suites'][1]['tests'][0]['keywords'][0],
-                     name='${pet} IN [ cat | dog | horse ]',
+                     name='$pet IN [ cat | dog | horse ]',
                      arguments='',
                      type='FOR')
         test_convert(self.suite['suites'][1]['tests'][1]['keywords'][0],
-                     name='${i} IN RANGE [ 10 ]',
+                     name='$i IN RANGE [ 10 ]',
                      arguments='',
                      type='FOR')
 
     def test_assign(self):
         test_convert(self.suite['suites'][6]['tests'][1]['keywords'][0],
-                     name='${msg} = Evaluate',
+                     name='$msg = Evaluate',
                      arguments="u'Fran\\\\xe7ais'",
                      type='KEYWORD')
 

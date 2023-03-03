@@ -143,12 +143,12 @@ class TestEscape(unittest.TestCase):
                          ('1 backslash to 2: \\', '1 backslash to 2: \\\\'),
                          ('3 bs to 6: \\\\\\', '3 bs to 6: \\\\\\\\\\\\'),
                          ('\\' * 1000, '\\' * 2000 ),
-                         ('${notvar}', '\\${notvar}'),
+                         ('$notvar', '\\$notvar'),
                          ('@{notvar}', '\\@{notvar}'),
-                         ('${nv} ${nv} @{nv}', '\\${nv} \\${nv} \\@{nv}'),
+                         ('$nv $nv @{nv}', '\\$nv \\$nv \\@{nv}'),
                          ('\\${already esc}', '\\\\\\${already esc}'),
-                         ('\\${ae} \\\\@{ae} \\\\\\@{ae}',
-                          '\\\\\\${ae} \\\\\\\\\\@{ae} \\\\\\\\\\\\\\@{ae}'),
+                         ('\\$ae \\\\@{ae} \\\\\\@{ae}',
+                          '\\\\\\$ae \\\\\\\\\\@{ae} \\\\\\\\\\\\\\@{ae}'),
                          ('%{reserved}', '\\%{reserved}'),
                          ('&{reserved}', '\\&{reserved}'),
                          ('*{reserved}', '\\*{reserved}'),
@@ -180,14 +180,14 @@ class TestSplitFromEquals(unittest.TestCase):
             self._test(inp, inp, None)
 
     def test_no_split_in_variable(self):
-        self._test(r'${a_b}', '${a_b}', None)
-        self._test(r'=${a_b}', '', '${a_b}')
-        self._test(r'${a_b}=', '${a_b}', '')
-        self._test(r'\=${a_b}', r'\=${a_b}', None)
-        self._test(r'${a_b}=${c_d}', '${a_b}', '${c_d}')
-        self._test(r'${a_b}\=${c_d}', r'${a_b}\=${c_d}', None)
-        self._test(r'${a_b}${c_d}${e_f}\=${g_h}=${i_j}',
-                   r'${a_b}${c_d}${e_f}\=${g_h}', '${i_j}')
+        self._test(r'$a_b', '$a_b', None)
+        self._test(r'=$a_b', '', '$a_b')
+        self._test(r'$a_b=', '$a_b', '')
+        self._test(r'\=$a_b', r'\=$a_b', None)
+        self._test(r'$a_b=$c_d', '$a_b', '$c_d')
+        self._test(r'$a_b\=$c_d', r'$a_b\=$c_d', None)
+        self._test(r'$a_b$c_d$e_f\=$g_h=$i_j',
+                   r'$a_b$c_d$e_f\=$g_h', '$i_j')
 
     def test_broken_variable(self):
         self._test('${foo=bar', '${foo', 'bar')

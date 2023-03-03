@@ -38,7 +38,7 @@ Metadata          Name           Value
 MetaData          Multi part     Value    continues
 Suite Setup       Log    Hello, world!
 suite teardown    Log    <b>The End.</b>    WARN    html=True
-Test Setup        None Shall Pass    ${NONE}
+Test Setup        None Shall Pass    $NONE
 TEST TEARDOWN     No Operation
 Test Timeout      1 day
 Force Tags        foo    bar
@@ -73,7 +73,7 @@ Keyword Tags      tag
             (T.EOS, '', 7, 61),
             (T.TEST_SETUP, 'Test Setup', 8, 0),
             (T.NAME, 'None Shall Pass', 8, 18),
-            (T.ARGUMENT, '${NONE}', 8, 37),
+            (T.ARGUMENT, '$NONE', 8, 37),
             (T.EOS, '', 8, 44),
             (T.TEST_TEARDOWN, 'TEST TEARDOWN', 9, 0),
             (T.NAME, 'No Operation', 9, 18),
@@ -135,7 +135,7 @@ Default Tags      Not allowed in init file
 Metadata          Name           Value
 Suite Setup       Log    Hello, world!
 suite teardown    Log    <b>The End.</b>    WARN    html=True
-Test Setup        None Shall Pass    ${NONE}
+Test Setup        None Shall Pass    $NONE
 TEST TEARDOWN     No Operation
 Test Template     NONE
 Test Timeout      1 day
@@ -403,7 +403,7 @@ Name
     [Setup]            Log    Hello, world!    level=DEBUG
     [Teardown]         No Operation
     [Template]         Log Many
-    [Timeout]          ${TIMEOUT}
+    [Timeout]          $TIMEOUT
 '''
         expected = [
             (T.TESTCASE_HEADER, '*** Test Cases ***', 1, 0),
@@ -431,7 +431,7 @@ Name
             (T.NAME, 'Log Many', 8, 23),
             (T.EOS, '', 8, 31),
             (T.TIMEOUT, '[Timeout]', 9, 4),
-            (T.ARGUMENT, '${TIMEOUT}', 9, 23),
+            (T.ARGUMENT, '$TIMEOUT', 9, 23),
             (T.EOS, '', 9, 33)
         ]
         assert_tokens(data, expected, data_only=True)
@@ -440,12 +440,12 @@ Name
         data = '''\
 *** Keywords ***
 Name
-    [Arguments]        ${arg1}    ${arg2}=default    @{varargs}    &{kwargs}
+    [Arguments]        $arg1    $arg2=default    @{varargs}    &{kwargs}
     [Documentation]    Doc    in multiple
     ...                parts
     [Tags]             first    second
     [Teardown]         No Operation
-    [Timeout]          ${TIMEOUT}
+    [Timeout]          $TIMEOUT
     [Return]           Value
 '''
         expected = [
@@ -454,8 +454,8 @@ Name
             (T.KEYWORD_NAME, 'Name', 2, 0),
             (T.EOS, '', 2, 4),
             (T.ARGUMENTS, '[Arguments]', 3, 4),
-            (T.ARGUMENT, '${arg1}', 3, 23),
-            (T.ARGUMENT, '${arg2}=default', 3, 34),
+            (T.ARGUMENT, '$arg1', 3, 23),
+            (T.ARGUMENT, '$arg2=default', 3, 34),
             (T.ARGUMENT, '@{varargs}', 3, 53),
             (T.ARGUMENT, '&{kwargs}', 3, 67),
             (T.EOS, '', 3, 76),
@@ -472,7 +472,7 @@ Name
             (T.NAME, 'No Operation', 7, 23),
             (T.EOS, '', 7, 35),
             (T.TIMEOUT, '[Timeout]', 8, 4),
-            (T.ARGUMENT, '${TIMEOUT}', 8, 23),
+            (T.ARGUMENT, '$TIMEOUT', 8, 23),
             (T.EOS, '', 8, 33),
             (T.RETURN, '[Return]', 9, 4),
             (T.ARGUMENT, 'Value', 9, 23),
@@ -752,9 +752,9 @@ class TestName(unittest.TestCase):
                      [(T.TESTCASE_NAME, 'N', 2, 0), (T.EOS, '', 2, 1), (T.SEPARATOR, '  ', 2, 1),
                       (T.KEYWORD, 'K', 2, 3), (T.SEPARATOR, '  ', 2, 4),
                       (T.ARGUMENT, 'A', 2, 6), (T.EOL, '', 2, 7), (T.EOS, '', 2, 7)])
-        self._verify('N  ${v}=  K',
+        self._verify('N  $v=  K',
                      [(T.TESTCASE_NAME, 'N', 2, 0), (T.EOS, '', 2, 1), (T.SEPARATOR, '  ', 2, 1),
-                      (T.ASSIGN, '${v}=', 2, 3), (T.SEPARATOR, '  ', 2, 8),
+                      (T.ASSIGN, '$v=', 2, 3), (T.SEPARATOR, '  ', 2, 8),
                       (T.KEYWORD, 'K', 2, 10), (T.EOL, '', 2, 11), (T.EOS, '', 2, 11)])
 
     def test_name_and_keyword_on_same_continued_rows(self):
@@ -805,9 +805,9 @@ class TestNameWithPipes(unittest.TestCase):
                      [(T.SEPARATOR, '| ', 2, 0), (T.TESTCASE_NAME, 'N', 2, 2), (T.EOS, '', 2, 3),
                       (T.SEPARATOR, ' | ', 2, 3), (T.KEYWORD, 'K', 2, 6), (T.SEPARATOR, ' | ', 2, 7),
                       (T.ARGUMENT, 'A', 2, 10), (T.SEPARATOR, ' |', 2, 11), (T.EOL, '\n', 2, 13), (T.EOS, '', 2, 14)])
-        self._verify('|    N  |  ${v} =    |    K    ',
+        self._verify('|    N  |  $v =    |    K    ',
                      [(T.SEPARATOR, '|    ', 2, 0), (T.TESTCASE_NAME, 'N', 2, 5), (T.EOS, '', 2, 6),
-                      (T.SEPARATOR, '  |  ', 2, 6), (T.ASSIGN, '${v} =', 2, 11), (T.SEPARATOR, '    |    ', 2, 17),
+                      (T.SEPARATOR, '  |  ', 2, 6), (T.ASSIGN, '$v =', 2, 11), (T.SEPARATOR, '    |    ', 2, 17),
                       (T.KEYWORD, 'K', 2, 26), (T.EOL, '    ', 2, 27), (T.EOS, '', 2, 31)])
 
     def test_name_and_keyword_on_same_continued_row(self):
@@ -847,26 +847,26 @@ class TestVariables(unittest.TestCase):
     def test_valid(self):
         data = '''\
 *** Variables ***
-${SCALAR}    value
-${LONG}      First part    ${2} part
+$SCALAR    value
+$LONG      First part    $2 part
 ...          third part
-@{LIST}      first    ${SCALAR}    third
+@{LIST}      first    $SCALAR    third
 &{DICT}      key=value    &{X}
 '''
         expected = [
             (T.VARIABLE_HEADER, '*** Variables ***', 1, 0),
             (T.EOS, '', 1, 17),
-            (T.VARIABLE, '${SCALAR}', 2, 0),
+            (T.VARIABLE, '$SCALAR', 2, 0),
             (T.ARGUMENT, 'value', 2, 13),
             (T.EOS, '', 2, 18),
-            (T.VARIABLE, '${LONG}', 3, 0),
+            (T.VARIABLE, '$LONG', 3, 0),
             (T.ARGUMENT, 'First part', 3, 13),
-            (T.ARGUMENT, '${2} part', 3, 27),
+            (T.ARGUMENT, '$2 part', 3, 27),
             (T.ARGUMENT, 'third part', 4, 13),
             (T.EOS, '', 4, 23),
             (T.VARIABLE, '@{LIST}', 5, 0),
             (T.ARGUMENT, 'first', 5, 13),
-            (T.ARGUMENT, '${SCALAR}', 5, 22),
+            (T.ARGUMENT, '$SCALAR', 5, 22),
             (T.ARGUMENT, 'third', 5, 35),
             (T.EOS, '', 5, 40),
             (T.VARIABLE, '&{DICT}', 6, 0),
@@ -879,26 +879,26 @@ ${LONG}      First part    ${2} part
     def test_valid_with_assign(self):
         data = '''\
 *** Variables ***
-${SCALAR} =      value
-${LONG}=         First part    ${2} part
+$SCALAR =      value
+$LONG=         First part    $2 part
 ...              third part
-@{LIST} =        first    ${SCALAR}    third
+@{LIST} =        first    $SCALAR    third
 &{DICT} =        key=value    &{X}
 '''
         expected = [
             (T.VARIABLE_HEADER, '*** Variables ***', 1, 0),
             (T.EOS, '', 1, 17),
-            (T.VARIABLE, '${SCALAR} =', 2, 0),
+            (T.VARIABLE, '$SCALAR =', 2, 0),
             (T.ARGUMENT, 'value', 2, 17),
             (T.EOS, '', 2, 22),
-            (T.VARIABLE, '${LONG}=', 3, 0),
+            (T.VARIABLE, '$LONG=', 3, 0),
             (T.ARGUMENT, 'First part', 3, 17),
-            (T.ARGUMENT, '${2} part', 3, 31),
+            (T.ARGUMENT, '$2 part', 3, 31),
             (T.ARGUMENT, 'third part', 4, 17),
             (T.EOS, '', 4, 27),
             (T.VARIABLE, '@{LIST} =', 5, 0),
             (T.ARGUMENT, 'first', 5, 17),
-            (T.ARGUMENT, '${SCALAR}', 5, 26),
+            (T.ARGUMENT, '$SCALAR', 5, 26),
             (T.ARGUMENT, 'third', 5, 39),
             (T.EOS, '', 5, 44),
             (T.VARIABLE, '&{DICT} =', 6, 0),
@@ -916,10 +916,10 @@ ${LONG}=         First part    ${2} part
 class TestForLoop(unittest.TestCase):
 
     def test_for_loop_header(self):
-        header = 'FOR    ${i}    IN    foo    bar'
+        header = 'FOR    $i    IN    foo    bar'
         expected = [
             (T.FOR, 'FOR', 3, 4),
-            (T.VARIABLE, '${i}', 3, 11),
+            (T.VARIABLE, '$i', 3, 11),
             (T.FOR_SEPARATOR, 'IN', 3, 19),
             (T.ARGUMENT, 'foo', 3, 25),
             (T.ARGUMENT, 'bar', 3, 32),
@@ -964,13 +964,13 @@ class TestIf(unittest.TestCase):
 
     def test_if_only(self):
         block = '''\
-    IF    ${True}
+    IF    $True
         Log Many    foo    bar
     END
 '''
         expected = [
             (T.IF, 'IF', 3, 4),
-            (T.ARGUMENT, '${True}', 3, 10),
+            (T.ARGUMENT, '$True', 3, 10),
             (T.EOS, '', 3, 17),
             (T.KEYWORD, 'Log Many', 4, 8),
             (T.ARGUMENT, 'foo', 4, 20),
@@ -983,7 +983,7 @@ class TestIf(unittest.TestCase):
 
     def test_with_else(self):
         block = '''\
-    IF    ${False}
+    IF    $False
         Log    foo
     ELSE
         Log    bar
@@ -991,7 +991,7 @@ class TestIf(unittest.TestCase):
 '''
         expected = [
             (T.IF, 'IF', 3, 4),
-            (T.ARGUMENT, '${False}', 3, 10),
+            (T.ARGUMENT, '$False', 3, 10),
             (T.EOS, '', 3, 18),
             (T.KEYWORD, 'Log', 4, 8),
             (T.ARGUMENT, 'foo', 4, 15),
@@ -1008,9 +1008,9 @@ class TestIf(unittest.TestCase):
 
     def test_with_else_if_and_else(self):
         block = '''\
-    IF    ${False}
+    IF    $False
         Log    foo
-    ELSE IF    ${True}
+    ELSE IF    $True
         Log    bar
     ELSE
         Noop
@@ -1018,13 +1018,13 @@ class TestIf(unittest.TestCase):
 '''
         expected = [
             (T.IF, 'IF', 3, 4),
-            (T.ARGUMENT, '${False}', 3, 10),
+            (T.ARGUMENT, '$False', 3, 10),
             (T.EOS, '', 3, 18),
             (T.KEYWORD, 'Log', 4, 8),
             (T.ARGUMENT, 'foo', 4, 15),
             (T.EOS, '', 4, 18),
             (T.ELSE_IF, 'ELSE IF', 5, 4),
-            (T.ARGUMENT, '${True}', 5, 15),
+            (T.ARGUMENT, '$True', 5, 15),
             (T.EOS, '', 5, 22),
             (T.KEYWORD, 'Log', 6, 8),
             (T.ARGUMENT, 'bar', 6, 15),
@@ -1041,11 +1041,11 @@ class TestIf(unittest.TestCase):
     def test_multiline_and_comments(self):
         block = '''\
     IF                 # 3
-    ...    ${False}    # 4
+    ...    $False    # 4
         Log            # 5
     ...    foo         # 6
     ELSE IF            # 7
-    ...    ${True}     # 8
+    ...    $True     # 8
         Log            # 9
     ...    bar         # 10
     ELSE               # 11
@@ -1055,13 +1055,13 @@ class TestIf(unittest.TestCase):
         '''
         expected = [
             (T.IF, 'IF', 3, 4),
-            (T.ARGUMENT, '${False}', 4, 11),
+            (T.ARGUMENT, '$False', 4, 11),
             (T.EOS, '', 4, 19),
             (T.KEYWORD, 'Log', 5, 8),
             (T.ARGUMENT, 'foo', 6, 11),
             (T.EOS, '', 6, 14),
             (T.ELSE_IF, 'ELSE IF', 7, 4),
-            (T.ARGUMENT, '${True}', 8, 11),
+            (T.ARGUMENT, '$True', 8, 11),
             (T.EOS, '', 8, 18),
             (T.KEYWORD, 'Log', 9, 8),
             (T.ARGUMENT, 'bar', 10, 11),
@@ -1094,12 +1094,12 @@ Name
 class TestInlineIf(unittest.TestCase):
 
     def test_if_only(self):
-        header = '    IF    ${True}    Log Many   foo    bar'
+        header = '    IF    $True    Log Many   foo    bar'
         expected = [
             (T.SEPARATOR, '    ', 3, 0),
             (T.INLINE_IF, 'IF', 3, 4),
             (T.SEPARATOR, '    ', 3, 6),
-            (T.ARGUMENT, '${True}', 3, 10),
+            (T.ARGUMENT, '$True', 3, 10),
             (T.EOS, '', 3, 17),
             (T.SEPARATOR, '    ', 3, 17),
             (T.KEYWORD, 'Log Many', 3, 21),
@@ -1116,12 +1116,12 @@ class TestInlineIf(unittest.TestCase):
 
     def test_with_else(self):
         #             4     10          22     29     36     43     50
-        header = '    IF    ${False}    Log    foo    ELSE   Log    bar'
+        header = '    IF    $False    Log    foo    ELSE   Log    bar'
         expected = [
             (T.SEPARATOR, '    ', 3, 0),
             (T.INLINE_IF, 'IF', 3, 4),
             (T.SEPARATOR, '    ', 3, 6),
-            (T.ARGUMENT, '${False}', 3, 10),
+            (T.ARGUMENT, '$False', 3, 10),
             (T.EOS, '', 3, 18),
             (T.SEPARATOR, '    ', 3, 18),
             (T.KEYWORD, 'Log', 3, 22),
@@ -1144,12 +1144,12 @@ class TestInlineIf(unittest.TestCase):
 
     def test_with_else_if_and_else(self):
         #             4     10          22     29     36         47       56     63     70      78
-        header = '    IF    ${False}    Log    foo    ELSE IF    ${True}  Log    bar    ELSE    Noop'
+        header = '    IF    $False    Log    foo    ELSE IF    $True  Log    bar    ELSE    Noop'
         expected = [
             (T.SEPARATOR, '    ', 3, 0),
             (T.INLINE_IF, 'IF', 3, 4),
             (T.SEPARATOR, '    ', 3, 6),
-            (T.ARGUMENT, '${False}', 3, 10),
+            (T.ARGUMENT, '$False', 3, 10),
             (T.EOS, '', 3, 18),
             (T.SEPARATOR, '    ', 3, 18),
             (T.KEYWORD, 'Log', 3, 22),
@@ -1159,7 +1159,7 @@ class TestInlineIf(unittest.TestCase):
             (T.EOS, '', 3, 36),
             (T.ELSE_IF, 'ELSE IF', 3, 36),
             (T.SEPARATOR, '    ', 3, 43),
-            (T.ARGUMENT, '${True}', 3, 47),
+            (T.ARGUMENT, '$True', 3, 47),
             (T.EOS, '', 3, 54),
             (T.SEPARATOR, '  ', 3, 54),
             (T.KEYWORD, 'Log', 3, 56),
@@ -1268,10 +1268,10 @@ class TestInlineIf(unittest.TestCase):
 
     def test_assign(self):
         #             4         14    20      28    34      42
-        header = '    ${x} =    IF    True    K1    ELSE    K2'
+        header = '    $x =    IF    True    K1    ELSE    K2'
         expected = [
             (T.SEPARATOR, '    ', 3, 0),
-            (T.ASSIGN, '${x} =', 3, 4),
+            (T.ASSIGN, '$x =', 3, 4),
             (T.SEPARATOR, '    ', 3, 10),
             (T.INLINE_IF, 'IF', 3, 14),
             (T.SEPARATOR, '    ', 3, 16),
@@ -1294,10 +1294,10 @@ class TestInlineIf(unittest.TestCase):
 
     def test_assign_with_empty_else(self):
         #             4         14    20      28    34
-        header = '    ${x} =    IF    True    K1    ELSE'
+        header = '    $x =    IF    True    K1    ELSE'
         expected = [
             (T.SEPARATOR, '    ', 3, 0),
-            (T.ASSIGN, '${x} =', 3, 4),
+            (T.ASSIGN, '$x =', 3, 4),
             (T.SEPARATOR, '    ', 3, 10),
             (T.INLINE_IF, 'IF', 3, 14),
             (T.SEPARATOR, '    ', 3, 16),
@@ -1318,11 +1318,11 @@ class TestInlineIf(unittest.TestCase):
     def test_multiline_and_comments(self):
         header = '''\
     IF                 # 3
-    ...    ${False}    # 4
+    ...    $False    # 4
     ...    Log         # 5
     ...    foo         # 6
     ...    ELSE IF     # 7
-    ...    ${True}     # 8
+    ...    $True     # 8
     ...    Log         # 9
     ...    bar         # 10
     ...    ELSE        # 11
@@ -1338,7 +1338,7 @@ class TestInlineIf(unittest.TestCase):
             (T.SEPARATOR, '    ', 4, 0),
             (T.CONTINUATION, '...', 4, 4),
             (T.SEPARATOR, '    ', 4, 7),
-            (T.ARGUMENT, '${False}', 4, 11),
+            (T.ARGUMENT, '$False', 4, 11),
             (T.EOS, '', 4, 19),
 
             (T.SEPARATOR, '    ', 4, 19),
@@ -1370,7 +1370,7 @@ class TestInlineIf(unittest.TestCase):
             (T.SEPARATOR, '    ', 8, 0),
             (T.CONTINUATION, '...', 8, 4),
             (T.SEPARATOR, '    ', 8, 7),
-            (T.ARGUMENT, '${True}', 8, 11),
+            (T.ARGUMENT, '$True', 8, 11),
             (T.EOS, '', 8, 18),
 
             (T.SEPARATOR, '     ', 8, 18),
@@ -1534,7 +1534,7 @@ Library         Easter
 
 *** Test Cases ***
 Example
-    None shall pass    ${NONE}
+    None shall pass    $NONE
 '''
     tokens = [
         (T.SETTING_HEADER, '*** Settings ***', 1, 0),
@@ -1556,7 +1556,7 @@ Example
         (T.SEPARATOR, '    ', 6, 0),
         (T.KEYWORD, 'None shall pass', 6, 4),
         (T.SEPARATOR, '    ', 6, 19),
-        (T.ARGUMENT, '${NONE}', 6, 23),
+        (T.ARGUMENT, '$NONE', 6, 23),
         (T.EOL, '\n', 6, 30),
         (T.EOS, '', 6, 31)
     ]
@@ -1571,7 +1571,7 @@ Example
         (T.TESTCASE_NAME, 'Example', 5, 0),
         (T.EOS, '', 5, 7),
         (T.KEYWORD, 'None shall pass', 6, 4),
-        (T.ARGUMENT, '${NONE}', 6, 23),
+        (T.ARGUMENT, '$NONE', 6, 23),
         (T.EOS, '', 6, 30)
     ]
 
@@ -1614,7 +1614,7 @@ Example
 class TestGetResourceTokensSourceFormats(TestGetTokensSourceFormats):
     data = '''\
 *** Variable ***
-${VAR}    Value
+$VAR    Value
 
 *** KEYWORD ***
 NOOP    No Operation
@@ -1623,7 +1623,7 @@ NOOP    No Operation
         (T.VARIABLE_HEADER, '*** Variable ***', 1, 0),
         (T.EOL, '\n', 1, 16),
         (T.EOS, '', 1, 17),
-        (T.VARIABLE, '${VAR}', 2, 0),
+        (T.VARIABLE, '$VAR', 2, 0),
         (T.SEPARATOR, '    ', 2, 6),
         (T.ARGUMENT, 'Value', 2, 10),
         (T.EOL, '\n', 2, 15),
@@ -1643,7 +1643,7 @@ NOOP    No Operation
     data_tokens = [
         (T.VARIABLE_HEADER, '*** Variable ***', 1, 0),
         (T.EOS, '', 1, 16),
-        (T.VARIABLE, '${VAR}', 2, 0),
+        (T.VARIABLE, '$VAR', 2, 0),
         (T.ARGUMENT, 'Value', 2, 10),
         (T.EOS, '', 2, 15),
         (T.KEYWORD_HEADER, '*** KEYWORD ***', 4, 0),
@@ -1665,22 +1665,22 @@ class TestTokenizeVariables(unittest.TestCase):
     def test_settings(self):
         data = '''\
 *** Settings ***
-Library       My${Name}    my ${arg}    ${x}[0]    WITH NAME    Your${Name}
-${invalid}    ${usage}
+Library       My$Name    my $arg    $x[0]    WITH NAME    Your$Name
+$invalid    $usage
 '''
         expected = [(T.SETTING_HEADER, '*** Settings ***', 1, 0),
                     (T.EOS, '', 1, 16),
                     (T.LIBRARY, 'Library', 2, 0),
                     (T.NAME, 'My', 2, 14),
-                    (T.VARIABLE, '${Name}', 2, 16),
+                    (T.VARIABLE, '$Name', 2, 16),
                     (T.ARGUMENT, 'my ', 2, 27),
-                    (T.VARIABLE, '${arg}', 2, 30),
-                    (T.VARIABLE, '${x}[0]', 2, 40),
+                    (T.VARIABLE, '$arg', 2, 30),
+                    (T.VARIABLE, '$x[0]', 2, 40),
                     (T.WITH_NAME, 'WITH NAME', 2, 51),
                     (T.NAME, 'Your', 2, 64),
-                    (T.VARIABLE, '${Name}', 2, 68),
+                    (T.VARIABLE, '$Name', 2, 68),
                     (T.EOS, '', 2, 75),
-                    (T.ERROR, '${invalid}', 3, 0, "Non-existing setting '${invalid}'."),
+                    (T.ERROR, '$invalid', 3, 0, "Non-existing setting '$invalid'."),
                     (T.EOS, '', 3, 10)]
         assert_tokens(data, expected, get_tokens=get_tokens,
                       data_only=True, tokenize_variables=True)
@@ -1692,23 +1692,23 @@ ${invalid}    ${usage}
     def test_variables(self):
         data = '''\
 *** Variables ***
-${VARIABLE}      my ${value}
-&{DICT}          key=${var}[item][1:]    ${key}=${a}${b}[c]${d}
+$VARIABLE      my $value
+&{DICT}          key=$var[item][1:]    $key=$a$b[c]$d
 '''
         expected = [(T.VARIABLE_HEADER, '*** Variables ***', 1, 0),
                     (T.EOS, '', 1, 17),
-                    (T.VARIABLE, '${VARIABLE}', 2, 0),
+                    (T.VARIABLE, '$VARIABLE', 2, 0),
                     (T.ARGUMENT, 'my ', 2, 17),
-                    (T.VARIABLE, '${value}', 2, 20),
+                    (T.VARIABLE, '$value', 2, 20),
                     (T.EOS, '', 2, 28),
                     (T.VARIABLE, '&{DICT}', 3, 0),
                     (T.ARGUMENT, 'key=', 3, 17),
-                    (T.VARIABLE, '${var}[item][1:]', 3, 21),
-                    (T.VARIABLE, '${key}', 3, 41),
+                    (T.VARIABLE, '$var[item][1:]', 3, 21),
+                    (T.VARIABLE, '$key', 3, 41),
                     (T.ARGUMENT, '=', 3, 47),
-                    (T.VARIABLE, '${a}', 3, 48),
-                    (T.VARIABLE, '${b}[c]', 3, 52),
-                    (T.VARIABLE, '${d}', 3, 59),
+                    (T.VARIABLE, '$a', 3, 48),
+                    (T.VARIABLE, '$b[c]', 3, 52),
+                    (T.VARIABLE, '$d', 3, 59),
                     (T.EOS, '', 3, 63)]
         assert_tokens(data, expected, get_tokens=get_tokens,
                       data_only=True, tokenize_variables=True)
@@ -1720,34 +1720,34 @@ ${VARIABLE}      my ${value}
     def test_test_cases(self):
         data = '''\
 *** Test Cases ***
-My ${name}
-    [Documentation]    a ${b} ${c}[d] ${e${f}}
-    ${assign} =    Keyword    my ${arg}ument
-    Key${word}
-${name}
+My $name
+    [Documentation]    a $b $c[d] ${e$f}
+    $assign =    Keyword    my $argument
+    Key$word
+$name
 '''
         expected = [(T.TESTCASE_HEADER, '*** Test Cases ***', 1, 0),
                     (T.EOS, '', 1, 18),
                     (T.TESTCASE_NAME, 'My ', 2, 0),
-                    (T.VARIABLE, '${name}', 2, 3),
+                    (T.VARIABLE, '$name', 2, 3),
                     (T.EOS, '', 2, 10),
                     (T.DOCUMENTATION, '[Documentation]', 3, 4),
                     (T.ARGUMENT, 'a ', 3, 23),
-                    (T.VARIABLE, '${b}', 3, 25),
+                    (T.VARIABLE, '$b', 3, 25),
                     (T.ARGUMENT, ' ', 3, 29),
-                    (T.VARIABLE, '${c}[d]', 3, 30),
+                    (T.VARIABLE, '$c[d]', 3, 30),
                     (T.ARGUMENT, ' ', 3, 37),
-                    (T.VARIABLE, '${e${f}}', 3, 38),
+                    (T.VARIABLE, '${e$f}', 3, 38),
                     (T.EOS, '', 3, 46),
-                    (T.ASSIGN, '${assign} =', 4, 4),
+                    (T.ASSIGN, '$assign =', 4, 4),
                     (T.KEYWORD, 'Keyword', 4, 19),
                     (T.ARGUMENT, 'my ', 4, 30),
-                    (T.VARIABLE, '${arg}', 4, 33),
+                    (T.VARIABLE, '$arg', 4, 33),
                     (T.ARGUMENT, 'ument', 4, 39),
                     (T.EOS, '', 4, 44),
-                    (T.KEYWORD, 'Key${word}', 5, 4),
+                    (T.KEYWORD, 'Key$word', 5, 4),
                     (T.EOS, '', 5, 14),
-                    (T.VARIABLE, '${name}', 6, 0),
+                    (T.VARIABLE, '$name', 6, 0),
                     (T.EOS, '', 6, 7)]
         assert_tokens(data, expected, get_tokens=get_tokens,
                       data_only=True, tokenize_variables=True)
@@ -1755,34 +1755,34 @@ ${name}
     def test_keywords(self):
         data = '''\
 *** Keywords ***
-My ${name}
-    [Documentation]    a ${b} ${c}[d] ${e${f}}
-    ${assign} =    Keyword    my ${arg}ument
-    Key${word}
-${name}
+My $name
+    [Documentation]    a $b $c[d] ${e$f}
+    $assign =    Keyword    my $argument
+    Key$word
+$name
 '''
         expected = [(T.KEYWORD_HEADER, '*** Keywords ***', 1, 0),
                     (T.EOS, '', 1, 16),
                     (T.KEYWORD_NAME, 'My ', 2, 0),
-                    (T.VARIABLE, '${name}', 2, 3),
+                    (T.VARIABLE, '$name', 2, 3),
                     (T.EOS, '', 2, 10),
                     (T.DOCUMENTATION, '[Documentation]', 3, 4),
                     (T.ARGUMENT, 'a ', 3, 23),
-                    (T.VARIABLE, '${b}', 3, 25),
+                    (T.VARIABLE, '$b', 3, 25),
                     (T.ARGUMENT, ' ', 3, 29),
-                    (T.VARIABLE, '${c}[d]', 3, 30),
+                    (T.VARIABLE, '$c[d]', 3, 30),
                     (T.ARGUMENT, ' ', 3, 37),
-                    (T.VARIABLE, '${e${f}}', 3, 38),
+                    (T.VARIABLE, '${e$f}', 3, 38),
                     (T.EOS, '', 3, 46),
-                    (T.ASSIGN, '${assign} =', 4, 4),
+                    (T.ASSIGN, '$assign =', 4, 4),
                     (T.KEYWORD, 'Keyword', 4, 19),
                     (T.ARGUMENT, 'my ', 4, 30),
-                    (T.VARIABLE, '${arg}', 4, 33),
+                    (T.VARIABLE, '$arg', 4, 33),
                     (T.ARGUMENT, 'ument', 4, 39),
                     (T.EOS, '', 4, 44),
-                    (T.KEYWORD, 'Key${word}', 5, 4),
+                    (T.KEYWORD, 'Key$word', 5, 4),
                     (T.EOS, '', 5, 14),
-                    (T.VARIABLE, '${name}', 6, 0),
+                    (T.VARIABLE, '$name', 6, 0),
                     (T.EOS, '', 6, 7)]
         assert_tokens(data, expected, get_tokens=get_tokens,
                       data_only=True, tokenize_variables=True)
@@ -1798,13 +1798,13 @@ class TestKeywordCallAssign(unittest.TestCase):
         data = '''\
 *** Keywords ***
 do something
-    ${a}
+    $a
 '''
         expected = [(T.KEYWORD_HEADER, '*** Keywords ***', 1, 0),
                     (T.EOS, '', 1, 16),
                     (T.KEYWORD_NAME, 'do something', 2, 0),
                     (T.EOS, '', 2, 12),
-                    (T.ASSIGN, '${a}', 3, 4),
+                    (T.ASSIGN, '$a', 3, 4),
                     (T.EOS, '', 3, 8)]
 
         assert_tokens(data, expected, get_tokens=get_tokens,
@@ -1818,13 +1818,13 @@ do something
         data = '''\
 *** Keywords ***
 do something
-    ${a}  do nothing
+    $a  do nothing
 '''
         expected = [(T.KEYWORD_HEADER, '*** Keywords ***', 1, 0),
                     (T.EOS, '', 1, 16),
                     (T.KEYWORD_NAME, 'do something', 2, 0),
                     (T.EOS, '', 2, 12),
-                    (T.ASSIGN, '${a}', 3, 4),
+                    (T.ASSIGN, '$a', 3, 4),
                     (T.KEYWORD, 'do nothing', 3, 10),
                     (T.EOS, '', 3, 20)]
 
@@ -1839,13 +1839,13 @@ do something
         data = '''\
 *** Keywords ***
 do something
-    ${a}=do nothing
+    $a=do nothing
 '''
         expected = [(T.KEYWORD_HEADER, '*** Keywords ***', 1, 0),
                     (T.EOS, '', 1, 16),
                     (T.KEYWORD_NAME, 'do something', 2, 0),
                     (T.EOS, '', 2, 12),
-                    (T.ASSIGN_KEYWORD_CALL, '${a}=do nothing', 3, 4),
+                    (T.ASSIGN_KEYWORD_CALL, '$a=do nothing', 3, 4),
                     (T.EOS, '', 3, 19)]
 
         assert_tokens(data, expected, get_tokens=get_tokens,
@@ -1950,17 +1950,17 @@ class TestReturn(unittest.TestCase):
 
     def test_in_for(self):
             data = '''\
-    FOR    ${x}    IN    @{STUFF}
-        RETURN    ${x}
+    FOR    $x    IN    @{STUFF}
+        RETURN    $x
     END
 '''
             expected = [(T.FOR, 'FOR', 3, 4),
-                        (T.VARIABLE, '${x}', 3, 11),
+                        (T.VARIABLE, '$x', 3, 11),
                         (T.FOR_SEPARATOR, 'IN', 3, 19),
                         (T.ARGUMENT, '@{STUFF}', 3, 25),
                         (T.EOS, '', 3, 33),
                         (T.RETURN_STATEMENT, 'RETURN', 4, 8),
-                        (T.ARGUMENT, '${x}', 4, 18),
+                        (T.ARGUMENT, '$x', 4, 18),
                         (T.EOS, '', 4, 22),
                         (T.END, 'END', 5, 4),
                         (T.EOS, '', 5, 7)]
@@ -1999,14 +1999,14 @@ class TestContinue(unittest.TestCase):
 
     def test_in_if(self):
         data = '''\
-    FOR    ${x}    IN    @{STUFF}
+    FOR    $x    IN    @{STUFF}
         IF    True
             CONTINUE
         END
     END
 '''
         expected = [(T.FOR, 'FOR', 3, 4),
-                    (T.VARIABLE, '${x}', 3, 11),
+                    (T.VARIABLE, '$x', 3, 11),
                     (T.FOR_SEPARATOR, 'IN', 3, 19),
                     (T.ARGUMENT, '@{STUFF}', 3, 25),
                     (T.EOS, '', 3, 33),
@@ -2023,7 +2023,7 @@ class TestContinue(unittest.TestCase):
 
     def test_in_try(self):
         data = '''\
-    FOR    ${x}    IN    @{STUFF}
+    FOR    $x    IN    @{STUFF}
         TRY
             KW
         EXCEPT
@@ -2032,7 +2032,7 @@ class TestContinue(unittest.TestCase):
     END
 '''
         expected = [(T.FOR, 'FOR', 3, 4),
-                    (T.VARIABLE, '${x}', 3, 11),
+                    (T.VARIABLE, '$x', 3, 11),
                     (T.FOR_SEPARATOR, 'IN', 3, 19),
                     (T.ARGUMENT, '@{STUFF}', 3, 25),
                     (T.EOS, '', 3, 33),
@@ -2052,12 +2052,12 @@ class TestContinue(unittest.TestCase):
 
     def test_in_for(self):
         data = '''\
-    FOR    ${x}    IN    @{STUFF}
+    FOR    $x    IN    @{STUFF}
         CONTINUE
     END
 '''
         expected = [(T.FOR, 'FOR', 3, 4),
-                    (T.VARIABLE, '${x}', 3, 11),
+                    (T.VARIABLE, '$x', 3, 11),
                     (T.FOR_SEPARATOR, 'IN', 3, 19),
                     (T.ARGUMENT, '@{STUFF}', 3, 25),
                     (T.EOS, '', 3, 33),
@@ -2069,12 +2069,12 @@ class TestContinue(unittest.TestCase):
 
     def test_in_while(self):
         data = '''\
-    WHILE    ${EXPR}
+    WHILE    $EXPR
         CONTINUE
     END
 '''
         expected = [(T.WHILE, 'WHILE', 3, 4),
-                    (T.ARGUMENT, '${EXPR}', 3, 13),
+                    (T.ARGUMENT, '$EXPR', 3, 13),
                     (T.EOS, '', 3, 20),
                     (T.CONTINUE, 'CONTINUE', 4, 8),
                     (T.EOS, '', 4, 16),
@@ -2115,14 +2115,14 @@ class TestBreak(unittest.TestCase):
 
     def test_in_if(self):
         data = '''\
-    FOR    ${x}    IN    @{STUFF}
+    FOR    $x    IN    @{STUFF}
         IF    True
             BREAK
         END
     END
 '''
         expected = [(T.FOR, 'FOR', 3, 4),
-                    (T.VARIABLE, '${x}', 3, 11),
+                    (T.VARIABLE, '$x', 3, 11),
                     (T.FOR_SEPARATOR, 'IN', 3, 19),
                     (T.ARGUMENT, '@{STUFF}', 3, 25),
                     (T.EOS, '', 3, 33),
@@ -2139,12 +2139,12 @@ class TestBreak(unittest.TestCase):
 
     def test_in_for(self):
         data = '''\
-    FOR    ${x}    IN    @{STUFF}
+    FOR    $x    IN    @{STUFF}
         BREAK
     END
 '''
         expected = [(T.FOR, 'FOR', 3, 4),
-                    (T.VARIABLE, '${x}', 3, 11),
+                    (T.VARIABLE, '$x', 3, 11),
                     (T.FOR_SEPARATOR, 'IN', 3, 19),
                     (T.ARGUMENT, '@{STUFF}', 3, 25),
                     (T.EOS, '', 3, 33),
@@ -2156,12 +2156,12 @@ class TestBreak(unittest.TestCase):
 
     def test_in_while(self):
         data = '''\
-    WHILE    ${EXPR}
+    WHILE    $EXPR
         BREAK
     END
 '''
         expected = [(T.WHILE, 'WHILE', 3, 4),
-                    (T.ARGUMENT, '${EXPR}', 3, 13),
+                    (T.ARGUMENT, '$EXPR', 3, 13),
                     (T.EOS, '', 3, 20),
                     (T.BREAK, 'BREAK', 4, 8),
                     (T.EOS, '', 4, 13),
@@ -2171,7 +2171,7 @@ class TestBreak(unittest.TestCase):
 
     def test_in_try(self):
         data = '''\
-    FOR    ${x}    IN    @{STUFF}
+    FOR    $x    IN    @{STUFF}
         TRY
             KW
         EXCEPT
@@ -2180,7 +2180,7 @@ class TestBreak(unittest.TestCase):
     END
 '''
         expected = [(T.FOR, 'FOR', 3, 4),
-                    (T.VARIABLE, '${x}', 3, 11),
+                    (T.VARIABLE, '$x', 3, 11),
                     (T.FOR_SEPARATOR, 'IN', 3, 19),
                     (T.ARGUMENT, '@{STUFF}', 3, 25),
                     (T.EOS, '', 3, 33),

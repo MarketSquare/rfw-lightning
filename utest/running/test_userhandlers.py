@@ -54,18 +54,18 @@ def EAT(name, args=[]):
 class TestEmbeddedArgs(unittest.TestCase):
 
     def setUp(self):
-        self.tmp1 = EAT('User selects ${item} from list')
-        self.tmp2 = EAT('${x} * ${y} from "${z}"')
+        self.tmp1 = EAT('User selects $item from list')
+        self.tmp2 = EAT('$x * $y from "$z"')
 
     def test_truthy(self):
-        assert_true(EmbeddedArguments.from_name('${Yes} embedded args here'))
+        assert_true(EmbeddedArguments.from_name('$Yes embedded args here'))
         assert_true(not EmbeddedArguments.from_name('No embedded args here'))
 
     def test_get_embedded_arg_and_regexp(self):
         assert_equal(self.tmp1.embedded.args, ['item'])
         assert_equal(self.tmp1.embedded.name.pattern,
                      '^User\\ selects\\ (.*?)\\ from\\ list$')
-        assert_equal(self.tmp1.name, 'User selects ${item} from list')
+        assert_equal(self.tmp1.name, 'User selects $item from list')
 
     def test_get_multiple_embedded_args_and_regexp(self):
         assert_equal(self.tmp2.embedded.args, ['x', 'y', 'z'])
@@ -96,12 +96,12 @@ class TestEmbeddedArgs(unittest.TestCase):
         assert_equal(runner.embedded_args, ('Janne & Heikki', '"enjoy"', '"'))
 
     def test_embedded_args_without_separators(self):
-        template = EAT('This ${does}${not} work so well')
+        template = EAT('This $does$not work so well')
         runner = template.create_runner('This doesnot work so well')
         assert_equal(runner.embedded_args, ('', 'doesnot'))
 
     def test_embedded_args_with_separators_in_values(self):
-        template = EAT('This ${could} ${work}-${OK}')
+        template = EAT('This $could $work-$OK')
         runner = template.create_runner("This doesn't really work---")
         assert_equal(runner.embedded_args, ("doesn't", 'really work', '--'))
 
@@ -118,54 +118,54 @@ class TestGetArgSpec(unittest.TestCase):
         self._verify('')
 
     def test_args(self):
-        self._verify('${arg1}', ['arg1',])
-        self._verify('${a1} ${a2}', ['a1', 'a2'])
+        self._verify('$arg1', ['arg1',])
+        self._verify('$a1 $a2', ['a1', 'a2'])
 
     def test_defaults(self):
-        self._verify('${arg1} ${arg2}=default @{varargs}',
+        self._verify('$arg1 $arg2=default @{varargs}',
                      args=['arg1', 'arg2'],
                      defaults={'arg2': 'default'},
                      varargs='varargs')
-        self._verify('${arg1} ${arg2}= @{varargs}',
+        self._verify('$arg1 $arg2= @{varargs}',
                      args=['arg1', 'arg2'],
                      defaults={'arg2': ''},
                      varargs='varargs')
-        self._verify('${arg1}=d1 ${arg2}=d2 ${arg3}=d3',
+        self._verify('$arg1=d1 $arg2=d2 $arg3=d3',
                      args=['arg1', 'arg2', 'arg3'],
                      defaults={'arg1': 'd1', 'arg2': 'd2', 'arg3': 'd3'})
 
     def test_vararg(self):
         self._verify('@{varargs}', varargs='varargs')
-        self._verify('${arg} @{varargs}', ['arg'], varargs='varargs')
+        self._verify('$arg @{varargs}', ['arg'], varargs='varargs')
 
     def test_kwonly(self):
-        self._verify('@{} ${ko1} ${ko2}',
+        self._verify('@{} $ko1 $ko2',
                      kwonlyargs=['ko1', 'ko2'])
-        self._verify('@{vars} ${ko1} ${ko2}',
+        self._verify('@{vars} $ko1 $ko2',
                      varargs='vars',
                      kwonlyargs=['ko1', 'ko2'])
 
     def test_kwonlydefaults(self):
-        self._verify('@{} ${ko1} ${ko2}=xxx',
+        self._verify('@{} $ko1 $ko2=xxx',
                      kwonlyargs=['ko1', 'ko2'],
                      defaults={'ko2': 'xxx'})
-        self._verify('@{} ${ko1}=xxx ${ko2}',
+        self._verify('@{} $ko1=xxx $ko2',
                      kwonlyargs=['ko1', 'ko2'],
                      defaults={'ko1': 'xxx'})
-        self._verify('@{v} ${ko1}=foo ${ko2} ${ko3}=',
+        self._verify('@{v} $ko1=foo $ko2 $ko3=',
                      varargs='v',
                      kwonlyargs=['ko1', 'ko2', 'ko3'],
                      defaults={'ko1': 'foo', 'ko3': ''})
 
     def test_kwargs(self):
         self._verify('&{kwargs}', kwargs='kwargs')
-        self._verify('${arg} &{kwargs}',
+        self._verify('$arg &{kwargs}',
                      args=['arg'],
                      kwargs='kwargs')
-        self._verify('@{} ${arg} &{kwargs}',
+        self._verify('@{} $arg &{kwargs}',
                      kwonlyargs=['arg'],
                      kwargs='kwargs')
-        self._verify('${a1} ${a2}=ad @{vars} ${k1} ${k2}=kd &{kws}',
+        self._verify('$a1 $a2=ad @{vars} $k1 $k2=kd &{kws}',
                      args=['a1', 'a2'],
                      varargs='vars',
                      kwonlyargs=['k1', 'k2'],
@@ -185,7 +185,7 @@ class TestGetArgSpec(unittest.TestCase):
         return UserKeywordArgumentParser().parse(in_args.split())
 
     def test_arg_after_defaults(self):
-        self._verify_error('${arg1}=default ${arg2}',
+        self._verify_error('$arg1=default $arg2',
                            'Non-default argument after default arguments.')
 
     def test_multiple_varargs(self):
@@ -193,7 +193,7 @@ class TestGetArgSpec(unittest.TestCase):
             self._verify_error(spec, 'Cannot have multiple varargs.')
 
     def test_args_after_kwargs(self):
-        self._verify_error('&{kws} ${arg}',
+        self._verify_error('&{kws} $arg',
                            'Only last argument can be kwargs.')
 
     def _verify_error(self, in_args, exp_error):

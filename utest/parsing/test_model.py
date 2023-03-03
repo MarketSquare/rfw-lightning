@@ -33,8 +33,8 @@ Example
 *** Keywords ***
 # Comment    continues
 Keyword
-    [Arguments]    ${arg1}    ${arg2}
-    Log    Got ${arg1} and ${arg}!
+    [Arguments]    $arg1    $arg2
+    Log    Got $arg1 and $arg!
     RETURN    x
 '''
 PATH = os.path.join(os.getenv('TEMPDIR') or tempfile.gettempdir(), 'test_model.robot')
@@ -104,16 +104,16 @@ EXPECTED = File(sections=[
                         Token('SEPARATOR', '    ', 13, 0),
                         Token('ARGUMENTS', '[Arguments]', 13, 4),
                         Token('SEPARATOR', '    ', 13, 15),
-                        Token('ARGUMENT', '${arg1}', 13, 19),
+                        Token('ARGUMENT', '$arg1', 13, 19),
                         Token('SEPARATOR', '    ', 13, 26),
-                        Token('ARGUMENT', '${arg2}', 13, 30),
+                        Token('ARGUMENT', '$arg2', 13, 30),
                         Token('EOL', '\n', 13, 37)
                     ]),
                     KeywordCall([
                         Token('SEPARATOR', '    ', 14, 0),
                         Token('KEYWORD', 'Log', 14, 4),
                         Token('SEPARATOR', '    ', 14, 7),
-                        Token('ARGUMENT', 'Got ${arg1} and ${arg}!', 14, 11),
+                        Token('ARGUMENT', 'Got $arg1 and $arg!', 14, 11),
                         Token('EOL', '\n', 14, 34)
                     ]),
                     ReturnStatement([
@@ -219,14 +219,14 @@ class TestForLoop(unittest.TestCase):
         data = '''
 *** Test Cases ***
 Example
-    FOR    ${x}    IN    a    b    c
-        Log    ${x}
+    FOR    $x    IN    a    b    c
+        Log    $x
     END
 '''
         expected = For(
             header=ForHeader([
                 Token(Token.FOR, 'FOR', 3, 4),
-                Token(Token.VARIABLE, '${x}', 3, 11),
+                Token(Token.VARIABLE, '$x', 3, 11),
                 Token(Token.FOR_SEPARATOR, 'IN', 3, 19),
                 Token(Token.ARGUMENT, 'a', 3, 25),
                 Token(Token.ARGUMENT, 'b', 3, 30),
@@ -234,7 +234,7 @@ Example
             ]),
             body=[
                 KeywordCall([Token(Token.KEYWORD, 'Log', 4, 8),
-                             Token(Token.ARGUMENT, '${x}', 4, 15)])
+                             Token(Token.ARGUMENT, '$x', 4, 15)])
             ],
             end=End([
                 Token(Token.END, 'END', 5, 4)
@@ -246,16 +246,16 @@ Example
         data = '''
 *** Test Cases ***
 Example
-    FOR    ${x}    IN    1    2
-        FOR    ${y}    IN RANGE    ${x}
-            Log    ${y}
+    FOR    $x    IN    1    2
+        FOR    $y    IN RANGE    $x
+            Log    $y
         END
     END
 '''
         expected = For(
             header=ForHeader([
                 Token(Token.FOR, 'FOR', 3, 4),
-                Token(Token.VARIABLE, '${x}', 3, 11),
+                Token(Token.VARIABLE, '$x', 3, 11),
                 Token(Token.FOR_SEPARATOR, 'IN', 3, 19),
                 Token(Token.ARGUMENT, '1', 3, 25),
                 Token(Token.ARGUMENT, '2', 3, 30),
@@ -264,13 +264,13 @@ Example
                 For(
                     header=ForHeader([
                         Token(Token.FOR, 'FOR', 4, 8),
-                        Token(Token.VARIABLE, '${y}', 4, 15),
+                        Token(Token.VARIABLE, '$y', 4, 15),
                         Token(Token.FOR_SEPARATOR, 'IN RANGE', 4, 23),
-                        Token(Token.ARGUMENT, '${x}', 4, 35),
+                        Token(Token.ARGUMENT, '$x', 4, 35),
                     ]),
                     body=[
                         KeywordCall([Token(Token.KEYWORD, 'Log', 5, 12),
-                                     Token(Token.ARGUMENT, '${y}', 5, 19)])
+                                     Token(Token.ARGUMENT, '$y', 5, 19)])
                     ],
                     end=End([
                         Token(Token.END, 'END', 6, 8)
@@ -331,7 +331,7 @@ class TestWhileLoop(unittest.TestCase):
 *** Test Cases ***
 Example
     WHILE    True
-        Log    ${x}
+        Log    $x
     END
 '''
         expected = While(
@@ -341,7 +341,7 @@ Example
             ]),
             body=[
                 KeywordCall([Token(Token.KEYWORD, 'Log', 4, 8),
-                             Token(Token.ARGUMENT, '${x}', 4, 15)])
+                             Token(Token.ARGUMENT, '$x', 4, 15)])
             ],
             end=End([
                 Token(Token.END, 'END', 5, 4)
@@ -354,7 +354,7 @@ Example
 *** Test Cases ***
 Example
     WHILE    True    limit=100
-        Log    ${x}
+        Log    $x
     END
 '''
         expected = While(
@@ -365,7 +365,7 @@ Example
             ]),
             body=[
                 KeywordCall([Token(Token.KEYWORD, 'Log', 4, 8),
-                             Token(Token.ARGUMENT, '${x}', 4, 15)])
+                             Token(Token.ARGUMENT, '$x', 4, 15)])
             ],
             end=End([
                 Token(Token.END, 'END', 5, 4)
@@ -467,31 +467,31 @@ Example
         data = '''
 *** Test Cases ***
 Example
-    IF    ${x}
-        Log    ${x}
-        IF    ${y}
-            Log    ${y}
+    IF    $x
+        Log    $x
+        IF    $y
+            Log    $y
         ELSE
-            Log    ${z}
+            Log    $z
         END
     END
 '''
         expected = If(
             header=IfHeader([
                 Token(Token.IF, 'IF', 3, 4),
-                Token(Token.ARGUMENT, '${x}', 3, 10),
+                Token(Token.ARGUMENT, '$x', 3, 10),
             ]),
             body=[
                 KeywordCall([Token(Token.KEYWORD, 'Log', 4, 8),
-                             Token(Token.ARGUMENT, '${x}', 4, 15)]),
+                             Token(Token.ARGUMENT, '$x', 4, 15)]),
                 If(
                     header=IfHeader([
                         Token(Token.IF, 'IF', 5, 8),
-                        Token(Token.ARGUMENT, '${y}', 5, 14),
+                        Token(Token.ARGUMENT, '$y', 5, 14),
                     ]),
                     body=[
                         KeywordCall([Token(Token.KEYWORD, 'Log', 6, 12),
-                                     Token(Token.ARGUMENT, '${y}', 6, 19)])
+                                     Token(Token.ARGUMENT, '$y', 6, 19)])
                     ],
                     orelse=If(
                         header=ElseHeader([
@@ -499,7 +499,7 @@ Example
                         ]),
                         body=[
                             KeywordCall([Token(Token.KEYWORD, 'Log', 8, 12),
-                                         Token(Token.ARGUMENT, '${z}', 8, 19)])
+                                         Token(Token.ARGUMENT, '$z', 8, 19)])
                         ]
                     ),
                     end=End([
@@ -612,20 +612,20 @@ Example
         data = '''
 *** Test Cases ***
 Example
-    IF    ${x}    IF    ${y}    K1    ELSE    IF    ${z}    K2
+    IF    $x    IF    $y    K1    ELSE    IF    $z    K2
 '''
         expected = If(
             header=InlineIfHeader([Token(Token.INLINE_IF, 'IF', 3, 4),
-                                   Token(Token.ARGUMENT, '${x}', 3, 10)]),
+                                   Token(Token.ARGUMENT, '$x', 3, 10)]),
             body=[If(
                 header=InlineIfHeader([Token(Token.INLINE_IF, 'IF', 3, 18),
-                                       Token(Token.ARGUMENT, '${y}', 3, 24)]),
+                                       Token(Token.ARGUMENT, '$y', 3, 24)]),
                 body=[KeywordCall([Token(Token.KEYWORD, 'K1', 3, 32)])],
                 orelse=If(
                     header=ElseHeader([Token(Token.ELSE, 'ELSE', 3, 38)]),
                     body=[If(
                         header=InlineIfHeader([Token(Token.INLINE_IF, 'IF', 3, 46),
-                                               Token(Token.ARGUMENT, '${z}', 3, 52)]),
+                                               Token(Token.ARGUMENT, '$z', 3, 52)]),
                         body=[KeywordCall([Token(Token.KEYWORD, 'K2', 3, 60)])],
                         end=End([Token(Token.END, '', 3, 62)]),
                     )],
@@ -640,10 +640,10 @@ Example
         data = '''
 *** Test Cases ***
 Example
-    ${x} =    IF    True    K1    ELSE    K2
+    $x =    IF    True    K1    ELSE    K2
 '''
         expected = If(
-            header=InlineIfHeader([Token(Token.ASSIGN, '${x} =', 3, 4),
+            header=InlineIfHeader([Token(Token.ASSIGN, '$x =', 3, 4),
                                    Token(Token.INLINE_IF, 'IF', 3, 14),
                                    Token(Token.ARGUMENT, 'True', 3, 20)]),
             body=[KeywordCall([Token(Token.KEYWORD, 'K1', 3, 28)])],
@@ -659,12 +659,12 @@ Example
         data = '''
 *** Test Cases ***
 Example
-    IF    ${cond}    ${assign}
+    IF    $cond    $assign
 '''
         expected = If(
             header=InlineIfHeader([Token(Token.INLINE_IF, 'IF', 3, 4),
-                                   Token(Token.ARGUMENT, '${cond}', 3, 10)]),
-            body=[KeywordCall([Token(Token.ASSIGN, '${assign}', 3, 21)])],
+                                   Token(Token.ARGUMENT, '$cond', 3, 10)]),
+            body=[KeywordCall([Token(Token.ASSIGN, '$assign', 3, 21)])],
             end=End([Token(Token.END, '', 3, 30)]),
             errors=('Inline IF branches cannot contain assignments.',)
         )
@@ -674,7 +674,7 @@ Example
         data1 = '''
 *** Test Cases ***
 Example
-    ${x} =    ${y}    IF    ELSE    ooops    ELSE IF
+    $x =    $y    IF    ELSE    ooops    ELSE IF
 '''
         data2 = '''
 *** Test Cases ***
@@ -682,8 +682,8 @@ Example
     IF    e    K    ELSE
 '''
         expected1 = If(
-            header=InlineIfHeader([Token(Token.ASSIGN, '${x} =', 3, 4),
-                                   Token(Token.ASSIGN, '${y}', 3, 14),
+            header=InlineIfHeader([Token(Token.ASSIGN, '$x =', 3, 4),
+                                   Token(Token.ASSIGN, '$y', 3, 14),
                                    Token(Token.INLINE_IF, 'IF', 3, 22),
                                    Token(Token.ARGUMENT, 'ELSE', 3, 28)]),
             body=[KeywordCall([Token(Token.KEYWORD, 'ooops', 3, 36)])],
@@ -718,7 +718,7 @@ Example
         Fail    Oh no!
     EXCEPT    does not match
         No operation
-    EXCEPT    AS    ${exp}
+    EXCEPT    AS    $exp
         Log    Catch
     ELSE
         No operation
@@ -737,7 +737,7 @@ Example
                 next=Try(
                     header=ExceptHeader((Token(Token.EXCEPT, 'EXCEPT', 7, 4),
                                          Token(Token.AS, 'AS', 7, 14),
-                                         Token(Token.VARIABLE, '${exp}', 7, 20))),
+                                         Token(Token.VARIABLE, '$exp', 7, 20))),
                     body=[KeywordCall((Token(Token.KEYWORD, 'Log', 8, 8),
                                        Token(Token.ARGUMENT, 'Catch', 8, 15)))],
                     next=Try(
@@ -810,7 +810,7 @@ class TestVariables(unittest.TestCase):
     def test_valid(self):
         data = '''
 *** Variables ***
-${x}      value
+$x      value
 @{y}=     two    values
 &{z} =    one=item
 '''
@@ -819,7 +819,7 @@ ${x}      value
                 tokens=[Token(Token.VARIABLE_HEADER, '*** Variables ***', 1, 0)]
             ),
             body=[
-                Variable([Token(Token.VARIABLE, '${x}', 2, 0),
+                Variable([Token(Token.VARIABLE, '$x', 2, 0),
                          Token(Token.ARGUMENT, 'value', 2, 10)]),
                 Variable([Token(Token.VARIABLE, '@{y}=', 3, 0),
                           Token(Token.ARGUMENT, 'two', 3, 10),
@@ -835,10 +835,10 @@ ${x}      value
 *** Variables ***
 Ooops     I did it again
 ${}       invalid
-${x}==    invalid
+$x==    invalid
 ${not     closed
           invalid
-&{dict}   invalid    ${invalid}
+&{dict}   invalid    $invalid
 '''
         expected = VariableSection(
             header=SectionHeader(
@@ -856,7 +856,7 @@ ${not     closed
                     errors=("Invalid variable name '${}'.",)
                 ),
                 AssignKeywordCall(
-                    tokens=[Token(Token.ASSIGN_KEYWORD_CALL, '${x}==', 4, 0),
+                    tokens=[Token(Token.ASSIGN_KEYWORD_CALL, '$x==', 4, 0),
                             Token(Token.ARGUMENT, 'invalid', 4, 10)],
                     errors=()
                 ),
@@ -873,10 +873,10 @@ ${not     closed
                 Variable(
                     tokens=[Token(Token.VARIABLE, '&{dict}', 7, 0),
                             Token(Token.ARGUMENT, 'invalid', 7, 10),
-                            Token(Token.ARGUMENT, '${invalid}', 7, 21)],
+                            Token(Token.ARGUMENT, '$invalid', 7, 21)],
                     errors=("Invalid dictionary variable item 'invalid'. "
                             "Items must use 'name=value' syntax or be dictionary variables themselves.",
-                            "Invalid dictionary variable item '${invalid}'. "
+                            "Invalid dictionary variable item '$invalid'. "
                             "Items must use 'name=value' syntax or be dictionary variables themselves.")
                 ),
             ]
@@ -890,8 +890,8 @@ class TestKeyword(unittest.TestCase):
         data = '''
 *** Keywords ***
 Invalid
-    [Arguments]    ooops    ${optional}=default    ${required}
-    ...    @{too}    @{many}    &{notlast}    ${x}
+    [Arguments]    ooops    $optional=default    $required
+    ...    @{too}    @{many}    &{notlast}    $x
 '''
         expected = Keyword(
             header=KeywordName(
@@ -901,12 +901,12 @@ Invalid
                 Arguments(
                     tokens=[Token(Token.ARGUMENTS, '[Arguments]', 3, 4),
                             Token(Token.ARGUMENT, 'ooops', 3, 19),
-                            Token(Token.ARGUMENT, '${optional}=default', 3, 28),
-                            Token(Token.ARGUMENT, '${required}', 3, 51),
+                            Token(Token.ARGUMENT, '$optional=default', 3, 28),
+                            Token(Token.ARGUMENT, '$required', 3, 51),
                             Token(Token.ARGUMENT, '@{too}', 4, 11),
                             Token(Token.ARGUMENT, '@{many}', 4, 21),
                             Token(Token.ARGUMENT, '&{notlast}', 4, 32),
-                            Token(Token.ARGUMENT, '${x}', 4, 46)],
+                            Token(Token.ARGUMENT, '$x', 4, 46)],
                     errors=("Invalid argument syntax 'ooops'.",
                             'Non-default argument after default arguments.',
                             'Cannot have multiple varargs.',
@@ -963,14 +963,14 @@ Name
         data = '''
 *** Keywords ***
 Name
-    FOR    ${x}    IN    @{stuff}
+    FOR    $x    IN    @{stuff}
         Continue    CONTINUE
         CONTINUE
     END
 '''
         expected = For(
             header=ForHeader([Token(Token.FOR, 'FOR', 3, 4),
-                              Token(Token.VARIABLE, '${x}', 3, 11),
+                              Token(Token.VARIABLE, '$x', 3, 11),
                               Token(Token.FOR_SEPARATOR, 'IN', 3, 19),
                               Token(Token.ARGUMENT, '@{stuff}', 3, 25)]),
             body=[KeywordCall([Token(Token.KEYWORD, 'Continue', 4, 8),

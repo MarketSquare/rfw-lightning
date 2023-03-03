@@ -65,7 +65,7 @@ class TestVisitingSuite(unittest.TestCase):
             in_for = False
 
             def start_for(self, for_):
-                for_.variables = ['${y}']
+                for_.variables = ['$y']
                 for_.flavor = 'IN RANGE'
                 self.in_for = True
 
@@ -77,10 +77,10 @@ class TestVisitingSuite(unittest.TestCase):
                 if self.in_for:
                     keyword.name = 'IN FOR'
 
-        for_ = self.suite.tests[0].body.create_for(['${x}'], 'IN', ['a', 'b', 'c'])
+        for_ = self.suite.tests[0].body.create_for(['$x'], 'IN', ['a', 'b', 'c'])
         kw = for_.body.create_keyword(name='K')
         self.suite.visit(VisitFor())
-        assert_equal(str(for_), 'FOR    ${y}    IN RANGE    10')
+        assert_equal(str(for_), 'FOR    $y    IN RANGE    10')
         assert_equal(kw.name, 'IN FOR')
 
     def test_visit_if(self):
@@ -148,7 +148,7 @@ Example
             BREAK
         END
     ELSE IF    True
-        FOR    ${x}    IN    @{stuff}
+        FOR    $x    IN    @{stuff}
             CONTINUE
         END
     ELSE

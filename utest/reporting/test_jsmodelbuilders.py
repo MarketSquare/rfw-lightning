@@ -85,11 +85,11 @@ class TestBuildTestSuite(unittest.TestCase):
 
     def test_keyword_with_values(self):
         kw = Keyword('KW Name', 'libname', 'http://doc', ('arg1', 'arg2'),
-                     ('${v1}', '${v2}'), ('tag1', 'tag2'), '1 second', 'SETUP',
+                     ('$v1', '$v2'), ('tag1', 'tag2'), '1 second', 'SETUP',
                      'PASS', '20111204 19:42:42.000', '20111204 19:42:42.042')
         self._verify_keyword(kw, 1, 'KW Name', 'libname',
                              '<a href="http://doc">http://doc</a>',
-                             'arg1, arg2', '${v1}, ${v2}', 'tag1, tag2',
+                             'arg1, arg2', '$v1, $v2', 'tag1, tag2',
                              '1 second', 1, 0, 42)
 
     def test_default_message(self):

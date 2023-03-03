@@ -34,7 +34,7 @@ Example
                 model = get_model('''\
 *** Test Cases ***
 Example
-    FOR    ${i}    IN    1    2
+    FOR    $i    IN    1    2
         RETURN
     END
         ''', data_only=data_only)

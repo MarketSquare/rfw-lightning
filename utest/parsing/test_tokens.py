@@ -42,23 +42,23 @@ class TestTokenizeVariables(unittest.TestCase):
             token = Token(token_type, 'Nothing to see hear!')
             assert_equal(list(token.tokenize_variables()),
                          [token])
-            token = Token(token_type, '${var_only}')
+            token = Token(token_type, '$var_only')
             assert_equal(list(token.tokenize_variables()),
-                         [Token(Token.VARIABLE, '${var_only}')])
-            token = Token(token_type, 'Hello, ${var}!', 1, 0)
+                         [Token(Token.VARIABLE, '$var_only')])
+            token = Token(token_type, 'Hello, $var!', 1, 0)
             assert_equal(list(token.tokenize_variables()),
                          [Token(token_type, 'Hello, ', 1, 0),
-                          Token(Token.VARIABLE, '${var}', 1, 7),
+                          Token(Token.VARIABLE, '$var', 1, 7),
                           Token(token_type, '!', 1, 13)])
 
     def test_types_that_cannot_contain_variables(self):
         for token_type in [Token.VARIABLE, Token.KEYWORD, Token.SEPARATOR]:
-            token = Token(token_type, 'Hello, ${var}!', 1, 0)
+            token = Token(token_type, 'Hello, $var!', 1, 0)
             assert_equal(list(token.tokenize_variables()),
                          [token])
 
     def test_tokenize_variables_is_generator(self):
-        variables = Token(Token.NAME, 'Hello, ${var}!').tokenize_variables()
+        variables = Token(Token.NAME, 'Hello, $var!').tokenize_variables()
         assert_false(isinstance(variables, list))
         assert_equal(iter(variables), variables)
 
