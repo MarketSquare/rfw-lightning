@@ -4,9 +4,9 @@ This is a reference implementation exploring ways to make Robot Framework more h
 
 Major syntax changes:
 
-- Simple variables.
-- Robot Framework like IF syntax.
-- For loop with iterating over first thing.
+- Simple variables. From `${ var iable }` to `$var_iable`. 
+- Robot Framework like IF syntax - not going to Python eval.
+- For loop with iterating over first thing - not over argument expansion.
 
 .. code:: robotframework
 
