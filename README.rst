@@ -15,7 +15,7 @@ Syntax changes:
   
   - ✨ Direct assign keyword call (also working in Variables section) ``$var=Create List  a cow  a dog  a cat``
   - ✨ TODO: Remove ``Set Variable``
-  - ✨ TODO: ``Text templates with {$variable}``
+  - ✨ ``Text templates with {$variable}``
   - ✨ TODO: named argument setting with ``$name=value`` instead of ``name=value``
   - ✨ TODO: Completely remove dict ``&`` and list ``@`` specific syntax (also maybe 🤔 ``%`` env and replace with a Env keyword call) 
   - ✨ TODO: ``*$args`` for variable Keyword arguments
