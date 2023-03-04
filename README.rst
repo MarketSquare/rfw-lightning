@@ -59,7 +59,7 @@ HOW YOU CAN GET THIS STARTED
 
 If you want to help there is much to do.
 
-.. code::bash
+.. code:: bash
 
    git clone git@github.com:MarketSquare/rfw-lightning.git
    cd rfw-lightning
