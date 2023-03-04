@@ -153,22 +153,19 @@ def _search_variable(characters: str, identifiers: str, ignore_errors=False) -> 
             parsing_items = True
             start=index
             continue
-        if not parsing_items:
-            if char in (' ', '}', '='):
-                break
-            if char not in string.ascii_letters + string.digits + '_':
-                not_allowed_char = True
-            match.base = characters[start+1:index+1]
-            match.end = index+1
+        if parsing_items:
+            if char == ']':
+                match.end = index+1
+                items.append(characters[start+1:index])
+                match.items = tuple(items)
+                parsing_items = False
             continue
-        if char == ']':
-            match.end = index+1
-            items.append(next_item)
-            match.items = tuple(items)
-            next_item = ''
-            parsing_items = False
-            continue
-        next_item = characters[start+1:index]
+        if char in (' ', '}', '='):
+            break
+        if char not in string.ascii_letters + string.digits + '_':
+            not_allowed_char = True
+        match.base = characters[start+1:index+1]
+        match.end = index+1
     
     if not_allowed_char and characters[match.start:] in ['$/', '$:', '$\\n']:
         not_allowed_char = False
