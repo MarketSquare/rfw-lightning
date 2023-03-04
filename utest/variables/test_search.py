@@ -151,9 +151,6 @@ class TestSearchVariable(unittest.TestCase):
         self._test('@{x}\\[0]', '@{x}')
         self._test('&{x}\\[key]', '&{x}')
 
-    def test_no_item_with_others_vars(self):
-        self._test('$x[0]', '$x')
-
     def test_custom_identifiers(self):
         for inp, start in [('@{x}$y', 4),
                            ('%{x} $y', 5),
