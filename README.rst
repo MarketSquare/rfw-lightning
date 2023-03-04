@@ -17,7 +17,7 @@ Syntax changes:
   - ✨ TODO: Remove ``Set Variable``
   - ✨ TODO: ``Text templates with {$variable}``
   - ✨ TODO: named argument setting with ``$name=value`` instead of ``name=value``
-  - ✨ TODO: Completely remove dict `&` and list `@` specific syntax (also maybe 🤔 `%` env and replace with a Env keyword call) 
+  - ✨ TODO: Completely remove dict ``&`` and list ``@`` specific syntax (also maybe 🤔 ``%`` env and replace with a Env keyword call) 
   - ✨ TODO: `*$args` for variable Keyword arguments
 
 - ✨ Robot Framework like IF syntax. No Python eval.
