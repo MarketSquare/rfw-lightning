@@ -34,8 +34,8 @@ from robot.utils import (DotDict, escape, format_assign_message, get_error_messa
                          secs_to_timestr, seq2str, split_from_equals,
                          timestr_to_secs)
 from robot.utils.asserts import assert_equal, assert_not_equal
-from robot.variables import (evaluate_expression, is_dict_variable,
-                             is_list_variable, search_variable,
+from robot.variables import (evaluate_expression,
+                             search_variable,
                              DictVariableTableValue, VariableTableValue)
 from robot.version import get_version
 
@@ -479,8 +479,8 @@ class _Converter(_BuiltInBase):
     def _split_dict_items(self, items):
         separate = []
         for item in items:
-            name, value = split_from_equals(item)
-            if value is not None or is_dict_variable(item):
+            _, value = split_from_equals(item)
+            if value is not None:
                 break
             separate.append(item)
         return separate, items[len(separate):]
@@ -1838,7 +1838,7 @@ class _Variables(_BuiltInBase):
             # scalar variables in the variable table, but that would require
             # handling non-string values somehow. For details see
             # https://github.com/robotframework/robotframework/issues/1919
-            if len(values) != 1 or is_list_variable(values[0]):
+            if len(values) != 1:
                 raise DataError("Setting list value to scalar variable '%s' "
                                 "is not supported anymore. Create list "
                                 "variable '@%s' instead." % (name, name[1:]))
@@ -1951,16 +1951,8 @@ class _RunKeyword(_BuiltInBase):
                 yield kw_call[0], kw_call[1:]
 
     def _split_run_keywords_without_and(self, keywords):
-        replace_list = self._variables.replace_list
-        ignore_errors = self._context.in_teardown
-        # `run_keyword` resolves variables, but list variables must be expanded
-        # here to pass it each keyword name separately.
         for name in keywords:
-            if is_list_variable(name):
-                for n in replace_list([name], ignore_errors=ignore_errors):
-                    yield escape(n)
-            else:
-                yield name
+            yield name
 
     def _split_run_keywords_with_and(self, keywords):
         while 'AND' in keywords:
@@ -2439,9 +2431,6 @@ class _RunKeyword(_BuiltInBase):
             if default:
                 return [None]
             raise RuntimeError('At least one value is required')
-        if is_list_variable(values[0]):
-            values[:1] = [escape(item) for item in self._variables[values[0]]]
-            return self._verify_values_for_set_variable_if(values)
         return values
 
     @run_keyword_variant(resolve=0, dry_run=True)
@@ -3066,16 +3055,8 @@ class _Misc(_BuiltInBase):
 
     def _yield_logged_messages(self, messages):
         for msg in messages:
-            match = search_variable(msg)
             value = self._variables.replace_scalar(msg)
-            if match.is_list_variable():
-                for item in value:
-                    yield item
-            elif match.is_dict_variable():
-                for name, value in value.items():
-                    yield '%s=%s' % (name, value)
-            else:
-                yield value
+            yield value
 
     def log_to_console(self, message, stream='STDOUT', no_newline=False, format=''):
         """Logs the given message to the console.

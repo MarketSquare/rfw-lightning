@@ -20,7 +20,7 @@ from robot.errors import (BreakLoop, ContinueLoop, DataError, ExecutionFailed,
                           ReturnFromKeyword, UserKeywordExecutionFailed, VariableError)
 from robot.result import Keyword as KeywordResult
 from robot.utils import DotDict, getshortdoc, prepr, split_tags_from_doc
-from robot.variables import is_list_variable, VariableAssignment
+from robot.variables import VariableAssignment
 
 from .arguments import DefaultValue
 from .bodyrunner import BodyRunner, KeywordRunner
@@ -191,13 +191,12 @@ class UserKeywordRunner:
         ret = self._handler.return_value if not return_ else return_.return_value
         if not ret:
             return None
-        contains_list_var = any(is_list_variable(item) for item in ret)
         try:
             ret = variables.replace_list(ret)
         except DataError as err:
             raise VariableError('Replacing variables from keyword return '
                                 'value failed: %s' % err.message)
-        if len(ret) != 1 or contains_list_var:
+        if len(ret) != 1:
             return ret
         return ret[0]
 

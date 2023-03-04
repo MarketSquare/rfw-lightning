@@ -40,14 +40,6 @@ def is_scalar_variable(characters):
     return is_variable(characters, '$')
 
 
-def is_list_variable(characters):
-    return is_variable(characters, '@')
-
-
-def is_dict_variable(characters):
-    return is_variable(characters, '&')
-
-
 def is_assign(characters, identifiers='$@&', allow_assign_mark=False):
     match = search_variable(characters, identifiers, ignore_errors=True)
     return match.is_assign(allow_assign_mark)
@@ -116,12 +108,6 @@ class VariableMatch:
     def is_scalar_variable(self):
         return self.identifier == '$' and self.is_variable()
 
-    def is_list_variable(self):
-        return self.identifier == '@' and self.is_variable()
-
-    def is_dict_variable(self):
-        return self.identifier == '&' and self.is_variable()
-
     def is_assign(self, allow_assign_mark=False):
         if allow_assign_mark and self.string.endswith('='):
             match = search_variable(self.string[:].rstrip(), ignore_errors=True)
@@ -164,17 +150,21 @@ def _search_variable(characters: str, identifiers: str, ignore_errors=False) -> 
     for index, char in indices_and_chars:
         if char == '[':
             parsing_items = True
-            #start = index + 1
-        if char == ']' and parsing_items:
-            items.append(characters[start+1:index])
-            match.end = index + 1
-            match.items = tuple(items)
-            parsing_items = False
-            break
-        if not parsing_items and char not in string.ascii_letters + string.digits + '_':
-            not_allowed_char = True
-        match.base = characters[start+1:index+1]
-        match.end = index+1
+            continue
+        if not parsing_items:
+            if char in (' ', '}', '='):
+                break
+            if char not in string.ascii_letters + string.digits + '_':
+                not_allowed_char = True
+            match.base = characters[start+1:index+1]
+            match.end = index+1
+        else:
+            if char == ']':
+                match.end = index + 1
+                match.items = tuple(items)
+                parsing_items = False
+                continue
+            items.append(string[start+1:index])
     
     if not_allowed_char and characters[match.start:] in ['$/', '$:', '$\\n']:
         not_allowed_char = False

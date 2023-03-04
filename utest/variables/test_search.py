@@ -15,7 +15,7 @@ class TestSearchVariable(unittest.TestCase):
         self._test('                                       ')
 
     def test_no_vars(self):
-        for inp in ['hello world', '$hello', '{hello}', r'$\{hello}',
+        for inp in ['hello world', '{hello}', r'$\{hello}',
                     '$h{ello}', 'a bit longer sting here']:
             self._test(inp)
 
@@ -29,9 +29,9 @@ class TestSearchVariable(unittest.TestCase):
 
     def test_one_var(self):
         self._test('$hello', '$hello')
-        self._test('1 @{hello} more', '@{hello}', start=2)
-        self._test('*{hi}}', '*{hi}')
-        self._test('{%{{hi}}', '%{{hi}}', start=1)
+        self._test('1 $hello more', '$hello', start=2)
+        self._test('$hi}', '$hi')
+        self._test('{$hi}}', '$hi', start=1)
         self._test('-= ${} =-', '${}', start=3)
 
     def test_escape_internal_curlys(self):
@@ -57,8 +57,8 @@ class TestSearchVariable(unittest.TestCase):
 
     def test_multiple_vars(self):
         self._test('$hello $world', '$hello', 0)
-        self._test('hi %{u}2 and @{u2} and also *{us3}', '%{u}', 3)
-        self._test('0123456789 %{1} and @{2', '%{1}', 11)
+        self._test('hi {$u}2 and {$u2} and also {$us3}', '$u', 4)
+        self._test('0123456789 $1 and $2', '$1', 11)
 
     def test_escaped_var(self):
         self._test('\\$hello')
@@ -144,8 +144,8 @@ class TestSearchVariable(unittest.TestCase):
         self._test('[$var[i]][', '$var', start=1, items='i')
 
     def test_nested_list_and_dict_item_syntax(self):
-        self._test('@{x}[0]', '@{x}', items='0')
-        self._test('&{x}[key]', '&{x}', items='key')
+        self._test('$x[0]', '$x', items='0')
+        self._test('$x[key]', '$x', items='key')
 
     def test_escape_item(self):
         self._test('$x\\[0]', '$x')
@@ -153,8 +153,7 @@ class TestSearchVariable(unittest.TestCase):
         self._test('&{x}\\[key]', '&{x}')
 
     def test_no_item_with_others_vars(self):
-        self._test('%{x}[0]', '%{x}')
-        self._test('*{x}[0]', '*{x}')
+        self._test('$x[0]', '$x')
 
     def test_custom_identifiers(self):
         for inp, start in [('@{x}$y', 4),
@@ -228,8 +227,6 @@ class TestSearchVariable(unittest.TestCase):
         assert_equal(match.items, items, '%r item' % inp)
         assert_equal(match.is_variable(), is_var)
         assert_equal(match.is_scalar_variable(), is_scal_var)
-        assert_equal(match.is_list_variable(), is_list_var)
-        assert_equal(match.is_dict_variable(), is_dict_var)
 
     def test_is_variable(self):
         for no in ['', 'xxx', '$var not alone', r'\$notvar', r'\\$var',
@@ -238,23 +235,6 @@ class TestSearchVariable(unittest.TestCase):
         for yes in ['$var', r'${var$\{}', '${var$internal}', '@{var}',
                     '@{var}[0]']:
             assert_true(search_variable(yes).is_variable(), yes)
-
-    def test_is_list_variable(self):
-        for no in ['', 'xxx', '@{var} not alone', r'\@{notvar}', r'\\@{var}',
-                   '@{var}xx}', '@{x}@{y}', '$scalar', '&{dict}']:
-            assert_false(search_variable(no).is_list_variable())
-        assert_true(search_variable('@{list}').is_list_variable())
-        assert_true(search_variable('@{x}[0]').is_list_variable())
-        assert_true(search_variable('@{grandpa}[mother][child]').is_list_variable())
-
-    def test_is_dict_variable(self):
-        for no in ['', 'xxx', '&{var} not alone', r'\@{notvar}', r'\\&{var}',
-                   '&{var}xx}', '&{x}&{y}', '$scalar', '@{list}']:
-            assert_false(search_variable(no).is_dict_variable())
-        assert_true(search_variable('&{dict}').is_dict_variable())
-        assert_true(search_variable('&{yzy}[afa]').is_dict_variable())
-        assert_true(search_variable('&{x}[k][foo][bar][1]').is_dict_variable())
-
 
 class TestVariableIterator(unittest.TestCase):
 
@@ -271,10 +251,10 @@ class TestVariableIterator(unittest.TestCase):
         assert_equal(len(iterator), 1)
 
     def test_multiple_variables(self):
-        iterator = VariableIterator('$1 @{2} and %{3}', identifiers='$@%')
-        assert_equal(list(iterator), [('', '$1', ' @{2} and %{3}'),
-                                      (' ', '@{2}', ' and %{3}'),
-                                      (' and ', '%{3}', '')])
+        iterator = VariableIterator('$1 $2 and $3', identifiers='$')
+        assert_equal(list(iterator), [('', '$1', ' $2 and $3'),
+                                      (' ', '$2', ' and $3'),
+                                      (' and ', '$3', '')])
         assert_equal(bool(iterator), True)
         assert_equal(len(iterator), 3)
 

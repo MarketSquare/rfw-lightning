@@ -66,8 +66,6 @@ class VariableReplacer:
         if not match:
             return [unescape(match.string)]
         value = self.replace_scalar(match, ignore_errors)
-        if match.is_list_variable() and is_list_like(value):
-            return value
         return [value]
 
     def replace_scalar(self, item, ignore_errors=False):

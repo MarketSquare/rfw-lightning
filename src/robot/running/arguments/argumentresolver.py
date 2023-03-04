@@ -15,7 +15,6 @@
 
 from robot.errors import DataError
 from robot.utils import is_string, is_dict_like, split_from_equals
-from robot.variables import is_dict_variable
 
 from .argumentvalidator import ArgumentValidator
 
@@ -49,9 +48,7 @@ class NamedArgumentResolver:
         positional = []
         named = []
         for arg in arguments:
-            if is_dict_variable(arg):
-                named.append(arg)
-            elif self._is_named(arg, named, variables):
+            if self._is_named(arg, named, variables):
                 named.append(split_from_equals(arg))
             elif named:
                 self._raise_positional_after_named()

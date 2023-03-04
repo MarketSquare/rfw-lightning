@@ -20,7 +20,7 @@ from typing import TYPE_CHECKING
 from robot.conf import Language
 from robot.running.arguments import UserKeywordArgumentParser
 from robot.utils import is_list_like, normalize_whitespace, seq2str, split_from_equals
-from robot.variables import is_scalar_assign, is_dict_variable, search_variable
+from robot.variables import is_scalar_assign, search_variable
 
 from ..lexer import Token
 
@@ -562,8 +562,8 @@ class Variable(Statement):
                 )
 
     def _is_valid_dict_item(self, item):
-        name, value = split_from_equals(item)
-        return value is not None or is_dict_variable(item)
+        _, value = split_from_equals(item)
+        return value is not None
 
 
 @Statement.register

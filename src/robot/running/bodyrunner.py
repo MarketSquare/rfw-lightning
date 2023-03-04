@@ -28,7 +28,7 @@ from robot.utils import (cut_assign_value, frange, get_error_message, get_timest
                          is_string, is_list_like, is_number, plural_or_not as s,
                          seq2str, split_from_equals, type_name, Matcher,
                          timestr_to_secs)
-from robot.variables import is_dict_variable, evaluate_expression
+from robot.variables import evaluate_expression
 
 from .statusreporter import StatusReporter
 
@@ -156,8 +156,6 @@ class ForInRunner:
     def _is_dict_iteration(self, values):
         all_name_value = True
         for item in values:
-            if is_dict_variable(item):
-                return True
             if split_from_equals(item)[1] is None:
                 all_name_value = False
         if all_name_value and values:
@@ -176,19 +174,16 @@ class ForInRunner:
         result = OrderedDict()
         replace_scalar = self._context.variables.replace_scalar
         for item in values:
-            if is_dict_variable(item):
-                result.update(replace_scalar(item))
-            else:
-                key, value = split_from_equals(item)
-                if value is None:
-                    raise DataError(f"Invalid FOR loop value '{item}'. When iterating "
-                                    f"over dictionaries, values must be '&{{dict}}' "
-                                    f"variables or use 'key=value' syntax.", syntax=True)
-                try:
-                    result[replace_scalar(key)] = replace_scalar(value)
-                except TypeError:
-                    err = get_error_message()
-                    raise DataError(f"Invalid dictionary item '{item}': {err}")
+            key, value = split_from_equals(item)
+            if value is None:
+                raise DataError(f"Invalid FOR loop value '{item}'. When iterating "
+                                f"over dictionaries, values must be '&{{dict}}' "
+                                f"variables or use 'key=value' syntax.", syntax=True)
+            try:
+                result[replace_scalar(key)] = replace_scalar(value)
+            except TypeError:
+                err = get_error_message()
+                raise DataError(f"Invalid dictionary item '{item}': {err}")
         return result.items()
 
     def _map_dict_values_to_rounds(self, values, per_round):

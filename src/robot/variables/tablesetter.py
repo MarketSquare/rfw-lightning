@@ -19,7 +19,7 @@ from robot.errors import DataError
 from robot.utils import DotDict, is_string, split_from_equals
 
 from .resolvable import Resolvable
-from .search import is_assign, is_list_variable, is_dict_variable
+from .search import is_assign
 
 
 class VariableTableSetter:
@@ -110,8 +110,7 @@ class ScalarVariableTableValue(VariableTableValueBase):
         return separator.join(str(item) for item in values)
 
     def _is_single_value(self, separator, values):
-        return (separator is None and len(values) == 1 and
-                not is_list_variable(values[0]))
+        return separator is None and len(values) == 1
 
 
 class ListVariableTableValue(VariableTableValueBase):
@@ -127,17 +126,14 @@ class DictVariableTableValue(VariableTableValueBase):
 
     def _yield_formatted(self, values):
         for item in values:
-            if is_dict_variable(item):
-                yield item
-            else:
-                name, value = split_from_equals(item)
-                if value is None:
-                    raise DataError(
-                        "Invalid dictionary variable item '%s'. "
-                        "Items must use 'name=value' syntax or be dictionary "
-                        "variables themselves." % item
-                    )
-                yield name, value
+            name, value = split_from_equals(item)
+            if value is None:
+                raise DataError(
+                    "Invalid dictionary variable item '%s'. "
+                    "Items must use 'name=value' syntax or be dictionary "
+                    "variables themselves." % item
+                )
+            yield name, value
 
     def _replace_variables(self, values, variables):
         try:

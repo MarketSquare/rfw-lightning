@@ -3,8 +3,8 @@ import unittest
 from robot.variables import (contains_variable,
                              is_variable, is_assign,
                              is_scalar_variable, is_scalar_assign,
-                             is_list_variable, is_list_assign,
-                             is_dict_variable, is_dict_assign,
+                             is_list_assign,
+                             is_dict_assign,
                              search_variable)
 
 
@@ -42,28 +42,6 @@ class TestIsVariable(unittest.TestCase):
         for nok in NOKS + LISTS + DICTS:
             assert not is_scalar_variable(nok)
             assert not search_variable(nok, ignore_errors=True).is_scalar_variable()
-
-    def test_is_list_variable(self):
-        for ok in LISTS:
-            assert is_list_variable(ok)
-            assert search_variable(ok).is_list_variable()
-            assert is_list_variable(ok + '[item]')
-            assert not is_list_variable(' ' + ok)
-            assert not is_list_variable(ok + '=')
-        for nok in NOKS + SCALARS + DICTS:
-            assert not is_list_variable(nok)
-            assert not search_variable(nok, ignore_errors=True).is_list_variable()
-
-    def test_is_dict_variable(self):
-        for ok in DICTS:
-            assert is_dict_variable(ok)
-            assert search_variable(ok).is_dict_variable()
-            assert is_dict_variable(ok + '[item]')
-            assert not is_dict_variable(' ' + ok)
-            assert not is_dict_variable(ok + '=')
-        for nok in NOKS + SCALARS + LISTS:
-            assert not is_dict_variable(nok)
-            assert not search_variable(nok, ignore_errors=True).is_dict_variable()
 
     def test_contains_variable(self):
         for ok in SCALARS + LISTS + DICTS + [r'\${no $yes!']:

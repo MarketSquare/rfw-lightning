@@ -17,7 +17,7 @@ from robot.errors import DataError
 from robot.output import LOGGER
 from robot.result import Keyword as KeywordResult
 from robot.utils import prepr, safe_str
-from robot.variables import contains_variable, is_list_variable, VariableAssignment
+from robot.variables import contains_variable, VariableAssignment
 
 from .bodyrunner import BodyRunner
 from .model import Keyword
@@ -195,8 +195,7 @@ class RunKeywordRunner(LibraryKeywordRunner):
             yield else_call
         elif self._validate_kw_call(given_args):
             expr, kw_call = given_args[0], given_args[1:]
-            if not is_list_variable(expr):
-                yield kw_call
+            yield kw_call
 
     def _split_run_kw_if_args(self, given_args, control_word, required_after):
         index = list(given_args).index(control_word)
@@ -205,14 +204,10 @@ class RunKeywordRunner(LibraryKeywordRunner):
         if not (self._validate_kw_call(expr_and_call) and
                 self._validate_kw_call(remaining, required_after)):
             raise DataError("Invalid 'Run Keyword If' usage.")
-        if is_list_variable(expr_and_call[0]):
-            return (), remaining
         return expr_and_call[1:], remaining
 
     def _validate_kw_call(self, kw_call, min_length=2):
-        if len(kw_call) >= min_length:
-            return True
-        return any(is_list_variable(item) for item in kw_call)
+        return len(kw_call) >= min_length
 
     def _get_dry_run_keywords_for_run_keyword(self, given_args):
         for kw_call in self._get_run_kws_calls(given_args):
