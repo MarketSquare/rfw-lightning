@@ -110,7 +110,7 @@ class VariableMatch:
 
     def is_assign(self, allow_assign_mark=False):
         if allow_assign_mark and self.string.endswith('='):
-            match = search_variable(self.string.rstrip(), ignore_errors=True)
+            match = search_variable(self.string[:-1].rstrip(), ignore_errors=True)
             return match.is_assign()
         return (self.is_variable()
                 and self.identifier in '$@&'
