@@ -73,7 +73,7 @@ class TestIsAssign(unittest.TestCase):
         for ok in SCALARS:
             assert is_scalar_assign(ok)
             assert search_variable(ok).is_scalar_assign()
-            assert is_scalar_assign(ok + '=', allow_assign_mark=True)
+            assert is_scalar_assign(ok + '=', allow_assign_mark=True), ok + '='
             assert is_scalar_assign(ok + ' =', allow_assign_mark=True)
             assert not is_scalar_assign(ok + '[item]')
             assert not is_scalar_assign(' ' + ok)
