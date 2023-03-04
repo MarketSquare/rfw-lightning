@@ -20,6 +20,8 @@ Syntax changes:
 - ✨ Robot Framework like IF syntax. No Python eval.
 
   - Supporting '==', 'is', 'in', '!=', '>', '<', >=', '<=' and 'not in'
+  - ✨ TODO: While conditions.
+  - ✨ TODO: Generic `Expect` with the conditions above. Reducing need for Builtin `Should .. ` keywords.
 
 - ✨ For loop with iterating over the First thing. Not over argument expansion.
 
