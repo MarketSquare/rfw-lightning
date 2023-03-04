@@ -8,7 +8,7 @@ Resource          atest_resource.robot
 
 *** Test Cases ***
 Default limit
-    ${EMPTY}
+    $EMPTY
     ...    '0123456789'
     ...    '0123456789' * 20
     ...    '0123456789' * 20 + '...'
@@ -54,20 +54,20 @@ Invalid
     Run Tests Without Processing Output    --maxass oops    cli/console/max_assign_length.robot
     Stderr Should Be Equal To
     ...    [ ERROR ] Invalid value for option '--maxassignlength':
-    ...    Expected integer, got 'oops'.${USAGE_TIP}\n
+    ...    Expected integer, got 'oops'.$USAGE_TIP\n
 
 
 *** Keywords ***
 Assignment messages should be
-    [Arguments]    ${limit}    @{messages}
+    [Arguments]    $limit    @{messages}
     IF    $limit
-        Run Tests    --maxassignlength ${limit}    cli/console/max_assign_length.robot
+        Run Tests    --maxassignlength $limit    cli/console/max_assign_length.robot
     ELSE
-        Run Tests    ${EMPTY}    cli/console/max_assign_length.robot
+        Run Tests    $EMPTY    cli/console/max_assign_length.robot
     END
-    Length Should Be    ${messages}    5
-    FOR    ${name}    ${msg}    IN ZIP    ${TESTS}    ${MESSAGES}
-        ${tc} =    Check Test Case    ${name}
-        ${msg} =    Evaluate    ${msg}
-        Check Log Message    ${tc.body[0].messages[0]}    \${value} = ${msg}
+    Length Should Be    $messages    5
+    FOR    $name    $msg    IN ZIP    $TESTS    $MESSAGES
+        $tc =    Check Test Case    $name
+        $msg =    Evaluate    $msg
+        Check Log Message    ${tc.body[0].messages[0]}    \$value = $msg
     END

@@ -6,5 +6,5 @@ Resource        atest_resource.robot
 *** Test Cases ***
 
 Suite Teardown Related Run Keyword Variants
-    Check Test Case  ${TESTNAME}
+    Check Test Case  $TESTNAME
 

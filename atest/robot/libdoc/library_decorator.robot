@@ -1,5 +1,5 @@
 *** Settings ***
-Suite Setup       Run Libdoc And Parse Output    ${TESTDATADIR}/LibraryDecorator.py
+Suite Setup       Run Libdoc And Parse Output    $TESTDATADIR/LibraryDecorator.py
 Resource          libdoc_resource.robot
 
 *** Test Cases ***

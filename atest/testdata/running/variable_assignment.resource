@@ -1,3 +1,3 @@
 *** Variables ***
-${RESU}=Evaluate   'mikko'
-${NORMAL}          normal
+$RESU=Evaluate   'mikko'
+$NORMAL          normal

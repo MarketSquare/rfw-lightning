@@ -4,15 +4,15 @@ Resource                 conversion.resource
 
 *** Variables ***
 @{LIST}                  foo                       bar
-&{DICT}                  foo=${1}                  bar=${2}
-${PATH}=Evaluate                  pathlib.Path('x/y')
-${PUREPATH}=Evaluate              pathlib.PurePath('x/y')
+&{DICT}                  foo=$1                  bar=$2
+$PATH=Evaluate                  pathlib.Path('x/y')
+$PUREPATH=Evaluate              pathlib.PurePath('x/y')
 
 *** Test Cases ***
 Integer
-    Integer              42                        ${42}
+    Integer              42                        $42
     Integer              -1                        ${-1}
-    Integer              9999999999999999999999    ${9999999999999999999999}
+    Integer              9999999999999999999999    $9999999999999999999999
     Integer              123 456 789               123456789
     Integer              123_456_789               123456789
     Integer              - 123 456 789             -123456789
@@ -87,24 +87,24 @@ Invalid decimal
     Decimal              foobar
 
 Boolean
-    Boolean              True                      ${True}
-    Boolean              YES                       ${True}
-    Boolean              on                        ${True}
-    Boolean              1                         ${True}
-    Boolean              false                     ${False}
-    Boolean              No                        ${False}
-    Boolean              oFF                       ${False}
-    Boolean              0                         ${False}
-    Boolean              ${EMPTY}                  ${False}
-    Boolean              none                      ${None}
-    Boolean              ${None}                   ${None}
-    Boolean              ${0}                      ${0}
+    Boolean              True                      $True
+    Boolean              YES                       $True
+    Boolean              on                        $True
+    Boolean              1                         $True
+    Boolean              false                     $False
+    Boolean              No                        $False
+    Boolean              oFF                       $False
+    Boolean              0                         $False
+    Boolean              $EMPTY                  $False
+    Boolean              none                      $None
+    Boolean              $None                   $None
+    Boolean              $0                      $0
     Boolean              ${1.1}                    ${1.1}
 
 Invalid boolean
     [Template]           Invalid value is passed as-is
     Boolean              foobar
-    Boolean              ${LIST}                   expected=${LIST}
+    Boolean              $LIST                   expected=$LIST
 
 String
     String               Hello, world!             u'Hello, world!'
@@ -112,9 +112,9 @@ String
     String               None                      u'None'
     String               True                      u'True'
     String               []                        u'[]'
-    String               ${42}                     42
-    String               ${None}                   None
-    String               ${LIST}                   ['foo', 'bar']
+    String               $42                     42
+    String               $None                   None
+    String               $LIST                   ['foo', 'bar']
 
 Bytes
     Bytes                foo                       b'foo'
@@ -178,19 +178,19 @@ Invalid timedelta
 
 Path
     Path                 path                      Path('path')
-    Path                 two/components            Path(r'two${/}components')
-    Path                 two${/}components         Path(r'two${/}components')
-    Path                 ${PATH}                   Path('x/y')
-    Path                 ${PUREPATH}               Path('x/y')
+    Path                 two/components            Path(r'two{$/}components')
+    Path                 two{$/}components         Path(r'two{$/}components')
+    Path                 $PATH                   Path('x/y')
+    Path                 $PUREPATH               Path('x/y')
     PurePath             path                      Path('path')
-    PurePath             two/components            Path(r'two${/}components')
-    PurePath             two${/}components         Path(r'two${/}components')
-    PurePath             ${PATH}                   Path('x/y')
-    PurePath             ${PUREPATH}               PurePath('x/y')
+    PurePath             two/components            Path(r'two{$/}components')
+    PurePath             two{$/}components         Path(r'two{$/}components')
+    PurePath             $PATH                   Path('x/y')
+    PurePath             $PUREPATH               PurePath('x/y')
 
 Invalid Path
     [Template]           Invalid value is passed as-is
-    Path                 ${1}                      ${1}
+    Path                 $1                      $1
 
 Enum
     Enum                 FOO                       MyEnum.FOO
@@ -201,20 +201,20 @@ Flag
 
 IntEnum
     IntEnum              ON                        MyIntEnum.ON
-    IntEnum              ${1}                      MyIntEnum.ON
+    IntEnum              $1                      MyIntEnum.ON
     IntEnum              0                         MyIntEnum.OFF
 
 IntFlag
     IntFlag              R                         MyIntFlag.R
     IntFlag              4                         MyIntFlag.R
-    IntFlag              ${4}                      MyIntFlag.R
+    IntFlag              $4                      MyIntFlag.R
 
 Invalid enum
     [Template]           Invalid value is passed as-is
     Enum                 foobar
     Flag                 YELLOW
     IntEnum              -1
-    IntFlag              ${10}                     ${10}
+    IntFlag              $10                     $10
 
 None
     None                 None                      None
@@ -225,7 +225,7 @@ None
 
 List
     List                 []                        []
-    List                 ['foo', 'bar']            ${LIST}
+    List                 ['foo', 'bar']            $LIST
     List                 [1, 2, 3.14, -42]         [1, 2, 3.14, -42]
     List                 ['\\x00', '\\x52']        ['\\x00', 'R']
 
@@ -235,13 +235,13 @@ Invalid list
     List                 ()
     List                 {}
     List                 ooops
-    List                 ${EMPTY}
+    List                 $EMPTY
     List                 !"#¤%&/(invalid expression)\=?
     List                 1 / 0
 
 Tuple
     Tuple                ()                        ()
-    Tuple                ('foo', "bar")            tuple(${LIST})
+    Tuple                ('foo', "bar")            tuple($LIST)
     Tuple                (1, 2, 3.14, -42)         (1, 2, 3.14, -42)
 
 Invalid tuple
@@ -253,7 +253,7 @@ Invalid tuple
 
 Dictionary
     Dictionary           {}                        {}
-    Dictionary           {'foo': 1, "bar": 2}      dict(${DICT})
+    Dictionary           {'foo': 1, "bar": 2}      dict($DICT)
     Dictionary           {1: 2, 3.14: -42}         {1: 2, 3.14: -42}
 
 Invalid dictionary
@@ -324,5 +324,5 @@ Invalid kwonly
 
 *** Keywords ***
 Invalid value is passed as-is
-    [Arguments]    ${kw}    ${arg}    ${expected}='''${arg}'''
-    Run Keyword    ${kw}    ${arg}    ${expected}
+    [Arguments]    $kw    $arg    $expected='''$arg'''
+    Run Keyword    $kw    $arg    $expected

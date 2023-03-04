@@ -1,5 +1,5 @@
 *** Settings ***
-Suite Setup     Run Tests    ${EMPTY}    parsing/failing_init/
+Suite Setup     Run Tests    $EMPTY    parsing/failing_init/
 Resource        atest_resource.robot
 
 *** Test Cases ***

@@ -2,7 +2,7 @@
 Resource        atest_resource.robot
 
 *** Variables ***
-${REBOT_INFILE}    %{TEMPDIR}/robot-rebot-infile.xml
+$REBOT_INFILE    %{TEMPDIR}/robot-rebot-infile.xml
 
 *** Test Cases ***
 
@@ -17,17 +17,17 @@ Split logs generated at runtime should have correct line separators
     ...    output.xml    log.html    log-1.js    log-2.js    log-3.js
 
 Outputs generated with rebot should have correct line separators
-    Copy File    ${OUTFILE}    ${REBOT_INFILE}
-    Run Rebot    -l log -r report -x xunit -L DEBUG    ${REBOT_INFILE}
+    Copy File    $OUTFILE    $REBOT_INFILE
+    Run Rebot    -l log -r report -x xunit -L DEBUG    $REBOT_INFILE
     Outputs Should Have Correct Line Separators
     ...    output.xml    log.html    report.html    xunit.xml
-    [Teardown]    Remove File    ${REBOT_INFILE}
+    [Teardown]    Remove File    $REBOT_INFILE
 
 *** Keywords ***
 
 Outputs Should Have Correct Line Separators
     [Arguments]    @{outputs}
-    FOR    ${name}    IN    @{outputs}  ${SYSLOG_FILE}
-        ${path} =    Join Path    ${OUTDIR}    ${name}
-        File Should Have Correct Line Separators    ${path}
+    FOR    $name    IN    @{outputs}  $SYSLOG_FILE
+        $path =    Join Path    $OUTDIR    $name
+        File Should Have Correct Line Separators    $path
     END

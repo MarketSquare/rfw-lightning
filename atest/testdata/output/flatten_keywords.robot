@@ -10,19 +10,19 @@ Flatten stuff
     Keyword with tags and no doc flatten
 
 For loop
-    FOR    ${i}    IN RANGE    10
-        Log   index: ${i}
+    FOR    $i    IN RANGE    10
+        Log   index: $i
         Keyword 3
         Keyword 2
     END
 
 WHILE loop
-    ${i}=    Set variable    ${0}
+    $i=    Set variable    $0
     WHILE    $i < 10
-        Log   index: ${i}
+        Log   index: $i
         Keyword 3
         Keyword 2
-        ${i}=    Evaluate    $i + 1
+        $i=    Evaluate    $i + 1
     END
 
 Flatten controls in keyword
@@ -79,14 +79,14 @@ Flatten controls in keyword
             Countdown
         END
     END
-    FOR    ${i}    IN RANGE    3
-        Log   FOR: ${i}
+    FOR    $i    IN RANGE    3
+        Log   FOR: $i
         Keyword 1
     END
     WHILE    $i > 0
-        Log   WHILE: ${i}
+        Log   WHILE: $i
         Keyword 1
-        ${i}=    Evaluate    $i - 1
+        $i=    Evaluate    $i - 1
         IF    $i >= 1    CONTINUE
         BREAK
     END
@@ -99,9 +99,9 @@ Flatten controls in keyword
     END
 
 Countdown
-    [Arguments]    ${count}=${3}
-    IF    ${count} > 0
-        Log    ${count}
+    [Arguments]    $count=$3
+    IF    $count > 0
+        Log    $count
         Countdown    ${count-1}
     ELSE
         Log    BANG!

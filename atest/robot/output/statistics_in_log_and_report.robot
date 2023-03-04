@@ -26,7 +26,7 @@ Report contains suite stats
 
 *** Keywords ***
 Run tests with stat related options
-    ${opts} =    Catenate
+    $opts =    Catenate
     ...    --SuiteStatLevel 2
     ...    --TagStatInclude t?
     ...    --TagStatInclude d1
@@ -35,17 +35,17 @@ Run tests with stat related options
     ...    --TagStatLink t?:http://t/%1:T%1
     ...    --log log.html
     ...    --report report.html
-   Run tests    ${opts}    misc/suites
+   Run tests    $opts    misc/suites
 
 Verify total stats
-    [Arguments]    ${file}
-    ${all} =    Get Total Stats    ${OUTDIR}${/}${file}
+    [Arguments]    $file
+    $all =    Get Total Stats    $OUTDIR{$/}$file
     Verify stat    ${all[0]}    label:All Tests    pass:12    fail:1    skip:0
 
 Verify tag stats
-    [Arguments]    ${file}
-    ${stats} =    Get Tag Stats    ${OUTDIR}${/}${file}
-    Length Should Be    ${stats}    4
+    [Arguments]    $file
+    $stats =    Get Tag Stats    $OUTDIR{$/}$file
+    Length Should Be    $stats    4
     Verify stat    ${stats[0]}    label:f1 AND t1    pass:5    fail:1    skip:0
     ...    info:combined    combined:f1 AND t1
     Verify stat    ${stats[1]}    label:d1    pass:1    fail:0    skip:0
@@ -55,9 +55,9 @@ Verify tag stats
     ...    links:T2:http://t/2
 
 Verify suite stats
-    [Arguments]    ${file}
-    ${stats} =    Get Suite Stats    ${OUTDIR}${/}${file}
-    Length Should Be    ${stats}    9
+    [Arguments]    $file
+    $stats =    Get Suite Stats    $OUTDIR{$/}$file
+    Length Should Be    $stats    9
     Verify stat    ${stats[0]}    label:Suites    name:Suites
     ...    id:s1    pass:12    fail:1    skip:0
     Verify stat    ${stats[1]}    label:Suites.Suite With Prefix    name:Suite With Prefix

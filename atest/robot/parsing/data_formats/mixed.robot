@@ -1,6 +1,6 @@
 *** Settings ***
 Resource          formats_resource.robot
-Suite Setup       Run tests    -F txt:tsv    ${MIXEDDIR}
+Suite Setup       Run tests    -F txt:tsv    $MIXEDDIR
 
 *** Variables ***
 @{TSV_TESTS}      TSV Passing     TSV Failing    TXT Resource
@@ -19,7 +19,7 @@ Directory With Mixed Data
 *** Keywords ***
 Verify Directory With Mixed Data
     Should Be Equal    ${SUITE.name}    Mixed Data
-    Should Contain Suites    ${SUITE}    TSV    TXT
+    Should Contain Suites    $SUITE    TSV    TXT
     Should Be Equal    ${SUITE.suites[0].doc}    Test suite in TSV file
     Should Be Equal    ${SUITE.suites[1].doc}    Test suite in TXT file
     Should Contain Tests    ${SUITE.suites[0]}    @{TSV_TESTS}

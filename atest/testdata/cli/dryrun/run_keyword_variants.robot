@@ -1,12 +1,12 @@
 *** Variables ***
-${LOG_GOT_WRONG_ARGS}    Keyword 'BuiltIn.Log' expected 1 to 6 arguments, got
-${UK_GOT_WRONG_ARGS}     Keyword 'UK' expected 0 arguments, got
-${LOG_KW}                Log
+$LOG_GOT_WRONG_ARGS    Keyword 'BuiltIn.Log' expected 1 to 6 arguments, got
+$UK_GOT_WRONG_ARGS     Keyword 'UK' expected 0 arguments, got
+$LOG_KW                Log
 @{LOG_THAT}              Log    that    DEBUG
 
 *** Test Cases ***
 Run Keyword With Keyword with Invalid Number of Arguments
-    [Documentation]  FAIL ${LOG_GOT_WRONG_ARGS} 0.
+    [Documentation]  FAIL $LOG_GOT_WRONG_ARGS 0.
     Run Keyword    Log
 
 Run Keyword With Missing Keyword
@@ -16,60 +16,60 @@ Run Keyword With Missing Keyword
 Keywords with variable in name are ignored
     Run Keyword    ${non-existing_variable}
     Run Keyword    No Operation
-    Run Keyword    Existing variable ${42}
-    Run Keywords    ${non_existing}    No Operation    Existing @{TEST_TAGS}
+    Run Keyword    Existing variable $42
+    Run Keywords    $non_existing    No Operation    Existing @{TEST_TAGS}
 
 Keywords with variable in name are ignored also when variable is argument
     Higher order fun    No Operation
-    Higher order fun    ${name}
+    Higher order fun    $name
 
 Run Keyword With UK
     Run Keyword  UK
 
 Run Keyword With Failing UK
-    [Documentation]  FAIL ${LOG_GOT_WRONG_ARGS} 0.
+    [Documentation]  FAIL $LOG_GOT_WRONG_ARGS 0.
     Run Keyword  Failing UK
 
 Comment
-    Comment  Missing Keyword  Should Not Fail  Even Missing ${variable} Should Not Fail
+    Comment  Missing Keyword  Should Not Fail  Even Missing $variable Should Not Fail
 
 Set Test/Suite/Global Variable
-    Set Test Variable  ${test}  value
-    Set Test Variable  \${test}
+    Set Test Variable  $test  value
+    Set Test Variable  \$test
     Set Test Variable  $test
-    Set Suite Variable  ${suite}
-    Set Suite Variable  \${suite}  value
     Set Suite Variable  $suite
-    Set Suite Variable  ${global}
-    Set Suite Variable  \${global}
+    Set Suite Variable  \$suite  value
+    Set Suite Variable  $suite
+    Set Suite Variable  $global
+    Set Suite Variable  \$global
     Set Suite Variable  $global  value
 
 Variable Should (Not) Exist
-    Variable Should Exist  ${var}
-    Variable Should Exist  \${var}
     Variable Should Exist  $var
-    Variable Should Not Exist  ${var}
-    Variable Should Not Exist  \${var}
+    Variable Should Exist  \$var
+    Variable Should Exist  $var
+    Variable Should Not Exist  $var
+    Variable Should Not Exist  \$var
     Variable Should Not Exist  $var
 
 Get Variable Value
-    Get Variable Value  ${var}
-    Get Variable Value  \${var}  default
-    Get Variable Value  $var  ${default}
+    Get Variable Value  $var
+    Get Variable Value  \$var  default
+    Get Variable Value  $var  $default
 
 Set Variable If
-    Set Variable If  True  ${foo}  ${bar}
+    Set Variable If  True  $foo  $bar
 
 Run Keywords When All Keywords Pass
     Run Keywords  Fail  No Operation  UK
 
 Run Keywords When One Keyword Fails
-    [Documentation]  FAIL ${LOG_GOT_WRONG_ARGS} 0.
+    [Documentation]  FAIL $LOG_GOT_WRONG_ARGS 0.
     Run Keywords  Fail  No Operation  Log  UK
 
 Run Keywords When Multiple Keyword Fails
     [Documentation]  FAIL  Several failures occurred:\n\n
-    ...  1) ${LOG_GOT_WRONG_ARGS} 0.\n\n
+    ...  1) $LOG_GOT_WRONG_ARGS 0.\n\n
     ...  2) No keyword with name 'Missing' found.
     Run Keywords  Fail  No Operation  Log  UK  Missing
 
@@ -77,12 +77,12 @@ Run Keywords With Arguments When All Keywords Pass
     Run Keywords  Log Many  this  is  valid  AND  No Operation
 
 Run Keywords With Arguments When One Keyword Fails
-    [Documentation]  FAIL  ${LOG_GOT_WRONG_ARGS} 12.
+    [Documentation]  FAIL  $LOG_GOT_WRONG_ARGS 12.
     Run Keywords  Log  valid  AND  Log  1  2  3  4  5  6  7  8  9  10  11  12
 
 Run Keywords With Arguments When Multiple Keyword Fails
     [Documentation]  FAIL  Several failures occurred:\n\n
-    ...  1) ${LOG_GOT_WRONG_ARGS} 8.\n\n
+    ...  1) $LOG_GOT_WRONG_ARGS 8.\n\n
     ...  2) No keyword with name 'Unknown Keyword' found.
     Run Keywords
     ...    Log    msg    DEBUG    and    too    many    args    we    have
@@ -90,16 +90,16 @@ Run Keywords With Arguments When Multiple Keyword Fails
     ...    Unknown Keyword
 
 Run Keywords With Arguments With Variables
-    Run Keywords  ${LOG_KW}  this  DEBUG  AND  @{LOG_THAT}  AND  Log  only kw
+    Run Keywords  $LOG_KW  this  DEBUG  AND  @{LOG_THAT}  AND  Log  only kw
 
 Run Keyword in For Loop Pass
-    FOR    ${i}    IN RANGE    5
+    FOR    $i    IN RANGE    5
         Run Keyword  No Operation
     END
 
 Run Keyword in For Loop Fail
-    [Documentation]  FAIL ${LOG_GOT_WRONG_ARGS} 0.
-    FOR    ${i}    IN RANGE    5
+    [Documentation]  FAIL $LOG_GOT_WRONG_ARGS 0.
+    FOR    $i    IN RANGE    5
         Run Keyword    Log
     END
 
@@ -107,22 +107,22 @@ Wait Until Keyword Succeeds Pass
     Wait Until Keyword Succeeds  30 seconds  1 second  No Operation
 
 Wait Until Keyword Succeeds Fail
-    [Documentation]  FAIL ${LOG_GOT_WRONG_ARGS} 0.
+    [Documentation]  FAIL $LOG_GOT_WRONG_ARGS 0.
     Wait Until Keyword Succeeds  30 seconds  1 second  Log
 
 Run Keyword If Pass
-    Run Keyword If  ${TRUE}  No Operation
+    Run Keyword If  $TRUE  No Operation
 
 Run Keyword If Fail
-    [Documentation]  FAIL ${LOG_GOT_WRONG_ARGS} 0.
-    Run Keyword If  ${FALSE}  Log
+    [Documentation]  FAIL $LOG_GOT_WRONG_ARGS 0.
+    Run Keyword If  $FALSE  Log
 
 Run Keyword If with ELSE
     [Documentation]  FAIL  Several failures occurred:\n\n
-    ...  1) ${LOG_GOT_WRONG_ARGS} 0.\n\n
-    ...  2) ${UK_GOT_WRONG_ARGS} 1.\n\n
+    ...  1) $LOG_GOT_WRONG_ARGS 0.\n\n
+    ...  2) $UK_GOT_WRONG_ARGS 1.\n\n
     ...  3) No keyword with name 'Non Existing' found.\n\n
-    ...  4) ${LOG_GOT_WRONG_ARGS} 8.
+    ...  4) $LOG_GOT_WRONG_ARGS 8.
     Run Keyword If    expression    No Operation    ELSE    UK
     RunKeywordIf      expression    Log             ELSE    No Operation
     runkeywordif      expression    No operation    ELSE    UK    not allowed
@@ -130,10 +130,10 @@ Run Keyword If with ELSE
 
 Run Keyword If with ELSE IF
     [Documentation]  FAIL  Several failures occurred:\n\n
-    ...  1) ${LOG_GOT_WRONG_ARGS} 0.\n\n
-    ...  2) ${UK_GOT_WRONG_ARGS} 1.\n\n
+    ...  1) $LOG_GOT_WRONG_ARGS 0.\n\n
+    ...  2) $UK_GOT_WRONG_ARGS 1.\n\n
     ...  3) No keyword with name 'Non Existing' found.\n\n
-    ...  4) ${LOG_GOT_WRONG_ARGS} 8.
+    ...  4) $LOG_GOT_WRONG_ARGS 8.
     Run Keyword If    expr    No Operation    ELSE IF    expr    UK
     Run Keyword If    expr    Log             ELSE IF    expr    No Operation
     Run Keyword If    expr    No operation    ELSE IF    expr    UK    not allowed
@@ -141,10 +141,10 @@ Run Keyword If with ELSE IF
 
 Run Keyword If with ELSE IF and ELSE
     [Documentation]  FAIL  Several failures occurred:\n\n
-    ...  1) ${LOG_GOT_WRONG_ARGS} 0.\n\n
-    ...  2) ${UK_GOT_WRONG_ARGS} 2.\n\n
+    ...  1) $LOG_GOT_WRONG_ARGS 0.\n\n
+    ...  2) $UK_GOT_WRONG_ARGS 2.\n\n
     ...  3) No keyword with name 'not found kw' found.\n\n
-    ...  4) ${LOG_GOT_WRONG_ARGS} 10.
+    ...  4) $LOG_GOT_WRONG_ARGS 10.
     Run Keyword If    expr    Log
     ...    ELSE IF    expr    UK    1    2
     ...    ELSE IF    expr    not found kw
@@ -183,8 +183,8 @@ Run Keyword If with ELSE IF and ELSE without keywords
 
 Run Keyword If with escaped or non-caps ELSE IF and ELSE
     [Documentation]  FAIL  Several failures occurred:\n\n
-    ...  1) ${LOG_GOT_WRONG_ARGS} 8.\n\n
-    ...  2) ${LOG_GOT_WRONG_ARGS} 7.
+    ...  1) $LOG_GOT_WRONG_ARGS 8.\n\n
+    ...  2) $LOG_GOT_WRONG_ARGS 7.
      Run Keyword If    expr    Log    \ELSE IF    INFO    and    too    many    args    we    have
      Run Keyword If    expr    Log    \ELSE    DEBUG
      Run Keyword If    expr    Log    else if    WARN    html=yes
@@ -192,8 +192,8 @@ Run Keyword If with escaped or non-caps ELSE IF and ELSE
 
 Run Keyword If with list variable in ELSE IF and ELSE
     [Documentation]  FAIL  Several failures occurred:\n\n
-    ...  1) ${LOG_GOT_WRONG_ARGS} 9.\n\n
-    ...  2) ${LOG_GOT_WRONG_ARGS} 8.
+    ...  1) $LOG_GOT_WRONG_ARGS 9.\n\n
+    ...  2) $LOG_GOT_WRONG_ARGS 8.
     Run Keyword If    @{list}
     Run Keyword If    @{list}    ELSE      @{list}
     Run Keyword If    @{list}    ELSE IF   @{list}
@@ -208,9 +208,9 @@ Run Keyword If with list variable in ELSE IF and ELSE
 
 Test Teardown Related Run Keyword Variants
     [Documentation]  FAIL  Several failures occurred:\n\n
-    ...  1) ${LOG_GOT_WRONG_ARGS} 0.\n\n
-    ...  2) ${LOG_GOT_WRONG_ARGS} 0.\n\n
-    ...  3) ${LOG_GOT_WRONG_ARGS} 0.
+    ...  1) $LOG_GOT_WRONG_ARGS 0.\n\n
+    ...  2) $LOG_GOT_WRONG_ARGS 0.\n\n
+    ...  3) $LOG_GOT_WRONG_ARGS 0.
     Run Keyword If Test Failed  Log
     Run Keyword If Test Passed  Log
     Run Keyword If Timeout Occurred  Log
@@ -241,5 +241,5 @@ Failing UK
     Log
 
 Higher order fun
-    [Arguments]    ${name}
-    Run Keyword    ${name}
+    [Arguments]    $name
+    Run Keyword    $name

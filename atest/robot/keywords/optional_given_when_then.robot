@@ -4,7 +4,7 @@ Resource        atest_resource.robot
 
 *** Test Cases ***
 In user keyword name with normal arguments
-    ${tc} =  Check Test Case  ${TEST_NAME}
+    $tc =  Check Test Case  $TEST_NAME
     Should Be Equal  ${tc.kws[0].name}  Given we don't drink too many beers
     Should Be Equal  ${tc.kws[1].name}  When we are in
     Should Be Equal  ${tc.kws[2].name}  But we don't drink too many beers
@@ -13,7 +13,7 @@ In user keyword name with normal arguments
     Should Be Equal  ${tc.kws[5].name}  and we don't drink too many beers
 
 In user keyword name with embedded arguments
-    ${tc} =  Check Test Case  ${TEST_NAME}
+    $tc =  Check Test Case  $TEST_NAME
     Should Be Equal  ${tc.kws[0].name}  Given we are in Berlin city
     Should Be Equal  ${tc.kws[1].name}  When it does not rain
     Should Be Equal  ${tc.kws[2].name}  And we get this feature implemented
@@ -21,7 +21,7 @@ In user keyword name with embedded arguments
     Should Be Equal  ${tc.kws[4].name}  but it does not rain
 
 In library keyword name
-    ${tc} =  Check Test Case  ${TEST_NAME}
+    $tc =  Check Test Case  $TEST_NAME
     Should Be Equal  ${tc.kws[0].name}  BuiltIn.Given Should Be Equal
     Should Be Equal  ${tc.kws[1].name}  BuiltIn.And Should Not Match
     Should Be Equal  ${tc.kws[2].name}  BuiltIn.But Should Match
@@ -29,15 +29,15 @@ In library keyword name
     Should Be Equal  ${tc.kws[4].name}  BuiltIn.THEN should be equal
 
 In user keyword in resource file
-    ${tc} =  Check Test Case  ${TEST_NAME}
+    $tc =  Check Test Case  $TEST_NAME
     Should Be Equal  ${tc.kws[0].name}  optional_given_when_then.Given Keyword Is In Resource File
     Should Be Equal  ${tc.kws[1].name}  optional_given_when_then.and another resource file
 
 Correct Name Shown in Keyword Not Found Error
-    Check Test Case  ${TEST_NAME}
+    Check Test Case  $TEST_NAME
 
 Keyword can be used with and without prefix
-    ${tc} =  Check Test Case  ${TEST_NAME}
+    $tc =  Check Test Case  $TEST_NAME
     Should Be Equal  ${tc.kws[0].name}  GiveN we don't drink too many beers
     Should Be Equal  ${tc.kws[1].name}  and we don't drink too many beers
     Should Be Equal  ${tc.kws[2].name}  We don't drink too many beers
@@ -47,7 +47,7 @@ Keyword can be used with and without prefix
     Should Be Equal  ${tc.kws[6].name}  we are in Berlin city
 
 Localized prefixes
-    ${tc} =  Check Test Case  ${TEST_NAME}
+    $tc =  Check Test Case  $TEST_NAME
     Should Be Equal  ${tc.kws[0].name}  Oletetaan we don't drink too many beers
     Should Be Equal  ${tc.kws[1].name}  Kun we are in
     Should Be Equal  ${tc.kws[2].name}  mutta we don't drink too many beers
@@ -56,7 +56,7 @@ Localized prefixes
     Should Be Equal  ${tc.kws[5].name}  ja we don't drink too many beers
 
 Prefix consisting of multiple words
-    ${tc} =  Check Test Case  ${TEST_NAME}
+    $tc =  Check Test Case  $TEST_NAME
     Should Be Equal  ${tc.kws[0].name}  Étant donné multipart prefixes didn't work with RF 6.0
     Should Be Equal  ${tc.kws[1].name}  Zakładając, że multipart prefixes didn't work with RF 6.0
     Should Be Equal  ${tc.kws[2].name}  Diyelim ki multipart prefixes didn't work with RF 6.0
@@ -66,4 +66,4 @@ Prefix consisting of multiple words
     Should Be Equal  ${tc.kws[6].name}  Fie ca multipart prefixes didn't work with RF 6.0
 
 Prefix must be followed by space
-    Check Test Case  ${TEST_NAME}
+    Check Test Case  $TEST_NAME

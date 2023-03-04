@@ -1,8 +1,8 @@
 *** Settings ***
 Library           OperatingSystem    WITH NAME    OS
 Library           ParameterLibrary    1    2    WITH NAME    Param1
-Library           ParameterLibrary    ${VAR}    ${42}    WITH NAME    Param2
-Library           ParameterLibrary    a    b    AS    ${VAR}
+Library           ParameterLibrary    $VAR    $42    WITH NAME    Param2
+Library           ParameterLibrary    a    b    AS    $VAR
 Library           ParameterLibrary    whatever    WITH NAME
 Library           BuiltIn    WITH NAME    B2
 Library           module_library    AS    MOD1
@@ -16,7 +16,7 @@ Library           libraryscope.Suite    WITH NAME    S Scope
 Library           libraryscope.Test    AS    T Scope
 
 *** Variables ***
-${VAR}            VAR
+$VAR            VAR
 
 *** Test Cases ***
 No Arguments
@@ -38,11 +38,11 @@ Embedded Arguments With Library Having State
 
 Arguments Containing Variables And Import Same Library Twice
     Param1.Parameters should be    1    2
-    par am 2 . par A meter S should BE    VAR    ${42}
+    par am 2 . par A meter S should BE    VAR    $42
 
 Alias Containing Variable
     VAR.Parameters should be    a    b
-    Run Keyword    ${VAR}.Parameters should be    a    b
+    Run Keyword    $VAR.Parameters should be    a    b
 
 With Name Has No Effect If Not Second Last
     ParameterLibrary.Parameters should be    whatever    WITH NAME
@@ -54,8 +54,8 @@ With Name After Normal Import
 Module Library
     [Documentation]    FAIL This is a failing keyword from module library
     mod1.argument    Hello
-    ${s} =    M O D 2 . keyword from sub module    Tellus
-    BuiltIn.Should Be Equal    ${s}    Hello, Tellus!
+    $s =    M O D 2 . keyword from sub module    Tellus
+    BuiltIn.Should Be Equal    $s    Hello, Tellus!
     Failing
 
 Name Given Using "With Name" Can Be Reused In Different Suites
@@ -109,6 +109,6 @@ Test Case Scope 2.2
 
 *** Keywords ***
 Register And Test Registered
-    [Arguments]    ${scope}    ${reg}    @{exp}
-    Run Keyword    ${scope}.Register    ${reg}
-    Run Keyword    ${scope}.Should Be Registered    ${reg}    @{exp}
+    [Arguments]    $scope    $reg    @{exp}
+    Run Keyword    $scope.Register    $reg
+    Run Keyword    $scope.Should Be Registered    $reg    @{exp}

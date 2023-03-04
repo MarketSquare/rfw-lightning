@@ -36,7 +36,7 @@ Keywords with skip status are expanded
 
 *** Keywords ***
 Run tests with expanding
-    ${options} =    Catenate
+    $options =    Catenate
     ...    --log log.html
     ...    --expandkeywords name:MyKeyword
     ...    --ExpandKeywords NAME:BuiltIn.Sleep
@@ -49,7 +49,7 @@ Run tests with expanding
     ...    --expandkeywords tag:tags
     ...    --ExpandKeywords TAG:Nest*2
     ...    --expandkeywords tag:NoMatch
-    ${paths} =    Catenate
+    $paths =    Catenate
     ...    misc/pass_and_fail.robot
     ...    misc/non_ascii.robot
     ...    misc/formatting_and_escaping.robot
@@ -59,18 +59,18 @@ Run tests with expanding
     ...    misc/try_except.robot
     ...    misc/while.robot
     ...    misc/skip.robot
-    Run Tests    ${options}    ${paths}
-    ${EXPANDED} =    Get Expand Keywords    ${OUTDIR}/log.html
-    Set Suite Variable    ${EXPANDED}
+    Run Tests    $options    $paths
+    $EXPANDED =    Get Expand Keywords    $OUTDIR/log.html
+    Set Suite Variable    $EXPANDED
 
 Keyword should have been expanded
     [Arguments]    @{ids}
-    List Should Contain Sub List    ${EXPANDED}    ${ids}
-    Append To List    ${VALIDATED}    @{ids}
+    List Should Contain Sub List    $EXPANDED    $ids
+    Append To List    $VALIDATED    @{ids}
 
 No extra keyword should have been expanded
-    Sort List    ${EXPANDED}
-    Sort List    ${VALIDATED}
-    Log List    ${EXPANDED}
-    Log list    ${VALIDATED}
-    Lists Should Be Equal    ${EXPANDED}    ${VALIDATED}
+    Sort List    $EXPANDED
+    Sort List    $VALIDATED
+    Log List    $EXPANDED
+    Log list    $VALIDATED
+    Lists Should Be Equal    $EXPANDED    $VALIDATED

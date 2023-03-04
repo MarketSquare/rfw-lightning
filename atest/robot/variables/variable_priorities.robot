@@ -1,12 +1,12 @@
 *** Setting ***
 Documentation     Some of these tests are testing same features as tests under core/resource_and_variable_imports.html. These tests should all be gone through and all tests moved under variables/.
-Suite Setup       Run Tests    --variable PRIORITIES_1:CLI --variablefile ${VARFILE1} --variablefile ${VARFILE2}    variables/variable_priorities.robot
+Suite Setup       Run Tests    --variable PRIORITIES_1:CLI --variablefile $VARFILE1 --variablefile $VARFILE2    variables/variable_priorities.robot
 Resource          atest_resource.robot
 
 *** Variable ***
-${VARDIR}         atest/robot/variables${/}..${/}..${/}testdata${/}variables${/}resvarfiles
-${VARFILE1}       ${VARDIR}${/}cli_vars.py
-${VARFILE2}       ${VARDIR}${/}cli_vars_2.py:mandatory_argument
+$VARDIR         atest/robot/variables{$/}..{$/}..{$/}testdata{$/}variables{$/}resvarfiles
+$VARFILE1       $VARDIR{$/}cli_vars.py
+$VARFILE2       $VARDIR{$/}cli_vars_2.py:mandatory_argument
 
 *** Test Case ***
 Individual CLI Variables Override All Other Variables

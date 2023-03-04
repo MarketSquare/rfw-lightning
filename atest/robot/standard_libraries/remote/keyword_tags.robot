@@ -25,5 +25,5 @@ Empty 'robot_tags' means no tags
 *** Keyword ***
 Keyword tags should be
     [Arguments]    @{tags}
-    ${tc} =    Check Test Case    ${TESTNAME}
-    Lists Should Be Equal    ${tc.kws[0].tags}    ${tags}
+    $tc =    Check Test Case    $TESTNAME
+    Lists Should Be Equal    ${tc.kws[0].tags}    $tags

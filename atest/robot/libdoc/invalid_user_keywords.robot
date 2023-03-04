@@ -1,5 +1,5 @@
 *** Settings ***
-Suite Setup       Run Libdoc And Parse Output    ${TESTDATADIR}/invalid_user_keywords.robot
+Suite Setup       Run Libdoc And Parse Output    $TESTDATADIR/invalid_user_keywords.robot
 Resource          libdoc_resource.robot
 
 *** Test Cases ***
@@ -16,16 +16,16 @@ Duplicate name
     ...    Keyword with same name defined multiple times
 
 Duplicate name with embedded arguments
-    Keyword Name Should Be    1    same \${embedded_match}
-    Keyword Doc Should Be     1    ${EMPTY}
-    Keyword Name Should Be    2    Same \${embedded}
+    Keyword Name Should Be    1    same \$embedded_match
+    Keyword Doc Should Be     1    $EMPTY
+    Keyword Name Should Be    2    Same \$embedded
     Keyword Doc Should Be     2    This is an error only at run time.
 
 *** Keywords ***
 Stdout should contain error
-    [Arguments]    ${name}    ${lineno}    ${error}
-    ${path} =    Normalize Path    ${DATADIR}/libdoc/invalid_user_keywords.robot
-    ${message} =    Catenate
-    ...    [ ERROR ] Error in file '${path}' on line ${lineno}:
-    ...    Creating keyword '${name}' failed: ${error}
-    Should Contain    ${OUTPUT}    ${message}
+    [Arguments]    $name    $lineno    $error
+    $path =    Normalize Path    $DATADIR/libdoc/invalid_user_keywords.robot
+    $message =    Catenate
+    ...    [ ERROR ] Error in file '$path' on line $lineno:
+    ...    Creating keyword '$name' failed: $error
+    Should Contain    $OUTPUT    $message

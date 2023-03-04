@@ -5,7 +5,7 @@ Library           ParameterLibrary    before1with    before2with    AS    Params
 Library           libraryscope.Global    WITH NAME    GlobalScope
 Library           libraryscope.Suite    AS    Suite Scope
 Library           libraryscope.Test    WITH NAME    TEST SCOPE
-Library           ParameterLibrary    ${1}    2
+Library           ParameterLibrary    $1    2
 
 *** Test Cases ***
 Import Library Normally Before Importing With Name In Another Suite
@@ -42,6 +42,6 @@ Test Case Scope 1.2
 
 *** Keywords ***
 Register And Test Registered
-    [Arguments]    ${scope}    ${reg}    @{exp}
-    Run Keyword    ${scope}.Register    ${reg}
-    Run Keyword    ${scope}.Should Be Registered    ${reg}    @{exp}
+    [Arguments]    $scope    $reg    @{exp}
+    Run Keyword    $scope.Register    $reg
+    Run Keyword    $scope.Should Be Registered    $reg    @{exp}

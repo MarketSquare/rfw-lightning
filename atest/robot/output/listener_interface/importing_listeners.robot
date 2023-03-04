@@ -16,7 +16,7 @@ Python Module Listener
 
 Listener With Arguments
     class    listeners.WithArgs    listeners    6
-    [Teardown]    Check Listener File    ${ARGS_FILE}
+    [Teardown]    Check Listener File    $ARGS_FILE
     ...    I got arguments 'value' and 'default'
     ...    I got arguments 'a1' and 'a;2'
     ...    I got arguments 'semi' and 'colons:here'
@@ -26,8 +26,8 @@ Listener With Argument Conversion
     class    listeners.WithArgConversion    listeners    1
 
 Listener With Path
-    class    ${LISTENERS}${/}ListenAll.py   ListenAll
-    [Teardown]    File Should Exist  %{TEMPDIR}${/}${ALL_FILE2}
+    class    $LISTENERS{$/}ListenAll.py   ListenAll
+    [Teardown]    File Should Exist  %{TEMPDIR}{$/}$ALL_FILE2
 
 Listener With Wrong Number Of Arguments
     [Template]    Importing Listener Failed
@@ -36,11 +36,11 @@ Listener With Wrong Number Of Arguments
 
 Non Existing Listener
     [Template]    Importing Listener Failed
-    2    NonExistingListener    *${EMPTY_TB}PYTHONPATH:*    pattern=True
+    2    NonExistingListener    *$EMPTY_TBPYTHONPATH:*    pattern=True
 
 *** Keywords ***
 Run Tests With Listeners
-    ${listeners} =    Catenate
+    $listeners =    Catenate
     ...    --listener ListenAll
     ...    --listener listeners.ListenSome
     ...    --listener module_listener
@@ -49,15 +49,15 @@ Run Tests With Listeners
     ...    --listener "listeners.WithArgs;semi;colons:here"
     ...    --listener listeners.WithArgs:arg2=args:arg1=named
     ...    --listener listeners.WithArgConversion:42:yes
-    ...    --listener ${LISTENERS}${/}ListenAll.py:%{TEMPDIR}${/}${ALL_FILE2}
+    ...    --listener $LISTENERS{$/}ListenAll.py:%{TEMPDIR}{$/}$ALL_FILE2
     ...    --listener listeners.WithArgs
     ...    --listener listeners.WithArgs:1:2:3
     ...    --listener NonExistingListener
-    Run Tests    ${listeners}    misc/pass_and_fail.robot
+    Run Tests    $listeners    misc/pass_and_fail.robot
 
 Importing Listener Failed
-    [Arguments]    ${index}    ${name}    ${error}    ${pattern}=False
+    [Arguments]    $index    $name    $error    $pattern=False
     Check Log Message
-    ...    ${ERRORS}[${index}]
-    ...    Taking listener '${name}' into use failed: Importing listener '${name.split(':')[0]}' failed: ${error}
-    ...    ERROR    pattern=${pattern}
+    ...    $ERRORS[$index]
+    ...    Taking listener '$name' into use failed: Importing listener '${name.split(':')[0]}' failed: $error
+    ...    ERROR    pattern=$pattern

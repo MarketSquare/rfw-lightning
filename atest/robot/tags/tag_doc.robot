@@ -21,18 +21,18 @@ Tag Doc For Combined Statistics
 
 *** Keywords ***
 Run Tests With Tag Docs
-    ${opts} =    Catenate
+    $opts =    Catenate
     ...    --tagdoc "f1:Doc with spaces and _under_scores_"
     ...    --tagdoc "t_1:http://some.url *bold*"
     ...    --tagdoc _d_?_:Doc-for-many-tags
     ...    --tagdoc D2:More
     ...    --tagstatcombine d*:DX
-    Run Tests    ${opts}    misc/normal.robot
+    Run Tests    $opts    misc/normal.robot
 
 Tag doc should be correct in output
-    [Arguments]    ${index}    ${tag}    ${doc}
-    ${stats} =    Get Tag Stat Nodes
-    ${txt}=Evaluate     $stats[int($index)].text
-    ${attrdoc}=Evaluate     $stats[int($index)].attrib['doc']
-    Should Be Equal    ${txt}    ${tag}
-    Should Be Equal    ${attrdoc}    ${doc}
+    [Arguments]    $index    $tag    $doc
+    $stats =    Get Tag Stat Nodes
+    $txt=Evaluate     $stats[int($index)].text
+    $attrdoc=Evaluate     $stats[int($index)].attrib['doc']
+    Should Be Equal    $txt    $tag
+    Should Be Equal    $attrdoc    $doc

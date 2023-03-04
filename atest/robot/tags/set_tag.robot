@@ -1,5 +1,5 @@
 *** Setting ***
-Test Teardown     Remove File    ${OUTDIR}/${OUTFILE}
+Test Teardown     Remove File    $OUTDIR/$OUTFILE
 Resource          atest_resource.robot
 
 *** Test Case ***

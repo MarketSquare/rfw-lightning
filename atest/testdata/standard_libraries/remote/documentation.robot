@@ -1,8 +1,8 @@
 *** Settings ***
-Library           Remote    127.0.0.1:${PORT}
+Library           Remote    127.0.0.1:$PORT
 
 *** Variables ***
-${PORT}           8270
+$PORT           8270
 
 *** Test Cases ***
 Empty

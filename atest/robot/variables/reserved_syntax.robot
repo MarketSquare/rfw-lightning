@@ -1,13 +1,13 @@
 *** Setting ***
-Suite Setup       Run Tests    ${EMPTY}    variables/reserved_syntax.robot
+Suite Setup       Run Tests    $EMPTY    variables/reserved_syntax.robot
 Resource          atest_resource.robot
 
 *** Test Case ***
 Reserved Syntax \*{var}
-    Check Test Case    ${TEST_NAME}
+    Check Test Case    $TEST_NAME
 
 Reserved With Variable Indise
-    Check Test Case    ${TEST_NAME}
+    Check Test Case    $TEST_NAME
 
 There should Be A Warning About Using Reserved Syntax In Stderr
     Validate Reserved Warning    \*{var}                    0
@@ -16,8 +16,8 @@ There should Be A Warning About Using Reserved Syntax In Stderr
 
 *** Keywords ***
 Validate Reserved Warning
-    [Arguments]    ${reserved}    ${index}
-    ${message} =    Catenate
-    ...    Syntax '${reserved}' is reserved for future use.
-    ...    Please escape it like '\\${reserved}'.
-    Check Log Message    ${ERRORS[${index}]}    ${message}    WARN
+    [Arguments]    $reserved    $index
+    $message =    Catenate
+    ...    Syntax '$reserved' is reserved for future use.
+    ...    Please escape it like '\\$reserved'.
+    Check Log Message    ${ERRORS[$index]}    $message    WARN

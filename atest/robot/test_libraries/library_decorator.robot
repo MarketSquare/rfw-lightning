@@ -1,16 +1,16 @@
 *** Settings ***
-Suite Setup       Run Tests    ${EMPTY}    test_libraries/library_decorator.robot
+Suite Setup       Run Tests    $EMPTY    test_libraries/library_decorator.robot
 Resource          atest_resource.robot
 
 *** Test Cases ***
 Library decorator disables automatic keyword discovery
-    Check Test Case    ${TESTNAME}
+    Check Test Case    $TESTNAME
 
 Library decorator with arguments disables automatic keyword discovery by default
-    Check Test Case    ${TESTNAME}
+    Check Test Case    $TESTNAME
 
 Library decorator can enable automatic keyword discovery
-    Check Test Case    ${TESTNAME}
+    Check Test Case    $TESTNAME
 
 Set library info
     [Template]    Library should have been imported
@@ -20,9 +20,9 @@ Set library info
 
 *** Keywords ***
 Library should have been imported
-    [Arguments]    ${name}    @{}    ${version}=<unknown>    ${scope}    ${keywords}    ${listener}=False
-    ${path} =    Normalize path    ${DATADIR}/test_libraries/${name}
-    ${postfix} =   Evaluate     ', with listener' if ${listener} else ''
+    [Arguments]    $name    @{}    $version=<unknown>    $scope    $keywords    $listener=False
+    $path =    Normalize path    $DATADIR/test_libraries/$name
+    $postfix =   Evaluate     ', with listener' if $listener else ''
     Syslog Should Contain
-    ...    Imported library '${path}' with arguments [ ]
-    ...    (version ${version}, class type, ${scope} scope, ${keywords} keywords${postfix})
+    ...    Imported library '$path' with arguments [ ]
+    ...    (version $version, class type, $scope scope, $keywords keywords$postfix)

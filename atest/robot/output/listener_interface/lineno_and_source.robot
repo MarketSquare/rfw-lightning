@@ -1,12 +1,12 @@
 *** Settings ***
-Suite Setup          Run Tests    --listener ${LISTENER_DIR}/LinenoAndSource.py    ${TEST_CASE_FILE}
+Suite Setup          Run Tests    --listener $LISTENER_DIR/LinenoAndSource.py    $TEST_CASE_FILE
 Test Template        Expect
 Test Teardown        Validate keywords
 Resource             listener_resource.robot
 
 *** Variables ***
-${TEST_CASE_FILE}    ${LISTENER_DIR}/lineno_and_source.robot
-${RESOURCE_FILE}     ${LISTENER_DIR}/lineno_and_source.resource
+$TEST_CASE_FILE    $LISTENER_DIR/lineno_and_source.robot
+$RESOURCE_FILE     $LISTENER_DIR/lineno_and_source.resource
 @{EXPECTED}
 
 *** Test Cases ***
@@ -18,14 +18,14 @@ User keyword
     START    KEYWORD          User Keyword                    9    NOT SET
     START    KEYWORD          No Operation                  101    NOT SET
     END      KEYWORD          No Operation                  101    PASS
-    START    RETURN           ${EMPTY}                      102    NOT SET
-    END      RETURN           ${EMPTY}                      102    PASS
+    START    RETURN           $EMPTY                      102    NOT SET
+    END      RETURN           $EMPTY                      102    PASS
     END      KEYWORD          User Keyword                    9    PASS
 
 User keyword in resource
     START    KEYWORD          User Keyword In Resource       12    NOT SET
-    START    KEYWORD          No Operation                    3    NOT SET    source=${RESOURCE_FILE}
-    END      KEYWORD          No Operation                    3    PASS       source=${RESOURCE_FILE}
+    START    KEYWORD          No Operation                    3    NOT SET    source=$RESOURCE_FILE
+    END      KEYWORD          No Operation                    3    PASS       source=$RESOURCE_FILE
     END      KEYWORD          User Keyword In Resource       12    PASS
 
 Not run keyword
@@ -37,45 +37,45 @@ Not run keyword
     END      KEYWORD          Non-existing                   18    NOT RUN
 
 FOR
-    START    FOR              \${x} IN [ first | second ]    21    NOT SET
-    START    ITERATION        \${x} = first                  21    NOT SET
+    START    FOR              \$x IN [ first | second ]    21    NOT SET
+    START    ITERATION        \$x = first                  21    NOT SET
     START    KEYWORD          No Operation                   22    NOT SET
     END      KEYWORD          No Operation                   22    PASS
-    END      ITERATION        \${x} = first                  21    PASS
-    START    ITERATION        \${x} = second                 21    NOT SET
+    END      ITERATION        \$x = first                  21    PASS
+    START    ITERATION        \$x = second                 21    NOT SET
     START    KEYWORD          No Operation                   22    NOT SET
     END      KEYWORD          No Operation                   22    PASS
-    END      ITERATION        \${x} = second                 21    PASS
-    END      FOR              \${x} IN [ first | second ]    21    PASS
+    END      ITERATION        \$x = second                 21    PASS
+    END      FOR              \$x IN [ first | second ]    21    PASS
 
 FOR in keyword
     START    KEYWORD          FOR In Keyword                 26    NOT SET
-    START    FOR              \${x} IN [ once ]             105    NOT SET
-    START    ITERATION        \${x} = once                  105    NOT SET
+    START    FOR              \$x IN [ once ]             105    NOT SET
+    START    ITERATION        \$x = once                  105    NOT SET
     START    KEYWORD          No Operation                  106    NOT SET
     END      KEYWORD          No Operation                  106    PASS
-    END      ITERATION        \${x} = once                  105    PASS
-    END      FOR              \${x} IN [ once ]             105    PASS
+    END      ITERATION        \$x = once                  105    PASS
+    END      FOR              \$x IN [ once ]             105    PASS
     END      KEYWORD          FOR In Keyword                 26    PASS
 
 FOR in IF
     START    IF               True                           29    NOT SET
-    START    FOR              \${x} | \${y} IN [ x | y ]     30    NOT SET
-    START    ITERATION        \${x} = x, \${y} = y           30    NOT SET
+    START    FOR              \$x | \$y IN [ x | y ]     30    NOT SET
+    START    ITERATION        \$x = x, \$y = y           30    NOT SET
     START    KEYWORD          No Operation                   31    NOT SET
     END      KEYWORD          No Operation                   31    PASS
-    END      ITERATION        \${x} = x, \${y} = y           30    PASS
-    END      FOR              \${x} | \${y} IN [ x | y ]     30    PASS
+    END      ITERATION        \$x = x, \$y = y           30    PASS
+    END      FOR              \$x | \$y IN [ x | y ]     30    PASS
     END      IF               True                           29    PASS
 
 FOR in resource
     START    KEYWORD          FOR In Resource                36    NOT SET
-    START    FOR              \${x} IN [ once ]               6    NOT SET    source=${RESOURCE_FILE}
-    START    ITERATION        \${x} = once                    6    NOT SET    source=${RESOURCE_FILE}
-    START    KEYWORD          Log                             7    NOT SET    source=${RESOURCE_FILE}
-    END      KEYWORD          Log                             7    PASS       source=${RESOURCE_FILE}
-    END      ITERATION        \${x} = once                    6    PASS       source=${RESOURCE_FILE}
-    END      FOR              \${x} IN [ once ]               6    PASS       source=${RESOURCE_FILE}
+    START    FOR              \$x IN [ once ]               6    NOT SET    source=$RESOURCE_FILE
+    START    ITERATION        \$x = once                    6    NOT SET    source=$RESOURCE_FILE
+    START    KEYWORD          Log                             7    NOT SET    source=$RESOURCE_FILE
+    END      KEYWORD          Log                             7    PASS       source=$RESOURCE_FILE
+    END      ITERATION        \$x = once                    6    PASS       source=$RESOURCE_FILE
+    END      FOR              \$x IN [ once ]               6    PASS       source=$RESOURCE_FILE
     END      KEYWORD          FOR In Resource                36    PASS
 
 IF
@@ -87,105 +87,105 @@ IF
     START   KEYWORD           No Operation                   42    NOT SET
     END     KEYWORD           No Operation                   42    PASS
     END     ELSE IF           1 < 2                          41    PASS
-    START   ELSE              ${EMPTY}                       43    NOT RUN
+    START   ELSE              $EMPTY                       43    NOT RUN
     START   KEYWORD           Fail                           44    NOT RUN
     END     KEYWORD           Fail                           44    NOT RUN
-    END     ELSE              ${EMPTY}                       43    NOT RUN
+    END     ELSE              $EMPTY                       43    NOT RUN
 
 IF in keyword
     START    KEYWORD           IF In Keyword                 48    NOT SET
     START    IF                True                         110    NOT SET
     START    KEYWORD           No Operation                 111    NOT SET
     END      KEYWORD           No Operation                 111    PASS
-    START    RETURN            ${EMPTY}                     112    NOT SET
-    END      RETURN            ${EMPTY}                     112    PASS
+    START    RETURN            $EMPTY                     112    NOT SET
+    END      RETURN            $EMPTY                     112    PASS
     END      IF                True                         110    PASS
     END      KEYWORD           IF In Keyword                 48    PASS
 
 IF in FOR
-    START   FOR               \${x} IN [ 1 | 2 ]             52    NOT SET
-    START   ITERATION         \${x} = 1                      52    NOT SET
-    START   IF                \${x} == 1                     53    NOT SET
+    START   FOR               \$x IN [ 1 | 2 ]             52    NOT SET
+    START   ITERATION         \$x = 1                      52    NOT SET
+    START   IF                \$x == 1                     53    NOT SET
     START   KEYWORD           Log                            54    NOT SET
     END     KEYWORD           Log                            54    PASS
-    END     IF                \${x} == 1                     53    PASS
-    START   ELSE              ${EMPTY}                       55    NOT RUN
+    END     IF                \$x == 1                     53    PASS
+    START   ELSE              $EMPTY                       55    NOT RUN
     START   KEYWORD           Fail                           56    NOT RUN
     END     KEYWORD           Fail                           56    NOT RUN
-    END     ELSE              ${EMPTY}                       55    NOT RUN
-    END     ITERATION         \${x} = 1                      52    PASS
-    START   ITERATION         \${x} = 2                      52    NOT SET
-    START   IF                \${x} == 1                     53    NOT RUN
+    END     ELSE              $EMPTY                       55    NOT RUN
+    END     ITERATION         \$x = 1                      52    PASS
+    START   ITERATION         \$x = 2                      52    NOT SET
+    START   IF                \$x == 1                     53    NOT RUN
     START   KEYWORD           Log                            54    NOT RUN
     END     KEYWORD           Log                            54    NOT RUN
-    END     IF                \${x} == 1                     53    NOT RUN
-    START   ELSE              ${EMPTY}                       55    NOT SET
+    END     IF                \$x == 1                     53    NOT RUN
+    START   ELSE              $EMPTY                       55    NOT SET
     START   KEYWORD           Fail                           56    NOT SET
     END     KEYWORD           Fail                           56    FAIL
-    END     ELSE              ${EMPTY}                       55    FAIL
-    END     ITERATION         \${x} = 2                      52    FAIL
-    END     FOR               \${x} IN [ 1 | 2 ]             52    FAIL
+    END     ELSE              $EMPTY                       55    FAIL
+    END     ITERATION         \$x = 2                      52    FAIL
+    END     FOR               \$x IN [ 1 | 2 ]             52    FAIL
 
 IF in resource
     START   KEYWORD           IF In Resource                 61    NOT SET
-    START   IF                True                           11    NOT SET    source=${RESOURCE_FILE}
-    START   KEYWORD           No Operation                   12    NOT SET    source=${RESOURCE_FILE}
-    END     KEYWORD           No Operation                   12    PASS       source=${RESOURCE_FILE}
-    END     IF                True                           11    PASS       source=${RESOURCE_FILE}
+    START   IF                True                           11    NOT SET    source=$RESOURCE_FILE
+    START   KEYWORD           No Operation                   12    NOT SET    source=$RESOURCE_FILE
+    END     KEYWORD           No Operation                   12    PASS       source=$RESOURCE_FILE
+    END     IF                True                           11    PASS       source=$RESOURCE_FILE
     END     KEYWORD           IF In Resource                 61    PASS
 
 TRY
-    START    TRY              ${EMPTY}                       65    NOT SET
+    START    TRY              $EMPTY                       65    NOT SET
     START    KEYWORD          Fail                           66    NOT SET
     END      KEYWORD          Fail                           66    FAIL
-    END      TRY              ${EMPTY}                       65    FAIL
-    START    EXCEPT           AS \${name}                    67    NOT SET
-    START    TRY              ${EMPTY}                       68    NOT SET
+    END      TRY              $EMPTY                       65    FAIL
+    START    EXCEPT           AS \$name                    67    NOT SET
+    START    TRY              $EMPTY                       68    NOT SET
     START    KEYWORD          Fail                           69    NOT SET
     END      KEYWORD          Fail                           69    FAIL
-    END      TRY              ${EMPTY}                       68    FAIL
-    START    FINALLY          ${EMPTY}                       70    NOT SET
+    END      TRY              $EMPTY                       68    FAIL
+    START    FINALLY          $EMPTY                       70    NOT SET
     START    KEYWORD          Should Be Equal                71    NOT SET
     END      KEYWORD          Should Be Equal                71    PASS
-    END      FINALLY          ${EMPTY}                       70    PASS
-    END      EXCEPT           AS \${name}                    67    FAIL
-    START    ELSE             ${EMPTY}                       73    NOT RUN
+    END      FINALLY          $EMPTY                       70    PASS
+    END      EXCEPT           AS \$name                    67    FAIL
+    START    ELSE             $EMPTY                       73    NOT RUN
     START    KEYWORD          Fail                           74    NOT RUN
     END      KEYWORD          Fail                           74    NOT RUN
-    END      ELSE             ${EMPTY}                       73    NOT RUN
+    END      ELSE             $EMPTY                       73    NOT RUN
 
 TRY in keyword
     START    KEYWORD          TRY In Keyword                 78    NOT SET
-    START    TRY              ${EMPTY}                      116    NOT SET
-    START    RETURN           ${EMPTY}                      117    NOT SET
-    END      RETURN           ${EMPTY}                      117    PASS
+    START    TRY              $EMPTY                      116    NOT SET
+    START    RETURN           $EMPTY                      117    NOT SET
+    END      RETURN           $EMPTY                      117    PASS
     START    KEYWORD          Fail                          118    NOT RUN
     END      KEYWORD          Fail                          118    NOT RUN
-    END      TRY              ${EMPTY}                      116    PASS
-    START    EXCEPT           No match AS \${var}           119    NOT RUN
+    END      TRY              $EMPTY                      116    PASS
+    START    EXCEPT           No match AS \$var           119    NOT RUN
     START    KEYWORD          Fail                          120    NOT RUN
     END      KEYWORD          Fail                          120    NOT RUN
-    END      EXCEPT           No match AS \${var}           119    NOT RUN
-    START    EXCEPT           No | Match | 2 AS \${x}       121    NOT RUN
+    END      EXCEPT           No match AS \$var           119    NOT RUN
+    START    EXCEPT           No | Match | 2 AS \$x       121    NOT RUN
     START    KEYWORD          Fail                          122    NOT RUN
     END      KEYWORD          Fail                          122    NOT RUN
-    END      EXCEPT           No | Match | 2 AS \${x}       121    NOT RUN
-    START    EXCEPT           ${EMPTY}                      123    NOT RUN
+    END      EXCEPT           No | Match | 2 AS \$x       121    NOT RUN
+    START    EXCEPT           $EMPTY                      123    NOT RUN
     START    KEYWORD          Fail                          124    NOT RUN
     END      KEYWORD          Fail                          124    NOT RUN
-    END      EXCEPT           ${EMPTY}                      123    NOT RUN
+    END      EXCEPT           $EMPTY                      123    NOT RUN
     END      KEYWORD          TRY In Keyword                 78    PASS
 
 TRY in resource
     START    KEYWORD          TRY In Resource                81    NOT SET
-    START    TRY              ${EMPTY}                       16    NOT SET    source=${RESOURCE_FILE}
-    START    KEYWORD          Log                            17    NOT SET    source=${RESOURCE_FILE}
-    END      KEYWORD          Log                            17    PASS       source=${RESOURCE_FILE}
-    END      TRY              ${EMPTY}                       16    PASS       source=${RESOURCE_FILE}
-    START    FINALLY          ${EMPTY}                       18    NOT SET    source=${RESOURCE_FILE}
-    START    KEYWORD          Log                            19    NOT SET    source=${RESOURCE_FILE}
-    END      KEYWORD          Log                            19    PASS       source=${RESOURCE_FILE}
-    END      FINALLY          ${EMPTY}                       18    PASS       source=${RESOURCE_FILE}
+    START    TRY              $EMPTY                       16    NOT SET    source=$RESOURCE_FILE
+    START    KEYWORD          Log                            17    NOT SET    source=$RESOURCE_FILE
+    END      KEYWORD          Log                            17    PASS       source=$RESOURCE_FILE
+    END      TRY              $EMPTY                       16    PASS       source=$RESOURCE_FILE
+    START    FINALLY          $EMPTY                       18    NOT SET    source=$RESOURCE_FILE
+    START    KEYWORD          Log                            19    NOT SET    source=$RESOURCE_FILE
+    END      KEYWORD          Log                            19    PASS       source=$RESOURCE_FILE
+    END      FINALLY          $EMPTY                       18    PASS       source=$RESOURCE_FILE
     END      KEYWORD          TRY In Resource                81    PASS
 
 Run Keyword
@@ -197,8 +197,8 @@ Run Keyword
     START    KEYWORD          User Keyword                   85    NOT SET
     START    KEYWORD          No Operation                  101    NOT SET
     END      KEYWORD          No Operation                  101    PASS
-    START    RETURN           ${EMPTY}                      102    NOT SET
-    END      RETURN           ${EMPTY}                      102    PASS
+    START    RETURN           $EMPTY                      102    NOT SET
+    END      RETURN           $EMPTY                      102    PASS
     END      KEYWORD          User Keyword                   85    PASS
     END      KEYWORD          Run Keyword If                 85    PASS
 
@@ -212,18 +212,18 @@ Run Keyword in keyword
 
 Run Keyword in resource
     START    KEYWORD          Run Keyword in resource        92    NOT SET
-    START    KEYWORD          Run Keyword                    23    NOT SET    source=${RESOURCE_FILE}
-    START    KEYWORD          Log                            23    NOT SET    source=${RESOURCE_FILE}
-    END      KEYWORD          Log                            23    PASS       source=${RESOURCE_FILE}
-    END      KEYWORD          Run Keyword                    23    PASS       source=${RESOURCE_FILE}
+    START    KEYWORD          Run Keyword                    23    NOT SET    source=$RESOURCE_FILE
+    START    KEYWORD          Log                            23    NOT SET    source=$RESOURCE_FILE
+    END      KEYWORD          Log                            23    PASS       source=$RESOURCE_FILE
+    END      KEYWORD          Run Keyword                    23    PASS       source=$RESOURCE_FILE
     END      KEYWORD          Run Keyword in resource        92    PASS
 
 In setup and teardown
     START    SETUP            User Keyword                   95    NOT SET
     START    KEYWORD          No Operation                  101    NOT SET
     END      KEYWORD          No Operation                  101    PASS
-    START    RETURN           ${EMPTY}                      102    NOT SET
-    END      RETURN           ${EMPTY}                      102    PASS
+    START    RETURN           $EMPTY                      102    NOT SET
+    END      RETURN           $EMPTY                      102    PASS
     END      SETUP            User Keyword                   95    PASS
     START    KEYWORD          No Operation                   96    NOT SET
     END      KEYWORD          No Operation                   96    PASS
@@ -262,19 +262,19 @@ Suite
 
 *** Keywords ***
 Expect
-    [Arguments]    ${event}    ${type}    ${name}    ${lineno}=-1    ${status}=    ${source}=${TEST_CASE_FILE}
-    ${source} =    Normalize Path    ${source}
-    ${status} =    Set Variable IF    "${status}"    \t${status}    ${EMPTY}
-    Set test variable    @EXPECTED    @{EXPECTED}    ${event}\t${type}\t${name}\t${lineno}\t${source}${status}
+    [Arguments]    $event    $type    $name    $lineno=-1    $status=    $source=$TEST_CASE_FILE
+    $source =    Normalize Path    $source
+    $status =    Set Variable IF    "$status"    \t$status    $EMPTY
+    Set test variable    @EXPECTED    @{EXPECTED}    $event\t$type\t$name\t$lineno\t$source$status
 
 Validate keywords
-    Check Test Case    ${TESTNAME}
-    Check Listener File    ${TEST_NAME}.txt    @{EXPECTED}
+    Check Test Case    $TESTNAME
+    Check Listener File    $TEST_NAME.txt    @{EXPECTED}
 
 Expect test
-    [Arguments]    ${name}    ${lineno}    ${status}=PASS
-    Expect    START    TEST    ${name}    ${lineno}
-    Expect    END      TEST    ${name}    ${lineno}    ${status}
+    [Arguments]    $name    $lineno    $status=PASS
+    Expect    START    TEST    $name    $lineno
+    Expect    END      TEST    $name    $lineno    $status
 
 Validate tests
     Check Listener File    LinenoAndSourceTests.txt    @{EXPECTED}

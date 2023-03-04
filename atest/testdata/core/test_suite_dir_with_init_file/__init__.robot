@@ -12,22 +12,22 @@ Default Tags      Not allowed
 Test Template     Not allowed
 
 *** Variable ***
-${default}        default
-${default_tag_2}    suite${default}2
+$default        default
+$default_tag_2    suite$default2
 
 *** Keyword ***
 My Setup
-    [Arguments]    ${msg}
-    Log    ${msg}
+    [Arguments]    $msg
+    Log    $msg
 
 My Teardown
     [Arguments]    @{msg_parts}
-    ${msg} =    Create Message    @{msg_parts}
-    Log    ${msg}
-    Directory Should Not Be Empty    ${CURDIR}    Test that OS lib was imported
+    $msg =    Create Message    @{msg_parts}
+    Log    $msg
+    Directory Should Not Be Empty    $CURDIR    Test that OS lib was imported
 
 Create Message
     [Arguments]    @{msg_parts}
-    ${msg} =    Catenate    @{msg_parts}
-    [Return]    ${msg}
+    $msg =    Catenate    @{msg_parts}
+    [Return]    $msg
 

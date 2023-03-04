@@ -4,7 +4,7 @@ Resource         remote_resource.robot
 
 *** Test Cases ***
 Dicts are returned correctly
-    Check Test Case    ${TESTNAME}
+    Check Test Case    $TESTNAME
 
 Returned dicts are dot-accessible
-    Check Test Case    ${TESTNAME}
+    Check Test Case    $TESTNAME

@@ -6,7 +6,7 @@ Documentation     Test that SIGINT and SIGTERM can stop execution gracefully
 Resource          atest_resource.robot
 
 *** Variables ***
-${TEST_FILE}      %{TEMPDIR}${/}signal-tests.txt
+${TEST_FILE}      %{TEMPDIR}{$/}signal-tests.txt
 
 *** Test Cases ***
 SIGINT Signal Should Stop Test Execution Gracefully
@@ -87,9 +87,9 @@ Start Run
     ...    --output    ${OUTFILE}    --report    NONE    --log    NONE
     ...    --variable    TESTSIGNALFILE:${TEST_FILE}
     ...    --variable    TEARDOWNSLEEP:${sleep}
-    ...    --variablefile    ${CURDIR}${/}enable_ctrl_c_event.py
+    ...    --variablefile    ${CURDIR}{$/}enable_ctrl_c_event.py
     ...    @{extra_options}
-    ...    ${DATADIR}${/}running${/}stopping_with_signal${/}${datasource}
+    ...    ${DATADIR}{$/}running{$/}stopping_with_signal{$/}${datasource}
     Log Many    @{command}
     Start Process    @{command}
 

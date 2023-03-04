@@ -3,50 +3,50 @@ Documentation   Tests for setting log level from command line with --loglevel op
 Resource        atest_resource.robot
 
 *** Variables ***
-${TESTDATA}  misc/pass_and_fail.robot
-${LOG_NAME}   logfile.html
+$TESTDATA  misc/pass_and_fail.robot
+$LOG_NAME   logfile.html
 
 *** Test Cases ***
 No Log Level Given
     [Documentation]  Default level of INFO should be used
-    Run Tests  ${EMPTY}  ${TESTDATA}
+    Run Tests  $EMPTY  $TESTDATA
     Check Log Message  ${SUITE.tests[0].kws[0].kws[0].msgs[0]}  Hello says "Pass"!  INFO
     Should Be Equal As Integers  ${SUITE.tests[0].kws[0].kws[1].message_count}  0
     Check Log Message  ${SUITE.tests[1].kws[1].msgs[0]}  Expected failure  FAIL
 
 Trace Level
-    Run Tests  --loglevel TRACE  ${TESTDATA}
+    Run Tests  --loglevel TRACE  $TESTDATA
     Should Log On Trace Level
 
 Debug Level
-    Run Tests  --loglevel debug --log ${LOG_NAME}  ${TESTDATA}
+    Run Tests  --loglevel debug --log $LOG_NAME  $TESTDATA
     Should Log On Debug Level
     Min level should be 'DEBUG' and default 'DEBUG'
 
 Debug Level With Default Info
-    Run Tests  --loglevel dEBug:iNfo --log ${LOG_NAME}  ${TESTDATA}
+    Run Tests  --loglevel dEBug:iNfo --log $LOG_NAME  $TESTDATA
     Should Log On Debug Level
     Min level should be 'DEBUG' and default 'INFO'
 
 Trace Level With Default Debug
-    Run Tests  --loglevel trace:Debug --log ${LOG_NAME}  ${TESTDATA}
+    Run Tests  --loglevel trace:Debug --log $LOG_NAME  $TESTDATA
     Should Log On Trace Level
     Min level should be 'TRACE' and default 'DEBUG'
 
 Info Level
-    Run Tests  -L InFo  ${TESTDATA}
+    Run Tests  -L InFo  $TESTDATA
     Check Log Message  ${SUITE.tests[0].kws[0].kws[0].msgs[0]}  Hello says "Pass"!  INFO
     Should Be Equal As Integers  ${SUITE.tests[0].kws[0].kws[1].message_count}  0
     Check Log Message  ${SUITE.tests[1].kws[1].msgs[0]}  Expected failure  FAIL
 
 Warn Level
-    Run Tests  --loglevel WARN --variable LEVEL1:WARN --variable LEVEL2:INFO  ${TESTDATA}
+    Run Tests  --loglevel WARN --variable LEVEL1:WARN --variable LEVEL2:INFO  $TESTDATA
     Check Log Message  ${SUITE.tests[0].kws[0].kws[0].msgs[0]}  Hello says "Pass"!  WARN
     Should Be Equal As Integers  ${SUITE.tests[0].kws[0].kws[1].message_count}  0
     Check Log Message  ${SUITE.tests[1].kws[1].msgs[0]}  Expected failure  FAIL
 
 Warnings Should Be Written To Syslog
-    Should Be Equal  ${PREV_TEST_NAME}  Warn Level
+    Should Be Equal  $PREV_TEST_NAME  Warn Level
     Check Log Message  ${ERRORS.msgs[0]}  Hello says "Suite Setup"!  WARN
     Check Log Message  ${ERRORS.msgs[1]}  Hello says "Pass"!  WARN
     Check Log Message  ${ERRORS.msgs[2]}  Hello says "Fail"!  WARN
@@ -56,23 +56,23 @@ Warnings Should Be Written To Syslog
     Syslog Should Contain  | WARN \ |  Hello says "Fail"!
 
 Error Level
-    Run Tests  --loglevel ERROR --variable LEVEL1:ERROR --variable LEVEL2:WARN  ${TESTDATA}
+    Run Tests  --loglevel ERROR --variable LEVEL1:ERROR --variable LEVEL2:WARN  $TESTDATA
     Check Log Message  ${SUITE.tests[0].kws[0].kws[0].msgs[0]}  Hello says "Pass"!  ERROR
     Should Be Equal As Integers  ${SUITE.tests[0].kws[0].kws[1].message_count}  0
     Check Log Message  ${SUITE.tests[1].kws[1].msgs[0]}  Expected failure  FAIL
 
 None Level
-    Run Tests  --loglevel NONE --log ${LOG_NAME} --variable LEVEL1:ERROR --variable LEVEL2:WARN  ${TESTDATA}
+    Run Tests  --loglevel NONE --log $LOG_NAME --variable LEVEL1:ERROR --variable LEVEL2:WARN  $TESTDATA
     Should Be Equal As Integers  ${SUITE.tests[0].kws[0].kws[0].message_count}  0
     Should Be Equal As Integers  ${SUITE.tests[0].kws[0].kws[1].message_count}  0
     Should Be Equal As Integers  ${SUITE.tests[1].kws[1].message_count}  0
     Min level should be 'NONE' and default 'NONE'
 
 *** Keywords ***
-Min level should be '${min}' and default '${default}'
-    ${log}=    Get file      ${OUTDIR}/${LOG_NAME}
-    Should contain    ${log}    "minLevel":"${min}"
-    Should contain    ${log}    "defaultLevel":"${default}"
+Min level should be '$min' and default '$default'
+    $log=    Get file      $OUTDIR/$LOG_NAME
+    Should contain    $log    "minLevel":"$min"
+    Should contain    $log    "defaultLevel":"$default"
 
 Should Log On Debug Level
     Check Log Message  ${SUITE.tests[0].kws[0].kws[0].msgs[0]}  Hello says "Pass"!  INFO

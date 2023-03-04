@@ -4,7 +4,7 @@ Resource          atest_resource.robot
 
 *** Test Cases ***
 Boolean
-    Check Test Case    ${TESTNAME}
+    Check Test Case    $TESTNAME
 
 Via Run Keyword
-    Check Test Case    ${TESTNAME}
+    Check Test Case    $TESTNAME

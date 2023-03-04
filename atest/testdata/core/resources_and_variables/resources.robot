@@ -9,7 +9,7 @@ Test Setup        Not allowed in resources
 Non Existing
 
 *** Variable ***
-${resources}      Variable from resources.robot
+$resources      Variable from resources.robot
 
 *** Keyword ***
 resources

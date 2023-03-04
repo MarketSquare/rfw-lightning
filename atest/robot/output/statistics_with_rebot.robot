@@ -4,18 +4,18 @@ Resource          atest_resource.robot
 
 *** Test Cases ***
 Statistics Should Be Written to XML
-    ${output} =    Get File    ${OUTFILE}
-    ${exp} =    Catenate    SEPARATOR=\\r?\\n    (?s)    <statistics>    <total>    .*    </total>
+    $output =    Get File    $OUTFILE
+    $exp =    Catenate    SEPARATOR=\\r?\\n    (?s)    <statistics>    <total>    .*    </total>
     ...    <tag>    .*    </tag>    <suite>    .*    </suite>    </statistics>
-    Should Match Regexp    ${output}    ${exp}
+    Should Match Regexp    $output    $exp
 
 Total statistics should be Correct
-    ${stats} =    Get Element    ${OUTFILE}    statistics/total
-    ${total} =    Call Method    ${stats}    find    stat
-    Node Should Be Correct    ${total}    All Tests    12    1
+    $stats =    Get Element    $OUTFILE    statistics/total
+    $total =    Call Method    $stats    find    stat
+    Node Should Be Correct    $total    All Tests    12    1
 
 Tag statistics should be Correct
-    ${stats} =    Get Element    ${OUTFILE}    statistics/tag
+    $stats =    Get Element    $OUTFILE    statistics/tag
     Tag Node Should Be Correct    ${stats[0]}    Custom title AND-OR-NOT
     ...    1    0    info=combined    combined=d1 AND d2
     Tag Node Should Be Correct    ${stats[1]}    F1 NOT T 1
@@ -34,7 +34,7 @@ Tag statistics should be Correct
     ...    12    1
 
 Suite statistics should be Correct
-    ${stats} =    Get Element    ${OUTFILE}    statistics/suite
+    $stats =    Get Element    $OUTFILE    statistics/suite
     Node Should Be Correct    ${stats[0]}    Suites    12    1
     Node Should Be Correct    ${stats[1]}    Suites.Suite With Prefix    1    0
     Node Should Be Correct    ${stats[2]}    Suites.Fourth    0    1
@@ -47,26 +47,26 @@ Suite statistics should be Correct
 
 *** Keywords ***
 My Setup
-    Run Tests    ${EMPTY}    misc/suites
+    Run Tests    $EMPTY    misc/suites
     Copy Previous Outfile
-    ${options} =    Catenate
+    $options =    Catenate
     ...    --tagstatcombine "d1 AND d2:Custom title AND-OR-NOT"
     ...    --suitestatlevel 2
     ...    --tagstatexclude t2
     ...    --TagStatComb F1NOTT_1
     ...    --SetTag XxX
-    Run Rebot    ${options}    ${OUTFILE_COPY}
+    Run Rebot    $options    $OUTFILE_COPY
 
 Node Should Be Correct
-    [Arguments]    ${node}    ${name}    ${pass}    ${fail}
-    Element Text Should Be      ${node}      ${name}
-    Element Attribute Should Be      ${node}      pass      ${pass}
-    Element Attribute Should Be      ${node}      fail      ${fail}
+    [Arguments]    $node    $name    $pass    $fail
+    Element Text Should Be      $node      $name
+    Element Attribute Should Be      $node      pass      $pass
+    Element Attribute Should Be      $node      fail      $fail
 
 Tag Node Should Be Correct
-    [Arguments]    ${node}    ${name}    ${pass}    ${fail}    ${info}=    ${combined}=
-    Node Should Be Correct    ${node}    ${name}    ${pass}    ${fail}
-    ${info_value}=Evaluate   $node.attrib.get('info','')
-    Should be equal    ${info_value}    ${info}
-    ${combined_value}=Evaluate    $node.attrib.get('combined','')
-    Should be equal    ${combined_value}    ${combined}
+    [Arguments]    $node    $name    $pass    $fail    $info=    $combined=
+    Node Should Be Correct    $node    $name    $pass    $fail
+    $info_value=Evaluate   $node.attrib.get('info','')
+    Should be equal    $info_value    $info
+    $combined_value=Evaluate    $node.attrib.get('combined','')
+    Should be equal    $combined_value    $combined

@@ -16,95 +16,95 @@ Finnish task aliases
     Validate Task Translations
 
 Custom
-    Run Tests    --lang ${DATADIR}/parsing/translations/custom/custom.py    parsing/translations/custom/tests.robot
+    Run Tests    --lang $DATADIR/parsing/translations/custom/custom.py    parsing/translations/custom/tests.robot
     Validate Translations
 
 Custom task aliases
-    Run Tests    --lang ${DATADIR}/parsing/translations/custom/custom.py --rpa    parsing/translations/custom/tasks.robot
+    Run Tests    --lang $DATADIR/parsing/translations/custom/custom.py --rpa    parsing/translations/custom/tasks.robot
     Validate Task Translations
 
 Custom Per file configuration
-    Run Tests    -P ${DATADIR}/parsing/translations/custom    parsing/translations/custom/custom_per_file.robot
+    Run Tests    -P $DATADIR/parsing/translations/custom    parsing/translations/custom/custom_per_file.robot
     Validate Translations
 
 Invalid
-    ${result} =    Run Tests Without Processing Output    --lang bad    parsing/finnish.robot
-    Should Be Equal        ${result.rc}        ${252}
+    $result =    Run Tests Without Processing Output    --lang bad    parsing/finnish.robot
+    Should Be Equal        ${result.rc}        $252
     Should Be Empty        ${result.stdout}
-    ${error} =    Catenate    SEPARATOR=\n
+    $error =    Catenate    SEPARATOR=\n
     ...    Invalid value for option '--language': Importing language file 'bad' failed: ModuleNotFoundError: No module named 'bad'
     ...    Traceback \\(most recent call last\\):
-    ...    .*${USAGE_TIP}
-    Should Match Regexp    ${result.stderr}    ^\\[ ERROR \\] ${error}$    flags=DOTALL
+    ...    .*$USAGE_TIP
+    Should Match Regexp    ${result.stderr}    ^\\[ ERROR \\] $error$    flags=DOTALL
 
 Per file configuration
-    Run Tests    ${EMPTY}    parsing/translations/per_file_config/fi.robot
+    Run Tests    $EMPTY    parsing/translations/per_file_config/fi.robot
     Validate Translations
 
 Per file configuration with multiple languages
-    Run Tests    ${EMPTY}    parsing/translations/per_file_config/many.robot
+    Run Tests    $EMPTY    parsing/translations/per_file_config/many.robot
     Should Be Equal    ${SUITE.doc}    Exemplo
-    ${tc} =    Check Test Case    ตัวอย่าง
+    $tc =    Check Test Case    ตัวอย่าง
     Should Be Equal    ${tc.doc}    приклад
 
 Invalid per file configuration
-    Run Tests    ${EMPTY}    parsing/translations/per_file_config/many.robot
+    Run Tests    $EMPTY    parsing/translations/per_file_config/many.robot
     Error in file    0    parsing/translations/per_file_config/many.robot    4
     ...    Invalid language configuration:
     ...    Language 'invalid' not found nor importable as a language module.
 
 Per file configuration bleeds to other files
     [Documentation]    This is a technical limitation and will hopefully change!
-    Run Tests    ${EMPTY}    parsing/translations/per_file_config/fi.robot parsing/translations/finnish/tests.robot
+    Run Tests    $EMPTY    parsing/translations/per_file_config/fi.robot parsing/translations/finnish/tests.robot
     Validate Translations    ${SUITE.suites[0]}
     Validate Translations    ${SUITE.suites[1]}
 
 *** Keywords ***
 Validate Translations
-    [Arguments]    ${suite}=${SUITE}
+    [Arguments]    $suite=$SUITE
     Should Be Equal    ${suite.doc}                   Suite documentation.
     Should Be Equal    ${suite.metadata}[Metadata]    Value
     Should Be Equal    ${suite.setup.name}            Suite Setup
     Should Be Equal    ${suite.teardown.name}         Suite Teardown
     Should Be Equal    ${suite.status}                PASS
-    ${tc} =            Check Test Case                Test without settings
-    Should Be Equal    ${tc.doc}                      ${EMPTY}
-    ${list}=Create List       test    tags
-    Should Be Equal    ${tc.tags}                     ${list}
+    $tc =            Check Test Case                Test without settings
+    Should Be Equal    ${tc.doc}                      $EMPTY
+    $list=Create List       test    tags
+    Should Be Equal    ${tc.tags}                     $list
     Should Be Equal    ${tc.timeout}                  1 minute
     Should Be Equal    ${tc.setup.name}               Test Setup
     Should Be Equal    ${tc.teardown.name}            Test Teardown
     Should Be Equal    ${tc.body[0].name}             Test Template
-    ${list}=Create List       keyword    tags
-    Should Be Equal    ${tc.body[0].tags}             ${list}
-    ${tc} =            Check Test Case                Test with settings
+    $list=Create List       keyword    tags
+    Should Be Equal    ${tc.body[0].tags}             $list
+    $tc =            Check Test Case                Test with settings
     Should Be Equal    ${tc.doc}                      Test documentation.
-    ${list}=Create List       test  tags  own_tag
-    Should Be Equal    ${tc.tags}                     ${list}
-    Should Be Equal    ${tc.timeout}                  ${NONE}
-    Should Be Equal    ${tc.setup.name}               ${NONE}
-    Should Be Equal    ${tc.teardown.name}            ${NONE}
+    $list=Create List       test  tags  own_tag
+    Should Be Equal    ${tc.tags}                     $list
+    Should Be Equal    ${tc.timeout}                  $NONE
+    Should Be Equal    ${tc.setup.name}               $NONE
+    Should Be Equal    ${tc.teardown.name}            $NONE
     Should Be Equal    ${tc.body[0].name}             Keyword
     Should Be Equal    ${tc.body[0].doc}              Keyword documentation.
-    ${list}=Create List       keyword  tags  own_tag
-    Should Be Equal    ${tc.body[0].tags}             ${list}
+    $list=Create List       keyword  tags  own_tag
+    Should Be Equal    ${tc.body[0].tags}             $list
     Should Be Equal    ${tc.body[0].timeout}          1 hour
     Should Be Equal    ${tc.body[0].teardown.name}    BuiltIn.No Operation
 
 Validate Task Translations
-    ${tc} =            Check Test Case                Task without settings
-    Should Be Equal    ${tc.doc}                      ${EMPTY}
-    ${list}=Create List       task  tags
-    Should Be Equal    ${tc.tags}                     ${list}
+    $tc =            Check Test Case                Task without settings
+    Should Be Equal    ${tc.doc}                      $EMPTY
+    $list=Create List       task  tags
+    Should Be Equal    ${tc.tags}                     $list
     Should Be Equal    ${tc.timeout}                  1 minute
     Should Be Equal    ${tc.setup.name}               Task Setup
     Should Be Equal    ${tc.teardown.name}            Task Teardown
     Should Be Equal    ${tc.body[0].name}             Task Template
-    ${tc} =            Check Test Case                Task with settings
+    $tc =            Check Test Case                Task with settings
     Should Be Equal    ${tc.doc}                      Task documentation.
-    ${list}=Create List       task  tags  own_tag
-    Should Be Equal    ${tc.tags}                     ${list}
-    Should Be Equal    ${tc.timeout}                  ${NONE}
-    Should Be Equal    ${tc.setup.name}               ${NONE}
-    Should Be Equal    ${tc.teardown.name}            ${NONE}
+    $list=Create List       task  tags  own_tag
+    Should Be Equal    ${tc.tags}                     $list
+    Should Be Equal    ${tc.timeout}                  $NONE
+    Should Be Equal    ${tc.setup.name}               $NONE
+    Should Be Equal    ${tc.teardown.name}            $NONE
     Should Be Equal    ${tc.body[0].name}             BuiltIn.Log

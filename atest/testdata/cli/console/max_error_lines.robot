@@ -28,17 +28,17 @@ Library    Exceptions
 
 *** Keywords ***
 Fail With Long Message
-    [Arguments]    ${line_length}=80    ${line_count}=1
-    ${msg} =    Get Long Message    ${line_length}    ${line_count}
-    Comment    Sanity check.    Must have triple quotes because    ${msg} contains newlines.
-    Should Be True    len("""${msg}""") == ${line_length} * ${line_count}    Wrong length
-    Fail    ${msg}
+    [Arguments]    $line_length=80    $line_count=1
+    $msg =    Get Long Message    $line_length    $line_count
+    Comment    Sanity check.    Must have triple quotes because    $msg contains newlines.
+    Should Be True    len("""$msg""") == $line_length * $line_count    Wrong length
+    Fail    $msg
 
 Get Long Message
-    [Arguments]    ${line_length}=80    ${line_count}=1
-    ${lines} =    Evaluate    [ str(i * ${line_length} + 1) for i in range(${line_count}) ]
-    ${lines} =    Evaluate    [ line.ljust(${line_length} - 4) for line in ${lines} ]
-    ${msg} =    Evaluate    "END\\n".join(${lines})
-    ${total_chars} =    Evaluate    ${line_length} * ${line_count}
-    ${msg} =    Evaluate    """${msg}"""[:-len("${total_chars}")] + " " * 4 + "${total_chars}"
-    [Return]    ${msg}
+    [Arguments]    $line_length=80    $line_count=1
+    $lines =    Evaluate    [ str(i * $line_length + 1) for i in range($line_count) ]
+    $lines =    Evaluate    [ line.ljust($line_length - 4) for line in $lines ]
+    $msg =    Evaluate    "END\\n".join($lines)
+    $total_chars =    Evaluate    $line_length * $line_count
+    $msg =    Evaluate    """$msg"""[:-len("$total_chars")] + " " * 4 + "$total_chars"
+    [Return]    $msg

@@ -40,7 +40,7 @@ Equals in non-kwargs must be escaped
 
 Call Method From Module
     ${path} =    Call Method    ${{os.path}}    join    ${CURDIR}    foo    bar.txt
-    Should Be Equal    ${path}    ${CURDIR}${/}foo${/}bar.txt
+    Should Be Equal    ${path}    ${CURDIR}{$/}foo{$/}bar.txt
 
 Call Non Existing Method
     [Documentation]    FAIL MyObject object does not have method 'non_existing'.

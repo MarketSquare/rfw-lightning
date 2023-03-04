@@ -1,5 +1,5 @@
 *** Variables ***
-@{ESCAPING}    c:\\temp    \${not_var}    \x00\\x00    ELSE    \n\\n    ${/}
+@{ESCAPING}    c:\\temp    \${not_var}    \x00\\x00    ELSE    \n\\n    {$/}
 
 *** Test Cases ***
 Return one value

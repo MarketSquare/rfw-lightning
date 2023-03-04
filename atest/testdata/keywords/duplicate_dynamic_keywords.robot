@@ -2,7 +2,7 @@
 Library           DupeDynamicKeywords.py
 
 *** Variables ***
-${INDENT}         ${SPACE*4}
+$INDENT         ${SPACE*4}
 
 *** Test Cases ***
 Using keyword defined multiple times fails
@@ -12,8 +12,8 @@ Using keyword defined multiple times fails
 Keyword with embedded arguments defined multiple times fails at run-time
     [Documentation]    FAIL
     ...    Multiple keywords matching name 'Embedded twice' found:
-    ...    ${INDENT}DupeDynamicKeywords.EMBEDDED \${ARG}
-    ...    ${INDENT}DupeDynamicKeywords.Embedded \${twice}
+    ...    $INDENTDupeDynamicKeywords.EMBEDDED \$ARG
+    ...    $INDENTDupeDynamicKeywords.Embedded \$twice
     Embedded twice
 
 Exact duplicate is accepted

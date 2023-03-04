@@ -14,7 +14,7 @@ Strings like </script> logged as HTML are escaped in JS model
 
 *** Keywords ***
 Run tests with options containing </script>
-    ${options} =    Catenate
+    $options =    Catenate
     ...    --log log.html
     ...    --report report.html
     ...    --name </script>
@@ -23,25 +23,25 @@ Run tests with options containing </script>
     ...    --tagdoc *:</script>
     ...    --tagstatlink </script>:</script>:</script>
     ...    --tagstatcombine *:</script>:</script>
-    Run tests    ${options}    output/js_model.robot
+    Run tests    $options    output/js_model.robot
 
 Model should contain escaped strings
-    [Arguments]    ${type}
-    ${strings}    ${settings} =   Get JS model    ${type}
-    Should not contain    ${strings}    </script>
-    Should contain    ${strings}    &lt;/script&gt;
-    Should not contain    ${settings}    </script>
-    Should contain    ${settings}    &lt;/script&gt;
+    [Arguments]    $type
+    $strings    $settings =   Get JS model    $type
+    Should not contain    $strings    </script>
+    Should contain    $strings    &lt;/script&gt;
+    Should not contain    $settings    </script>
+    Should contain    $settings    &lt;/script&gt;
 
 Strings logged as HTML are escaped
-    [Arguments]    ${type}
-    ${strings}    ${settings} =   Get JS model    ${type}
-    Should not contain    ${strings}    </script>
-    Should contain    ${strings}    \\x3c/script>
+    [Arguments]    $type
+    $strings    $settings =   Get JS model    $type
+    Should not contain    $strings    </script>
+    Should contain    $strings    \\x3c/script>
 
 Get JS model
-    [Arguments]    ${type}
-    ${file} =    Get File    ${OUTDIR}/${type}.html
-    ${strings} =    Get Lines Matching Pattern    ${file}    window.output?"strings"?*
-    ${settings} =    Get Lines Matching Pattern    ${file}    window.settings =*
-    [Return]    ${strings}    ${settings}
+    [Arguments]    $type
+    $file =    Get File    $OUTDIR/$type.html
+    $strings =    Get Lines Matching Pattern    $file    window.output?"strings"?*
+    $settings =    Get Lines Matching Pattern    $file    window.settings =*
+    [Return]    $strings    $settings

@@ -4,16 +4,16 @@ Test Setup       Remove Output Files
 Test Template    Test Format in HTML
 
 *** Variables ***
-${EXAMPLE_LINK}    <a href="http://example.com">http://example.com</a>
-${RAW_DOC}         *bold* or <b>bold</b> http://example.com
-${HTML_DOC}        <b>bold</b> or &lt;b&gt;bold&lt;/b&gt; ${EXAMPLE_LINK}
+$EXAMPLE_LINK    <a href="http://example.com">http://example.com</a>
+$RAW_DOC         *bold* or <b>bold</b> http://example.com
+$HTML_DOC        <b>bold</b> or &lt;b&gt;bold&lt;/b&gt; $EXAMPLE_LINK
 
 *** Test Cases ***
 Robot format
-    ${HTML_DOC}    --docformat Robot
+    $HTML_DOC    --docformat Robot
 
 Text format
-    *bold* or &lt;b&gt;bold&lt;/b&gt; ${EXAMPLE_LINK}    --DocFormat TEXT
+    *bold* or &lt;b&gt;bold&lt;/b&gt; $EXAMPLE_LINK    --DocFormat TEXT
 
 HTML format
     *bold* or <b>bold</b> http://example.com    -F html    shortdoc=*bold* or *bold* http://example.com
@@ -23,95 +23,95 @@ reST format
     [Tags]    require-docutils    require-pygments
     Test Format in HTML    <em>bold</em> or &lt;b&gt;bold&lt;/b&gt; <a
     ...    --docformat rest    doc2=Link to <cite>Keyword</cite>.
-    Should Contain    ${MODEL}[keywords][2][doc]
+    Should Contain    $MODEL[keywords][2][doc]
     ...    This link to <a href="#Keyword" class="name">Keyword</a>
-    Should Contain    ${MODEL}[keywords][2][doc]
+    Should Contain    $MODEL[keywords][2][doc]
     ...    <span class=\"gh\">*** Test Cases ***\x3c/span>
 
 Format from Python library
     *bold* or <b>bold</b> http://example.com    lib=DocFormatHtml.py    shortdoc=*bold* or *bold* http://example.com
 
 Format from CLI overrides format from library
-    ${HTML_DOC}    -F robot    DocFormatHtml.py
+    $HTML_DOC    -F robot    DocFormatHtml.py
 
 Format in XML
     [Template]    Test Format in XML
-    ${RAW_DOC}    TEXT     -F TEXT          DocFormat.py
-    ${RAW_DOC}    ROBOT    --docfor RoBoT   DocFormatHtml.py
-    ${RAW_DOC}    HTML     ${EMPTY}         DocFormatHtml.py
+    $RAW_DOC    TEXT     -F TEXT          DocFormat.py
+    $RAW_DOC    ROBOT    --docfor RoBoT   DocFormatHtml.py
+    $RAW_DOC    HTML     $EMPTY         DocFormatHtml.py
 
 Format in JSON RAW
     [Template]    Test Format in JSON
-    ${RAW_DOC}    TEXT     -F TEXT --specdocformat rAw    DocFormat.py
-    ${RAW_DOC}    ROBOT    --docfor RoBoT -s RAW          DocFormatHtml.py
-    ${RAW_DOC}    HTML     -s raw                         DocFormatHtml.py
+    $RAW_DOC    TEXT     -F TEXT --specdocformat rAw    DocFormat.py
+    $RAW_DOC    ROBOT    --docfor RoBoT -s RAW          DocFormatHtml.py
+    $RAW_DOC    HTML     -s raw                         DocFormatHtml.py
 
 Format in LIBSPEC
     [Template]    Test Format in XML
-    <p>${HTML_DOC}</p>    HTML    --format xMl --specdocformat hTML    DocFormat.py
-    <p>${HTML_DOC}</p>    HTML    --format LiBSpec                     DocFormat.py
-    <p>${HTML_DOC}</p>    HTML    --docfor RoBoT -f XML -s HTML        DocFormatHtml.py
-    <p>${HTML_DOC}</p>    HTML    -F ROBOT --format xml -s html        DocFormat.py
+    <p>$HTML_DOC</p>    HTML    --format xMl --specdocformat hTML    DocFormat.py
+    <p>$HTML_DOC</p>    HTML    --format LiBSpec                     DocFormat.py
+    <p>$HTML_DOC</p>    HTML    --docfor RoBoT -f XML -s HTML        DocFormatHtml.py
+    <p>$HTML_DOC</p>    HTML    -F ROBOT --format xml -s html        DocFormat.py
 
 Format in JSON
     [Template]    Test Format in JSON
-    <p>${HTML_DOC}</p>    HTML    --format jSoN --specdocformat hTML    DocFormat.py
-    <p>${HTML_DOC}</p>    HTML    --format jSoN                         DocFormat.py
-    <p>${HTML_DOC}</p>    HTML    --docfor RoBoT -f JSON -s HTML        DocFormatHtml.py
-    <p>${HTML_DOC}</p>    HTML    -F ROBOT --format JSON -s html        DocFormat.py
+    <p>$HTML_DOC</p>    HTML    --format jSoN --specdocformat hTML    DocFormat.py
+    <p>$HTML_DOC</p>    HTML    --format jSoN                         DocFormat.py
+    <p>$HTML_DOC</p>    HTML    --docfor RoBoT -f JSON -s HTML        DocFormatHtml.py
+    <p>$HTML_DOC</p>    HTML    -F ROBOT --format JSON -s html        DocFormat.py
 
 Format from XML spec
     [Template]    NONE
-    Test Format In XML    ${RAW_DOC}    HTML    -F HTML    lib=DocFormat.py
-    Copy File    ${OUTXML}    ${OUTBASE}-2.xml
-    Test Format In XML    ${RAW_DOC}    HTML    lib=${OUTBASE}-2.xml
+    Test Format In XML    $RAW_DOC    HTML    -F HTML    lib=DocFormat.py
+    Copy File    $OUTXML    $OUTBASE-2.xml
+    Test Format In XML    $RAW_DOC    HTML    lib=$OUTBASE-2.xml
 
 Format from JSON RAW spec
     [Template]    NONE
-    Test Format In JSON    ${RAW_DOC}    ROBOT    -F Robot -s RAW    lib=DocFormat.py
-    Copy File    ${OUTJSON}    ${OUTBASE}-2.json
-    Test Format In JSON    <p>${HTML_DOC}</p>    HTML    lib=${OUTBASE}-2.json
+    Test Format In JSON    $RAW_DOC    ROBOT    -F Robot -s RAW    lib=DocFormat.py
+    Copy File    $OUTJSON    $OUTBASE-2.json
+    Test Format In JSON    <p>$HTML_DOC</p>    HTML    lib=$OUTBASE-2.json
 
 Format from LIBSPEC spec
     [Template]    NONE
-    Test Format In XML    <p>${HTML_DOC}</p>    HTML    -F ROBOT --format XML -s HTML    lib=DocFormat.py
-    Copy File    ${OUTXML}    ${OUTBASE}-2.xml
-    Test Format In XML    <p>${HTML_DOC}</p>    HTML    lib=${OUTBASE}-2.xml
+    Test Format In XML    <p>$HTML_DOC</p>    HTML    -F ROBOT --format XML -s HTML    lib=DocFormat.py
+    Copy File    $OUTXML    $OUTBASE-2.xml
+    Test Format In XML    <p>$HTML_DOC</p>    HTML    lib=$OUTBASE-2.xml
 
 Format from JSON spec
     [Template]    NONE
-    Test Format In JSON    <p>${HTML_DOC}</p>    HTML    -F Robot    lib=DocFormat.py
-    Copy File    ${OUTJSON}    ${OUTBASE}-2.json
-    Test Format In JSON    <p>${HTML_DOC}</p>    HTML    lib=${OUTBASE}-2.json
+    Test Format In JSON    <p>$HTML_DOC</p>    HTML    -F Robot    lib=DocFormat.py
+    Copy File    $OUTJSON    $OUTBASE-2.json
+    Test Format In JSON    <p>$HTML_DOC</p>    HTML    lib=$OUTBASE-2.json
 
 Compare HTML from LIBSPEC
     [Template]    NONE
-    Run Libdoc    -F ROBOT --format XML -s HTML ${TESTDATADIR}/DocFormat.py ${OUTXML}
-    Test Format In HTML    ${HTML_DOC}
-    ...                    lib=${OUTXML}
+    Run Libdoc    -F ROBOT --format XML -s HTML $TESTDATADIR/DocFormat.py $OUTXML
+    Test Format In HTML    $HTML_DOC
+    ...                    lib=$OUTXML
 
 *** Keywords ***
 Test Format In HTML
-    [Arguments]    ${doc}    ${cli}=    ${lib}=DocFormat.py
-    ...    ${doc2}=Link to <a href="#Keyword" class="name">Keyword</a>.
-    ...    ${shortdoc}=*bold* or <b>bold</b> http://example.com
-    ${lib} =    Join Path    ${TESTDATADIR}    ${lib}
-    Run Libdoc And Parse Model From HTML    ${cli} ${lib}
-    Should Contain     ${MODEL}[doc]                      ${doc}
-    Should Contain     ${MODEL}[keywords][0][doc]         ${doc}
-    Should Contain     ${MODEL}[keywords][1][doc]         ${doc2}
-    Should Be Equal    ${MODEL}[keywords][0][shortdoc]    ${shortdoc}
+    [Arguments]    $doc    $cli=    $lib=DocFormat.py
+    ...    $doc2=Link to <a href="#Keyword" class="name">Keyword</a>.
+    ...    $shortdoc=*bold* or <b>bold</b> http://example.com
+    $lib =    Join Path    $TESTDATADIR    $lib
+    Run Libdoc And Parse Model From HTML    $cli $lib
+    Should Contain     $MODEL[doc]                      $doc
+    Should Contain     $MODEL[keywords][0][doc]         $doc
+    Should Contain     $MODEL[keywords][1][doc]         $doc2
+    Should Be Equal    $MODEL[keywords][0][shortdoc]    $shortdoc
 
 Test Format In XML
-    [Arguments]    ${expected}    ${format}    ${cli}=    ${lib}=DocFormat.py
-    ${lib} =    Join Path    ${TESTDATADIR}    ${lib}
-    Run Libdoc And Parse Output     ${cli} ${lib}
-    Format should be    ${format}
-    Keyword Doc Should Be    0    ${expected}
+    [Arguments]    $expected    $format    $cli=    $lib=DocFormat.py
+    $lib =    Join Path    $TESTDATADIR    $lib
+    Run Libdoc And Parse Output     $cli $lib
+    Format should be    $format
+    Keyword Doc Should Be    0    $expected
 
 Test Format In JSON
-    [Arguments]    ${expected}   ${format}    ${cli}=    ${lib}=DocFormat.py
-    ${lib} =    Join Path    ${TESTDATADIR}    ${lib}
-    Run Libdoc And Parse Model From JSON     ${cli} ${lib}
-    Should Be Equal    ${MODEL}[docFormat]    ${format}
-    Should Be Equal    ${MODEL}[keywords][0][doc]    ${expected}
+    [Arguments]    $expected   $format    $cli=    $lib=DocFormat.py
+    $lib =    Join Path    $TESTDATADIR    $lib
+    Run Libdoc And Parse Model From JSON     $cli $lib
+    Should Be Equal    $MODEL[docFormat]    $format
+    Should Be Equal    $MODEL[keywords][0][doc]    $expected

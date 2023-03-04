@@ -1,3 +1,3 @@
 *** Setting ***
-Resource          resource${RESOURCE_INDEX}.robot
-Variables         variables${RESOURCE_INDEX}.py
+Resource          resource$RESOURCE_INDEX.robot
+Variables         variables$RESOURCE_INDEX.py

@@ -30,22 +30,22 @@ Status and message when there are only continuable failures
     Only continuable failures
 
 Status and message are not available if not in teardown
-    Variable should not exist    ${KEYWORD_STATUS}
-    Variable should not exist    ${KEYWORD_MESSAGE}
+    Variable should not exist    $KEYWORD_STATUS
+    Variable should not exist    $KEYWORD_MESSAGE
     Status and message are not available if not in teardown
 
 Status and message are not available after teardown
     Passing keyword message
-    Variable should not exist    ${KEYWORD_STATUS}
-    Variable should not exist    ${KEYWORD_MESSAGE}
+    Variable should not exist    $KEYWORD_STATUS
+    Variable should not exist    $KEYWORD_MESSAGE
     Status and message are not available if not in teardown
 
 Previous status and message are not overwritten
     [Documentation]    FAIL    My message
-    ${KEYWORD_STATUS}=    Set variable    1
-    ${KEYWORD_MESSAGE}=    Set variable    2
+    $KEYWORD_STATUS=    Set variable    1
+    $KEYWORD_MESSAGE=    Set variable    2
     Keyword teardown with keyword teardown
-    [Teardown]    Should be equal    ${KEYWORD_STATUS}-${KEYWORD_MESSAGE}    1-2
+    [Teardown]    Should be equal    $KEYWORD_STATUS-$KEYWORD_MESSAGE    1-2
 
 Status and message always contain latest values
     [Documentation]    FAIL
@@ -61,19 +61,19 @@ Status and message always contain latest values
 *** Keywords ***
 Passing keyword status
     No operation
-    [Teardown]    Should be equal    ${KEYWORD_STATUS}    PASS
+    [Teardown]    Should be equal    $KEYWORD_STATUS    PASS
 
 Passing keyword message
     No operation
-    [Teardown]    Should be equal    ${KEYWORD_MESSAGE}    ${EMPTY}
+    [Teardown]    Should be equal    $KEYWORD_MESSAGE    $EMPTY
 
 Failing keyword status
     Fail
-    [Teardown]    Should be equal    ${KEYWORD_STATUS}    FAIL
+    [Teardown]    Should be equal    $KEYWORD_STATUS    FAIL
 
 Failing keyword message
     Fail    Expected failure
-    [Teardown]    Should be equal    ${KEYWORD_MESSAGE}    Expected failure
+    [Teardown]    Should be equal    $KEYWORD_MESSAGE    Expected failure
 
 Pass status and message in keyword used in teardown
     No operation
@@ -96,15 +96,15 @@ Only continuable failures
     ...    Several failures occurred:\n\n1) one\n\n2) two
 
 Keyword status should be
-    [Arguments]    ${status}    ${message}=    ${recurse}=yes
-    Should be equal    ${KEYWORD_STATUS}    ${status}
-    Should be equal    ${KEYWORD_MESSAGE}    ${message}
-    [Teardown]    Run keyword if    "${recurse}" == "yes"
+    [Arguments]    $status    $message=    $recurse=yes
+    Should be equal    $KEYWORD_STATUS    $status
+    Should be equal    $KEYWORD_MESSAGE    $message
+    [Teardown]    Run keyword if    "$recurse" == "yes"
     ...    Keyword status should be    PASS    recurse=no
 
 Status and message are not available if not in teardown
-    Variable should not exist    ${KEYWORD_STATUS}
-    Variable should not exist    ${KEYWORD_MESSAGE}
+    Variable should not exist    $KEYWORD_STATUS
+    Variable should not exist    $KEYWORD_MESSAGE
 
 Status and message always contain latest values
     Fail    1
@@ -133,10 +133,10 @@ Keyword teardown with keyword teardown
     [Teardown]   Another keyword teardown
 
 Another keyword teardown
-    Should be equal    ${KEYWORD_STATUS}    FAIL
-    Should be equal    ${KEYWORD_MESSAGE}    My message
+    Should be equal    $KEYWORD_STATUS    FAIL
+    Should be equal    $KEYWORD_MESSAGE    My message
     Passing keyword status
     Passing keyword message
-    Should be equal    ${KEYWORD_STATUS}    FAIL
-    Should be equal    ${KEYWORD_MESSAGE}    My message
-    [Teardown]      Should be equal    ${KEYWORD_STATUS}-${KEYWORD_MESSAGE}    PASS-
+    Should be equal    $KEYWORD_STATUS    FAIL
+    Should be equal    $KEYWORD_MESSAGE    My message
+    [Teardown]      Should be equal    $KEYWORD_STATUS-$KEYWORD_MESSAGE    PASS-

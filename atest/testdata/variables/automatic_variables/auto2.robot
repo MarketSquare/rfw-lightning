@@ -1,6 +1,6 @@
 *** Setting ***
 Suite Setup       Check Variables In Suite Setup    Automatic Variables.Auto2
-...               ${EMPTY}    {}    @{PREV_TEST}
+...               $EMPTY    {}    @{PREV_TEST}
 Suite Teardown    Check Variables In Suite Teardown    Automatic Variables.Auto2    FAIL
 ...               1 test, 0 passed, 1 failed
 ...               @{LAST_TEST}

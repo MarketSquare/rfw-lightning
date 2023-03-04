@@ -3,62 +3,62 @@ Library           helper.py
 
 *** Test Cases ***
 Simple Kwarg
-    ${ret}=    One Kwarg    kwarg=quux
-    Should Be Equal    ${ret}    quux
-    ${ret}=    Two Kwargs    first=foo    second=bar
-    Should Be Equal    ${ret}    foo, bar
-    ${ret}=    Two Kw Args    second=World!    first=Hello
-    Should Be Equal    ${ret}    Hello, World!
+    $ret=    One Kwarg    kwarg=quux
+    Should Be Equal    $ret    quux
+    $ret=    Two Kwargs    first=foo    second=bar
+    Should Be Equal    $ret    foo, bar
+    $ret=    Two Kw Args    second=World!    first=Hello
+    Should Be Equal    $ret    Hello, World!
 
 Kwarg Syntax In Variable Is Ignored
-    ${assignment}=    Set Variable    kwarg=value
-    ${ret}=    One Kwarg    ${assignment}
-    Should Be Equal    ${ret}    kwarg=value
+    $assignment=    Set Variable    kwarg=value
+    $ret=    One Kwarg    $assignment
+    Should Be Equal    $ret    kwarg=value
 
 Non-string value in UK kwarg
-    ${ret}=    One Kwarg    kwarg=${42}
-    Should Be Equal    ${ret}    ${42}
+    $ret=    One Kwarg    kwarg=$42
+    Should Be Equal    $ret    $42
 
 Equals Sign In Kwarg Value
-    ${ret}=    One Kwarg    kwarg=bar=quux
-    Should Be Equal    ${ret}    bar=quux
+    $ret=    One Kwarg    kwarg=bar=quux
+    Should Be Equal    $ret    bar=quux
 
 Using non-existing kwarg
-    ${ret}=    One Kwarg    notkwarg=some value
-    Should Be Equal    ${ret}    notkwarg=some value
+    $ret=    One Kwarg    notkwarg=some value
+    Should Be Equal    $ret    notkwarg=some value
 
 Escaping Kwarg
-    ${ret}=    One Kwarg    kwarg=bar\\=quux
-    Should Be Equal    ${ret}    bar\\=quux
-    ${ret}=    One Kwarg    kwarg\\=bar=quux
-    Should Be Equal    ${ret}    kwarg\\=bar=quux
-    ${ret}=    One Kwarg    kwarg\=bar
+    $ret=    One Kwarg    kwarg=bar\\=quux
+    Should Be Equal    $ret    bar\\=quux
+    $ret=    One Kwarg    kwarg\\=bar=quux
+    Should Be Equal    $ret    kwarg\\=bar=quux
+    $ret=    One Kwarg    kwarg\=bar
 
 Mandatory Args Should Be Positioned
-    ${ret}=    Mandatory And Kwargs    a    b    c
-    Should Be Equal    ${ret}    a, b, c
-    ${ret}=    Mandatory And Kwargs    a    c=b
-    Should Be Equal    ${ret}    a, c=b, KWARG VALUE
+    $ret=    Mandatory And Kwargs    a    b    c
+    Should Be Equal    $ret    a, b, c
+    $ret=    Mandatory And Kwargs    a    c=b
+    Should Be Equal    $ret    a, c=b, KWARG VALUE
 
 Inside Run Kw
-    ${ret}=    Run Keyword    Four Kwargs    foo    bar    d=quux
-    Should Be Equal    ${ret}    foo, bar, default, quux
+    $ret=    Run Keyword    Four Kwargs    foo    bar    d=quux
+    Should Be Equal    $ret    foo, bar, default, quux
 
 Default value with escaped content
-    ${ret}=    Escaped default value    d4=\${nv}
-    Should Be Equal    ${ret}    \${notvariable} \\\\ \n${SPACE}\${nv}
+    $ret=    Escaped default value    d4=\$nv
+    Should Be Equal    $ret    \$notvariable \\\\ \n$SPACE\$nv
 
 Varargs without naming arguments works
     @{ret} =    Named arguments with varargs    foo    bar    dar
-    Should be equal    ${ret}[0]    foo
+    Should be equal    $ret[0]    foo
     @{ret} =    Named arguments with varargs    foo    bar=bar    dar
-    Should be equal    ${ret}[1]    bar=bar
+    Should be equal    $ret[1]    bar=bar
     @{ret} =    Named arguments with varargs    foo    b\=bar    dar
-    Should be equal    ${ret}[1]    b=bar
+    Should be equal    $ret[1]    b=bar
 
 Naming without the varargs works
     @{ret} =    Named arguments with varargs    foo    b=bar
-    Should be equal    ${ret}[1]    bar
+    Should be equal    $ret[1]    bar
 
 Varargs with naming does not work
     [Documentation]    FAIL Keyword 'Named arguments with varargs' got positional argument after named arguments.
@@ -110,59 +110,59 @@ Non working named combinations without varargs
 
 *** Keywords ***
 Execute working named vararg combination with result
-    [Arguments]    ${expected}    @{args}
-    ${res} =    Get result or error    Mandatory, Named and varargs    @{args}
-    Should be equal    ${expected}    ${res}
+    [Arguments]    $expected    @{args}
+    $res =    Get result or error    Mandatory, Named and varargs    @{args}
+    Should be equal    $expected    $res
 
 Execute illegal named vararg combination
-    [Arguments]    ${expected_error}    @{args}
-    ${res} =    Get result or error    Mandatory, Named and varargs    @{args}
-    Should be equal    ${res}    Keyword 'Mandatory, Named and varargs' ${expected_error}
+    [Arguments]    $expected_error    @{args}
+    $res =    Get result or error    Mandatory, Named and varargs    @{args}
+    Should be equal    $res    Keyword 'Mandatory, Named and varargs' $expected_error
 
 Execute working named combination with result
-    [Arguments]    ${expected}    @{args}
-    ${res} =    Get result or error    Mandatory and Named    @{args}
-    Should be equal    ${expected}    ${res}
+    [Arguments]    $expected    @{args}
+    $res =    Get result or error    Mandatory and Named    @{args}
+    Should be equal    $expected    $res
 
 Execute illegal named combination
-    [Arguments]    ${expected_error}    @{args}
-    ${res} =    Get result or error    Mandatory and Named    @{args}
-    Should be equal    ${res}    Keyword 'Mandatory and Named' ${expected_error}
+    [Arguments]    $expected_error    @{args}
+    $res =    Get result or error    Mandatory and Named    @{args}
+    Should be equal    $res    Keyword 'Mandatory and Named' $expected_error
 
 Mandatory, Named and varargs
-    [Arguments]    ${a}    ${b}=default    @{varargs}
-    ${res}=    pretty    ${a}    ${b}    @{varargs}
-    [Return]    ${res}
+    [Arguments]    $a    $b=default    @{varargs}
+    $res=    pretty    $a    $b    @{varargs}
+    [Return]    $res
 
 Mandatory and Named
-    [Arguments]    ${a}    ${b}=default
-    ${res}=    pretty    ${a}    ${b}
-    [Return]    ${res}
+    [Arguments]    $a    $b=default
+    $res=    pretty    $a    $b
+    [Return]    $res
 
 One Kwarg
-    [Arguments]    ${kwarg}=
-    [Return]    ${kwarg}
+    [Arguments]    $kwarg=
+    [Return]    $kwarg
 
 Two Kwargs
-    [Arguments]    ${first}=    ${second}=
-    [Return]    ${first}, ${second}
+    [Arguments]    $first=    $second=
+    [Return]    $first, $second
 
 Four Kw Args
-    [Arguments]    ${a}=default    ${b}=default    ${c}=default    ${d}=default
-    [Return]    ${a}, ${b}, ${c}, ${d}
+    [Arguments]    $a=default    $b=default    $c=default    $d=default
+    [Return]    $a, $b, $c, $d
 
 Mandatory And Kwargs
-    [Arguments]    ${man1}    ${man2}    ${kwarg}=KWARG VALUE
-    [Return]    ${man1}, ${man2}, ${kwarg}
+    [Arguments]    $man1    $man2    $kwarg=KWARG VALUE
+    [Return]    $man1, $man2, $kwarg
 
 Escaped default value
-    [Arguments]    ${d1}=\${notvariable}    ${d2}=\\\\    ${d3}=\n    ${d4}=\t
-    [Return]    ${d1} ${d2} ${d3} ${d4}
+    [Arguments]    $d1=\$notvariable    $d2=\\\\    $d3=\n    $d4=\t
+    [Return]    $d1 $d2 $d3 $d4
 
 Named arguments with varargs
-    [Arguments]    ${a}=default    ${b}=default    @{varargs}
-    [Return]    ${a}    ${b}    @{varargs}
+    [Arguments]    $a=default    $b=default    @{varargs}
+    [Return]    $a    $b    @{varargs}
 
 Named arguments with nönäscii
-    [Arguments]    ${nönäscii}=
-    [Return]       ${nönäscii}
+    [Arguments]    $1$2=
+    [Return]       $1$2

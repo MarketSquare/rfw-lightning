@@ -26,8 +26,8 @@ Link For Combined Tag
 *** Keywords ***
 
 Run Tests And Rebot With Tag Stat Links
-    Run Tests Without Processing Output  ${EMPTY}  misc/suites
-    ${opts} =  Catenate
+    Run Tests Without Processing Output  $EMPTY  misc/suites
+    $opts =  Catenate
     ...  --tagstatlink T2:http://example.com:rebot_title
     ...  --tagstatlink ?1:http://example.com/%1:Rebot
     ...  --TagStatL *?u?*:%2-%3-%2-%1-%4:%2u%3_title
@@ -35,12 +35,12 @@ Run Tests And Rebot With Tag Stat Links
     ...  --tagstatlink d?:http://%1:Rebot_%1
     ...  --TAGSTATLINK D1:1:more:link:title
     Copy Previous Outfile
-    Run Rebot  ${opts}  ${OUTFILE_COPY}
+    Run Rebot  $opts  $OUTFILE_COPY
 
 Tag link should be correct in output
-    [Arguments]  ${index}  ${tag}  ${links}
-    ${stats} =  Get Tag Stat Nodes
-    ${txt}=Evaluate     $stats[int($index)].text
-    ${attrlinks}=Evaluate     $stats[int($index)].attrib['doc']
-    Should Be Equal    ${txt}    ${tag}
-    Should Be Equal    ${attrlinks}    ${doc}
+    [Arguments]  $index  $tag  $links
+    $stats =  Get Tag Stat Nodes
+    $txt=Evaluate     $stats[int($index)].text
+    $attrlinks=Evaluate     $stats[int($index)].attrib['doc']
+    Should Be Equal    $txt    $tag
+    Should Be Equal    $attrlinks    $doc

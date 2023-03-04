@@ -2,14 +2,14 @@
 Documentation     Testing --test and --suite options with Rebot.
 Suite Setup       Create Input File
 Suite Teardown    Remove Temps
-Test Setup        Empty Directory    ${MYOUTDIR}
+Test Setup        Empty Directory    $MYOUTDIR
 Resource          rebot_resource.robot
 
 *** Variables ***
-${SUITE_FILE}     misc${/}many_tests.robot
-${SUITE_DIR}      misc${/}suites
-${MYOUTDIR}       %{TEMPDIR}${/}robot-test-145567
-${INPUT_FILE}     %{TEMPDIR}${/}robot-test-file.xml
+$SUITE_FILE     misc{$/}many_tests.robot
+$SUITE_DIR      misc{$/}suites
+$MYOUTDIR       %{TEMPDIR}{$/}robot-test-145567
+$INPUT_FILE     %{TEMPDIR}{$/}robot-test-file.xml
 
 *** Test Cases ***
 --test once
@@ -25,15 +25,15 @@ ${INPUT_FILE}     %{TEMPDIR}${/}robot-test-file.xml
 --test not matching
     Failing Rebot
     ...    Suite 'Root' contains no tests matching name 'nonex'.
-    ...    --test nonex    ${INPUT_FILE}
+    ...    --test nonex    $INPUT_FILE
 
 --test not matching with multiple inputs
     Failing Rebot
     ...    Suite 'Root & Root' contains no tests matching name 'nonex'.
-    ...    --test nonex    ${INPUT_FILE} ${INPUT_FILE}
+    ...    --test nonex    $INPUT_FILE $INPUT_FILE
     Failing Rebot
     ...    Suite 'My Name' contains no tests matching name 'nonex'.
-    ...    --test nonex -N "My Name"    ${INPUT_FILE} ${INPUT_FILE}
+    ...    --test nonex -N "My Name"    $INPUT_FILE $INPUT_FILE
 
 --suite once
     Run And Check Suites    --suite tsuite1   Tsuite1
@@ -46,28 +46,28 @@ ${INPUT_FILE}     %{TEMPDIR}${/}robot-test-file.xml
 
 --suite with long name
     Run And Check Suites    --suite root.many_tests
-    Should Contain Suites    ${SUITE}    Many Tests
+    Should Contain Suites    $SUITE    Many Tests
     Run And Check Suites    --suite Root.*.SubSuites    Subsuites
-    Should Contain Suites    ${SUITE}    Suites
+    Should Contain Suites    $SUITE    Suites
     Should Contain Suites    ${SUITE.suites[0].suites[0]}    Sub1    Sub2
 
 --suite with end of long name
     Run And Check Suites    --suite suites.subsuites    Subsuites
-    Should Contain Suites    ${SUITE}    Suites
+    Should Contain Suites    $SUITE    Suites
     Should Contain Suites    ${SUITE.suites[0].suites[0]}    Sub1    Sub2
 
 --suite not matching
     Failing Rebot
     ...    Suite 'Root' contains no tests in suites 'nonex', 'n2' or 'n3'.
-    ...    --suite nonex -s n2 -s n3    ${INPUT_FILE}
+    ...    --suite nonex -s n2 -s n3    $INPUT_FILE
 
 --suite not matching with multiple inputs
     Failing Rebot
     ...    Suite 'Root & Root' contains no tests in suite 'nonex'.
-    ...    --suite nonex    ${INPUT_FILE} ${INPUT_FILE}
+    ...    --suite nonex    $INPUT_FILE $INPUT_FILE
     Failing Rebot
     ...    Suite 'CustomName' contains no tests in suite 'nonex'.
-    ...    --name CustomName --suite nonex    ${INPUT_FILE} ${INPUT_FILE}
+    ...    --name CustomName --suite nonex    $INPUT_FILE $INPUT_FILE
 
 --suite and --test together
     Run And Check Suites and Tests    --suite tsuite1 --suite tsuite3 --test *1first --test nomatch    Tsuite1    Suite1 First
@@ -75,74 +75,74 @@ ${INPUT_FILE}     %{TEMPDIR}${/}robot-test-file.xml
 --suite and --test together not matching
     Failing Rebot
     ...     Suite 'Root' contains no tests matching name 'first', 'nonex' or '*one' in suites 'nonex' or 'suites'.
-    ...    --suite nonex --suite suites --test first --test nonex --test *one    ${INPUT_FILE}
+    ...    --suite nonex --suite suites --test first --test nonex --test *one    $INPUT_FILE
 
 Elapsed Time
     [Documentation]    Test setting start, end and elapsed times correctly when filtering by tags
     Comment    1) Rebot hand-edited output with predefined times and    check that times are read correctly. (A sanity check)
-    Run Rebot    ${EMPTY}    rebot${/}times.xml
+    Run Rebot    $EMPTY    rebot{$/}times.xml
     Check Times    ${SUITE.tests[0]}    20061227 12:00:00.000    20061227 12:00:01.000    1000    # Incl-1
     Check Times    ${SUITE.tests[1]}    20061227 12:00:01.000    20061227 12:00:03.000    2000    # Incl-12
     Check Times    ${SUITE.tests[2]}    20061227 12:00:03.000    20061227 12:00:07.000    4000    # Incl-123
     Check Times    ${SUITE.tests[3]}    20061227 12:00:07.000    20061227 12:00:07.001    0001    # Excl-1
     Check Times    ${SUITE.tests[4]}    20061227 12:00:07.001    20061227 12:00:07.003    0002    # Excl-12
     Check Times    ${SUITE.tests[5]}    20061227 12:00:07.003    20061227 12:00:07.007    0004    # Excl-123
-    Check Times    ${SUITE}    20061227 11:59:59.000    20061227 12:00:08.999    9999    # Suite
+    Check Times    $SUITE    20061227 11:59:59.000    20061227 12:00:08.999    9999    # Suite
     Should Be Equal As Integers    ${SUITE.test_count}    6
     Comment    2) Filter output created in earlier step and check    that times are set accordingly.
     Copy Previous Outfile
-    Run Rebot    --test Exc* --test Incl-1    ${OUTFILE_COPY}
+    Run Rebot    --test Exc* --test Incl-1    $OUTFILE_COPY
     Check Times    ${SUITE.tests[0]}    20061227 12:00:00.000    20061227 12:00:01.000    1000    # Incl-1
     Check Times    ${SUITE.tests[1]}    20061227 12:00:07.000    20061227 12:00:07.001    0001    # Excl-1
     Check Times    ${SUITE.tests[2]}    20061227 12:00:07.001    20061227 12:00:07.003    0002    # Excl-12
     Check Times    ${SUITE.tests[3]}    20061227 12:00:07.003    20061227 12:00:07.007    0004    # Excl-123
-    Check Times    ${SUITE}    ${NONE}    ${NONE}    1007    # Suite
+    Check Times    $SUITE    $NONE    $NONE    1007    # Suite
     Should Be Equal As Integers    ${SUITE.test_count}    4
 
 *** Keywords ***
 Create Input File
-    Create Output With Robot    ${INPUT_FILE}    --name Root    ${SUITE_FILE} ${SUITE_DIR}
-    Create Directory    ${MYOUTDIR}
+    Create Output With Robot    $INPUT_FILE    --name Root    $SUITE_FILE $SUITE_DIR
+    Create Directory    $MYOUTDIR
 
 Remove Temps
-    Remove Directory    ${MYOUTDIR}    recursive
-    Remove FIle    ${INPUT_FILE}
+    Remove Directory    $MYOUTDIR    recursive
+    Remove FIle    $INPUT_FILE
 
 Run and check Tests
-    [Arguments]    ${params}    @{tests}
-    Run Rebot    ${params}    ${INPUT_FILE}
+    [Arguments]    $params    @{tests}
+    Run Rebot    $params    $INPUT_FILE
     Stderr Should Be Empty
-    Should Contain Tests    ${SUITE}    @{tests}
+    Should Contain Tests    $SUITE    @{tests}
     Should Be True    ${SUITE.statistics.passed} == len(@{tests})
     Check Stats
 
 Check Stats
     Should Be True    ${SUITE.statistics.failed} == 0
-    Should Be Equal    ${SUITE.starttime}    ${NONE}
-    Should Be Equal    ${SUITE.endtime}    ${NONE}
+    Should Be Equal    ${SUITE.starttime}    $NONE
+    Should Be Equal    ${SUITE.endtime}    $NONE
     Elapsed Time Should Be Valid    ${SUITE.elapsedtime}
-    Should Be True    ${SUITE.elapsedtime} <= ${ORIGELAPSED}
+    Should Be True    ${SUITE.elapsedtime} <= $ORIGELAPSED
 
 Run and Check Suites
-    [Arguments]    ${params}    @{suites}
-    Run Suites    ${params}
+    [Arguments]    $params    @{suites}
+    Run Suites    $params
     Should Contain Suites    ${SUITE.suites[0]}    @{suites}
     Check Stats
 
 Run And Check Suites and Tests
-    [Arguments]    ${params}    ${subsuite}    @{tests}
-    Run Suites    ${params}
-    Should Contain Suites    ${SUITE.suites[0]}   ${subsuite}
-    Should Contain Tests    ${SUITE}    @{tests}
+    [Arguments]    $params    $subsuite    @{tests}
+    Run Suites    $params
+    Should Contain Suites    ${SUITE.suites[0]}   $subsuite
+    Should Contain Tests    $SUITE    @{tests}
     Should Be True    ${SUITE.statistics.passed} == len(@{tests})
     Check Stats
 
 Run Suites
-    [Arguments]    ${options}
-    Run Rebot    ${options}    ${INPUT_FILE}
+    [Arguments]    $options
+    Run Rebot    $options    $INPUT_FILE
     Stderr Should Be Empty
 
 Failing Rebot
-    [Arguments]    ${error}    ${options}    ${sources}
-    Run Rebot Without Processing Output    ${options}    ${sources}
-    Stderr Should Be Equal To    [ ERROR ] ${error}${USAGE_TIP}\n
+    [Arguments]    $error    $options    $sources
+    Run Rebot Without Processing Output    $options    $sources
+    Stderr Should Be Equal To    [ ERROR ] $error$USAGE_TIP\n

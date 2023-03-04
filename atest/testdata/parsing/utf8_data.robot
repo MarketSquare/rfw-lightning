@@ -7,14 +7,14 @@ Force Tags      tag-§
 MetaData        Ä         §
 
 |      *Variable*     | *Value* |
-| ${UNICODE}          | äöå §½€ |
+| $UNICODE          | äöå §½€ |
 
 **Test Cases***
 UTF-8   [Documentation]  äöå §½€
         [Setup]          Log  äöå
         [Tags]           tag-€
         Log              §½€
-        Log              ${UNICODE}
+        Log              $UNICODE
         Logging Keyword  äöå
         [Teardown]       Logging Keyword  äöå
 
@@ -22,15 +22,15 @@ UTF-8 Name Äöå §½€"
   [Documentation]  Quote is actually plain ASCII but there was
   ...              a bug in processing them also.
   ...              FAIL  Virheessäkin on ääkkösiä: Äöå §½€"
-  ${ret} =  äöå §½€
-  Log       ${ret}
-  Should Be Equal    ${ret}    äöå §½€
+  $ret =  äöå §½€
+  Log       $ret
+  Should Be Equal    $ret    äöå §½€
   Fail      Virheessäkin on ääkkösiä: Äöå §½€"
 
 
 | * * * * * * * * * Keywords * * * * * * * * |
-| Logging Keyword | [Arguments] | ${value}   |
-|                 | Log         | ${value}   |
-|                 | Log         | ${UNICODE} |
+| Logging Keyword | [Arguments] | $value   |
+|                 | Log         | $value   |
+|                 | Log         | $UNICODE |
 |                 | Log         | §½€        |
 | Äöå §½€         | [Return]    | äöå §½€    |

@@ -14,7 +14,7 @@ Standard libraries cannot be imported directly
 
 Standard libraries can be imported through `robot.libraries.`
     Importing Standard Library Through Robot Libraries Succeeds
-    Should Be Equal    ${SET_BY_LIBRARY}    ${42}
+    Should Be Equal    $SET_BY_LIBRARY    $42
 
 In test data standard libraries can be imported directly
     Directory Should Exist    .

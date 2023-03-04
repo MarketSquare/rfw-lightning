@@ -1,5 +1,5 @@
 *** Settings ***
-Suite Setup       Run Libdoc And Parse Output    ${TESTDATADIR}/InvalidKeywords.py
+Suite Setup       Run Libdoc And Parse Output    $TESTDATADIR/InvalidKeywords.py
 Resource          libdoc_resource.robot
 
 *** Test Cases ***
@@ -11,19 +11,19 @@ Dublicate name
     ...    Keyword with same name defined multiple times.
 
 Dublicate name with embedded arguments
-    Keyword Name Should Be    1    Same \${embedded}
-    Keyword Doc Should Be     1    ${EMPTY}
-    Keyword Name Should Be    2    same \${match}
+    Keyword Name Should Be    1    Same \$embedded
+    Keyword Doc Should Be     1    $EMPTY
+    Keyword Name Should Be    2    same \$match
     Keyword Doc Should Be     2    This is an error only at run time.
 
 Invalid embedded arguments
     Keyword Count Should Be    3
     Stdout should contain adding keyword error
-    ...    Invalid embedded \${args}
+    ...    Invalid embedded \$args
     ...    Embedded argument count does not match number of accepted arguments.
 
 *** Keywords ***
 Stdout should contain adding keyword error
-    [Arguments]    ${name}    ${error}
-    Should Contain    ${OUTPUT}
-    ...    [ ERROR ] Error in library 'InvalidKeywords': Adding keyword '${name}' failed: ${error}
+    [Arguments]    $name    $error
+    Should Contain    $OUTPUT
+    ...    [ ERROR ] Error in library 'InvalidKeywords': Adding keyword '$name' failed: $error

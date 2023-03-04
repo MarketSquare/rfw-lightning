@@ -5,5 +5,5 @@ Reserved Syntax *{var}
     Should Be Equal    \*{no_warning}    *\{no_warning}
 
 Reserved With Variable Indise
-    ${var} =    Set Variable    Hello
-    Should Be Equal    *{${var}_world}    \*{Hello_world}
+    $var =    Set Variable    Hello
+    Should Be Equal    *{$var_world}    \*{Hello_world}

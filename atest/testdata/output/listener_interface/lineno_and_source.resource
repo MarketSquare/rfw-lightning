@@ -3,8 +3,8 @@ User Keyword In Resource
     No operation
 
 FOR In Resource
-    FOR    ${x}    IN    once
-        Log    ${x}
+    FOR    $x    IN    once
+        Log    $x
     END
 
 IF In Resource

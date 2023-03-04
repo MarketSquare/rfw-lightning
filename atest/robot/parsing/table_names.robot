@@ -1,5 +1,5 @@
 *** Settings ***
-Suite Setup     Run Tests    ${EMPTY}    parsing/table_names.robot
+Suite Setup     Run Tests    $EMPTY    parsing/table_names.robot
 Resource        atest_resource.robot
 
 *** Test Cases ***
@@ -16,23 +16,23 @@ Test Case Table
     Check Test Case    Test Cases
 
 Keyword Table
-    ${tc} =    Check Test Case    Test Case
+    $tc =    Check Test Case    Test Case
     Check Log Message    ${tc.kws[1].kws[0].kws[0].msgs[0]}    "Keywords" was executed
 
 Comment Table
     Check Test Case    Comment tables exist
-    Length Should Be    ${ERRORS}    1
+    Length Should Be    $ERRORS    1
 
 Section Names Are Space Sensitive
-    ${path} =    Normalize Path    ${DATADIR}/parsing/table_names.robot
+    $path =    Normalize Path    $DATADIR/parsing/table_names.robot
     Invalid Section Error    0    table_names.robot    43    * * * K e y w o r d * * *
 
 Invalid Tables
-    [Setup]    Run Tests    ${EMPTY}    parsing/invalid_table_names.robot
-    ${tc} =    Check Test Case    Test in valid table
+    [Setup]    Run Tests    $EMPTY    parsing/invalid_table_names.robot
+    $tc =    Check Test Case    Test in valid table
     Check Log Message    ${tc.kws[0].kws[0].msgs[0]}    Keyword in valid table
     Check Log Message    ${tc.kws[1].kws[0].msgs[0]}    Keyword in valid table in resource
-    Length Should Be    ${ERRORS}    5
+    Length Should Be    $ERRORS    5
     Invalid Section Error    0    invalid_table_names.robot        1     *** Error ***
     Invalid Section Error    1    invalid_table_names.robot        8     *** ***
     Invalid Section Error    2    invalid_table_names.robot        17    *one more table cause an error
@@ -41,13 +41,13 @@ Invalid Tables
 
 *** Keywords ***
 Check First Log Entry
-    [Arguments]    ${test_case_name}    ${expected}
-    ${tc} =    Check Test Case    ${test_case_name}
-    Check Log Message    ${tc.kws[0].msgs[0]}    ${expected}
+    [Arguments]    $test_case_name    $expected
+    $tc =    Check Test Case    $test_case_name
+    Check Log Message    ${tc.kws[0].msgs[0]}    $expected
 
 Invalid Section Error
-    [Arguments]    ${index}    ${file}    ${lineno}    ${header}    ${test_and_task}=, 'Test Cases', 'Tasks'
-    Error In File    ${index}    parsing/${file}    ${lineno}
-    ...    Unrecognized section header '${header}'.
-    ...    Valid sections: 'Settings', 'Variables'${test_and_task},
+    [Arguments]    $index    $file    $lineno    $header    $test_and_task=, 'Test Cases', 'Tasks'
+    Error In File    $index    parsing/$file    $lineno
+    ...    Unrecognized section header '$header'.
+    ...    Valid sections: 'Settings', 'Variables'$test_and_task,
     ...    'Keywords' and 'Comments'.

@@ -18,16 +18,16 @@ Methods outside start_keyword and end_keyword can log messages to syslog
 
 *** Keywords ***
 Run Tests With Logging Listener
-    ${path} =    Normalize Path    ${LISTENER_DIR}/logging_listener.py
-    Run Tests    --listener ${path} -l l.html -r r.html    misc/pass_and_fail.robot
+    $path =    Normalize Path    $LISTENER_DIR/logging_listener.py
+    Run Tests    --listener $path -l l.html -r r.html    misc/pass_and_fail.robot
 
 Test statuses should be correct
     Check Test Case    Pass
     Check Test Case    Fail
 
 Log and report should be created
-    File Should Not Be Empty    ${OUTDIR}/l.html
-    File Should Not Be Empty    ${OUTDIR}/r.html
+    File Should Not Be Empty    $OUTDIR/l.html
+    File Should Not Be Empty    $OUTDIR/r.html
 
 Correct warnings should be shown in execution errors
     Execution errors should have messages from message and log_message methods
@@ -38,12 +38,12 @@ Execution errors should have messages from message and log_message methods
     Check Log Message    ${ERRORS[-4]}    log_message: FAIL Expected failure    WARN
 
 Correct start/end warnings should be shown in execution errors
-    ${msgs} =    Get start/end messages    ${ERRORS}
+    $msgs =    Get start/end messages    $ERRORS
     @{kw} =        Create List    start keyword    end keyword
     @{return} =    Create List    start return     end return
     @{setup} =     Create List    start setup      @{kw}    @{kw}    @{kw}    @{return}    end setup
     @{uk} =        Create List    start keyword    @{kw}    @{kw}    @{kw}    @{return}    end keyword
-    FOR    ${index}    ${method}    IN ENUMERATE
+    FOR    $index    $method    IN ENUMERATE
     ...    start_suite
     ...    @{setup}
     ...    start_test
@@ -54,41 +54,41 @@ Correct start/end warnings should be shown in execution errors
     ...    @{kw}
     ...    end_test
     ...    end_suite
-         Check Log Message    ${msgs}[${index}]    ${method}    WARN
+         Check Log Message    $msgs[$index]    $method    WARN
     END
-    Length Should Be    ${msgs}    ${index+1}
+    Length Should Be    $msgs    ${index+1}
 
 Get start/end messages
-    [Arguments]    ${messages}
-    ${result} =    Create List
-    FOR    ${msg}    IN    @{messages}
+    [Arguments]    $messages
+    $result =    Create List
+    FOR    $msg    IN    @{messages}
         IF    "message: " not in $msg.message
-        ...    Append To List    ${result}    ${msg}
+        ...    Append To List    $result    $msg
     END
-    RETURN    ${result}
+    RETURN    $result
 
 Correct messages should be logged to normal log
     'My Keyword' has correct messages    ${SUITE.setup}    Suite Setup
-    ${tc} =    Check Test Case    Pass
+    $tc =    Check Test Case    Pass
     'My Keyword' has correct messages    ${tc.kws[0]}    Pass
-    ${tc} =    Check Test Case    Fail
+    $tc =    Check Test Case    Fail
     'My Keyword' has correct messages    ${tc.kws[0]}    Fail
     'Fail' has correct messages    ${tc.kws[1]}
 
 'My Keyword' has correct messages
-    [Arguments]    ${kw}    ${name}
-    IF    '${name}' == 'Suite Setup'
-        ${type} =    Set Variable    setup
+    [Arguments]    $kw    $name
+    IF    '$name' == 'Suite Setup'
+        $type =    Set Variable    setup
     ELSE
-        ${type} =    Set Variable    keyword
+        $type =    Set Variable    keyword
     END
-    Check Log Message    ${kw.body[0]}            start ${type}    INFO
-    Check Log Message    ${kw.body[1]}            start ${type}    WARN
+    Check Log Message    ${kw.body[0]}            start $type    INFO
+    Check Log Message    ${kw.body[1]}            start $type    WARN
     Check Log Message    ${kw.body[2].body[0]}    start keyword    INFO
     Check Log Message    ${kw.body[2].body[1]}    start keyword    WARN
-    Check Log Message    ${kw.body[2].body[2]}    log_message: INFO Hello says "${name}"!    INFO
-    Check Log Message    ${kw.body[2].body[3]}    log_message: INFO Hello says "${name}"!    WARN
-    Check Log Message    ${kw.body[2].body[4]}    Hello says "${name}"!    INFO
+    Check Log Message    ${kw.body[2].body[2]}    log_message: INFO Hello says "$name"!    INFO
+    Check Log Message    ${kw.body[2].body[3]}    log_message: INFO Hello says "$name"!    WARN
+    Check Log Message    ${kw.body[2].body[4]}    Hello says "$name"!    INFO
     Check Log Message    ${kw.body[2].body[5]}    end keyword      INFO
     Check Log Message    ${kw.body[2].body[6]}    end keyword      WARN
     Check Log Message    ${kw.body[3].body[0]}    start keyword    INFO
@@ -97,20 +97,20 @@ Correct messages should be logged to normal log
     Check Log Message    ${kw.body[3].body[3]}    end keyword      WARN
     Check Log Message    ${kw.body[4].body[0]}    start keyword    INFO
     Check Log Message    ${kw.body[4].body[1]}    start keyword    WARN
-    Check Log Message    ${kw.body[4].body[2]}    log_message: INFO \${assign} = JUST TESTING...    INFO
-    Check Log Message    ${kw.body[4].body[3]}    log_message: INFO \${assign} = JUST TESTING...    WARN
-    Check Log Message    ${kw.body[4].body[4]}    \${assign} = JUST TESTING...    INFO
+    Check Log Message    ${kw.body[4].body[2]}    log_message: INFO \$assign = JUST TESTING...    INFO
+    Check Log Message    ${kw.body[4].body[3]}    log_message: INFO \$assign = JUST TESTING...    WARN
+    Check Log Message    ${kw.body[4].body[4]}    \$assign = JUST TESTING...    INFO
     Check Log Message    ${kw.body[4].body[5]}    end keyword      INFO
     Check Log Message    ${kw.body[4].body[6]}    end keyword      WARN
     Check Log Message    ${kw.body[5].body[0]}    start return     INFO
     Check Log Message    ${kw.body[5].body[1]}    start return     WARN
     Check Log Message    ${kw.body[5].body[2]}    end return       INFO
     Check Log Message    ${kw.body[5].body[3]}    end return       WARN
-    Check Log Message    ${kw.body[6]}            end ${type}      INFO
-    Check Log Message    ${kw.body[7]}            end ${type}      WARN
+    Check Log Message    ${kw.body[6]}            end $type      INFO
+    Check Log Message    ${kw.body[7]}            end $type      WARN
 
 'Fail' has correct messages
-    [Arguments]    ${kw}
+    [Arguments]    $kw
     Check Log Message    ${kw.body[0]}    start keyword    INFO
     Check Log Message    ${kw.body[1]}    start keyword    WARN
     Check Log Message    ${kw.body[2]}    log_message: FAIL Expected failure    INFO
@@ -120,7 +120,7 @@ Correct messages should be logged to normal log
     Check Log Message    ${kw.body[6]}    end keyword    WARN
 
 Correct messages should be logged to syslog
-    FOR    ${msg}    IN
+    FOR    $msg    IN
     ...    message: INFO Robot Framework
     ...    start_suite
     ...    end_suite
@@ -129,6 +129,6 @@ Correct messages should be logged to syslog
     ...    output_file
     ...    log_file
     ...    report_file
-        Syslog Should Contain    | INFO \ | ${msg}
-        Syslog Should Contain    | WARN \ | ${msg}
+        Syslog Should Contain    | INFO \ | $msg
+        Syslog Should Contain    | WARN \ | $msg
     END

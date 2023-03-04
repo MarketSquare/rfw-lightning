@@ -21,7 +21,7 @@ None as string is None
 None in tuple is alias for NoneType
     [Template]    None in tuple is alias for NoneType
     1       None       exp1=1       exp2=None
-    ${1}    ${None}    exp1=1       exp2=None
+    $1    $None    exp1=1       exp2=None
     NONE    none       exp1=None    exp2=None
 
 Less types than arguments is ok

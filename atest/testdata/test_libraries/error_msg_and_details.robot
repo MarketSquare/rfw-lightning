@@ -17,12 +17,12 @@ Non Generic Failure
 
 Python Exception With Non-String Message
     [Documentation]    FAIL ValueError: ['a', 'b', (1, 2), None, {'a': 1}]
-    ${msg} =    Evaluate    ['a', 'b', (1, 2), None, {'a': 1}]
-    Exception    ValueError    ${msg}
+    $msg =    Evaluate    ['a', 'b', (1, 2), None, {'a': 1}]
+    Exception    ValueError    $msg
 
 Python Exception With 'None' Message
     [Documentation]    FAIL None
-    Exception    AssertionError    ${None}
+    Exception    AssertionError    $None
 
 Generic Python class
     [Documentation]    FAIL RuntimeError
@@ -67,8 +67,8 @@ Non existing Keyword
     Non Existing Keyword
 
 Non Existing Scalar Variable
-    [Documentation]    FAIL Variable '\${non_existing}' not found.
-    Log    ${non_existing}
+    [Documentation]    FAIL Variable '\$non_existing' not found.
+    Log    $non_existing
 
 Non Existing List Variable
     [Documentation]    FAIL Variable '\@{non_existing}' not found.

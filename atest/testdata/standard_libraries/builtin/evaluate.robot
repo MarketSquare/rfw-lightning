@@ -33,7 +33,7 @@ Modules are imported automatically
     ${random} =    Evaluate    random.randint(0, sys.maxsize)
     ${maxint}    ${sep}    ${+} =    Evaluate    sys.maxsize, os.sep, re.escape('+')
     Should Be True    0 <= ${random} <= ${maxint}
-    Should Be Equal    ${sep}    ${/}
+    Should Be Equal    ${sep}    {$/}
     Should Be Equal    ${+}    \\+
     ${version} =    Evaluate    robot.__version__.split('.')[0]
     Should Be True    ${version} in (6, 7, 8, 9)
@@ -76,7 +76,7 @@ Explicit modules
     ${random} =    Evaluate    random.randint(0, sys.maxsize)    modules=random, sys
     ${maxint}    ${sep}    ${x}    ${y} =    Evaluate    sys.maxsize, os.sep, re.escape('+'), r'\\+'    sys, re,,,,,glob, os,robot,,,
     Should Be True    0 <= ${random} <= ${maxint}
-    Should Be Equal    ${sep}    ${/}
+    Should Be Equal    ${sep}    {$/}
     Should Be Equal    ${x}    ${y}
     Evaluate    True    nonex_module
 

@@ -1,9 +1,9 @@
 *** Settings ***
-Library           Remote    http://127.0.0.1:${PORT}
+Library           Remote    http://127.0.0.1:$PORT
 Suite Setup       Set Log Level    DEBUG
 
 *** Variables ***
-${PORT}           8270
+$PORT           8270
 
 *** Test Cases ***
 No tags

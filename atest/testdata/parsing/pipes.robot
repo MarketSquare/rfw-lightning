@@ -34,11 +34,11 @@
 |
 
 | Pipes In Data |
-|               | ${pipe}=Set Variable | \|
+|               | $pipe=Set Variable | \|
 |               | Should Be Equal | |foo\| | |foo| |
 |               | Should Be Equal | |foo|  | |foo\|
-|               | Should Be Equal | \|     | ${pipe} |
-|               | Should Be Equal | ||||   | ${pipe}${pipe}${pipe}${pipe}  |
+|               | Should Be Equal | \|     | $pipe |
+|               | Should Be Equal | ||||   | $pipe$pipe$pipe$pipe  |
 
 
 |  Extra Pipes At The End  |       |                      |       |        |
@@ -69,7 +69,7 @@
 | |
 |
 | |  |   |    |     |      |       |        |       |      |     |    |  | |
-| | Cells Should Be Empty  |  |     | | | |  |   | ${EMPTY}  | | | |
+| | Cells Should Be Empty  |  |     | | | |  |   | $EMPTY  | | | |
 
 | Consecutive spaces
 | | Should Be Equal | foo            bar | foo${SPACE*12}bar
@@ -81,8 +81,8 @@
 
 | Using FOR Loop With Pipes  |
 |         |  [Documentation]  |  FAIL    |  for loop executed  |
-|         |   FOR  |  ${value}  |  IN   |  a    |   a   |   for loop executed   |  for loop not executed  |
-|         |        |  Should Be Equal  |  ${value}  |  a   |  ${value}  |  no values  |
+|         |   FOR  |  $value  |  IN   |  a    |   a   |   for loop executed   |  for loop not executed  |
+|         |        |  Should Be Equal  |  $value  |  a   |  $value  |  no values  |
 |         | END    |
 
 |Leading pipe without space after
@@ -93,16 +93,16 @@
 | *Keywords* | A | r | g | u | m | e | n | t | s |
 |  Cells Should Be Empty  |
 |       | [Arguments]     | @{args}          |
-|       |  FOR            | ${arg}           |  IN      |  @{args}   |
-|       |                 | Should Be Equal  |  ${arg}  |  ${EMPTY}  |
+|       |  FOR            | $arg           |  IN      |  @{args}   |
+|       |                 | Should Be Equal  |  $arg  |  $EMPTY  |
 |       | END             |
-|       | ${length} =     | Get Length       | ${args}  |
-|       | Should Be Equal | ${length}        | ${8}     | Amount of empty cells |
+|       | $length =     | Get Length       | $args  |
+|       | Should Be Equal | $length        | $8     | Amount of empty cells |
 
 |Leading pipe without space after
     No Operation
 
 ||  |||  ||||
 
-|||   [Arguments]    ${arg}
-      Should Be Equal    ${arg}    ||||
+|||   [Arguments]    $arg
+      Should Be Equal    $arg    ||||

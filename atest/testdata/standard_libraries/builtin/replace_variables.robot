@@ -6,7 +6,7 @@ Library           OperatingSystem
 
 *** Test Case ***
 Replace Variables
-    ${template} =    Get File    ${CURDIR}${/}template.txt
+    ${template} =    Get File    ${CURDIR}{$/}template.txt
     Replace Variables And Verify Content    ${template}    Pekka    fine    morning
     Replace Variables And Verify Content    ${template}    Juha    dark    and    gloomy    evening
 

@@ -4,9 +4,9 @@ Test Template          Rebot and validate RPA tasks
 Resource               rebot_resource.robot
 
 *** Variables ***
-${TASKS_1}             %{TEMPDIR}${/}tasks1.xml
-${TASKS_2}             %{TEMPDIR}${/}tasks2.xml
-${TESTS}               %{TEMPDIR}${/}tests.xml
+${TASKS_1}             %{TEMPDIR}{$/}tasks1.xml
+${TASKS_2}             %{TEMPDIR}{$/}tasks2.xml
+${TESTS}               %{TEMPDIR}{$/}tests.xml
 
 *** Test Cases ***
 Rebot tasks

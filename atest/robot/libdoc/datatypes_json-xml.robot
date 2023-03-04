@@ -1,6 +1,6 @@
 *** Settings ***
 Resource          libdoc_resource.robot
-Suite Setup       Run Libdoc And Parse Output    ${TESTDATADIR}/DataTypesLibrary.json
+Suite Setup       Run Libdoc And Parse Output    $TESTDATADIR/DataTypesLibrary.json
 
 *** Test Cases ***
 Enum

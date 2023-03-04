@@ -1,5 +1,5 @@
 *** Settings ***
-Suite Setup     Run Tests  ${EMPTY}  test_libraries/libraries_extending_existing_classes.robot
+Suite Setup     Run Tests  $EMPTY  test_libraries/libraries_extending_existing_classes.robot
 Resource        atest_resource.robot
 
 *** Test Cases ***

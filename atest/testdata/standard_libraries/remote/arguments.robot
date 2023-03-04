@@ -1,19 +1,19 @@
 *** Settings ***
-Library           Remote    http://127.0.0.1:${PORT}
+Library           Remote    http://127.0.0.1:$PORT
 Suite Setup       Set Log Level    DEBUG
 Test Template     Arguments Should Be Accepted
 
 *** Variables ***
-${PORT}           8270
+$PORT           8270
 
 *** Test Cases ***
 No Arguments
-    ${EMPTY}                 No Arguments
+    $EMPTY                 No Arguments
 
 Required Arguments
     some argument            One Argument                     some argument
     first arg, second arg    Two Arguments                    first arg    second arg
-    1, 2, 3 (int), 4, 5      Five Arguments                   1    2    ${3}    4    5
+    1, 2, 3 (int), 4, 5      Five Arguments                   1    2    $3    4    5
 
 Arguments With Default Values
     one, two, three          Arguments With Default Values    one    two    three
@@ -29,7 +29,7 @@ Arguent conversion based on defaults
     xxx, 3 (int)             Defaults as tuples               xxx     3
     xxx, 3.14 (float)        Defaults as tuples               xxx     3.14
     xxx, yyy                 Defaults as tuples               xxx     yyy
-    0 (int), 3 (int)         Defaults as tuples               ${0}    3
+    0 (int), 3 (int)         Defaults as tuples               $0    3
 
 Named Arguments
     first, second, 3         Arguments With Default Values    first    arg2=second
@@ -39,19 +39,19 @@ Named Arguments
     A, B, C                  Arguments With Default Values    arg3=C    arg1=A    arg2=B
 
 Variable Number Of Arguments
-    ${EMPTY}                 Varargs
+    $EMPTY                 Varargs
     One argument             Varargs                          One argument
     Three, arguments, now    Varargs                          Three    arguments    now
-    1, 2, 3, 4 (int), 5      Varargs                          1    2    3    ${4}    5
+    1, 2, 3, 4 (int), 5      Varargs                          1    2    3    $4    5
 
 Required Arguments, Default Values and Varargs
     Hello, world             Required Defaults And Varargs    Hello
     Hi, tellus               Required Defaults And Varargs    Hi    tellus
     Hello, again, world      Required Defaults And Varargs    Hello    again    world
-    1, 2, 3, 4, 5 (int)      Required Defaults And Varargs    1    2    3    4    ${5}
+    1, 2, 3, 4, 5 (int)      Required Defaults And Varargs    1    2    3    4    $5
 
 No kwargs
-    ${EMPTY}                 Kwargs
+    $EMPTY                 Kwargs
 
 One kwarg
     foo:bar                  Kwargs                           foo=bar
@@ -73,7 +73,7 @@ Args and kwargs
     default1, b, c:3, d:4    Args and kwargs                  arg2=b    c=3    d=4
 
 Varargs and kwargs
-    ${EMPTY}                 Varargs and kwargs
+    $EMPTY                 Varargs and kwargs
     foo:bar                  Varargs and kwargs               foo=bar
     arg, foo:bar             Varargs and kwargs               arg    foo=bar
    a, b, c, d:4, e:5, f:6    Varargs and kwargs               a    b    c    d=4    e=5    f=6
@@ -142,6 +142,6 @@ Argument types as dict
 
 *** Keywords ***
 Arguments Should Be Accepted
-    [Arguments]    ${expected}    ${keyword}    @{args}    &{kwargs}
-    ${result} =    Run Keyword    ${keyword}    @{args}    &{kwargs}
-    Should Be Equal    ${result}    ${expected}
+    [Arguments]    $expected    $keyword    @{args}    &{kwargs}
+    $result =    Run Keyword    $keyword    @{args}    &{kwargs}
+    Should Be Equal    $result    $expected

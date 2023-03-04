@@ -25,7 +25,7 @@ Scope
     Scope Should Be                  SUITE
 
 Source info
-    Source should be                 ${CURDIR}/../../../src/robot/libraries/Telnet.py
+    Source should be                 $CURDIR/../../../src/robot/libraries/Telnet.py
     Lineno should be                 36
 
 Spec version
@@ -66,10 +66,10 @@ Keyword Documentation
     ...    This is a convenience keyword that uses `Write` and `Read Until Prompt`
     ...    internally. Following two examples are thus functionally identical:\
     ...
-    ...    | \${out} = | `Execute Command`${SPACE*3}| pwd |
+    ...    | \$out = | `Execute Command`${SPACE*3}| pwd |
     ...
     ...    | `Write`${SPACE*2}| pwd${SPACE*17}|
-    ...    | \${out} = | `Read Until Prompt` |
+    ...    | \$out = | `Read Until Prompt` |
     ...
 
 Keyword Source Info
@@ -88,20 +88,20 @@ KwArgs and VarArgs
     Keyword Arguments Should Be      7    command    *arguments    **configuration
 
 Keyword-only Arguments
-    Run Libdoc And Parse Output      ${TESTDATADIR}/KeywordOnlyArgs.py
+    Run Libdoc And Parse Output      $TESTDATADIR/KeywordOnlyArgs.py
     Keyword Arguments Should Be      0    *    kwo
     Keyword Arguments Should Be      1    *varargs    kwo    another=default
 
 Positional-only Arguments
     [Tags]    require-py3.8
-    Run Libdoc And Parse Output      ${DATADIR}/keywords/PositionalOnly.py
+    Run Libdoc And Parse Output      $DATADIR/keywords/PositionalOnly.py
     Keyword Arguments Should Be      2    arg    /
     Keyword Arguments Should Be      5    posonly    /    normal
     Keyword Arguments Should Be      0    required    optional=default    /
     Keyword Arguments Should Be      4    first: int    second: float    /
 
 Decorators
-    Run Libdoc And Parse Output      ${TESTDATADIR}/Decorators.py
+    Run Libdoc And Parse Output      $TESTDATADIR/Decorators.py
     Keyword Name Should Be           0    Keyword Using Decorator
     Keyword Arguments Should Be      0    *args    **kwargs
     Keyword Should Not Have Source   0
@@ -111,11 +111,11 @@ Decorators
     Keyword Lineno Should Be         1    26
 
 Documentation set in __init__
-    Run Libdoc And Parse Output      ${TESTDATADIR}/DocSetInInit.py
+    Run Libdoc And Parse Output      $TESTDATADIR/DocSetInInit.py
     Doc Should Be                    Doc set in __init__!!
 
 Deprecation
-    Run Libdoc And Parse Output          ${TESTDATADIR}/Deprecation.py
+    Run Libdoc And Parse Output          $TESTDATADIR/Deprecation.py
     Keyword Name Should Be               0    Deprecated
     Keyword Doc Should Be                0    *DEPRECATED*
     Keyword Should Be Deprecated         0

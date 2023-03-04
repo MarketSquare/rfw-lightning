@@ -1,43 +1,43 @@
 *** Settings ***
-Suite Setup     Run Tests  ${EMPTY}  standard_libraries/builtin/set_library_search_order
+Suite Setup     Run Tests  $EMPTY  standard_libraries/builtin/set_library_search_order
 Resource        atest_resource.robot
 
 *** Test Cases ***
 Library Order Set In Suite Setup Should Be Available In Test Cases
-    Check Test Case  ${TEST_NAME}
+    Check Test Case  $TEST_NAME
 
 Empty Library Order Can Be Set
-    Check Test Case  ${TEST_NAME}
+    Check Test Case  $TEST_NAME
 
 One Library Can Be Set As Default Library
-    Check Test Case  ${TEST_NAME}
+    Check Test Case  $TEST_NAME
 
 More Than One Library Can Be Set As Default Libraries
-    Check Test Case  ${TEST_NAME}
+    Check Test Case  $TEST_NAME
 
 Non-Existing Libraries In Search Order Are Ignored
-    Check Test Case  ${TEST_NAME}
+    Check Test Case  $TEST_NAME
 
 Library Order Should Be Available In The Next Test Case
-    Check Test Case  ${TEST_NAME}
+    Check Test Case  $TEST_NAME
 
 Setting Library Order Returns Previous Library Order
-    Check Test Case  ${TEST_NAME}
+    Check Test Case  $TEST_NAME
 
 Setting Library Order Allows Setting BuiltIn Library As Default Library
-    Check Test Case  ${TEST_NAME}
+    Check Test Case  $TEST_NAME
 
 Setting Library Order Allows Setting Own Library Before BuiltIn Library
-    Check Test Case  ${TEST_NAME}
+    Check Test Case  $TEST_NAME
 
 Default Library Order Should Be Suite Specific
-    Check Test Case  ${TEST_NAME}
+    Check Test Case  $TEST_NAME
 
 Library Search Order Is Space Insensitive
-    Check Test Case  ${TEST_NAME}
+    Check Test Case  $TEST_NAME
 
 Library Search Order Is Case Insensitive
-    Check Test Case  ${TEST_NAME}
+    Check Test Case  $TEST_NAME
 
 Exact match wins over match containing embedded arguments regardless search order
-    Check Test Case  ${TEST_NAME}
+    Check Test Case  $TEST_NAME

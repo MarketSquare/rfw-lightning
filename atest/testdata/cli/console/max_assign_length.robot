@@ -1,15 +1,15 @@
 *** Test Cases ***
 10 chars
-    ${value} =    Evaluate    '0123456789'
+    $value =    Evaluate    '0123456789'
 
 200 chars
-    ${value} =    Evaluate    '0123456789' * 20
+    $value =    Evaluate    '0123456789' * 20
 
 201 chars
-    ${value} =    Evaluate    '0123456789' * 20 + '0'
+    $value =    Evaluate    '0123456789' * 20 + '0'
 
 1000 chars
-    ${value} =    Evaluate    '0123456789' * 100
+    $value =    Evaluate    '0123456789' * 100
 
 1001 chars
-    ${value} =    Evaluate    '0123456789' * 100 + '0'
+    $value =    Evaluate    '0123456789' * 100 + '0'

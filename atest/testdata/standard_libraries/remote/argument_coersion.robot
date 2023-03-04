@@ -1,12 +1,12 @@
 *** Settings ***
 Test Template     Argument Should Be Passed Correctly
-Library           Remote    127.0.0.1:${PORT}
+Library           Remote    127.0.0.1:$PORT
 Library           Helper.py
 Library           Collections
 Variables         variables.py
 
 *** Variables ***
-${PORT}           8270
+$PORT           8270
 
 *** Test Cases ***
 String
@@ -135,9 +135,9 @@ Mapping
 
 *** Keywords ***
 Argument Should Be Passed Correctly
-    [Arguments]    ${argument}    ${expected}=${NONE}    ${binary}=${FALSE}
-    ${expected} =    Get Non None    ${expected}    ${argument}
-    ${ns} =    Create Dictionary    MyObject=${MyObject}    MyMapping=${MyMapping}
-    ${argument} =    Evaluate    ${argument}    namespace=${ns}
-    Argument Should Be    ${argument}    ${expected}    ${binary}
-    Kwarg Should Be    argument=${argument}    expected=${expected}    binary=${binary}
+    [Arguments]    $argument    $expected=$NONE    $binary=$FALSE
+    $expected =    Get Non None    $expected    $argument
+    $ns =    Create Dictionary    MyObject=$MyObject    MyMapping=$MyMapping
+    $argument =    Evaluate    $argument    namespace=$ns
+    Argument Should Be    $argument    $expected    $binary
+    Kwarg Should Be    argument=$argument    expected=$expected    binary=$binary

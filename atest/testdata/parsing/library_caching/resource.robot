@@ -3,4 +3,4 @@ Library           OperatingSystem
 
 *** Keyword ***
 Resource KW
-    Directory Should Exist    ${CURDIR}
+    Directory Should Exist    $CURDIR

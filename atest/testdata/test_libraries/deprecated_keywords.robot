@@ -19,8 +19,8 @@ Text between `*DEPRECATED` and closing `*` is ignored
     Deprecated User Keyword With Stuff To Ignore
 
 Assignment is not included in keyword name
-    ${var} =    Deprecated Keyword Returning
-    Should Be Equal As Numbers    ${var}    42
+    $var =    Deprecated Keyword Returning
+    Should Be Equal As Numbers    $var    42
 
 Not deprecated keywords
     Not Deprecated With Doc

@@ -1,5 +1,5 @@
 *** Settings ***
-Suite Setup       Run Tests    ${EMPTY}    test_libraries/dynamic_library_args_and_docs.robot
+Suite Setup       Run Tests    $EMPTY    test_libraries/dynamic_library_args_and_docs.robot
 Test Template     Check test case and its doc
 Resource          atest_resource.robot
 
@@ -41,7 +41,7 @@ Keyword Not Created And Warning Shown When Getting Documentation Fails
     4    No Arg Spec
     5    One Arg
     6    One or Two Args
-    [Teardown]    Check Log Message    ${ERRORS}[7]
+    [Teardown]    Check Log Message    $ERRORS[7]
     ...    Imported library 'classes.InvalidGetDocDynamicLibrary' contains no keywords.    WARN
 
 Keyword Not Created And Warning Shown When Getting Arguments Fails
@@ -53,34 +53,34 @@ Keyword Not Created And Warning Shown When Getting Arguments Fails
     12   No Arg Spec
     13   One Arg
     14   One or Two Args
-    [Teardown]    Check Log Message    ${ERRORS}[15]
+    [Teardown]    Check Log Message    $ERRORS[15]
     ...    Imported library 'classes.InvalidGetArgsDynamicLibrary' contains no keywords.    WARN
 
 *** Keywords ***
 Check test case and its doc
-    [Arguments]    ${expected_doc}    @{msgs}
-    ${tc} =    Check Test case    ${TESTNAME}
-    Should Be Equal    ${tc.kws[0].doc}    ${expected_doc}
-    FOR    ${kw}    ${msg}    IN ZIP    ${tc.kws}    ${msgs}
-        Check Log Message    ${kw.msgs[0]}    ${msg}
+    [Arguments]    $expected_doc    @{msgs}
+    $tc =    Check Test case    $TESTNAME
+    Should Be Equal    ${tc.kws[0].doc}    $expected_doc
+    FOR    $kw    $msg    IN ZIP    ${tc.kws}    $msgs
+        Check Log Message    ${kw.msgs[0]}    $msg
     END
 
 Check Creating Keyword Failed Due To Invalid Doc Message
-    [Arguments]    ${index}    ${kw}
-    Check Creating Keyword Failed Message    ${index}    ${kw}
+    [Arguments]    $index    $kw
+    Check Creating Keyword Failed Message    $index    $kw
     ...    classes.InvalidGetDocDynamicLibrary
     ...    Calling dynamic method 'get_keyword_documentation' failed: TypeError: *
 
 Check Creating Keyword Failed Due To Invalid Args Message
-    [Arguments]    ${index}    ${kw}
-    Check Creating Keyword Failed Message    ${index}    ${kw}
+    [Arguments]    $index    $kw
+    Check Creating Keyword Failed Message    $index    $kw
     ...    classes.InvalidGetArgsDynamicLibrary
     ...    Calling dynamic method 'get_keyword_arguments' failed: ZeroDivisionError: *
 
 Check Creating Keyword Failed Message
-    [Arguments]    ${index}    ${kw}    ${lib}    @{error}
-    Error In Library    ${lib}
-    ...    Adding keyword '${kw}' failed:
+    [Arguments]    $index    $kw    $lib    @{error}
+    Error In Library    $lib
+    ...    Adding keyword '$kw' failed:
     ...    @{error}
     ...    pattern=True
-    ...    index=${index}
+    ...    index=$index

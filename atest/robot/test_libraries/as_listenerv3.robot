@@ -1,10 +1,10 @@
 *** Settings ***
-Suite Setup     Run Tests    ${EMPTY}    test_libraries/as_listener/listener_library3.robot
+Suite Setup     Run Tests    $EMPTY    test_libraries/as_listener/listener_library3.robot
 Resource        atest_resource.robot
 
 *** Test Cases ***
 New tests and keywords can be added to suite
-   ${tc} =    Check test case    New   FAIL    Message: [start] [end]
+   $tc =    Check test case    New   FAIL    Message: [start] [end]
    Stdout Should Contain    SEPARATOR=\n
    ...    New ${SPACE*65} | FAIL |
    ...    Message: [start] [end]
@@ -28,7 +28,7 @@ Metadata can be modified
    Should be equal    ${SUITE.metadata}[tests]   xxx
 
 Log messages and timestamps can be changed
-   ${tc}=   Get test case    Pass
+   $tc=   Get test case    Pass
    Check log message    ${tc.kws[0].msgs[0]}    Passing [log_message]
    Should be equal    ${tc.kws[0].msgs[0].timestamp}    20151216 15:51:20.141
 
@@ -37,5 +37,5 @@ Message to syslog can be changed
    Check log message    ${ERRORS[0]}    Foo [log_message] [message]    WARN
 
 Close is called
-   ${close} =    Set variable    CLOSING Listener library 3\n
+   $close =    Set variable    CLOSING Listener library 3\n
    Stderr Should Contain    ${close*4}

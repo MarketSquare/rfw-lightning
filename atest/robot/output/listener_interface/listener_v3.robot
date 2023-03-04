@@ -1,28 +1,28 @@
 *** Settings ***
-Suite Setup       Run Tests    --listener ${LISTENER_DIR}/v3.py -l l -r r -b d -x x    misc/pass_and_fail.robot
+Suite Setup       Run Tests    --listener $LISTENER_DIR/v3.py -l l -r r -b d -x x    misc/pass_and_fail.robot
 Resource          listener_resource.robot
 
 *** Variables ***
-${SEPARATOR}=Evaluate      $EMPTY+'-'*78
+$SEPARATOR=Evaluate      $EMPTY+'-'*78
 
 *** Test Cases ***
 New tests and keywords can be added
-    ${tc} =    Check test case    Added by start_suite [start suite]   FAIL    [start] [end]
+    $tc =    Check test case    Added by start_suite [start suite]   FAIL    [start] [end]
     Check keyword data    ${tc.kws[0]}    BuiltIn.No Operation
-    ${tc} =    Check test case    Added by startTest    PASS    Dynamically added! [end]
+    $tc =    Check test case    Added by startTest    PASS    Dynamically added! [end]
     Check keyword data    ${tc.kws[0]}    BuiltIn.Fail    args=Dynamically added!    status=FAIL
-    ${tc} =    Check test case    Added by end_Test    FAIL    [start] [end]
+    $tc =    Check test case    Added by end_Test    FAIL    [start] [end]
     Check keyword data    ${tc.kws[0]}    BuiltIn.Log    args=Dynamically added!, INFO
     Stdout Should Contain    SEPARATOR=\n
     ...    Added by start_suite [start suite] :: [start suite] ${SPACE*17} | FAIL |
     ...    [start] [end]
-    ...    ${SEPARATOR}
+    ...    $SEPARATOR
     ...    Added by startTest ${SPACE*50} | PASS |
     ...    Dynamically added! [end]
-    ...    ${SEPARATOR}
+    ...    $SEPARATOR
     ...    Added by end_test :: Dynamic ${SPACE*40} | FAIL |
     ...    [start] [end]
-    ...    ${SEPARATOR}
+    ...    $SEPARATOR
 
 Test status and message can be changed
     Check Test case    Pass [start suite]    FAIL    [start] [end]
@@ -63,7 +63,7 @@ Changing current element docs does not change console output, but does change ou
     Check Test Doc    Pass [start suite]    [start suite] [start test] [end test]
 
 Log messages and timestamps can be changed
-    ${tc} =   Get test case    Pass [start suite]
+    $tc =   Get test case    Pass [start suite]
     Check log message    ${tc.kws[0].kws[0].msgs[0]}    HELLO SAYS "PASS"!
     Should be equal    ${tc.kws[0].kws[0].msgs[0].timestamp}    20151216 15:51:20.141
 

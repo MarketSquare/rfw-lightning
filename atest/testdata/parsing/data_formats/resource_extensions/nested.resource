@@ -1,7 +1,7 @@
 *** Variables ***
-${NESTED}      nested.resource
+$NESTED      nested.resource
 
 *** Keywords ***
 Keyword in nested.resource
-    Should Be Equal    ${NESTED}    nested.resource
-    Log    ${NESTED}
+    Should Be Equal    $NESTED    nested.resource
+    Log    $NESTED

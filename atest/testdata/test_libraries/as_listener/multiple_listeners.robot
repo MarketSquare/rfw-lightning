@@ -4,7 +4,7 @@ Library           multiple_listenerlibrary.py    fail=Yes    WITH NAME    lib_no
 
 *** Test Cases ***
 Multiple library listeners gets events
-    lib_works.Events should be    Start test: ${TEST_NAME}
+    lib_works.Events should be    Start test: $TEST_NAME
     ...                           Start kw: lib_works.Events Should Be
 
 All listeners are disabled if one fails

@@ -4,7 +4,7 @@ Library          String
 
 *** Variables ***
 @{CHAR_LIST}     h    y    v    ä    \x00
-@{INT_LIST}      0    ${1}    0b10    0o3    0xff
+@{INT_LIST}      0    $1    0b10    0o3    0xff
 @{HEX_LIST}      0    1    007    ff
 @{BIN_LIST}      0    1    111    11111111
 @{BIG_LIST}      100000000
@@ -13,10 +13,10 @@ Library          String
 *** Test Cases ***
 Default input type is text
     [Template]    NONE
-    ${bytes} =    Convert To Bytes    Tämä on testi
-    Bytes should be equal to    ${bytes}    84, 228, 109, 228, 32, 111, 110, 32, 116, 101, 115, 116, 105
-    ${bytes} =    Convert To Bytes    0 1 2    input_type=int
-    Bytes should be equal to    ${bytes}    0, 1, 2
+    $bytes =    Convert To Bytes    Tämä on testi
+    Bytes should be equal to    $bytes    84, 228, 109, 228, 32, 111, 110, 32, 116, 101, 115, 116, 105
+    $bytes =    Convert To Bytes    0 1 2    input_type=int
+    Bytes should be equal to    $bytes    0, 1, 2
 
 Invalid input type fails
     [Template]    Creating bytes should fail
@@ -38,20 +38,20 @@ Non-ASCII above 255 fails
     \u2603      text    Character '\u2603' cannot be represented as a byte.
 
 Characters as a list
-    ${CHAR_LIST}    text    104, 121, 118, 228, 0
+    $CHAR_LIST    text    104, 121, 118, 228, 0
 
 Byte string
     [Template]    NONE
-    ${b1} =    Convert To Bytes    \x00-a-ä-\xff
-    ${b2} =    Convert To Bytes    ${b1}
-    Should Be Equal    ${b1}    ${b2}
+    $b1 =    Convert To Bytes    \x00-a-ä-\xff
+    $b2 =    Convert To Bytes    $b1
+    Should Be Equal    $b1    $b2
 
 Bytearray
     [Template]    NONE
-    ${bytearray} =    Evaluate    bytearray([0, 1, 2, 255])
-    ${bytes} =    Convert To Bytes    ${bytearray}
-    ${expected} =    Convert To Bytes    \x00\x01\x02\xff
-    Should Be Equal    ${bytes}    ${expected}
+    $bytearray =    Evaluate    bytearray([0, 1, 2, 255])
+    $bytes =    Convert To Bytes    $bytearray
+    $expected =    Convert To Bytes    \x00\x01\x02\xff
+    Should Be Equal    $bytes    $expected
 
 Integers
     4                      int    4
@@ -71,11 +71,11 @@ Integers with prefixes
     0b11111111 0o377 0xff  int    255, 255, 255
 
 Integers as list
-    ${INT_LIST}    int    0, 1, 2, 3, 255
+    $INT_LIST    int    0, 1, 2, 3, 255
 
 Integer as integer
-    ${0}     int    0
-    ${42}    int    42
+    $0     int    0
+    $42    int    42
 
 Integers without separators does not work
     [Template]    Creating bytes should fail
@@ -86,8 +86,8 @@ Too big or small integers
     256 1            int    Integer '256' cannot be represented as a byte.
     0 0xfff          int    Integer '0xfff' cannot be represented as a byte.
     -1               int    Integer '-1' cannot be represented as a byte.
-    ${BIG_LIST}      int    Integer '100000000' cannot be represented as a byte.
-    ${SMALL_LIST}    int    Integer '-1' cannot be represented as a byte.
+    $BIG_LIST      int    Integer '100000000' cannot be represented as a byte.
+    $SMALL_LIST    int    Integer '-1' cannot be represented as a byte.
 
 Invalid integers
     [Template]    Creating bytes should fail
@@ -113,12 +113,12 @@ Hex requires even input
     ab c    hex    Expected input to be multiple of 2.
 
 Hex as list
-    ${HEX_LIST}    hex    0, 1, 7, 255
+    $HEX_LIST    hex    0, 1, 7, 255
 
 Too big or small hex
     [Template]    Creating bytes should fail
-    ${BIG_LIST}      hex    Hex value '100000000' cannot be represented as a byte.
-    ${SMALL_LIST}    hex    Hex value '-1' cannot be represented as a byte.
+    $BIG_LIST      hex    Hex value '100000000' cannot be represented as a byte.
+    $SMALL_LIST    hex    Hex value '-1' cannot be represented as a byte.
 
 Invalid hex
     [Template]    Creating bytes should fail
@@ -140,7 +140,7 @@ Binary requires input to be multiple of 8
     0000 0000 1111       bin    Expected input to be multiple of 8.
 
 Binary as list
-    ${BIN_LIST}    bin    0, 1, 7, 255
+    $BIN_LIST    bin    0, 1, 7, 255
 
 Invalid binary
     [Template]    Creating bytes should fail
@@ -149,22 +149,22 @@ Invalid binary
 
 Too big or small binary
     [Template]    Creating bytes should fail
-    ${BIG_LIST}         bin    Binary value '100000000' cannot be represented as a byte.
-    ${SMALL_LIST}       bin    Binary value '-1' cannot be represented as a byte.
+    $BIG_LIST         bin    Binary value '100000000' cannot be represented as a byte.
+    $SMALL_LIST       bin    Binary value '-1' cannot be represented as a byte.
 
 *** Keywords ***
 Correct bytes should be created
-    [Arguments]    ${input}    ${type}    ${expected}
-    ${bytes} =    Convert To Bytes    ${input}    ${type}
-    Bytes should be equal to    ${bytes}    ${expected}
+    [Arguments]    $input    $type    $expected
+    $bytes =    Convert To Bytes    $input    $type
+    Bytes should be equal to    $bytes    $expected
 
 Bytes should be equal to
-    [Arguments]    ${bytes}    ${expected}
-    ${expected} =    Evaluate    bytes(bytearray(int(i) for i in [${expected}]))
-    Should Be Equal    ${bytes}   ${expected}
-    Should Be Byte String    ${bytes}
+    [Arguments]    $bytes    $expected
+    $expected =    Evaluate    bytes(bytearray(int(i) for i in [$expected]))
+    Should Be Equal    $bytes   $expected
+    Should Be Byte String    $bytes
 
 Creating bytes should fail
-    [Arguments]    ${input}    ${type}    ${error}
-    Run Keyword And Expect Error    Creating bytes failed: ${error}
-    ...    Convert To Bytes    ${input}    ${type}
+    [Arguments]    $input    $type    $error
+    Run Keyword And Expect Error    Creating bytes failed: $error
+    ...    Convert To Bytes    $input    $type

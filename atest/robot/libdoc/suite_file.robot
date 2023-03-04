@@ -1,5 +1,5 @@
 *** Settings ***
-Suite Setup       Run Libdoc And Parse Output    ${TESTDATADIR}/suite.robot
+Suite Setup       Run Libdoc And Parse Output    $TESTDATADIR/suite.robot
 Resource          libdoc_resource.robot
 
 *** Test Cases ***
@@ -10,7 +10,7 @@ Documentation
     Doc Should Be                     Documentation for keywords in suite ``Suite``.
 
 Version
-    Version Should Be                 ${EMPTY}
+    Version Should Be                 $EMPTY
 
 Type
     Type Should Be                    SUITE
@@ -19,10 +19,10 @@ Generated
     Generated Should Be Defined
 
 Scope
-    Scope Should Be                   GLOBAL    old=${EMPTY}
+    Scope Should Be                   GLOBAL    old=$EMPTY
 
 Source Info
-    Source Should Be                  ${TESTDATADIR}/suite.robot
+    Source Should Be                  $TESTDATADIR/suite.robot
     Lineno Should Be                  1
 
 Spec version
@@ -47,12 +47,12 @@ Different Argument Types
     ...                                    kwo=default    another    **kwargs
 
 Embedded Arguments
-    Keyword Name Should Be            3    4. Embedded \${arguments}
+    Keyword Name Should Be            3    4. Embedded \$arguments
     Keyword Arguments Should Be       3
 
 Keyword Documentation
     Keyword Doc Should Be             0    Keyword doc with $\{CURDIR}.
-    Keyword Doc Should Be             1    foo bar `kw` & some "stuff" to <escape> .\n\nbaa `\${a1}`
+    Keyword Doc Should Be             1    foo bar `kw` & some "stuff" to <escape> .\n\nbaa `\$a1`
     Keyword Doc Should Be             2    Multiple\n\nlines.
 
 Keyword tags
@@ -67,4 +67,4 @@ Keyword Source Info
     Keyword Lineno Should Be          0    10
 
 Test related settings should not cause errors
-    Should Not Contain    ${OUTPUT}    ERROR
+    Should Not Contain    $OUTPUT    ERROR

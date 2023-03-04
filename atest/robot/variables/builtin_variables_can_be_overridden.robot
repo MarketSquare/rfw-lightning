@@ -4,14 +4,14 @@ Resource          atest_resource.robot
 
 *** Test Cases ***
 Overridden from CLI
-    Check Test Case    ${TESTNAME}
+    Check Test Case    $TESTNAME
 
 Overridden in variables section
-    Check Test Case    ${TESTNAME}
+    Check Test Case    $TESTNAME
 
 Overridden in resource file
-    Check Test Case    ${TESTNAME}
+    Check Test Case    $TESTNAME
 
 Overridden locally
-    Check Test Case    ${TESTNAME} 1
-    Check Test Case    ${TESTNAME} 2
+    Check Test Case    $TESTNAME 1
+    Check Test Case    $TESTNAME 2

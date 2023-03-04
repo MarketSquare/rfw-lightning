@@ -3,7 +3,7 @@ Library         LibraryWithKeywordTags.py
 Library         DynamicLibraryWithKeywordTags.py
 
 *** Variables ***
-${TAG}          Tag
+$TAG          Tag
 @{TAGS}         first    second    third
 
 *** Test Cases ***
@@ -47,21 +47,21 @@ User keyword tags with setting
     No Operation
 
 User keyword tags with setting containing variables
-    [Tags]    ${TAG}    @{TAGS}    ${3}
+    [Tags]    $TAG    @{TAGS}    $3
     No Operation
 
 User keyword tags with documentation
     [Documentation]    Tags: On non-last line are ignored
     ...    Tags: are ignored also here
-    ...    Tags: one, two words, ${3}
+    ...    Tags: one, two words, $3
     No Operation
 
 User keyword tags with documentation and setting
-    [Documentation]    Tags: one, two words, ${3}
-    [Tags]    two    ${2}
+    [Documentation]    Tags: one, two words, $3
+    [Tags]    two    $2
     No Operation
 
 User keyword tags with duplicates
-    [Documentation]    Tags: First, 2, Third, ${2}, xXx, xxx
-    [Tags]    first    ${2}    @{TAGS}    FIRST    @{EMPTY}    @{TAGS}    2    XXX
+    [Documentation]    Tags: First, 2, Third, $2, xXx, xxx
+    [Tags]    first    $2    @{TAGS}    FIRST    @{EMPTY}    @{TAGS}    2    XXX
     No Operation

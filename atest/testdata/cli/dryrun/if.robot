@@ -49,7 +49,7 @@ Dryrun fail invalid IF in non executed branch
     This is validated
 
 Dryrun fail invalid ELSE in non executed branch
-    [Documentation]    FAIL    ELSE does not accept arguments, got '\${False}'.
+    [Documentation]    FAIL    ELSE does not accept arguments, got '\$False'.
     IF  1 > 0
        No operation
     ELSE
@@ -66,9 +66,9 @@ Dryrun fail invalid ELSE IF in non executed branch
 
 Dryrun fail empty IF in non executed branch
     [Documentation]    FAIL    IF branch cannot be empty.
-    IF  ${True}
+    IF  $True
        Log  hello
-    ELSE IF  ${True}
+    ELSE IF  $True
        Keyword with empty if
     END
     This is validated
@@ -80,48 +80,48 @@ Keyword with invalid if
     END
 
 Keyword with invalid else
-    IF  ${True}
+    IF  $True
        Log  invalid
-    ELSE  ${False}
+    ELSE  $False
        Log  invalid
     END
 
 Keyword with invalid else if
-    IF  ${True}
+    IF  $True
        Log  invalid
     ELSE IF
        Log  invalid
     END
 
 Keyword with empty if
-   IF  ${False}
+   IF  $False
    END
 
 Recursive if
-    [Arguments]  ${arg}
-    IF  '${arg}' == 'call again'
+    [Arguments]  $arg
+    IF  '$arg' == 'call again'
       Recursive if  call no more
-    ELSE IF  '${arg}' == 'call sometimes'
+    ELSE IF  '$arg' == 'call sometimes'
       Log  no more calls
     ELSE
       Log  no more calls
     END
 
 Recursive else if
-    [Arguments]  ${arg}
-    IF  '${arg}' == 'call no more'
+    [Arguments]  $arg
+    IF  '$arg' == 'call no more'
       Log  no more calls
-    ELSE IF  '${arg}' == 'call again'
+    ELSE IF  '$arg' == 'call again'
       Recursive else if  call no more
     ELSE
       Log  no more calls
     END
 
 Recursive else
-    [Arguments]  ${arg}
-    IF  '${arg}' == 'call no more'
+    [Arguments]  $arg
+    IF  '$arg' == 'call no more'
       Log  no more calls
-    ELSE IF  '${arg}' == 'call sometimes'
+    ELSE IF  '$arg' == 'call sometimes'
       Log  no more calls
     ELSE
       Recursive else  call no more

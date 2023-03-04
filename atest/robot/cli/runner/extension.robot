@@ -3,7 +3,7 @@ Test Template      Expected number of tests should be run
 Resource           atest_resource.robot
 
 *** Variables ***
-${DATA_FORMATS}    ${DATADIR}/parsing/data_formats
+$DATA_FORMATS    $DATADIR/parsing/data_formats
 
 *** Test Cases ***
 One extension
@@ -19,6 +19,6 @@ Any extension is accepted
 
 *** Keywords ***
 Expected number of tests should be run
-    [Arguments]    ${options}    ${expected}=0
-    Run Tests    ${options}    ${DATA_FORMATS}
-    Should Be Equal As Integers    ${SUITE.test_count}    ${expected}
+    [Arguments]    $options    $expected=0
+    Run Tests    $options    $DATA_FORMATS
+    Should Be Equal As Integers    ${SUITE.test_count}    $expected

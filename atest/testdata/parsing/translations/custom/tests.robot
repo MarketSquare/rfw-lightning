@@ -14,7 +14,7 @@ R                  resource.resource
 V                  ../../variables.py
 
 *** h v ***
-${VARIABLE}        variable value
+$VARIABLE        variable value
 
 *** H TE ***
 Test without settings
@@ -27,33 +27,33 @@ Test with settings
     [tea]          NONE
     [tEm]          NONE
     [ti]           NONE
-    Keyword        ${VARIABLE}
+    Keyword        $VARIABLE
 
 *** h K ***
 Suite Setup
-    Directory Should Exist    ${CURDIR}
+    Directory Should Exist    $CURDIR
 
 Suite Teardown
     Keyword In Resource
 
 Test Setup
-    Should Be Equal    ${VARIABLE}         variable value
-    Should Be Equal    ${RESOURCE_FILE}    variable in resource file
-    Should Be Equal    ${VARIABLE_FILE}    variable in variable file
+    Should Be Equal    $VARIABLE         variable value
+    Should Be Equal    $RESOURCE_FILE    variable in resource file
+    Should Be Equal    $VARIABLE_FILE    variable in variable file
 
 Test Teardown
     No Operation
 
 Test Template
-    [A]    ${message}
-    Log    ${message}
+    [A]    $message
+    Log    $message
 
 Keyword
     [d]      Keyword documentation.
-    [a]      ${arg}
+    [a]      $arg
     [ta]     own tag
     [tI]     1h
-    Should Be Equal    ${arg}    ${VARIABLE}
+    Should Be Equal    $arg    $VARIABLE
     [TEA]    No Operation
 
 *** H C ***

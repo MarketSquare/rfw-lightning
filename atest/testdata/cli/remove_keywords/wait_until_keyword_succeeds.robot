@@ -1,5 +1,5 @@
 *** Variables ***
-${COUNTER}        ${0}
+$COUNTER        $0
 
 *** Test Cases ***
 Fail until the end
@@ -23,14 +23,14 @@ Nested
 *** Keywords ***
 Fail Two Times
     Set Test Variable    $COUNTER    ${COUNTER+1}
-    Run Keyword If    ${COUNTER} != ${3}    FAIL    not enough tries
+    Run Keyword If    $COUNTER != $3    FAIL    not enough tries
 
 Warn And Fail Two Times
     Log    DANGER MR. ROBINSON!!    WARN
     Fail Two Times
 
 Warn On First And Fail Two Times
-    Run Keyword If    ${COUNTER} == ${0}    log    danger zone    WARN
+    Run Keyword If    $COUNTER == $0    log    danger zone    WARN
     Set Test Variable    $COUNTER    ${COUNTER+1}
     Fail    Until the end
 

@@ -26,5 +26,5 @@ Task Teardown
     No Operation
 
 Task Template
-    [A]    ${msg}
-    Log    ${msg}
+    [A]    $msg
+    Log    $msg

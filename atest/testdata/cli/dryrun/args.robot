@@ -19,7 +19,7 @@ Too few arguments for UK
 
 Too many arguments
     [Documentation]  FAIL  Keyword 'BuiltIn.No Operation' expected 0 arguments, got 2.
-    No Operation    ${foo}    bar
+    No Operation    $foo    bar
 
 Valid named args
     Normal args    1      b=2

@@ -4,19 +4,19 @@ Resource          atest_resource.robot
 
 *** Test Cases ***
 Statistics Should Be Written to XML
-    ${output} =    Get File    ${OUTFILE}
-    ${exp} =    Catenate    SEPARATOR=\\r?\\n
+    $output =    Get File    $OUTFILE
+    $exp =    Catenate    SEPARATOR=\\r?\\n
     ...    (?s)    <statistics>    <total>    .*    </total>
     ...    <tag>    .*    </tag>    <suite>    .*    </suite>    </statistics>
-    Should Match Regexp    ${output}    ${exp}
+    Should Match Regexp    $output    $exp
 
 Total statistics should be Correct
-    ${stats} =    Get Element    ${OUTFILE}    statistics/total
-    ${total} =    Call Method    ${stats}    find    stat
-    Node Should Be Correct    ${total}    All Tests    12    1
+    $stats =    Get Element    $OUTFILE    statistics/total
+    $total =    Call Method    $stats    find    stat
+    Node Should Be Correct    $total    All Tests    12    1
 
 Tag statistics should be Correct
-    ${stats} =    Get Element    ${OUTFILE}    statistics/tag
+    $stats =    Get Element    $OUTFILE    statistics/tag
     Tag Node Should Be Correct    ${stats[1]}    D1 OR sub3 OR t2 OR or and not
     ...    4    0    info=combined    combined=D1 OR sub3 OR t2 OR or and not
     Tag Node Should Be Correct    ${stats[2]}    f1 AND t1
@@ -39,12 +39,12 @@ Tag statistics should be Correct
     ...    12    1
 
 Combined Tag Statistics Name Can Be Given
-    ${stats} =    Get Element    ${OUTFILE}    statistics/tag
+    $stats =    Get Element    $OUTFILE    statistics/tag
     Tag Node Should Be Correct    ${stats[0]}    Combined tag with new name AND-OR-NOT
     ...    1    0    info=combined    combined=d1 AND d2
 
 Suite statistics should be Correct
-    ${stats} =    Get Element    ${OUTFILE}    statistics/suite
+    $stats =    Get Element    $OUTFILE    statistics/suite
     Suite Node Should Be Correct    ${stats[0]}    Suites    12    1
     Suite Node Should Be Correct    ${stats[1]}    Suites.Suite With Prefix    1    0
     Suite Node Should Be Correct    ${stats[2]}    Suites.Fourth    0    1
@@ -57,7 +57,7 @@ Suite statistics should be Correct
 
 *** Keywords ***
 My Setup
-    ${options} =    Catenate
+    $options =    Catenate
     ...    --tagdoc "f1:this is tagdoc"
     ...    --tagstatlink "t*:http://url.to:my title"
     ...    --tagstatlink ?1:url:title
@@ -69,26 +69,26 @@ My Setup
     ...    --tagstatexclude t2
     ...    --TagStatComb F1NOT_T1
     ...    --SetTag XXX
-    Run Tests    ${options}    misc/suites
+    Run Tests    $options    misc/suites
 
 Node Should Be Correct
-    [Arguments]    ${node}    ${name}    ${pass}    ${fail}
-    Should be equal    ${node.text}    ${name}
-    Should be equal    ${node.attrib['pass']}    ${pass}
-    Should be equal    ${node.attrib['fail']}    ${fail}
+    [Arguments]    $node    $name    $pass    $fail
+    Should be equal    ${node.text}    $name
+    Should be equal    ${node.attrib['pass']}    $pass
+    Should be equal    ${node.attrib['fail']}    $fail
 
 Tag Node Should Be Correct
-    [Arguments]    ${node}    ${name}    ${pass}    ${fail}    ${info}=    ${doc}=    ${links}=    ${combined}=
-    Node Should Be Correct    ${node}    ${name}    ${pass}    ${fail}
-    ${value}=Evaluate  $node.attrib.get('info','')
-    Should be equal    ${value}    ${info}
-    ${value}=Evaluate  $node.attrib.get('doc','')
-    Should be equal    ${value}     ${doc}
-    ${value}=Evaluate  $node.attrib.get('links','')
-    Should be equal    ${value}    ${links}
-    ${value}=Evaluate  $node.attrib.get('combined','')
-    Should be equal    ${value}    ${combined}
+    [Arguments]    $node    $name    $pass    $fail    $info=    $doc=    $links=    $combined=
+    Node Should Be Correct    $node    $name    $pass    $fail
+    $value=Evaluate  $node.attrib.get('info','')
+    Should be equal    $value    $info
+    $value=Evaluate  $node.attrib.get('doc','')
+    Should be equal    $value     $doc
+    $value=Evaluate  $node.attrib.get('links','')
+    Should be equal    $value    $links
+    $value=Evaluate  $node.attrib.get('combined','')
+    Should be equal    $value    $combined
 
 Suite Node Should Be Correct
-    [Arguments]    ${node}    ${name}    ${pass}    ${fail}
-    Node Should Be Correct    ${node}    ${name}    ${pass}    ${fail}
+    [Arguments]    $node    $name    $pass    $fail
+    Node Should Be Correct    $node    $name    $pass    $fail

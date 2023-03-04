@@ -1,20 +1,20 @@
 *** Settings ***
-Suite Setup       Run Tests    ${EMPTY}    standard_libraries/builtin/log.robot
+Suite Setup       Run Tests    $EMPTY    standard_libraries/builtin/log.robot
 Resource          atest_resource.robot
 
 *** Variables ***
-${HTML}           <a href="http://robotframework.org">Robot Framework</a>
+$HTML           <a href="http://robotframework.org">Robot Framework</a>
 
 *** Test Cases ***
 Log
-    ${tc} =    Check Test Case    ${TEST_NAME}
+    $tc =    Check Test Case    $TEST_NAME
     Check Log Message    ${tc.kws[0].msgs[0]}    Hello, world!
     Check Log Message    ${tc.kws[1].msgs[0]}    42
     Check Log Message    ${tc.kws[2].msgs[0]}    None
     Check Log Message    ${tc.kws[3].msgs[0]}    String presentation of MyObject
 
 Log with different levels
-    ${tc} =    Check Test Case    ${TEST_NAME}
+    $tc =    Check Test Case    $TEST_NAME
     Check Log Message    ${tc.kws[0].msgs[1]}    Log says: Hello from tests!    INFO
     Check Log Message    ${tc.kws[1].msgs[1]}    Trace level    TRACE
     Check Log Message    ${tc.kws[2].msgs[1]}    Debug level    DEBUG
@@ -23,46 +23,46 @@ Log with different levels
     Check Log Message    ${tc.kws[5].msgs[1]}    Error level    ERROR
     Check Log Message    ${ERRORS[0]}            Warn level     WARN
     Check Log Message    ${ERRORS[1]}            Error level    ERROR
-    Length Should Be     ${ERRORS}               4    # Two deprecation warnings from `repr`.
+    Length Should Be     $ERRORS               4    # Two deprecation warnings from `repr`.
 
 Invalid log level failure is catchable
-    Check Test Case    ${TEST_NAME}
+    Check Test Case    $TEST_NAME
 
 HTML is escaped by default
-    ${tc} =    Check Test Case    ${TEST_NAME}
+    $tc =    Check Test Case    $TEST_NAME
     Check Log Message    ${tc.kws[0].msgs[0]}    <b>not bold</b>
-    Check Log Message    ${tc.kws[1].msgs[0]}    ${HTML}
+    Check Log Message    ${tc.kws[1].msgs[0]}    $HTML
 
 HTML pseudo level
-    ${tc} =    Check Test Case    ${TEST_NAME}
+    $tc =    Check Test Case    $TEST_NAME
     Check Log Message    ${tc.kws[0].msgs[0]}    <b>bold</b>    html=True
-    Check Log Message    ${tc.kws[1].msgs[0]}    ${HTML}    html=True
+    Check Log Message    ${tc.kws[1].msgs[0]}    $HTML    html=True
 
 Explicit HTML
-    ${tc} =    Check Test Case    ${TEST_NAME}
+    $tc =    Check Test Case    $TEST_NAME
     Check Log Message    ${tc.kws[0].msgs[0]}    <b>bold</b>    html=True
-    Check Log Message    ${tc.kws[1].msgs[0]}    ${HTML}    DEBUG    html=True
-    Check Log Message    ${tc.kws[2].msgs[0]}    ${HTML}    DEBUG
+    Check Log Message    ${tc.kws[1].msgs[0]}    $HTML    DEBUG    html=True
+    Check Log Message    ${tc.kws[2].msgs[0]}    $HTML    DEBUG
 
 FAIL is not valid log level
-    Check Test Case    ${TEST_NAME}
+    Check Test Case    $TEST_NAME
 
 Log also to console
-    ${tc} =    Check Test Case    ${TEST_NAME}
+    $tc =    Check Test Case    $TEST_NAME
     Check Log Message    ${tc.kws[0].msgs[0]}    Hello, console!
-    Check Log Message    ${tc.kws[1].msgs[0]}    ${HTML}    DEBUG    html=True
+    Check Log Message    ${tc.kws[1].msgs[0]}    $HTML    DEBUG    html=True
     Stdout Should Contain    Hello, console!\n
-    Stdout Should Contain    ${HTML}\n
+    Stdout Should Contain    $HTML\n
 
 repr=True
-    ${tc} =    Check Test Case    ${TEST_NAME}
+    $tc =    Check Test Case    $TEST_NAME
     Check Log Message    ${tc.kws[0].msgs[0]}    The 'repr' argument of 'BuiltIn.Log' is deprecated. Use 'formatter=repr' instead.    WARN
     Check Log Message    ${tc.kws[0].msgs[1]}    Nothing special here
     Check Log Message    ${tc.kws[1].msgs[0]}    The 'repr' argument of 'BuiltIn.Log' is deprecated. Use 'formatter=repr' instead.    WARN
     Check Log Message    ${tc.kws[1].msgs[1]}    'Hyvää yötä ☃!'
 
 formatter=repr
-    ${tc} =    Check Test Case    ${TEST_NAME}
+    $tc =    Check Test Case    $TEST_NAME
     Check Log Message    ${tc.kws[0].msgs[0]}    'Nothing special here'
     Check Log Message    ${tc.kws[1].msgs[0]}    'Hyvää yötä ☃!'
     Check Log Message    ${tc.kws[2].msgs[0]}    42    DEBUG
@@ -71,7 +71,7 @@ formatter=repr
     Stdout Should Contain    b'\\x00abc\\xff (formatter=repr)'
 
 formatter=ascii
-    ${tc} =    Check Test Case    ${TEST_NAME}
+    $tc =    Check Test Case    $TEST_NAME
     Check Log Message    ${tc.kws[0].msgs[0]}    'Nothing special here'
     Check Log Message    ${tc.kws[1].msgs[0]}    'Hyv\\xe4\\xe4 y\\xf6t\\xe4 \\u2603!'
     Check Log Message    ${tc.kws[2].msgs[0]}    42    DEBUG
@@ -80,7 +80,7 @@ formatter=ascii
     Stdout Should Contain    b'\\x00abc\\xff (formatter=ascii)'
 
 formatter=str
-    ${tc} =    Check Test Case    ${TEST_NAME}
+    $tc =    Check Test Case    $TEST_NAME
     Check Log Message    ${tc.kws[0].msgs[0]}    Nothing special here
     Check Log Message    ${tc.kws[1].msgs[0]}    Hyvää yötä ☃!
     Check Log Message    ${tc.kws[2].msgs[0]}    42    DEBUG
@@ -89,28 +89,28 @@ formatter=str
     Stdout Should Contain    abc\\xff (formatter=str)
 
 formatter=repr pretty prints
-    ${tc} =    Check Test Case    ${TEST_NAME}
-    ${long_string} =    Evaluate    ' '.join(['Robot Framework'] * 1000)
-    ${small_dict} =    Set Variable    {3: b'items', 'a': 'sorted', 'small': 'dict'}
-    ${small_list} =    Set Variable    ['small', b'list', 'not sorted', 4]
-    Check Log Message    ${tc.kws[1].msgs[0]}    '${long_string}'
-    Check Log Message    ${tc.kws[3].msgs[0]}    ${small_dict}
-    Check Log Message    ${tc.kws[5].msgs[0]}    {'big': 'dict',\n\ 'list': [1, 2, 3],\n\ 'long': '${long_string}',\n\ 'nested': ${small_dict}}
-    Check Log Message    ${tc.kws[7].msgs[0]}    ${small_list}
-    Check Log Message    ${tc.kws[9].msgs[0]}    ['big',\n\ 'list',\n\ '${long_string}',\n\ b'${long_string}',\n\ ['nested', ('tuple', 2)],\n\ ${small_dict}]
+    $tc =    Check Test Case    $TEST_NAME
+    $long_string =    Evaluate    ' '.join(['Robot Framework'] * 1000)
+    $small_dict =    Set Variable    {3: b'items', 'a': 'sorted', 'small': 'dict'}
+    $small_list =    Set Variable    ['small', b'list', 'not sorted', 4]
+    Check Log Message    ${tc.kws[1].msgs[0]}    '$long_string'
+    Check Log Message    ${tc.kws[3].msgs[0]}    $small_dict
+    Check Log Message    ${tc.kws[5].msgs[0]}    {'big': 'dict',\n\ 'list': [1, 2, 3],\n\ 'long': '$long_string',\n\ 'nested': $small_dict}
+    Check Log Message    ${tc.kws[7].msgs[0]}    $small_list
+    Check Log Message    ${tc.kws[9].msgs[0]}    ['big',\n\ 'list',\n\ '$long_string',\n\ b'$long_string',\n\ ['nested', ('tuple', 2)],\n\ $small_dict]
     Check Log Message    ${tc.kws[11].msgs[0]}    ['hyvä', b'hyv\\xe4', {'☃': b'\\x00\\xff'}]
-    Stdout Should Contain    ${small_dict}
-    Stdout Should Contain    ${small_list}
+    Stdout Should Contain    $small_dict
+    Stdout Should Contain    $small_list
 
 formatter=len
-    ${tc} =    Check Test Case    ${TEST_NAME}
+    $tc =    Check Test Case    $TEST_NAME
     Check Log Message    ${tc.kws[0].msgs[0]}    20
     Check Log Message    ${tc.kws[1].msgs[0]}    13    DEBUG
     Check Log Message    ${tc.kws[3].msgs[0]}    21
     Check Log Message    ${tc.kws[5].msgs[0]}    5
 
 formatter=type
-    ${tc} =    Check Test Case    ${TEST_NAME}
+    $tc =    Check Test Case    $TEST_NAME
     Check Log Message    ${tc.kws[0].msgs[0]}    str
     Check Log Message    ${tc.kws[1].msgs[0]}    str
     Check Log Message    ${tc.kws[2].msgs[0]}    int    DEBUG
@@ -118,15 +118,15 @@ formatter=type
     Check Log Message    ${tc.kws[6].msgs[0]}    datetime
 
 formatter=invalid
-    Check Test Case    ${TEST_NAME}
+    Check Test Case    $TEST_NAME
 
 Log callable
-    ${tc} =    Check Test Case    ${TEST_NAME}
+    $tc =    Check Test Case    $TEST_NAME
     Check Log Message    ${tc.kws[0].msgs[0]}    *objects_for_call_method.MyObject*    pattern=yes
     Check Log Message    ${tc.kws[2].msgs[0]}    <function <lambda*> at *>    pattern=yes
 
 Log Many
-    ${tc} =    Check Test Case    ${TEST_NAME}
+    $tc =    Check Test Case    $TEST_NAME
     Check Log Message    ${tc.kws[0].msgs[0]}    Log Many says:
     Check Log Message    ${tc.kws[0].msgs[1]}    1
     Check Log Message    ${tc.kws[0].msgs[2]}    2
@@ -146,7 +146,7 @@ Log Many
     Check Log Message    ${tc.kws[6].msgs[1]}    2
 
 Log Many with named and dict arguments
-    ${tc} =    Check Test Case    ${TEST_NAME}
+    $tc =    Check Test Case    $TEST_NAME
     Check Log Message    ${tc.kws[0].msgs[0]}    a=1
     Check Log Message    ${tc.kws[0].msgs[1]}    b=2
     Check Log Message    ${tc.kws[0].msgs[2]}    3=c
@@ -163,7 +163,7 @@ Log Many with named and dict arguments
     Check Log Message    ${tc.kws[2].msgs[5]}    3=three
 
 Log Many with positional, named and dict arguments
-    ${tc} =    Check Test Case    ${TEST_NAME}
+    $tc =    Check Test Case    $TEST_NAME
     Check Log Message    ${tc.kws[0].msgs[0]}    1
     Check Log Message    ${tc.kws[0].msgs[1]}    2
     Check Log Message    ${tc.kws[0].msgs[2]}    three=3
@@ -186,18 +186,18 @@ Log Many with positional, named and dict arguments
     Check Log Message    ${tc.kws[1].msgs[15]}    obj=String presentation of MyObject
 
 Log Many with non-existing variable
-    Check Test Case    ${TEST_NAME}
+    Check Test Case    $TEST_NAME
 
 Log Many with list variable containing non-list
-    Check Test Case    ${TEST_NAME}
+    Check Test Case    $TEST_NAME
 
 Log Many with dict variable containing non-dict
-    Check Test Case    ${TEST_NAME}
+    Check Test Case    $TEST_NAME
 
 Log To Console
-    ${tc} =    Check Test Case    ${TEST_NAME}
-    FOR    ${i}    IN RANGE    4
-        Should Be Empty    ${tc.kws[${i}].msgs}
+    $tc =    Check Test Case    $TEST_NAME
+    FOR    $i    IN RANGE    4
+        Should Be Empty    ${tc.kws[$i].msgs}
     END
     Stdout Should Contain    stdout äö w/ newline\n
     Stdout Should Contain    stdout äö w/o new......line äö

@@ -27,13 +27,13 @@ Trailing spaces
 Tabs
 	[Documentation]		FAIL		2 != 1
 	Log				I ignore tabs		DEBUG
-	FOR	${i}	IN	1	2
-		Should Be Equal		${i}		1
+	FOR	$i	IN	1	2
+		Should Be Equal		$i		1
 	END
 
 Tabs and spaces
   	[Documentation]		  FAIL	  	2 != 1
 	    Log	   		  	I ignore tabs (and spaces)	  	DEBUG
-	FOR	${i}	IN	1	2
-  		   Should Be Equal		${i}	  	1
+	FOR	$i	IN	1	2
+  		   Should Be Equal		$i	  	1
 	   END

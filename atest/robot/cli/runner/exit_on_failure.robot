@@ -5,26 +5,26 @@ Suite Setup       Run Tests
 Resource          atest_resource.robot
 
 *** Variables ***
-${EXIT_ON_FAILURE}          Failure occurred and exit-on-failure mode is in use.
+$EXIT_ON_FAILURE          Failure occurred and exit-on-failure mode is in use.
 
 *** Test Cases ***
 Passing test does not initiate exit-on-failure
-    Check Test Case    ${TEST_NAME}
+    Check Test Case    $TEST_NAME
 
 Skipped test does not initiate exit-on-failure
-    Check Test Case    ${TEST_NAME}
+    Check Test Case    $TEST_NAME
 
 Test skipped in teardown does not initiate exit-on-failure
-    Check Test Case    ${TEST_NAME}
+    Check Test Case    $TEST_NAME
 
 Skip-on-failure test does not initiate exit-on-failure
-    Check Test Case    ${TEST_NAME}
+    Check Test Case    $TEST_NAME
 
 Test skipped-on-failure in teardown does not initiate exit-on-failure
-    Check Test Case    ${TEST_NAME}
+    Check Test Case    $TEST_NAME
 
 Failing test initiates exit-on-failure
-    Check Test Case    ${TEST_NAME}
+    Check Test Case    $TEST_NAME
     Test Should Not Have Been Run    Not executed
 
 Tests in subsequent suites are skipped
@@ -37,19 +37,19 @@ Imports in subsequent suites are skipped
 
 Correct Suite Teardown Is Executed When ExitOnFailure Is Used
     [Setup]    Run Tests    -X    misc/suites
-    ${tsuite} =    Get Test Suite    Suites
+    $tsuite =    Get Test Suite    Suites
     Should Be Equal    ${tsuite.teardown.name}    BuiltIn.Log
-    ${tsuite} =    Get Test Suite    Fourth
+    $tsuite =    Get Test Suite    Fourth
     Should Be Equal    ${tsuite.teardown.name}    BuiltIn.Log
-    ${tsuite} =    Get Test Suite    Tsuite3
-    Teardown Should Not Be Defined    ${tsuite}
+    $tsuite =    Get Test Suite    Tsuite3
+    Teardown Should Not Be Defined    $tsuite
 
 Exit On Failure With Skip Teardown On Exit
     [Setup]    Run Tests    --ExitOnFailure --SkipTeardownOnExit    misc/suites
-    ${tcase} =    Check Test Case    Suite4 First
-    Teardown Should Not Be Defined    ${tcase}
-    ${tsuite} =    Get Test Suite    Fourth
-    Teardown Should Not Be Defined    ${tsuite}
+    $tcase =    Check Test Case    Suite4 First
+    Teardown Should Not Be Defined    $tcase
+    $tsuite =    Get Test Suite    Fourth
+    Teardown Should Not Be Defined    $tsuite
     Test Should Not Have Been Run    SubSuite1 First
     Test Should Not Have Been Run    Suite3 First
 
@@ -90,13 +90,13 @@ Suite teardown fails
 
 Failure set by listener can initiate exit-on-failure
     [Setup]    Run Tests
-    ...    --ExitOnFailure --Listener ${DATADIR}/cli/runner/failtests.py
+    ...    --ExitOnFailure --Listener $DATADIR/cli/runner/failtests.py
     ...    misc/pass_and_fail.robot
     Check Test Case    Pass    status=FAIL
     Test Should Not Have Been Run    Fail
 
 *** Keywords ***
 Test Should Not Have Been Run
-    [Arguments]    ${name}
-    ${tc} =    Check Test Case    ${name}    FAIL    ${EXIT_ON_FAILURE}
+    [Arguments]    $name
+    $tc =    Check Test Case    $name    FAIL    $EXIT_ON_FAILURE
     Should Contain    ${tc.tags}    robot:exit

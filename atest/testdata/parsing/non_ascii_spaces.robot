@@ -5,16 +5,16 @@ Library  　  　  　OperatingSystem  　  　WITH NAME  �
 
 *** Variables ***
 ${NO-BREAK_SPACE} =         : :
-${OGHAM_SPACE_MARK} =       : :  　  　# Trailing  　  　  　
-${IDEOGRAPHIC_SPACE}　=    :　:  　  　  　  　  　  　
+$OGHAM_SPACE_MARK =       : :  　  　# Trailing  　  　  　
+$IDEOGRAPHIC_SPACE　=    :　:  　  　  　  　  　  　
 
 *** Test Cases ***
 In test and keywords
     [Documentation]    Used in keyword name, arguments and assign.
     [ Tags ]    NBSP and Ogham
-    ${x} =    No-break space        : :
-    ${x} =    Ogham space mark       : :  　  　# Trailing  　  　  　
-    ${x}　=    Ideographic　space    :　:  　  　  　  　  　  　
+    $x =    No-break space        : :
+    $x =    Ogham space mark       : :  　  　# Trailing  　  　  　
+    $x　=    Ideographic　space    :　:  　  　  　  　  　  　
 
 As separator
     No-break space    : :
@@ -28,28 +28,28 @@ With pipes
 
 *** Keywords ***
 No-break space
-    [ Arguments ]    ${arg}
-    Log    ${arg}    formatter=repr
-    Log    ${arg}
-    Should be equal    ${arg}    : :
-    Should be equal    ${arg}    ${NO-BREAK_SPACE}
-    Should be equal    ${arg}    ${NO-BREAK_SPACE}
+    [ Arguments ]    $arg
+    Log    $arg    formatter=repr
+    Log    $arg
+    Should be equal    $arg    : :
+    Should be equal    $arg    ${NO-BREAK_SPACE}
+    Should be equal    $arg    ${NO-BREAK_SPACE}
 
 Ogham space mark
-    [ Arguments ]    ${arg}
-    Log    ${arg}    formatter=repr
-    Log    ${arg}
-    Should be equal    ${arg}    : :
-    Should be equal    ${arg}    ${OGHAM_SPACE_MARK}
-    Should be equal    ${arg}    ${OGHAM_SPACE_MARK}
+    [ Arguments ]    $arg
+    Log    $arg    formatter=repr
+    Log    $arg
+    Should be equal    $arg    : :
+    Should be equal    $arg    $OGHAM_SPACE_MARK
+    Should be equal    $arg    $OGHAM_SPACE_MARK
 
 Ideographic　space
-    [　Arguments　]    ${arg}
-    Log    ${arg}    formatter=repr
-    Log    ${arg}
-    Should　be　equal    ${arg}    :　:
-    Should　be　equal    ${arg}    ${IDEOGRAPHIC_SPACE}
-    Should　be　equal    ${arg}    ${IDEOGRAPHIC_SPACE}
+    [　Arguments　]    $arg
+    Log    $arg    formatter=repr
+    Log    $arg
+    Should　be　equal    $arg    :　:
+    Should　be　equal    $arg    $IDEOGRAPHIC_SPACE
+    Should　be　equal    $arg    $IDEOGRAPHIC_SPACE
 
 *** Test Cases　***
 In header
@@ -59,16 +59,16 @@ In test case　name
     No operation
 
 In WITH NAME
-    OS.Directory Should Exist    ${CURDIR}
+    OS.Directory Should Exist    $CURDIR
 
 In FOR separator
-    FOR    ${index}    IN RANGE    1
-        Should Be Equal    ${index}    ${0}
+    FOR    $index    IN RANGE    1
+        Should Be Equal    $index    $0
     END
-    FOR    ${index}    ${item}    IN ENUMERATE    value
-        Should Be Equal    ${index}: ${item}    0: value
+    FOR    $index    $item    IN ENUMERATE    value
+        Should Be Equal    $index: $item    0: value
     END
-    FOR    ${tag}    IN　ZIP    ${TEST_TAGS}
+    FOR    $tag    IN　ZIP    $TEST_TAGS
         Fail    Should not be executed
     END
 
@@ -84,7 +84,7 @@ In ELSE IF
     END
 
 In inline ELSE IF
-    ${x} =    IF    False    Not run    ELSE IF    True    Set Variable    NBSP
-    ${y} =    IF    False    Not run    ELSE IF    True    Set Variable    OGHAM
-    ${z} =    IF    False    Not run    ELSE　IF    True    Set Variable    IDEOGRAPHIC
-    Should Be Equal    ${x}:${y}:${z}    NBSP:OGHAM:IDEOGRAPHIC
+    $x =    IF    False    Not run    ELSE IF    True    Set Variable    NBSP
+    $y =    IF    False    Not run    ELSE IF    True    Set Variable    OGHAM
+    $z =    IF    False    Not run    ELSE　IF    True    Set Variable    IDEOGRAPHIC
+    Should Be Equal    $x:$y:$z    NBSP:OGHAM:IDEOGRAPHIC

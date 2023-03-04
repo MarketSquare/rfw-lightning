@@ -176,9 +176,9 @@ Invalid Set
 Any
     Any                       hello                       'hello'
     Any                       42                          '42'
-    Any                       ${42}                       42
+    Any                       $42                       42
     Any                       None                        'None'
-    Any                       ${None}                     None
+    Any                       $None                     None
 
 None as default
     None as default
@@ -191,7 +191,7 @@ None as default with Any
     ...                behavior is preserved for backwards compatiblity.
     None as default with Any
     None as default with Any    hi!                       'hi!'
-    None as default with Any    ${42}                     42
+    None as default with Any    $42                     42
     None as default with Any    None                      'None'
 
 Forward references

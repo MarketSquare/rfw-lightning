@@ -2,25 +2,25 @@
 Library           OperatingSystem
 Library           EmbeddedArgs.py
 Variables         vars.py
-Resource          ${RESOURCE_PATH_FROM_VARS}
+Resource          $RESOURCE_PATH_FROM_VARS
 
 Library           DoesNotExist
 Variables         wrong_path.py
 Resource          NonExisting.robot
 
 # Non-existing variables in suite setups should be fine
-Suite Setup       ${SUITE_SETUP}
+Suite Setup       $SUITE_SETUP
 # Library keywords get NOT_RUN status. That should be OK teardown status.
 Suite Teardown    No Operation
 
 *** Variables ***
-${SETUP}          No Operation
-${TEARDOWN}       Teardown
+$SETUP          No Operation
+$TEARDOWN       Teardown
 
 *** Test Cases ***
 Passing keywords
     Log    Hello from test
-    ${contents}=    List Directory    .
+    $contents=    List Directory    .
     Simple UK
     This is validated
 
@@ -28,7 +28,7 @@ Keywords with embedded arguments
     Embedded arguments here
     Embedded args rock here
     Some embedded and normal args    42
-    Some embedded and normal args    ${does_not_exist}
+    Some embedded and normal args    $does_not_exist
     This is validated
 
 Library keyword with embedded arguments
@@ -42,8 +42,8 @@ Keywords that would fail
 
 Scalar variables are not checked in keyword arguments
     [Documentation]    Variables are too often set somehow dynamically that we cannot expect them to always exist.
-    Log    ${TESTNAME}
-    Log    ${this_does_not_exist}
+    Log    $TESTNAME
+    Log    $this_does_not_exist
     This is validated
 
 List variables are not checked in keyword arguments
@@ -65,22 +65,22 @@ Dict variables are not checked in keyword arguments
 
 Variables are not checked in when arguments are embedded
     [Documentation]    See the doc of the previous test
-    Embedded ${TESTNAME} here
-    Embedded ${nonex} here
+    Embedded $TESTNAME here
+    Embedded $nonex here
     This is validated
 
 Setup/teardown with non-existing variable is ignored
-    [Setup]    ${nonex_setup}
+    [Setup]    $nonex_setup
     This is validated
-    [Teardown]   ${nonex_teardown}    ${nonex_arg}
+    [Teardown]   $nonex_teardown    $nonex_arg
 
 Setup/teardown with existing variable is resolved and executed
-    [Setup]    ${SETUP}
+    [Setup]    $SETUP
     This is validated
-    [Teardown]    ${TEARDOWN}    ${nonex_arg}
+    [Teardown]    $TEARDOWN    $nonex_arg
 
 User keyword return value
-    ${quux}=    Some Return Value    ${foo}    ${bar}
+    $quux=    Some Return Value    $foo    $bar
     This is validated
 
 Non-existing variable in user keyword return value
@@ -139,11 +139,11 @@ Avoid keyword in dry-run
     This is validated
 
 *** Keywords ***
-Embedded ${args} here
+Embedded $args here
     No Operation
 
-Some ${type} and normal args
-    [Arguments]    ${meaning_of_life}
+Some $type and normal args
+    [Arguments]    $meaning_of_life
     No Operation
 
 Keyword with Teardown
@@ -152,22 +152,22 @@ Keyword with Teardown
 
 Keyword with teardown with non-existing variable
     No Operation
-    [Teardown]    ${I_DO_NOT_EXIST}
+    [Teardown]    $I_DO_NOT_EXIST
 
 Keyword with teardown with existing variable
     No Operation
-    [Teardown]    ${TEARDOWN}    ${I_DO_NOT_EXIST}
+    [Teardown]    $TEARDOWN    $I_DO_NOT_EXIST
 
 Invalid Syntax UK
     [Arguments]    ${arg
     No Operation
 
 Some Return Value
-    [Arguments]    ${a1}    ${a2}
-    [Return]    ${a1}-${a2}
+    [Arguments]    $a1    $a2
+    [Return]    $a1-$a2
 
 Ooops return value
-    [Return]    ${ooops}
+    [Return]    $ooops
 
 UK with multiple failures
     Invalid Syntax UK
@@ -175,8 +175,8 @@ UK with multiple failures
     Yet another non-existing keyword
 
 Teardown
-    [Arguments]    ${arg}
-    Log    ${arg}
+    [Arguments]    $arg
+    Log    $arg
 
 Keyword not run in dry-run
     [Tags]    robot:no-dry-run
@@ -187,7 +187,7 @@ Keyword not run in dry-run
 Another keyword not run in dry-run
     [Tags]    ROBOT: no-dry-run
     non-existing
-    ${invalid}
+    $invalid
 
 Keyword with keywords not run in dry-run
     Keyword not run in dry-run

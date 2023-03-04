@@ -14,7 +14,7 @@ Resurssi            resource.resource
 Muuttujat           ../../variables.py
 
 *** Muuttujat ***
-${VARIABLE}         variable value
+$VARIABLE         variable value
 
 *** Testit ***
 Test without settings
@@ -27,33 +27,33 @@ Test with settings
     [Alasajo]          NONE
     [Malli]            NONE
     [Aikaraja]         NONE
-    Keyword            ${VARIABLE}
+    Keyword            $VARIABLE
 
 *** Avainsanat ***
 Suite Setup
-    Directory Should Exist    ${CURDIR}
+    Directory Should Exist    $CURDIR
 
 Suite Teardown
     Keyword In Resource
 
 Test Setup
-    Should Be Equal    ${VARIABLE}         variable value
-    Should Be Equal    ${RESOURCE_FILE}    variable in resource file
-    Should Be Equal    ${VARIABLE_FILE}    variable in variable file
+    Should Be Equal    $VARIABLE         variable value
+    Should Be Equal    $RESOURCE_FILE    variable in resource file
+    Should Be Equal    $VARIABLE_FILE    variable in variable file
 
 Test Teardown
     No Operation
 
 Test Template
-    [Argumentit]    ${message}
-    Log    ${message}
+    [Argumentit]    $message
+    Log    $message
 
 Keyword
     [Dokumentaatio]    Keyword documentation.
-    [Argumentit]       ${arg}
+    [Argumentit]       $arg
     [Tagit]            own tag
     [Aikaraja]         1h
-    Should Be Equal    ${arg}    ${VARIABLE}
+    Should Be Equal    $arg    $VARIABLE
     [Alasajo]          No Operation
 
 *** Kommentit ***

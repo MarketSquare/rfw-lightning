@@ -9,9 +9,9 @@ Suite Teardown    Events should be    Start suite: Test Scope 2
 
 *** Test Cases ***
 Test scope library gets events 2
-    Events should be    Start test: ${TEST_NAME}
+    Events should be    Start test: $TEST_NAME
     ...                 Start kw: listenerlibrary.Events Should Be
 
 Test scope library gets no previous events 2
-    Events should be    Start test: ${TEST_NAME}
+    Events should be    Start test: $TEST_NAME
     ...                 Start kw: listenerlibrary.Events Should Be

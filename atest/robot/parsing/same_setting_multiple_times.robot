@@ -26,27 +26,27 @@ Force and Default Tags
     Setting multiple times    10    22    Default Tags
 
 Test Setup
-    ${tc} =    Check Test Case    Use Defaults
+    $tc =    Check Test Case    Use Defaults
     Should Be Equal    ${tc.setup.name}    BuiltIn.Log Many
     Setting multiple times    3    11    Test Setup
 
 Test Teardown
-    ${tc} =    Check Test Case    Use Defaults
-    Teardown Should Not Be Defined     ${tc}
+    $tc =    Check Test Case    Use Defaults
+    Teardown Should Not Be Defined     $tc
     Setting multiple times    4    13    Test Teardown
 
 Test Template
-    ${tc} =    Check Test Case    Use Defaults
+    $tc =    Check Test Case    Use Defaults
     Check Keyword Data     ${tc.kws[0]}    BuiltIn.Log Many    args=Sleep, 0.1s
     Setting multiple times    6    16    Test Template
 
 Test Timeout
-    ${tc} =    Check Test Case    Use Defaults
+    $tc =    Check Test Case    Use Defaults
     Should Be Equal    ${tc.timeout}    1 second
     Setting multiple times    11    24    Test Timeout
 
 Test [Documentation]
-    ${tc} =    Check Test Case    Test Settings
+    $tc =    Check Test Case    Test Settings
     Should Be Equal    ${tc.doc}    T1
     Setting multiple times    12    32    Documentation
 
@@ -56,60 +56,60 @@ Test [Tags]
     Setting multiple times    14    35    Tags
 
 Test [Setup]
-    ${tc} =    Check Test Case    Test Settings
+    $tc =    Check Test Case    Test Settings
     Should Be Equal    ${tc.setup.name}    BuiltIn.Log Many
     Setting multiple times    15    37    Setup
 
 Test [Teardown]
-    ${tc} =    Check Test Case    Test Settings
-    Teardown Should Not Be Defined     ${tc}
+    $tc =    Check Test Case    Test Settings
+    Teardown Should Not Be Defined     $tc
     Setting multiple times    16    39    Teardown
     Setting multiple times    17    40    Teardown
 
 Test [Template]
-    ${tc} =    Check Test Case    Test Settings
+    $tc =    Check Test Case    Test Settings
     Check Keyword Data     ${tc.kws[0]}    BuiltIn.Log    args=No Operation
     Setting multiple times    18    42    Template
 
 Test [Timeout]
-    ${tc} =    Check Test Case    Test Settings
+    $tc =    Check Test Case    Test Settings
     Should Be Equal    ${tc.timeout}    2 seconds
     Setting multiple times    19    44    Timeout
 
 Keyword [Arguments]
-    ${tc} =    Check Test Case    Keyword Settings
-    Check Keyword Data    ${tc.kws[0]}    Keyword Settings    assign=\${ret}    args=1, 2, 3    tags=K1
-    Check Log Message    ${tc.kws[0].msgs[0]}    Arguments: [ \${a1}='1' | \${a2}='2' | \${a3}='3' ]    TRACE
+    $tc =    Check Test Case    Keyword Settings
+    Check Keyword Data    ${tc.kws[0]}    Keyword Settings    assign=\$ret    args=1, 2, 3    tags=K1
+    Check Log Message    ${tc.kws[0].msgs[0]}    Arguments: [ \$a1='1' | \$a2='2' | \$a3='3' ]    TRACE
     Setting multiple times    20    55    Arguments
 
 Keyword [Documentation]
-    ${tc} =    Check Test Case    Keyword Settings
-    Should Be Equal    ${tc.kws[0].doc}    ${EMPTY}
+    $tc =    Check Test Case    Keyword Settings
+    Should Be Equal    ${tc.kws[0].doc}    $EMPTY
     Setting multiple times    21    57    Documentation
     Setting multiple times    22    58    Documentation
 
 Keyword [Tags]
-    ${tc} =    Check Test Case    Keyword Settings
+    $tc =    Check Test Case    Keyword Settings
     Should Be True    list($tc.kws[0].tags) == ['K1']
     Setting multiple times    23    60    Tags
 
 Keyword [Timeout]
-    ${tc} =    Check Test Case    Keyword Settings
-    Should Be Equal    ${tc.kws[0].timeout}    ${NONE}
+    $tc =    Check Test Case    Keyword Settings
+    Should Be Equal    ${tc.kws[0].timeout}    $NONE
     Setting multiple times    24    62    Timeout
     Setting multiple times    25    63    Timeout
 
 Keyword [Return]
-    ${tc} =    Check Test Case    Keyword Settings
+    $tc =    Check Test Case    Keyword Settings
     Check Log Message    ${tc.kws[0].msgs[1]}    Return: 'R0'    TRACE
-    Check Log Message    ${tc.kws[0].msgs[2]}    \${ret} = R0
+    Check Log Message    ${tc.kws[0].msgs[2]}    \$ret = R0
     Setting multiple times    26    66    Return
     Setting multiple times    27    67    Return
     Setting multiple times    28    68    Return
 
 *** Keywords ***
 Setting multiple times
-    [Arguments]    ${index}    ${lineno}    ${setting}
+    [Arguments]    $index    $lineno    $setting
     Error In File
-    ...    ${index}    parsing/same_setting_multiple_times.robot    ${lineno}
-    ...    Setting '${setting}' is allowed only once. Only the first value is used.
+    ...    $index    parsing/same_setting_multiple_times.robot    $lineno
+    ...    Setting '$setting' is allowed only once. Only the first value is used.

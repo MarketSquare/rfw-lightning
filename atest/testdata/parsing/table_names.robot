@@ -9,14 +9,14 @@ Default Tags    Settings
 Library         OperatingSystem
 
 ***Variable***
-${VARIABLE}  Variable
+$VARIABLE  Variable
 
 *** VARIABLES ***
-${VARIABLES}  Variables
+$VARIABLES  Variables
 
 ***Test Case***
 Test Case
-    Log  ${VARIABLE}
+    Log  $VARIABLE
     Keyword
 
 ***COMMENTS***
@@ -26,11 +26,11 @@ both singular and plural formats are fine.
 
 *** Test Cases ***
 Test Cases
-    Log  ${VARIABLES}
+    Log  $VARIABLES
 
 Comment tables exist
-    ${content} =    Get File    ${CURDIR}/table_names.robot
-    Should Contain    ${content}    \n*** Comment ***\n
+    $content =    Get File    $CURDIR/table_names.robot
+    Should Contain    $content    \n*** Comment ***\n
 
 *** Keyword ***
 Keyword

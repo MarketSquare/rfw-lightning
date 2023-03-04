@@ -4,7 +4,7 @@ Resource         remote_resource.robot
 
 *** Test Cases ***
 Initial connection failure
-    Check Test Case    ${TESTNAME}
+    Check Test Case    $TESTNAME
 
 Too long keyword execution time
-    Check Test Case    ${TESTNAME}
+    Check Test Case    $TESTNAME

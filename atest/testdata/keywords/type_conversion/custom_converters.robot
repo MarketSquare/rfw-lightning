@@ -15,13 +15,13 @@ New conversion
 Override existing conversion
     True     True
     True     whatever
-    True     ${True}
-    True     ${1}
+    True     $True
+    True     $1
     False    False
     False    epätosi
     False    ☹
-    False    ${False}
-    False    ${0}
+    False    $False
+    False    $0
 
 Subclasses
     US date      11/30/2021    2021-11-30
@@ -30,20 +30,20 @@ Subclasses
 
 Class as converter
     Class as converter               Robot    Hello, Robot!
-    Class with hints as converter    ${42}    ${42}
+    Class with hints as converter    $42    $42
     Class with hints as converter    42       42
 
 Custom in Union
-    Number or int    ${1}
+    Number or int    $1
     Number or int    1
     Number or int    one
-    Int or number    ${1}
+    Int or number    $1
     Int or number    1
     Int or number    one
 
 Accept subscripted generics
-    ${list_123}=Evaluate    [1,2,3]
-    Accept subscripted generics    ${list_123}    ${6}
+    $list_123=Evaluate    [1,2,3]
+    Accept subscripted generics    $list_123    $6
 
 With generics
     With generics
@@ -59,8 +59,8 @@ Failing conversion
     [Template]    Conversion should fail
     Number     wrong         type=Number     error=Don't know number 'wrong'.
     US date    30.11.2021    type=UsDate     error=Value does not match '%m/%d/%Y'.
-    US date    ${666}        type=UsDate     error=TypeError: Only strings accepted!    arg_type=integer
-    FI date    ${666}        type=FiDate     arg_type=integer
+    US date    $666        type=UsDate     error=TypeError: Only strings accepted!    arg_type=integer
+    FI date    $666        type=FiDate     arg_type=integer
     True       ${1.0}        type=boolean    arg_type=float
     Class with hints as converter
     ...        ${1.2}        type=ClassWithHintsAsConverter    arg_type=float
@@ -71,22 +71,22 @@ Failing conversion
     ...    type=Strict    error=TypeError: Only Strict instances are accepted, got string.
 
 With library as argument to converter
-    String    ${123}
+    String    $123
 
 Test scope library instance is reset between test 1
-    Multiply    2    ${2}
-    Multiply    2    ${4}
-    Multiply    4    ${12}
+    Multiply    2    $2
+    Multiply    2    $4
+    Multiply    4    $12
 
 Test scope library instance is reset between test 2
-    Multiply    2    ${2}
+    Multiply    2    $2
 
 Global scope library instance is not reset between test 1
-    Global Multiply    2    ${2}
-    Global Multiply    2    ${4}
+    Global Multiply    2    $2
+    Global Multiply    2    $4
 
 Global scope library instance is not reset between test 2
-    Global Multiply    4    ${12}
+    Global Multiply    4    $12
 
 
 Invalid converters
@@ -94,7 +94,7 @@ Invalid converters
 
 Non-type annotation
     Non type annotation    x    x
-    Non type annotation    ${2}
+    Non type annotation    $2
 
 Using library decorator
     Using library decorator    one    1

@@ -1,11 +1,11 @@
 *** Settings ***
 Documentation   Tests for libs logging during import and in init/constructor.
-Suite Setup     Run Tests  --PYTHONPATH "${DATADIR}/test_libraries"  test_libraries/import_and_init_logging.robot
+Suite Setup     Run Tests  --PYTHONPATH "$DATADIR/test_libraries"  test_libraries/import_and_init_logging.robot
 Resource        atest_resource.robot
 
 *** Test Cases ***
 Test case should not get import/init messages
-    ${tc} =  Check test case  No import/init time messages here
+    $tc =  Check test case  No import/init time messages here
     Should be empty  ${tc.kws[0].msgs}
     Should be empty  ${tc.kws[1].msgs}
 
@@ -36,7 +36,7 @@ Python library logging in import via logging API
     Stderr Should Contain  [ WARN ] Warning via API in init 2\n
 
 Importing and initializing libraries in init
-    ${tc} =  Check Test Case  ${TEST_NAME}
+    $tc =  Check Test Case  $TEST_NAME
     Check log message  ${tc.kws[0].msgs[0]}  Keyword from library with importing __init__.
     Check log message  ${tc.kws[2].msgs[0]}  Keyword from library with initting __init__.
     Check log message  ${tc.kws[2].msgs[1]}  Keyword from library initted by __init__ (id: 42).

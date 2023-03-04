@@ -26,19 +26,19 @@ Link For Combined Tag
 *** Keywords ***
 
 Run Tests With Tag Stat Links
-    ${opts} =  Catenate
+    $opts =  Catenate
     ...  --tagstatlink T2:http://example.com:title
     ...  --tagstatlink ?1:http://example.com/%1:Title
     ...  --TagStatL *?u?*:%2-%3-%2-%1-%4:%2u%3_title
     ...  --tagstatcombine d*:DX
     ...  --tagstatlink d?:http://%1:Title_%1
     ...  --TAGSTATLINK D1:1:more:link:title
-    Run Tests  ${opts}  misc/suites
+    Run Tests  $opts  misc/suites
 
 Tag link should be correct in output
-    [Arguments]  ${index}  ${tag}  ${links}
-    ${stats} =  Get Tag Stat Nodes
-    ${txt}=Evaluate     $stats[int($index)].text
-    ${attrlinks}=Evaluate     $stats[int($index)].attrib['links']
-    Should Be Equal    ${txt}    ${tag}
-    Should Be Equal    ${attrlinks}    ${doc}
+    [Arguments]  $index  $tag  $links
+    $stats =  Get Tag Stat Nodes
+    $txt=Evaluate     $stats[int($index)].text
+    $attrlinks=Evaluate     $stats[int($index)].attrib['links']
+    Should Be Equal    $txt    $tag
+    Should Be Equal    $attrlinks    $doc

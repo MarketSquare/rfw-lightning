@@ -5,7 +5,7 @@ Resource          but_they_are_not
 Variables         imported    either
 
 *** Variables ***
-${VARIABLE}      ${NON-EXISTING}
+$VARIABLE      ${NON-EXISTING}
 
 *** Test Cases ***
 Test 1

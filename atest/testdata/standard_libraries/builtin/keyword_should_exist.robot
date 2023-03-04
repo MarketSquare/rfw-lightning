@@ -4,7 +4,7 @@ Resource         keyword_should_exist_resource_1.robot
 Resource         keyword_should_exist_resource_2.robot
 
 *** Variables ***
-${LOG}  Log
+$LOG  Log
 
 *** Test Cases ***
 
@@ -29,13 +29,13 @@ User keyword in resource exists with full name
     KEYWORD_SHOULD_EXIST_RESOURCE_1.RESOURCE KEYWORD
 
 Variables in keyword name
-    ${LOG}
-    ${LOG} Many
+    $LOG
+    $LOG Many
 
 BDD style keyword exists
     Given this keyword exists
     Then this keyword exists
-    ${LOG} this keyword exists
+    $LOG this keyword exists
 
 Keyword does not exist
     [Documentation]  FAIL No keyword with name 'Non Existing' found.
@@ -66,11 +66,11 @@ Higher priority keyword overrides
 
 Empty keyword name
     [Documentation]  FAIL Keyword name cannot be empty.
-    ${EMPTY}
+    $EMPTY
 
 Non-string keyword name
     [Documentation]  FAIL Keyword name must be a string.
-    ${42}
+    $42
 
 
 *** Keywords ***
@@ -87,5 +87,5 @@ No Operation
     [Documentation]  Override keyword from BuiltIn
     No Operation
 
-${Prefix} this ${keyword:keyword} exists
+$Prefix this ${keyword:keyword} exists
     Fail  Not executed

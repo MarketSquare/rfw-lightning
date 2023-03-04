@@ -5,9 +5,9 @@ Variables         variables_to_verify.py
 Should Be True
     [Documentation]    FAIL '1 != 1 and True or False' should be true.
     Should Be True    -1 <= 1 <= 1
-    Should Be True    ${TRUE}
-    Should Be True    ${LIST_1}
-    Should Be True    ${DICT_1}
+    Should Be True    $TRUE
+    Should Be True    $LIST_1
+    Should Be True    $DICT_1
     Should Be True    1 != 1 and True or False
 
 Should Be True with message
@@ -21,9 +21,9 @@ Should Be True with invalid expression
 Should Not Be True
     [Documentation]    FAIL '0 < 1' should not be true.
     Should Not Be True    0 > 1
-    Should Not Be True    ${FALSE}
-    Should Not Be True    ${LIST_0}
-    Should Not Be True    ${DICT_0}
+    Should Not Be True    $FALSE
+    Should Not Be True    $LIST_0
+    Should Not Be True    $DICT_0
     Should Not Be True    0 < 1
 
 Should Not Be True with message

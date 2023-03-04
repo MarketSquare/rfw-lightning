@@ -1,5 +1,5 @@
 *** Settings ***
-Suite Setup       Run Libdoc And Parse Output    ${TESTDATADIR}/DynamicLibrary.py::required
+Suite Setup       Run Libdoc And Parse Output    $TESTDATADIR/DynamicLibrary.py::required
 Resource          libdoc_resource.robot
 
 *** Test Cases ***
@@ -22,7 +22,7 @@ Scope
     Scope Should Be                  TEST
 
 Source info
-    Source should be                 ${TESTDATADIR}/DynamicLibrary.py
+    Source should be                 $TESTDATADIR/DynamicLibrary.py
     Lineno should be                 5
 
 Spec version
@@ -59,8 +59,8 @@ Keyword-only arguments
     Keyword Arguments Should Be      8     *varargs    a    b=2    c    **kws
 
 Embedded arguments
-    Keyword Name Should Be           2     Em\${bed}ed \${args} 2
-    Keyword Name Should Be           3     Embedded \${args} 1
+    Keyword Name Should Be           2     Em\$beded \$args 2
+    Keyword Name Should Be           3     Embedded \$args 1
     Keyword Arguments Should Be      2
     Keyword Arguments Should Be      3
 
@@ -102,7 +102,7 @@ Keyword source info
 
 Keyword source info with different path than library
     Keyword Name Should Be           16    Source Path Only
-    Keyword Source Should Be         16    ${TESTDATADIR}/Annotations.py
+    Keyword Source Should Be         16    $TESTDATADIR/Annotations.py
     Keyword Should Not Have Lineno   16
 
 Keyword source info with lineno only
@@ -119,9 +119,9 @@ Non-existing source info
     Keyword Lineno Should Be         11    42
 
 Invalid source info
-    ${error} =    Catenate
+    $error =    Catenate
     ...    [ ERROR ] Error in library 'DynamicLibrary':
     ...    Getting source information for keyword 'Invalid Source Info' failed:
     ...    Calling dynamic method 'get_keyword_source' failed:
     ...    Return value must be a string, got integer.
-    Should Start With    ${OUTPUT}    ${error}
+    Should Start With    $OUTPUT    $error

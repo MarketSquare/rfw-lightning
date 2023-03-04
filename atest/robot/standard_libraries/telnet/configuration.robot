@@ -70,9 +70,9 @@ Default Log Level In Open Connection
     Check Test Case    ${TEST NAME}
 
 Set Default Log Level Keyword
-    ${tc} =    Check Test Case    ${TEST NAME}
+    $tc =    Check Test Case    ${TEST NAME}
     Check Log Message    ${tc.kws[2].msgs[0]}    pwd    DEBUG
-    Check Log Message    ${tc.kws[5].msgs[0]}    ${HOME}\n${FULL PROMPT}    WARN
+    Check Log Message    ${tc.kws[5].msgs[0]}    $HOME\n${FULL PROMPT}    WARN
 
 Default Telnetlib Log Level In Init
     Check Test Case    ${TEST NAME}
@@ -87,7 +87,7 @@ Telnetlib Log Level DEBUG In Open Connection
     Check Test Case    ${TEST NAME}
 
 Set Telnetlib Log Level Keyword
-    ${tc} =    Check Test Case    ${TEST NAME}
+    $tc =    Check Test Case    ${TEST NAME}
     Check Log Message    ${tc.kws[7].msgs[0]}    send *'pwd\\r\\n'    DEBUG   pattern=yes
 
 Configuration fails if there is no connection
@@ -97,12 +97,12 @@ Default configuration
     Check Test Case    ${TEST NAME}
 
 Telnetlib's Debug Messages Are Logged On Trace Level
-    ${tc} =    Check Test Case    ${TEST NAME}
+    $tc =    Check Test Case    ${TEST NAME}
     Check Log Message    ${tc.kws[1].msgs[1]}    send *'echo hyv\\xc3\\xa4\\r\\n'    TRACE    pattern=yes
     Check Log Message    ${tc.kws[1].msgs[2]}    recv *'e*'    TRACE    pattern=yep
     Length Should Be    ${tc.kws[1].msgs}    6
 
 Telnetlib's Debug Messages Are Not Logged On Log Level None
-    ${tc} =    Check Test Case    ${TEST NAME}
+    $tc =    Check Test Case    ${TEST NAME}
     Check Log Message    ${tc.kws[1].msgs[0]}    echo hyvä    DEBUG
     Length Should Be    ${tc.kws[1].msgs}    1

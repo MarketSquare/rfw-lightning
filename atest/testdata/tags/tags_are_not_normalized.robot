@@ -20,7 +20,7 @@ Sorting Is Normalized
     No Operation
 
 Normalized Duplicates Are Removed
-    [Tags]  hello  HeLLo  HELLO  ${EMPTY}  H e l l o
+    [Tags]  hello  HeLLo  HELLO  $EMPTY  H e l l o
     No Operation
 
 Tags To Stats

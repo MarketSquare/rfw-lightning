@@ -1,5 +1,5 @@
 *** Variables ***
-${VERSION}      1.2
+$VERSION      1.2
 
 *** Test Cases ***
 Normal name
@@ -42,7 +42,7 @@ Documentation with escaping
 Arguments
     Arguments    mandatory
     Arguments    1    2
-    Arguments    ${1}    ${2}    ${3}    ${4}    ${5}    key=${6}
+    Arguments    $1    $2    $3    $4    $5    key=$6
 
 Teardown
     Teardown
@@ -54,20 +54,20 @@ Teardown with escaping
     Teardown with escaping
 
 Return
-    ${ret} =    Return
-    Should Be Equal    ${ret}    Return value
+    $ret =    Return
+    Should Be Equal    $ret    Return value
 
 Return using variables
-    ${ret} =    Return using variables
-    Should Be Equal    ${ret}    Return value 2
+    $ret =    Return using variables
+    Should Be Equal    $ret    Return value 2
 
 Return multiple
-    ${r1}    ${r2}    ${r3}    ${r4}    ${r5} =    Return multiple    1    ${2}
-    Should Be Equal    ${r1} ${r2} ${r3} ${r4} ${r5}    1 + 2 = 3
+    $r1    $r2    $r3    $r4    $r5 =    Return multiple    1    $2
+    Should Be Equal    $r1 $r2 $r3 $r4 $r5    1 + 2 = 3
 
 Return with escaping
-    ${r1}    ${r2}    ${r3}    ${r4} =    Return with escaping
-    Should Be Equal    ${r1}-${r2}-${r3}-${r4}    \${XXX}-c:\\temp--\\
+    $r1    $r2    $r3    $r4 =    Return with escaping
+    Should Be Equal    $r1-$r2-$r3-$r4    \$XXX-c:\\temp--\\
 
 Timeout
     Timeout
@@ -80,8 +80,8 @@ Invalid timeout
     Invalid timeout
 
 Multiple settings
-    ${ret} =    Multiple settings    World
-    Should Be Equal    ${ret}    Hello World!!
+    $ret =    Multiple settings    World
+    Should Be Equal    $ret    Hello World!!
 
 Invalid setting
     [Documentation]    FAIL Keywords are executed regardless invalid settings
@@ -110,14 +110,14 @@ Documentation in multiple columns
     No Operation
 
 Documentation in multiple rows
-    [DOCUMENTATION]    ${1}st line is shortdoc.
+    [DOCUMENTATION]    $1st line is shortdoc.
     ...
     ...                Documentation for this user keyword
     ...                in\nmultiple\nlines
     No Operation
 
 Short doc consists of first logical, not physical, line
-    [Documentation]    ${1}st logical line is shortdoc.
+    [Documentation]    $1st logical line is shortdoc.
     ...                It can be split to
     ...                multiple
     ...                physical
@@ -128,11 +128,11 @@ Short doc consists of first logical, not physical, line
     No Operation
 
 Documentation with variables
-    [Documentation]    Variables work in documentation since Robot ${VERSION}.
+    [Documentation]    Variables work in documentation since Robot $VERSION.
     No Operation
 
 Documentation with non-existing variables
-    [Documentation]    Starting from RF ${2}.1 ${NONEX} variables are left unchanged.
+    [Documentation]    Starting from RF $2.1 $NONEX variables are left unchanged.
     No Operation
 
 Documentation with unclosed variables
@@ -140,46 +140,46 @@ Documentation with unclosed variables
     No Operation
 
 Documentation with escaping
-    [Documentation]    \${XXX} - c:\\temp - \ - \\
+    [Documentation]    \$XXX - c:\\temp - \ - \\
     No Operation
 
 Arguments
-    [Arguments]    ${arg1}    ${arg2}=default    @{varargs}    &{kwargs}
-    Log Many    ${arg1}    ${arg2}    @{varargs}    &{kwargs}
+    [Arguments]    $arg1    $arg2=default    @{varargs}    &{kwargs}
+    Log Many    $arg1    $arg2    @{varargs}    &{kwargs}
 
 Teardown
     No Operation
     [Teardown]    Log    Keyword teardown
 
 Teardown with variables
-    ${log} =    Set Variable    Log
-    [Teardown]    ${log}    ${log}ged using variables
+    $log =    Set Variable    Log
+    [Teardown]    $log    $logged using variables
 
 Teardown with escaping
     No Operation
-    [Teardown]    Log    \${notvar} is not a variable
+    [Teardown]    Log    \$notvar is not a variable
 
 Return
     [Return]    Return value
 
 Return using variables
-    ${ret} =    Set Variable    Return value ${2}
-    [Return]    ${ret}
+    $ret =    Set Variable    Return value $2
+    [Return]    $ret
 
 Return multiple
-    [ARGUMENTS]    ${arg1}    ${arg2}
-    ${result} =    Evaluate    ${arg1} + ${arg2}
-    [RETURN]    ${arg1}    +    ${arg2}    =    ${result}
+    [ARGUMENTS]    $arg1    $arg2
+    $result =    Evaluate    $arg1 + $arg2
+    [RETURN]    $arg1    +    $arg2    =    $result
 
 Return with escaping
-    [Return]    \${XXX}    c:\\temp    \    \\
+    [Return]    \$XXX    c:\\temp    \    \\
 
 Timeout
     [Timeout]    123 seconds
     No Operation
 
 Timeout with variables
-    [TIMEout]    ${VERSION} DAYS
+    [TIMEout]    $VERSION DAYS
     No Operation
 
 Invalid timeout
@@ -187,12 +187,12 @@ Invalid timeout
     No Operation
 
 Multiple settings
-    [Arguments]    ${name}
+    [Arguments]    $name
     [Documentation]    Documentation for a user keyword
     [Timeout]    0.1 hours
     No Operation
-    [Teardown]    Log    Teardown ${name}
-    [Return]    Hello ${name}!!
+    [Teardown]    Log    Teardown $name
+    [Return]    Hello $name!!
 
 Invalid passing
     [Invalid Setting]    This is invalid

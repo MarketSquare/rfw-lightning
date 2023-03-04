@@ -14,11 +14,11 @@ Log messages are collected on level set using '--loglevel'
     ...    WARN: Warning
 
 Log messages are collected on level set using 'Set Log Level'
-    ${old} =    Set Log Level    DEBUG
+    $old =    Set Log Level    DEBUG
     Keyword
     Logged messages should be
-    ...    INFO: Log level changed from ${old} to DEBUG.
-    ...    INFO: \${old} = ${old}
+    ...    INFO: Log level changed from $old to DEBUG.
+    ...    INFO: \$old = $old
     ...    INFO: Message
     ...    DEBUG: Debug message
     ...    WARN: Warning

@@ -3,16 +3,16 @@ Test Teardown     Set Log Level    INFO
 Variables         objects_for_call_method.py
 
 *** Variables ***
-${HTML}           <a href="http://robotframework.org">Robot Framework</a>
-@{LIST}           1    2    ${3}    ${OBJ}
-&{DICT}           a=1    b=2    ${3}=c    obj=${OBJ}
+$HTML           <a href="http://robotframework.org">Robot Framework</a>
+@{LIST}           1    2    $3    $OBJ
+&{DICT}           a=1    b=2    $3=c    obj=$OBJ
 
 *** Test Cases ***
 Log
     Log    Hello, world!
-    Log    ${42}
-    Log    ${None}
-    Log    ${OBJ}
+    Log    $42
+    Log    $None
+    Log    $OBJ
 
 Log with different levels
     [Setup]    Set Log Level    TRACE
@@ -30,17 +30,17 @@ Invalid log level failure is catchable
 
 HTML is escaped by default
     Log    <b>not bold</b>
-    Log    ${HTML}
+    Log    $HTML
 
 HTML pseudo level
     Log    <b>bold</b>    HTML
-    Log    ${HTML}    HTML
+    Log    $HTML    HTML
 
 Explicit HTML
     [Setup]    Set Log Level    DEBUG
     Log    <b>bold</b>    html=yep
-    Log    ${HTML}    DEBUG    xxx
-    Log    ${HTML}    html=${FALSE}    level=debug
+    Log    $HTML    DEBUG    xxx
+    Log    $HTML    html=$FALSE    level=debug
 
 FAIL is not valid log level
     [Documentation]    FAIL Invalid log level 'FAIL'.
@@ -49,7 +49,7 @@ FAIL is not valid log level
 Log also to console
     [Setup]    Set Log Level    DEBUG
     Log    Hello, console!    console=yepyep    html=false
-    Log    ${HTML}    debug    enable both html    and console
+    Log    $HTML    debug    enable both html    and console
 
 repr=True
     [Setup]    Set Log Level    DEBUG
@@ -60,97 +60,97 @@ formatter=repr
     [Setup]    Set Log Level    DEBUG
     Log    Nothing special here    formatter=repr
     Log    Hyvää yötä \u2603!    formatter=repr
-    Log    ${42}    DEBUG    ${FALSE}    ${FALSE}    DEPRECATED    repr
-    ${bytes} =    Evaluate    b'\\x00abc\\xff (formatter=repr)'
-    Log    ${bytes}    formatter=REPR    console=True
-    ${nfd} =    Evaluate    'hyva\u0308'
-    Log    ${nfd}    formatter=Repr
+    Log    $42    DEBUG    $FALSE    $FALSE    DEPRECATED    repr
+    $bytes =    Evaluate    b'\\x00abc\\xff (formatter=repr)'
+    Log    $bytes    formatter=REPR    console=True
+    $nfd =    Evaluate    'hyva\u0308'
+    Log    $nfd    formatter=Repr
 
 formatter=ascii
     [Setup]    Set Log Level    DEBUG
     Log    Nothing special here    formatter=ascii
     Log    Hyvää yötä \u2603!    formatter=ascii
-    Log    ${42}    DEBUG    ${FALSE}    ${FALSE}    DEPRECATED    ascii
-    ${bytes} =    Evaluate    b'\\x00abc\\xff (formatter=ascii)'
-    Log    ${bytes}    formatter=ASCII    console=True
-    ${nfd} =    Evaluate    'hyva\u0308'
-    Log    ${nfd}    formatter=Ascii
+    Log    $42    DEBUG    $FALSE    $FALSE    DEPRECATED    ascii
+    $bytes =    Evaluate    b'\\x00abc\\xff (formatter=ascii)'
+    Log    $bytes    formatter=ASCII    console=True
+    $nfd =    Evaluate    'hyva\u0308'
+    Log    $nfd    formatter=Ascii
 
 formatter=str
     [Setup]    Set Log Level    DEBUG
     Log    Nothing special here    formatter=str
     Log    Hyvää yötä \u2603!    formatter=STR
-    Log    ${42}    DEBUG    ${FALSE}    ${FALSE}    DEPRECATED    sTr
-    ${bytes} =    Evaluate    b'\\x00abc\\xff (formatter=str)'
-    Log    ${bytes}    formatter=str    console=True
-    ${nfd} =    Evaluate    'hyva\u0308'
-    Log    ${nfd}    formatter=str
+    Log    $42    DEBUG    $FALSE    $FALSE    DEPRECATED    sTr
+    $bytes =    Evaluate    b'\\x00abc\\xff (formatter=str)'
+    Log    $bytes    formatter=str    console=True
+    $nfd =    Evaluate    'hyva\u0308'
+    Log    $nfd    formatter=str
 
 formatter=repr pretty prints
-    ${long_string} =    Evaluate    ' '.join(['Robot Framework'] * 1000)
-    Log    ${long_string}    formatter=repr
-    ${small_dict} =    Evaluate    {'small': 'dict', 3: b'items', 'a': 'sorted'}
-    Log    ${small_dict}    formatter=repr    console=TRUE
-    ${big_dict} =    Evaluate    {'big': 'dict', 'long': '${long_string}', 'nested': ${small_dict}, 'list': [1, 2, 3]}
-    Log    ${big_dict}    html=NO    formatter=repr
-    ${small_list} =    Evaluate    ['small', b'list', 'not sorted', 4]
-    Log    ${small_list}    console=gyl    formatter=repr
-    ${big_list} =    Evaluate    ['big', 'list', '${long_string}', b'${long_string}', ['nested', ('tuple', 2)], ${small_dict}]
-    Log    ${big_list}    formatter=repr
-    ${non_ascii} =    Evaluate    ['hyv\\xe4', b'hyv\\xe4', {'\\u2603': b'\\x00\\xff'}]
-    Log    ${non_ascii}    formatter=repr
+    $long_string =    Evaluate    ' '.join(['Robot Framework'] * 1000)
+    Log    $long_string    formatter=repr
+    $small_dict =    Evaluate    {'small': 'dict', 3: b'items', 'a': 'sorted'}
+    Log    $small_dict    formatter=repr    console=TRUE
+    $big_dict =    Evaluate    {'big': 'dict', 'long': '$long_string', 'nested': $small_dict, 'list': [1, 2, 3]}
+    Log    $big_dict    html=NO    formatter=repr
+    $small_list =    Evaluate    ['small', b'list', 'not sorted', 4]
+    Log    $small_list    console=gyl    formatter=repr
+    $big_list =    Evaluate    ['big', 'list', '$long_string', b'$long_string', ['nested', ('tuple', 2)], $small_dict]
+    Log    $big_list    formatter=repr
+    $non_ascii =    Evaluate    ['hyv\\xe4', b'hyv\\xe4', {'\\u2603': b'\\x00\\xff'}]
+    Log    $non_ascii    formatter=repr
 
 formatter=len
     [Documentation]    FAIL STARTS: TypeError:
     [Setup]    Set Log Level    DEBUG
     Log    Nothing special here    formatter=len
     Log    Hyvää yötä \u2603!    DEBUG    formatter=LEN
-    ${bytes} =    Evaluate    b'\\x00abc\\xff (formatter=len)'
-    Log    ${bytes}    formatter=len    console=True
-    ${nfd} =    Evaluate    'hyva\u0308'
-    Log    ${nfd}    formatter=len
-    Log    ${42}    formatter=len
+    $bytes =    Evaluate    b'\\x00abc\\xff (formatter=len)'
+    Log    $bytes    formatter=len    console=True
+    $nfd =    Evaluate    'hyva\u0308'
+    Log    $nfd    formatter=len
+    Log    $42    formatter=len
 
 formatter=type
     [Setup]    Set Log Level    DEBUG
     Log    Nothing special here    formatter=type
     Log    Hyvää yötä \u2603!    formatter=TYPE
-    Log    ${42}    DEBUG    formatter=type
-    ${bytes} =    Evaluate    b'\\x00abc\\xff (formatter=type)'
-    Log    ${bytes}    formatter=type    console=True
-    ${now} =    Evaluate    datetime.datetime.now()
-    Log    ${now}    formatter=type
+    Log    $42    DEBUG    formatter=type
+    $bytes =    Evaluate    b'\\x00abc\\xff (formatter=type)'
+    Log    $bytes    formatter=type    console=True
+    $now =    Evaluate    datetime.datetime.now()
+    Log    $now    formatter=type
 
 formatter=invalid
     [Documentation]    FAIL ValueError: Invalid formatter 'invalid'. Available 'str', 'repr', 'ascii', 'len', and 'type'.
     Log    x    formatter=invalid
 
 Log callable
-    Log    ${MyObject}
-    ${lambda} =    Evaluate    lambda: None
-    Log    ${lambda}
+    Log    $MyObject
+    $lambda =    Evaluate    lambda: None
+    Log    $lambda
 
 Log Many
-    Log Many    Log Many says:    1    2    ${3}    ${OBJ}
+    Log Many    Log Many says:    1    2    $3    $OBJ
     Log Many    Log Many says: Hi!!
     Log Many    @{LIST}
     Log Many
     Log Many    @{EMPTY}
-    Log Many    -${EMPTY}-    -@{EMPTY}-    -&{EMPTY}-
-    Log Many    ${LIST}[0]    ${DICT}[b]
+    Log Many    -$EMPTY-    -@{EMPTY}-    -&{EMPTY}-
+    Log Many    $LIST[0]    $DICT[b]
 
 Log Many with named and dict arguments
-    Log Many    a=1    b=2    ${3}=c    obj=${OBJ}
+    Log Many    a=1    b=2    $3=c    obj=$OBJ
     Log Many    &{DICT}
-    Log Many    &{DICT}    b=no override    &{EMPTY}    ${3}=three
+    Log Many    &{DICT}    b=no override    &{EMPTY}    $3=three
 
 Log Many with positional, named and dict arguments
-    Log Many    1    ${2}    three=3    &{EMPTY}    ${4}=four
+    Log Many    1    $2    three=3    &{EMPTY}    $4=four
     Log Many    @{LIST}    &{DICT}    @{LIST}    &{DICT}
 
 Log Many with non-existing variable
-    [Documentation]    FAIL Variable '${no_such_variable}' not found.
-    Log Many    ${no_such_variable}
+    [Documentation]    FAIL Variable '$no_such_variable' not found.
+    Log Many    $no_such_variable
 
 Log Many with list variable containing non-list
     [Documentation]    FAIL Value of variable '@{HTML}' is not list or list-like.
@@ -165,7 +165,7 @@ Log To Console
     Log To Console    stdout äö w/o new...    no_newline=true
     Log To Console    stderr äö w/ newline    stdERR
     Log To Console    ...line äö   stdout    continue without newlines
-    Log To Console    ${42}
+    Log To Console    $42
 
 Log To Console With Formatting
     Log to console    test right align with hash padding    format=#>60

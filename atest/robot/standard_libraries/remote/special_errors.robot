@@ -4,7 +4,7 @@ Resource         remote_resource.robot
 
 *** Test Cases ***
 Continuable
-    ${tc} =    Check Test Case    ${TEST_NAME}
+    $tc =    Check Test Case    $TEST_NAME
     Check Log Message    ${tc.kws[0].msgs[0]}    message    FAIL
     Check Log Message    ${tc.kws[0].msgs[1]}    trace1    DEBUG
     Check Log Message    ${tc.kws[1].msgs[0]}    second message    FAIL
@@ -13,7 +13,7 @@ Continuable
     Check Log Message    ${tc.kws[2].msgs[1]}    trace3    DEBUG
 
 Fatal
-    ${tc} =    Check Test Case    ${TEST_NAME}
+    $tc =    Check Test Case    $TEST_NAME
     Check Log Message    ${tc.kws[0].msgs[0]}    Execution ends here    FAIL
     Check Log Message    ${tc.kws[0].msgs[1]}    with this traceback    DEBUG
     Check Test Case    Fails due to earlier fatal error

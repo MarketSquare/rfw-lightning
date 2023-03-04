@@ -8,7 +8,7 @@ Tesk Setup              Task aliases are included in setting recommendations
 Resource                resource_with_invalid_task_settings.robot
 
 *** Variables ***
-${TIMEOUT}              TASK
+$TIMEOUT              TASK
 
 *** Tasks ***
 Defaults

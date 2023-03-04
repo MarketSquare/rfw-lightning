@@ -1,19 +1,19 @@
 *** Settings ***
-Suite Setup      Run Tests    ${EMPTY}    variables/dict_variable_in_variable_table.robot
+Suite Setup      Run Tests    $EMPTY    variables/dict_variable_in_variable_table.robot
 Resource         atest_resource.robot
 
 *** Test Cases ***
 Dict variable
-    Check Test Case    ${TESTNAME}
+    Check Test Case    $TESTNAME
 
 First non-escaped equal sign is separator
-    Check Test Case    ${TESTNAME}
+    Check Test Case    $TESTNAME
 
 Equals is not detected in variable name
-    Check Test Case    ${TESTNAME}
+    Check Test Case    $TESTNAME
 
 Invalid syntax
-    Check Test Case    ${TESTNAME}
+    Check Test Case    $TESTNAME
     Error In File    0    variables/dict_variable_in_variable_table.robot    15
     ...    SEPARATOR=\n
     ...    Setting variable '\&{BAD_SYNTAX_1}' failed: Multiple errors:
@@ -25,40 +25,40 @@ Invalid syntax
     ...    Items must use 'name=value' syntax or be dictionary variables themselves.
 
 Variables in key and value
-    Check Test Case    ${TESTNAME}
+    Check Test Case    $TESTNAME
 
 Extended variables
-    Check Test Case    ${TESTNAME}
+    Check Test Case    $TESTNAME
 
 Internal variables
-    Check Test Case    ${TESTNAME}
+    Check Test Case    $TESTNAME
 
 Last item overrides
-    Check Test Case    ${TESTNAME}
+    Check Test Case    $TESTNAME
 
 Create from dict variable
-    Check Test Case    ${TESTNAME}
+    Check Test Case    $TESTNAME
 
 Dict from variable table should be ordered
-    Check Test Case    ${TESTNAME}
+    Check Test Case    $TESTNAME
 
 Dict from variable table should be dot-accessible
-    Check Test Case    ${TESTNAME}
+    Check Test Case    $TESTNAME
 
 Dict from variable table should be dot-assignable
-    Check Test Case    ${TESTNAME} 1
-    Check Test Case    ${TESTNAME} 2
+    Check Test Case    $TESTNAME 1
+    Check Test Case    $TESTNAME 2
 
 Invalid key
-    Check Test Case    ${TESTNAME}
+    Check Test Case    $TESTNAME
     Error In File    5    variables/dict_variable_in_variable_table.robot    33
     ...    Setting variable '\&{NON_HASHABLE_KEY}' failed:
     ...    Creating dictionary failed: *
 
 Non-dict cannot be used as dict variable
-    Check Test Case    ${TESTNAME} 1
-    Check Test Case    ${TESTNAME} 2
-    Check Test Case    ${TESTNAME} 3
+    Check Test Case    $TESTNAME 1
+    Check Test Case    $TESTNAME 2
+    Check Test Case    $TESTNAME 3
     Error In File    2    variables/dict_variable_in_variable_table.robot    34
     ...    Setting variable '\&{NON_DICT_DICT_1}' failed:
     ...    Value of variable '\&{LIST}' is not dictionary or dictionary-like.

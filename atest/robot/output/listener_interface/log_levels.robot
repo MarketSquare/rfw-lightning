@@ -1,34 +1,34 @@
 *** Settings ***
-Test Setup         Remove File    ${MESSAGE_FILE}
+Test Setup         Remove File    $MESSAGE_FILE
 Resource           listener_resource.robot
 
 *** Variables ***
-${MESSAGE_FILE}    %{TEMPDIR}${/}messages.txt
+$MESSAGE_FILE    %{TEMPDIR}{$/}messages.txt
 
 *** Test Cases ***
 Log messages are collected on INFO level by default
-    Run Tests    --listener listeners.Messages;${MESSAGE_FILE}    misc/pass_and_fail.robot
+    Run Tests    --listener listeners.Messages;$MESSAGE_FILE    misc/pass_and_fail.robot
     Logged messages should be
     ...    INFO: Hello says "Suite Setup"!
-    ...    INFO: \${assign} = JUST TESTING...
+    ...    INFO: \$assign = JUST TESTING...
     ...    INFO: Hello says "Pass"!
-    ...    INFO: \${assign} = JUST TESTING...
+    ...    INFO: \$assign = JUST TESTING...
     ...    INFO: Hello says "Fail"!
-    ...    INFO: \${assign} = JUST TESTING...
+    ...    INFO: \$assign = JUST TESTING...
     ...    FAIL: Expected failure
 
 Log messages are collected on specified level
-    Run Tests    -L DEBUG --listener listeners.Messages;${MESSAGE_FILE}    misc/pass_and_fail.robot
+    Run Tests    -L DEBUG --listener listeners.Messages;$MESSAGE_FILE    misc/pass_and_fail.robot
     Logged messages should be
     ...    INFO: Hello says "Suite Setup"!
     ...    DEBUG: Debug message
-    ...    INFO: \${assign} = JUST TESTING...
+    ...    INFO: \$assign = JUST TESTING...
     ...    INFO: Hello says "Pass"!
     ...    DEBUG: Debug message
-    ...    INFO: \${assign} = JUST TESTING...
+    ...    INFO: \$assign = JUST TESTING...
     ...    INFO: Hello says "Fail"!
     ...    DEBUG: Debug message
-    ...    INFO: \${assign} = JUST TESTING...
+    ...    INFO: \$assign = JUST TESTING...
     ...    FAIL: Expected failure
     ...    DEBUG: Traceback (most recent call last):
     ...    ${SPACE*2}None
@@ -37,4 +37,4 @@ Log messages are collected on specified level
 *** Keywords ***
 Logged messages should be
     [Arguments]    @{expected}
-    Check Listener File    ${MESSAGE_FILE}    @{expected}
+    Check Listener File    $MESSAGE_FILE    @{expected}

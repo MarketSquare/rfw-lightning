@@ -1,15 +1,15 @@
 *** Variables ***
-${TEST_OR_TASK}   Test
+$TEST_OR_TASK   Test
 
 *** Test Cases ***
-    [Documentation]  FAIL ${TEST_OR_TASK} name cannot be empty.
+    [Documentation]  FAIL $TEST_OR_TASK name cannot be empty.
     Fail  Should not be executed
 
 Empty Test Case
-    [Documentation]  FAIL ${TEST_OR_TASK} contains no keywords.
+    [Documentation]  FAIL $TEST_OR_TASK contains no keywords.
 
 Empty Test Case With Setup And Teardown
-    [Documentation]  FAIL ${TEST_OR_TASK} contains no keywords.
+    [Documentation]  FAIL $TEST_OR_TASK contains no keywords.
     [Setup]  Fail  Should not be executed
     [Teardown]  Fail  Should not be executed
 
@@ -39,13 +39,13 @@ Non-Empty UK Using Empty UK
 
 *** Keywords ***
     [Documentation]  This keyword has no name
-    [Arguments]  ${arg}=urg
+    [Arguments]  $arg=urg
     Fail   Should not be executed
 
 Empty UK
 
 Empty UK With Settings
-    [Arguments]  ${arg}
+    [Arguments]  $arg
     [Documentation]  Settings other than [Return] are not enough to make keyword non-empty
 
 Non Empty UK Using Empty UK

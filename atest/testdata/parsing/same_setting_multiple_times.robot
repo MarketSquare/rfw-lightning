@@ -46,13 +46,13 @@ Test Settings
 
 Keyword Settings
     [Template]    NONE
-    ${ret} =    Keyword Settings    1   2   3
-    Should Be Equal    ${ret}    R0
+    $ret =    Keyword Settings    1   2   3
+    Should Be Equal    $ret    R0
 
 *** Keywords ***
 Keyword Settings
-    [Arguments]    ${a1}    ${a2}    ${a3}
-    [Arguments]    ${arg}
+    [Arguments]    $a1    $a2    $a3
+    [Arguments]    $arg
     [Documentation]
     [Documentation]    K1
     [Documentation]    K2

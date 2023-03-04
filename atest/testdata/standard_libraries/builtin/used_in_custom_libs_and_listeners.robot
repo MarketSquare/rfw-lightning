@@ -6,14 +6,14 @@ Resource          UseBuiltInResource.robot
 *** Test Cases ***
 Keywords Using BuiltIn
     Log Debug Message
-    ${name} =    Get Test Name
-    Should Be Equal    ${name}    ${TESTNAME}
+    $name =    Get Test Name
+    Should Be Equal    $name    $TESTNAME
     Set Secret Variable
-    Should Be Equal    ${SECRET}    *****
-    Variable Should Not Exist    ${SET_BY_LISTENER}
+    Should Be Equal    $SECRET    *****
+    Variable Should Not Exist    $SET_BY_LISTENER
 
 Listener Using BuiltIn
-    Should Be Equal    ${SET_BY_LISTENER}    quux
+    Should Be Equal    $SET_BY_LISTENER    quux
 
 Use 'Run Keyword' with non-Unicode values
     Use Run Keyword with non Unicode values
@@ -22,7 +22,7 @@ Use BuiltIn keywords with timeouts
     [Timeout]    1 day
     Log Debug Message
     Set Secret Variable
-    Should Be Equal    ${secret}    *****
+    Should Be Equal    $secret    *****
     Use Run Keyword with non Unicode values
 
 User keyword used via 'Run Keyword'

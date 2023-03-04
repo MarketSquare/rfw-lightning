@@ -6,8 +6,8 @@ Suite Teardown    Clean Temp Files
 Resource          screenshot_resource.robot
 
 *** Variables ***
-${SCREENSHOT_DIR} =     %{TEMPDIR}${/}robot_atest_screenshots
-${BASENAME} =           ${SCREENSHOT_DIR}${/}screenshot
+${SCREENSHOT_DIR} =     %{TEMPDIR}{$/}robot_atest_screenshots
+${BASENAME} =           ${SCREENSHOT_DIR}{$/}screenshot
 ${FIRST_SCREENSHOT} =   ${BASENAME}_1.jpg
 
 *** Test Cases ***

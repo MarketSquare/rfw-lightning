@@ -16,13 +16,13 @@ No version information
 
 *** Keywords ***
 Run Tests With Listeners
-    ${listeners} =    Catenate
+    $listeners =    Catenate
     ...    --listener unsupported_listeners.V1ClassListener
     ...    --listener unsupported_listeners.InvalidVersionClassListener
     ...    --listener unsupported_listeners
-    Run Tests    ${listeners}    misc/pass_and_fail.robot
+    Run Tests    $listeners    misc/pass_and_fail.robot
 
 Taking listener into use should have failed
-    [Arguments]    ${index}    ${name}    ${error}
-    Check Log Message    ${ERRORS}[${index}]
-    ...    Taking listener '${name}' into use failed: ${error}    ERROR
+    [Arguments]    $index    $name    $error
+    Check Log Message    $ERRORS[$index]
+    ...    Taking listener '$name' into use failed: $error    ERROR

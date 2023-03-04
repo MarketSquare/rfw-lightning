@@ -11,7 +11,7 @@ ${SCALAR}         dhrfad
 
 *** Test Cases ***
 Automatic and Command Line Variables
-    Variables Should Contain    \${/}    \${cmd_line}
+    Variables Should Contain    \{$/}    \${cmd_line}
 
 Variable Table Scalar
     Variables Should Contain    \${SCALAR}

@@ -4,27 +4,27 @@ Resource        cli_resource.robot
 Test Template   Run Should Fail
 
 *** Variables ***
-${VALID}        ${DATA_DIR}/${TEST_FILE}
+$VALID        $DATA_DIR/$TEST_FILE
 
 *** Test Cases ***
 No Input
-    ${EMPTY}    Expected at least 1 argument, got 0.
+    $EMPTY    Expected at least 1 argument, got 0.
 
 Argument File Option Without Value As Last Argument
     --argumentfile    option --argumentfile requires argument
 
 Non-Existing Input
-    nonexisting.robot    Parsing '${EXECDIR}${/}nonexisting.robot' failed: File or directory to execute does not exist.
+    nonexisting.robot    Parsing '$EXECDIR{$/}nonexisting.robot' failed: File or directory to execute does not exist.
 
 Non-Existing Input With Non-Ascii Characters
-    nö.röböt ${VALID} bäd
-    ...    Parsing '${EXECDIR}${/}nö.röböt' and '${EXECDIR}${/}bäd' failed: File or directory to execute does not exist.
+    nö.röböt $VALID bäd
+    ...    Parsing '$EXECDIR{$/}nö.röböt' and '$EXECDIR{$/}bäd' failed: File or directory to execute does not exist.
 
 Invalid Output Directory
     [Setup]    Create File    %{TEMPDIR}/not-dir
-    -d %{TEMPDIR}/not-dir/dir ${VALID}
+    -d %{TEMPDIR}/not-dir/dir $VALID
     ...    Creating output file directory '.*not-dir.dir' failed: .*    regexp=True
-    -d %{TEMPDIR}/not-dir/dir -o %{TEMPDIR}/out.xml ${VALID}
+    -d %{TEMPDIR}/not-dir/dir -o %{TEMPDIR}/out.xml $VALID
     ...    Creating report file directory '.*not-dir.dir' failed: .*    regexp=True
     [Teardown]    Remove File    %{TEMPDIR}/not-dir
 

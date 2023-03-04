@@ -11,7 +11,7 @@ ${SECOND_SCREENSHOT}    screenshot_2.jpg
 *** Test Cases ***
 Screenshot Is Embedded in Log File
     ${path}=    Take Screenshot and Verify    ${FIRST_SCREENSHOT}
-    Should Be Equal    ${path}    ${OUTPUTDIR}${/}${FIRST_SCREENSHOT}
+    Should Be Equal    ${path}    ${OUTPUTDIR}{$/}${FIRST_SCREENSHOT}
 
 Each Screenshot Gets Separate Index
     Take Screenshot and Verify    ${FIRST_SCREENSHOT}
@@ -36,8 +36,8 @@ Screenshot Width Can Be Given
     Screenshots Should Exist    ${OUTPUTDIR}    ${FIRST_SCREENSHOT}
 
 Basename With Non-existing Directories Fails
-    [Documentation]  FAIL Directory '${OUTPUTDIR}${/}non-existing' where to save the screenshot does not exist
-    Take Screenshot    ${OUTPUTDIR}${/}non-existing${/}foo
+    [Documentation]  FAIL Directory '${OUTPUTDIR}{$/}non-existing' where to save the screenshot does not exist
+    Take Screenshot    ${OUTPUTDIR}{$/}non-existing{$/}foo
 
 Without Embedding
     Take Screenshot Without Embedding    no_embed.jpeg

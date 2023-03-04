@@ -1,5 +1,5 @@
 *** Settings ***
-Suite Setup     Run Tests    ${EMPTY}    test_libraries/dynamic_libraries_with_invalid_argspec.robot
+Suite Setup     Run Tests    $EMPTY    test_libraries/dynamic_libraries_with_invalid_argspec.robot
 Resource        atest_resource.robot
 
 *** Test Cases ***
@@ -48,19 +48,19 @@ Tuple with non-string first value
     ...    Invalid argument "(None,)".
 
 Keywords with valid arg spec can be used
-    Check Test Case    ${TESTNAME}
+    Check Test Case    $TESTNAME
 
 *** Keywords ***
 Error message should be correct
-    [Arguments]    ${index}    ${kw}    @{message}
-    Check Test Case    ${TESTNAME}
+    [Arguments]    $index    $kw    @{message}
+    Check Test Case    $TESTNAME
     Error In Library    InvalidArgSpecs
-    ...    Adding keyword '${kw}' failed:
+    ...    Adding keyword '$kw' failed:
     ...    @{message}
-    ...    index=${index}
+    ...    index=$index
 
 Invalid argument spec
-    [Arguments]    ${index}    ${kw}    @{message}
-    Error message should be correct    ${index}    ${kw}
+    [Arguments]    $index    $kw    @{message}
+    Error message should be correct    $index    $kw
     ...    Invalid argument specification:
     ...    @{message}

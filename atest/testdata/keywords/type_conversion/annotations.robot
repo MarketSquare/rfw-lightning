@@ -6,16 +6,16 @@ Suite Setup              Setting Mapping
 
 *** Variables ***
 @{LIST}                  foo                       bar
-&{DICT}                  foo=${1}                  bar=${2}
-${FRACTION_HALF}=Evaluate          fractions.Fraction(1,2)
-${DECIMAL_HALF}=Evaluate           decimal.Decimal('0.5')
-${DEQUE}=Evaluate                 collections.deque([1,2,3])
-${PATH}=Evaluate                  pathlib.Path('x/y')
-${PUREPATH}=Evaluate              pathlib.PurePath('x/y')
-${list_1_2}=Evaluate     [1,2]
-${tuple_1_2}=Evaluate    (1,2)
-${time_10_seconds}=Evaluate     datetime.timedelta(seconds=10)
-${tuple_1}=Evaluate      (1,)
+&{DICT}                  foo=$1                  bar=$2
+$FRACTION_HALF=Evaluate          fractions.Fraction(1,2)
+$DECIMAL_HALF=Evaluate           decimal.Decimal('0.5')
+$DEQUE=Evaluate                 collections.deque([1,2,3])
+$PATH=Evaluate                  pathlib.Path('x/y')
+$PUREPATH=Evaluate              pathlib.PurePath('x/y')
+$list_1_2=Evaluate     [1,2]
+$tuple_1_2=Evaluate    (1,2)
+$time_10_seconds=Evaluate     datetime.timedelta(seconds=10)
+$tuple_1=Evaluate      (1,)
 
 *** Test Cases ***
 Integer
@@ -26,7 +26,7 @@ Integer
     Integer              123_456_789               123456789
     Integer              - 123 456 789             -123456789
     Integer              -_123_456_789             -123456789
-    Integer              ${41}                     41
+    Integer              $41                     41
     Integer              ${-4.0}                   -4
 
 Integer as hex
@@ -72,7 +72,7 @@ Invalid integer
     Integer              0b2
     Integer              00b1
     Integer              0x0x0
-    Integer              ${None}                   arg_type=None
+    Integer              $None                   arg_type=None
 
 Integral (abc)
     Integral             42                        42
@@ -83,7 +83,7 @@ Invalid integral (abc)
     [Template]           Conversion Should Fail
     Integral             foobar                    type=integer
     Integral             1.0                       type=integer
-    Integral             ${LIST}                   type=integer    arg_type=list
+    Integral             $LIST                   type=integer    arg_type=list
 
 Float
     Float                1.5                       1.5
@@ -91,14 +91,14 @@ Float
     Float                1e6                       1000000.0
     Float                1 000 000 . 0_0_1         1000000.001
     Float                -1.2e-3                   -0.0012
-    Float                ${4}                      4.0
+    Float                $4                      4.0
     Float                ${-4.1}                   -4.1
-    Float                ${FRACTION_HALF}           0.5
+    Float                $FRACTION_HALF           0.5
 
 Invalid float
     [Template]           Conversion Should Fail
     Float                foobar
-    Float                ${LIST}                   arg_type=list
+    Float                $LIST                   arg_type=list
 
 Real (abc)
     Real                 1.5                       1.5
@@ -106,7 +106,7 @@ Real (abc)
     Real                 1e6                       1000000.0
     Real                 1 000 000 . 0_0_1         1000000.001
     Real                 -1.2e-3                   -0.0012
-    Real                 ${FRACTION_HALF}           Fraction(1,2)
+    Real                 $FRACTION_HALF           Fraction(1,2)
 
 Invalid real (abc)
     [Template]           Conversion Should Fail
@@ -117,14 +117,14 @@ Decimal
     Decimal              -1                        Decimal('-1')
     Decimal              1e6                       Decimal('1000000')
     Decimal              1 000 000 . 0_0_1         Decimal('1000000.001')
-    Decimal              ${1}                      Decimal(1)
+    Decimal              $1                      Decimal(1)
     Decimal              ${1.1}                    Decimal(1.1)
-    Decimal              ${DECIMAL_HALF}            Decimal(0.5)
+    Decimal              $DECIMAL_HALF            Decimal(0.5)
 
 Invalid decimal
     [Template]           Conversion Should Fail
     Decimal              foobar
-    Decimal              ${LIST}                   arg_type=list
+    Decimal              $LIST                   arg_type=list
 
 Boolean
     Boolean              True                      True
@@ -135,11 +135,11 @@ Boolean
     Boolean              No                        False
     Boolean              oFF                       False
     Boolean              0                         False
-    Boolean              ${EMPTY}                  False
+    Boolean              $EMPTY                  False
     Boolean              none                      None
-    Boolean              ${1}                      1
+    Boolean              $1                      1
     Boolean              ${1.1}                    1.1
-    Boolean              ${None}                   None
+    Boolean              $None                   None
 
 Invalid boolean string is accepted as-is
     Boolean              FooBar                    'FooBar'
@@ -147,7 +147,7 @@ Invalid boolean string is accepted as-is
 
 Invalid boolean
     [Template]           Conversion Should Fail
-    Boolean              ${LIST}                   arg_type=list
+    Boolean              $LIST                   arg_type=list
 
 String
     String               Hello, world!             'Hello, world!'
@@ -157,13 +157,13 @@ String
     String               []                        '[]'
     String               1.2                       '1.2'
     String               2                         '2'
-    String               ${42}                     '42'
-    String               ${None}                   'None'
-    String               ${LIST}                   "['foo', 'bar']"
+    String               $42                     '42'
+    String               $None                   'None'
+    String               $LIST                   "['foo', 'bar']"
 
 Invalid string
-    ${bang}          Evaluate             type('Bang',(), {'__str__': lambda self: 1/0})()
-    Conversion Should Fail         String               ${bang}
+    $bang          Evaluate             type('Bang',(), {'__str__': lambda self: 1/0})()
+    Conversion Should Fail         String               $bang
     ...                  arg_type=Bang             error=ZeroDivisionError: *
 
 Bytes
@@ -172,10 +172,10 @@ Bytes
     Bytes                Hyvä esimerkki!           b'Hyv\\xE4 esimerkki!'
     Bytes                None                      b'None'
     Bytes                NONE                      b'NONE'
-    ${foo}=Evaluate      b'foo'
-    Bytes                ${foo}               b'foo'
-    ${foo}=Evaluate      bytearray(b'foo')
-    Bytes                ${foo}    b'foo'
+    $foo=Evaluate      b'foo'
+    Bytes                $foo               b'foo'
+    $foo=Evaluate      bytearray(b'foo')
+    Bytes                $foo    b'foo'
 
 Invalid bytes
     [Template]           Conversion Should Fail
@@ -190,10 +190,10 @@ Bytestring
     Bytestring           Hyvä esimerkki!           b'Hyv\\xE4 esimerkki!'
     Bytestring           None                      b'None'
     Bytestring           NONE                      b'NONE'
-    ${foo}=Evaluate      b'foo'
-    Bytestring           ${foo}               b'foo'
-    ${foo}=Evaluate      bytearray(b'foo')
-    Bytestring           ${foo}    bytearray(b'foo')
+    $foo=Evaluate      b'foo'
+    Bytestring           $foo               b'foo'
+    $foo=Evaluate      bytearray(b'foo')
+    Bytestring           $foo    bytearray(b'foo')
 
 Invalid bytesstring
     [Template]           Conversion Should Fail
@@ -207,10 +207,10 @@ Bytearray
     Bytearray            Hyvä esimerkki!           bytearray(b'Hyv\\xE4 esimerkki!')
     Bytearray            None                      bytearray(b'None')
     Bytearray            NONE                      bytearray(b'NONE')
-    ${foo}=Evaluate      b'foo'
-    Bytearray            ${foo}               bytearray(b'foo')
-    ${foo}=Evaluate      bytearray(b'foo')
-    Bytearray            ${foo}    bytearray(b'foo')
+    $foo=Evaluate      b'foo'
+    Bytearray            $foo               bytearray(b'foo')
+    $foo=Evaluate      bytearray(b'foo')
+    Bytearray            $foo    bytearray(b'foo')
 
 Invalid bytearray
     [Template]           Conversion Should Fail
@@ -223,8 +223,8 @@ Datetime
     DateTime             2014-06-11T10:07:42       datetime(2014, 6, 11, 10, 7, 42)
     DateTime             20180808144342123456      datetime(2018, 8, 8, 14, 43, 42, 123456)
     DateTime             1975:06:04                datetime(1975, 6, 4)
-    DateTime             ${0}                      datetime.fromtimestamp(0)
-    DateTime             ${1602232445}             datetime.fromtimestamp(1602232445)
+    DateTime             $0                      datetime.fromtimestamp(0)
+    DateTime             $1602232445             datetime.fromtimestamp(1602232445)
     DateTime             ${0.0}                    datetime.fromtimestamp(0)
     DateTime             ${1612230445.1}           datetime.fromtimestamp(1612230445.1)
 
@@ -247,7 +247,7 @@ Invalid date
     Date                 2018                                            error=Invalid timestamp '2018'.
     Date                 2014-06-11T10:07:42                             error=Value is datetime, not date.
     Date                 20180808000000000001                            error=Value is datetime, not date.
-    Date                 ${123}                                          arg_type=integer
+    Date                 $123                                          arg_type=integer
     Date                 ${12.3}                                         arg_type=float
 
 Timedelta
@@ -261,7 +261,7 @@ Timedelta
     Timedelta            4:3:2.1                   timedelta(seconds=4*60*60 + 3*60 + 2 + 0.1)
     Timedelta            100:00:00                 timedelta(seconds=100*60*60)
     Timedelta            -00:01                    timedelta(seconds=-1)
-    Timedelta            ${21}                     timedelta(seconds=21)
+    Timedelta            $21                     timedelta(seconds=21)
     Timedelta            ${2.1}                    timedelta(seconds=2.1)
     Timedelta            ${-2.1}                   timedelta(seconds=-2.1)
 
@@ -270,28 +270,28 @@ Invalid timedelta
     Timedelta            foobar                    error=Invalid time string 'foobar'.
     Timedelta            1 foo                     error=Invalid time string '1 foo'.
     Timedelta            01:02:03:04               error=Invalid time string '01:02:03:04'.
-    Timedelta            ${LIST}                   arg_type=list
+    Timedelta            $LIST                   arg_type=list
 
 Path
     Path                 path                     Path('path')
-    Path                 two/components           Path(r'two${/}components')
-    Path                 two${/}components        Path(r'two${/}components')
-    Path                 ${PATH}                  Path('x/y')
-    Path                 ${PUREPATH}              Path('x/y')
+    Path                 two/components           Path(r'two{$/}components')
+    Path                 two{$/}components        Path(r'two{$/}components')
+    Path                 $PATH                  Path('x/y')
+    Path                 $PUREPATH              Path('x/y')
     PurePath             path                     Path('path')
-    PurePath             two/components           Path(r'two${/}components')
-    PurePath             two${/}components        Path(r'two${/}components')
-    PurePath             ${PATH}                  Path('x/y')
-    PurePath             ${PUREPATH}              PurePath('x/y')
+    PurePath             two/components           Path(r'two{$/}components')
+    PurePath             two{$/}components        Path(r'two{$/}components')
+    PurePath             $PATH                  Path('x/y')
+    PurePath             $PUREPATH              PurePath('x/y')
     PathLike             path                      Path('path')
-    PathLike             two/components            Path(r'two${/}components')
-    PathLike             two${/}components         Path(r'two${/}components')
-    PathLike             ${PATH}                   Path('x/y')
-    PathLike             ${PUREPATH}               PurePath('x/y')
+    PathLike             two/components            Path(r'two{$/}components')
+    PathLike             two{$/}components         Path(r'two{$/}components')
+    PathLike             $PATH                   Path('x/y')
+    PathLike             $PUREPATH               PurePath('x/y')
 
 Invalid Path
     [Template]           Conversion Should Fail
-    Path                 ${1}                     type=Path    arg_type=integer
+    Path                 $1                     type=Path    arg_type=integer
 
 Enum
     Enum                 FOO                       MyEnum.FOO
@@ -306,13 +306,13 @@ Flag
 
 IntEnum
     IntEnum              ON                        MyIntEnum.ON
-    IntEnum              ${1}                      MyIntEnum.ON
+    IntEnum              $1                      MyIntEnum.ON
     IntEnum              0                         MyIntEnum.OFF
 
 IntFlag
     IntFlag              R                         MyIntFlag.R
     IntFlag              4                         MyIntFlag.R
-    IntFlag              ${4}                      MyIntFlag.R
+    IntFlag              $4                      MyIntFlag.R
 
 Normalized enum member match
     Enum                 b a r                     MyEnum.bar
@@ -341,7 +341,7 @@ Invalid IntEnum
     [Template]           Conversion Should Fail
     IntEnum              nonex                     type=MyIntEnum        error=MyIntEnum does not have member 'nonex'. Available: 'OFF (0)' and 'ON (1)'
     IntEnum              2                         type=MyIntEnum        error=MyIntEnum does not have member '2'. Available: 'OFF (0)' and 'ON (1)'
-    IntEnum              ${2}                      type=MyIntEnum        error=MyIntEnum does not have value '2'. Available: '0' and '1'          arg_type=integer
+    IntEnum              $2                      type=MyIntEnum        error=MyIntEnum does not have value '2'. Available: '0' and '1'          arg_type=integer
     IntFlag              3                         type=MyIntFlag        error=MyIntFlag does not have member '3'. Available: 'R (4)', 'W (2)' and 'X (1)'
     IntFlag              ${-1}                     type=MyIntFlag        error=MyIntFlag does not have value '-1'. Available: '1', '2' and '4'    arg_type=integer
 
@@ -357,13 +357,13 @@ Invalid NoneType
 
 List
     List                 []                        []
-    List                 ['foo', 'bar']            ${LIST}
+    List                 ['foo', 'bar']            $LIST
     List                 [1, 2, 3.14, -42]         [1, 2, 3.14, -42]
     List                 ['\\x00', '\\x52']        ['\\x00', 'R']
     List                 [{'nested': True}]        [{'nested': True}]
-    List                 ${list_1_2}               [1, 2]
-    List                 ${tuple_1_2}              [1, 2]
-    List                 ${DEQUE}                  [1, 2, 3]
+    List                 $list_1_2               [1, 2]
+    List                 $tuple_1_2              [1, 2]
+    List                 $DEQUE                  [1, 2, 3]
 
 Invalid list
     [Template]           Conversion Should Fail
@@ -371,18 +371,18 @@ Invalid list
     List                 ()                        error=Value is tuple, not list.
     List                 {}                        error=Value is dictionary, not list.
     List                 ooops                     error=Invalid expression.
-    List                 ${EMPTY}                  error=Invalid expression.
+    List                 $EMPTY                  error=Invalid expression.
     List                 !"#¤%&/(inv expr)\=?      error=Invalid expression.
     List                 1 / 0                     error=Invalid expression.
-    List                 ${NONE}                   arg_type=None
+    List                 $NONE                   arg_type=None
 
 Sequence (abc)
     Sequence             []                        []
-    Sequence             ['foo', 'bar']            ${LIST}
-    Sequence             ${DEQUE}                  collections.deque([1, 2, 3])
+    Sequence             ['foo', 'bar']            $LIST
+    Sequence             $DEQUE                  collections.deque([1, 2, 3])
     Mutable sequence     [1, 2, 3.14, -42]         [1, 2, 3.14, -42]
     Mutable sequence     ['\\x00', '\\x52']        ['\\x00', 'R']
-    Mutable sequence     ${DEQUE}                  collections.deque([1, 2, 3])
+    Mutable sequence     $DEQUE                  collections.deque([1, 2, 3])
 
 Invalid sequence (abc)
     [Template]           Conversion Should Fail
@@ -390,18 +390,18 @@ Invalid sequence (abc)
     Mutable sequence     ()                        type=list             error=Value is tuple, not list.
     Sequence             {}                        type=list             error=Value is dictionary, not list.
     Mutable sequence     ooops                     type=list             error=Invalid expression.
-    Sequence             ${EMPTY}                  type=list             error=Invalid expression.
+    Sequence             $EMPTY                  type=list             error=Invalid expression.
     Mutable sequence     !"#¤%&/(inv expr)\=?      type=list             error=Invalid expression.
     Sequence             1 / 0                     type=list             error=Invalid expression.
 
 Tuple
     Tuple                ()                        ()
-    Tuple                ('foo', "bar")            tuple(${LIST})
+    Tuple                ('foo', "bar")            tuple($LIST)
     Tuple                (1, 2, 3.14, -42)         (1, 2, 3.14, -42)
     Tuple                (['nested', True],)       (['nested', True],)
-    Tuple                ${tuple_1_2}              (1, 2)
-    Tuple                ${list_1_2}               (1, 2)
-    Tuple                ${DEQUE}                  (1, 2, 3)
+    Tuple                $tuple_1_2              (1, 2)
+    Tuple                $list_1_2               (1, 2)
+    Tuple                $DEQUE                  (1, 2, 3)
 
 Invalid tuple
     [Template]           Conversion Should Fail
@@ -409,13 +409,13 @@ Invalid tuple
     Tuple                []                        error=Value is list, not tuple.
     Tuple                {}                        error=Value is dictionary, not tuple.
     Tuple                ooops                     error=Invalid expression.
-    Tuple                ${NONE}                   arg_type=None
+    Tuple                $NONE                   arg_type=None
 
 Dictionary
     Dictionary           {}                        {}
-    Dictionary           {'foo': 1, "bar": 2}      dict(${DICT})
+    Dictionary           {'foo': 1, "bar": 2}      dict($DICT)
     Dictionary           {1: 2, 3.14: -42}         {1: 2, 3.14: -42}
-    Dictionary           ${MAPPING}                {'a': 1}
+    Dictionary           $MAPPING                {'a': 1}
 
 Invalid dictionary
     [Template]           Conversion Should Fail
@@ -424,13 +424,13 @@ Invalid dictionary
     Dictionary           ()                                              error=Value is tuple, not dict.
     Dictionary           ooops                                           error=Invalid expression.
     Dictionary           {{'not': 'hashable'}: 'xxx'}                    error=Evaluating expression failed: *
-    Dictionary           ${NONE}                                         arg_type=None
+    Dictionary           $NONE                                         arg_type=None
 
 Mapping (abc)
     Mapping              {'foo': 1, 2: 'bar'}      {'foo': 1, 2: 'bar'}
-    Mapping              ${MAPPING}                ${MAPPING}
+    Mapping              $MAPPING                $MAPPING
     Mutable mapping      {'foo': 1, 2: 'bar'}      {'foo': 1, 2: 'bar'}
-    Mutable mapping      ${MAPPING}                ${MAPPING}
+    Mutable mapping      $MAPPING                $MAPPING
 
 Invalid mapping (abc)
     [Template]           Conversion Should Fail
@@ -445,10 +445,10 @@ Set
     Set                  ${{{1}}}                  {1}
     Set                  ${{frozenset({1})}}       {1}
     Set                  ${{[1]}}                  {1}
-    Set                  ${tuple_1}                 {1}
+    Set                  $tuple_1                 {1}
     Set                  ${{{1:2}}}               {1}
-    Set                  ${DEQUE}                  {1, 2, 3}
-    Set                  ${MAPPING}                {'a'}
+    Set                  $DEQUE                  {1, 2, 3}
+    Set                  $MAPPING                {'a'}
 
 Invalid set
     [Template]           Conversion Should Fail
@@ -459,19 +459,19 @@ Invalid set
     Set                  ooops                     error=Invalid expression.
     Set                  {{'not', 'hashable'}}     error=Evaluating expression failed: *
     Set                  frozenset()               error=Invalid expression.
-    Set                  ${NONE}                   arg_type=None
+    Set                  $NONE                   arg_type=None
 
 Set (abc)
     Set abc              set()                     set()
     Set abc              {'foo', 'bar'}            {'foo', 'bar'}
     Set abc              {1, 2, 3.14, -42}         {1, 2, 3.14, -42}
-    Set abc              ${DEQUE}                  {1, 2, 3}
-    Set abc              ${MAPPING}                {'a'}
+    Set abc              $DEQUE                  {1, 2, 3}
+    Set abc              $MAPPING                {'a'}
     Mutable set          set()                     set()
     Mutable set          {'foo', 'bar'}            {'foo', 'bar'}
     Mutable set          {1, 2, 3.14, -42}         {1, 2, 3.14, -42}
-    Mutable set          ${DEQUE}                  {1, 2, 3}
-    Mutable set          ${MAPPING}                {'a'}
+    Mutable set          $DEQUE                  {1, 2, 3}
+    Mutable set          $MAPPING                {'a'}
 
 Invalid set (abc)
     [Template]           Conversion Should Fail
@@ -490,10 +490,10 @@ Frozenset
     Frozenset            ${{frozenset({1})}}       frozenset({1})
     Frozenset            ${{{1}}}                  frozenset({1})
     Frozenset            ${{[1]}}                  frozenset({1})
-    Frozenset            ${tuple_1}                 frozenset({1})
+    Frozenset            $tuple_1                 frozenset({1})
     Frozenset            ${{{1:2}}}               frozenset({1})
-    Frozenset            ${DEQUE}                  frozenset({1, 2, 3})
-    Frozenset            ${MAPPING}                frozenset({'a'})
+    Frozenset            $DEQUE                  frozenset({1, 2, 3})
+    Frozenset            $MAPPING                frozenset({'a'})
 
 Invalid frozenset
     [Template]           Conversion Should Fail
@@ -543,16 +543,16 @@ Invalid positional as named
 
 Varargs
     Varargs              1    2    3               expected=(1, 2, 3)
-    Varargs              ${1}    ${2.0}            expected=(1, 2)
+    Varargs              $1    ${2.0}            expected=(1, 2)
 
 Invalid varargs
     [Template]           Conversion Should Fail
     Varargs              foobar                    type=integer
-    Varargs              ${NONE}                   type=integer    arg_type=None
+    Varargs              $NONE                   type=integer    arg_type=None
 
 Kwargs
     Kwargs               a=1    b=2    c=3         expected={'a': 1, 'b': 2, 'c': 3}
-    Kwargs               a=${1}    b=${2.0}        expected={'a': 1, 'b': 2}
+    Kwargs               a=$1    b=${2.0}        expected={'a': 1, 'b': 2}
 
 Invalid Kwargs
     [Template]           Conversion Should Fail
@@ -561,12 +561,12 @@ Invalid Kwargs
 
 Kwonly
     Kwonly               argument=1.0              expected=1.0
-    Kwonly               argument=${1}             expected=1.0
+    Kwonly               argument=$1             expected=1.0
 
 Invalid kwonly
     [Template]           Conversion Should Fail
     Kwonly               argument=foobar           type=float
-    Kwonly               argument=${NONE}          type=float    arg_type=None
+    Kwonly               argument=$NONE          type=float    arg_type=None
 
 Return value annotation causes no error
     Return value annotation                    42    42
@@ -579,7 +579,7 @@ None as default with known type
 None as default with unknown type
     None as default with unknown type
     None as default with unknown type          hi!      'hi!'
-    None as default with unknown type          ${42}    42
+    None as default with unknown type          $42    42
     None as default with unknown type          None     None
 
 Forward references
@@ -606,8 +606,8 @@ Value contains variable
     [Setup]       Set Environment Variable         PI_NUMBER    3.14
     [Teardown]    Remove Environment Variable      PI_NUMBER
     Float                %{PI_NUMBER}              ${3.14}
-    ${value} =           Set variable              42
-    Integer              ${value}                  ${42}
+    $value =           Set variable              42
+    Integer              $value                  $42
     @{value} =           Create List               1    2    3
     Varargs              @{value}                  expected=(1, 2, 3)
     &{value} =           Create Dictionary         a=1    b=2    c=3
@@ -621,7 +621,7 @@ Default value is used if explicit type conversion fails
     Type and default 1    none       None
     Type and default 2    FALSE      False
     Type and default 2    ok also    'ok also'
-    Type and default 3    10         ${time_10_seconds}
+    Type and default 3    10         $time_10_seconds
 
 Explicit conversion failure is used if both conversions fail
     [Template]    Conversion Should Fail
@@ -631,5 +631,5 @@ Explicit conversion failure is used if both conversions fail
 *** Keywords ***
 
 Setting Mapping
-    ${MAPPING}=         Evaluate      type('M', (collections.abc.Mapping,), {'__getitem__': lambda s, k: {'a': 1}[k], '__iter__': lambda s: iter({'a': 1}), '__len__': lambda s: 1})()
+    $MAPPING=         Evaluate      type('M', (collections.abc.Mapping,), {'__getitem__': lambda s, k: {'a': 1}[k], '__iter__': lambda s: iter({'a': 1}), '__len__': lambda s: 1})()
     Set Suite Variable   $MAPPING

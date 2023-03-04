@@ -7,16 +7,16 @@ Library           OperatingSystem
 Megadata          This causes recommendation.
 
 *** Variable ***
-${default}        default
+$default        default
 
 *** Keyword ***
 My Teardown
     [Arguments]    @{msg_parts}
-    ${msg}    Create Message    @{msg_parts}
-    Log    ${msg}
-    Directory Should Not Be Empty    ${CURDIR}    Test that OS lib was imported
+    $msg    Create Message    @{msg_parts}
+    Log    $msg
+    Directory Should Not Be Empty    $CURDIR    Test that OS lib was imported
 
 Create Message
     [Arguments]    @{msg_parts}
-    ${msg}    Catenate    @{msg_parts}
-    [Return]    ${msg}
+    $msg    Catenate    @{msg_parts}
+    [Return]    $msg

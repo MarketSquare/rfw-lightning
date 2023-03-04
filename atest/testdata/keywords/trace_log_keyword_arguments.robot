@@ -5,7 +5,7 @@ Library           TraceLogArgsLibrary.py
 
 *** Variables ***
 @{VALUES}         a    b    c    d
-${NON_ASCII}      Hyvää 'Päivää'\n
+$NON_ASCII      Hyvää 'Päivää'\n
 &{DICT}           a=1    c=3
 
 *** Test Cases ***
@@ -40,66 +40,66 @@ Variable Number of Arguments
 Kwargs
     Kwargs UK
     Kwargs
-    Kwargs UK    a=override    b=${2}    &{DICT}
-    Kwargs    a=override    b=${2}    &{DICT}
+    Kwargs UK    a=override    b=$2    &{DICT}
+    Kwargs    a=override    b=$2    &{DICT}
 
 All args
     All args UK    1    2    3    d=4
     All args    1    2    3    d=4
 
 Non String Object as Argument
-    Mandatory and Default UK    ${TRUE}    default=${1.0}
-    Mandatory and Default    ${TRUE}    default=${1.0}
+    Mandatory and Default UK    $TRUE    default=${1.0}
+    Mandatory and Default    $TRUE    default=${1.0}
     Mandatory and Varargs UK    ${-123}    ${1.0}
     Mandatory and Varargs    ${-123}    ${1.0}
 
 None as Argument
-    Mandatory and Default UK    ${NONE}    default=${NONE}
-    Mandatory and Default    ${NONE}    default=${NONE}
-    Mandatory and Varargs UK    ${NONE}    ${NONE}
-    Mandatory and Varargs    ${NONE}    ${NONE}
+    Mandatory and Default UK    $NONE    default=$NONE
+    Mandatory and Default    $NONE    default=$NONE
+    Mandatory and Varargs UK    $NONE    $NONE
+    Mandatory and Varargs    $NONE    $NONE
 
 Non Ascii String as Argument
-    Mandatory and Default UK    ${NON_ASCII}    default=${NON_ASCII}
-    Mandatory and Default    ${NON_ASCII}    default=${NON_ASCII}
-    Mandatory and Varargs UK    ${NON_ASCII}    ${NON_ASCII}
-    Mandatory and Varargs    ${NON_ASCII}    ${NON_ASCII}
+    Mandatory and Default UK    $NON_ASCII    default=$NON_ASCII
+    Mandatory and Default    $NON_ASCII    default=$NON_ASCII
+    Mandatory and Varargs UK    $NON_ASCII    $NON_ASCII
+    Mandatory and Varargs    $NON_ASCII    $NON_ASCII
 
 Object With Unicode Repr as Argument
-    Mandatory And Default UK    ${object}    default=${object}
-    Mandatory And Default    ${object}    default=${object}
-    Mandatory and Varargs UK    ${object}    ${object}
-    Mandatory and Varargs    ${object}    ${object}
+    Mandatory And Default UK    $object    default=$object
+    Mandatory And Default    $object    default=$object
+    Mandatory and Varargs UK    $object    $object
+    Mandatory and Varargs    $object    $object
 
 Arguments With Run Keyword
-    ${keyword_name}=    Set Variable    Catenate
-    ${result} =    Run Keyword    ${keyword_name}    @{VALUES}
-    Should Be Equal    ${result}    a b c d
+    $keyword_name=    Set Variable    Catenate
+    $result =    Run Keyword    $keyword_name    @{VALUES}
+    Should Be Equal    $result    a b c d
 
 Embedded Arguments
-    Embedded Arguments "foo" and "${42}" with UK
-    Embedded Arguments "bar" and "${TEST_NAME}"
+    Embedded Arguments "foo" and "$42" with UK
+    Embedded Arguments "bar" and "$TEST_NAME"
     Embedded arguments in a keyword with positional arguments    positively
 
 *** Keywords ***
 Set Unicode Repr Object As Variable
-    ${object} =    Print and Return NonASCII Object
-    Set Global Variable    ${OBJECT}
+    $object =    Print and Return NonASCII Object
+    Set Global Variable    $OBJECT
 
 Only Mandatory UK
-    [Arguments]    ${mand1}    ${mand2}
+    [Arguments]    $mand1    $mand2
     No Operation
 
 Mandatory And Default UK
-    [Arguments]    ${mand}    ${default}=default value
+    [Arguments]    $mand    $default=default value
     No Operation
 
 Multiple Default Values UK
-    [Arguments]    ${a1}=1    ${a2}=2    ${a3}=3    ${a4}=${4}
+    [Arguments]    $a1=1    $a2=2    $a3=3    $a4=$4
     No Operation
 
 Mandatory and Varargs UK
-    [Arguments]    ${mand}    @{vargs}
+    [Arguments]    $mand    @{vargs}
     No Operation
 
 Kwargs UK
@@ -107,14 +107,14 @@ Kwargs UK
     No Operation
 
 All args UK
-    [Arguments]    ${positional}    @{varargs}    &{kwargs}
+    [Arguments]    $positional    @{varargs}    &{kwargs}
     No Operation
 
-Embedded Arguments "${first}" and "${second}" with ${what:[KU]+}
-    Should Be Equal    ${first}    foo
-    Should be Equal    ${second}    ${42}
-    Should be Equal    ${what}    UK
+Embedded Arguments "$first" and "$second" with ${what:[KU]+}
+    Should Be Equal    $first    foo
+    Should be Equal    $second    $42
+    Should be Equal    $what    UK
 
-${embedded} arguments in a ${keyword} with positional arguments
-    [arguments]     ${positional}
-    Log to console   ${embedded} ${keyword} ${positional}
+$embedded arguments in a $keyword with positional arguments
+    [arguments]     $positional
+    Log to console   $embedded $keyword $positional

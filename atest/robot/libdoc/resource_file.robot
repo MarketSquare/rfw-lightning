@@ -1,5 +1,5 @@
 *** Settings ***
-Suite Setup       Run Libdoc And Parse Output    ${TESTDATADIR}/resource.robot
+Suite Setup       Run Libdoc And Parse Output    $TESTDATADIR/resource.robot
 Resource          libdoc_resource.robot
 
 *** Test Cases ***
@@ -18,12 +18,12 @@ Documentation
     ...    -------------
     ...
     ...    | *TABLE* |
-    ...    | \${NONEX} | $\{CURDIR} | \${TEMPDIR} |
+    ...    | \$NONEX | $\{CURDIR} | \$TEMPDIR |
     ...    | foo | bar |
     ...    tabs \t\t\t here
 
 Version
-    Version Should Be               ${EMPTY}
+    Version Should Be               $EMPTY
 
 Type
     Type Should Be                  RESOURCE
@@ -32,17 +32,17 @@ Generated
     Generated Should Be Defined
 
 Scope
-    Scope Should Be                 GLOBAL    old=${EMPTY}
+    Scope Should Be                 GLOBAL    old=$EMPTY
 
 Source Info
-    Source Should Be                ${TESTDATADIR}/resource.robot
+    Source Should Be                $TESTDATADIR/resource.robot
     Lineno Should Be                1
 
 Spec version
     Spec version should be correct
 
 Resource Tags
-    Specfile Tags Should Be          \${3}    ?!?!??    a      b    bar    dar
+    Specfile Tags Should Be          \$3    ?!?!??    a      b    bar    dar
     ...                              foo      Has       kw4    robot:private    tags
 
 Resource Has No Inits
@@ -62,17 +62,17 @@ Different Argument Types
     ...                                  kwo=default    another    **kwargs
 
 Embedded Arguments
-    Keyword Name Should Be          3    Embedded \${arguments}
+    Keyword Name Should Be          3    Embedded \$arguments
     Keyword Arguments Should Be     3
 
 Keyword Documentation
     Keyword Doc Should Be           0    $\{CURDIR}
-    Keyword Doc Should Be           4    foo bar `kw` & some "stuff" to <escape> .\n\nbaa `\${a1}`
+    Keyword Doc Should Be           4    foo bar `kw` & some "stuff" to <escape> .\n\nbaa `\$a1`
     Keyword Doc Should Be           6    literal\nnewline
     Keyword Doc Should Be           8
     ...    foo bar `kw`.
     ...
-    ...    FIRST `\${a1}` alskdj alskdjlajd
+    ...    FIRST `\$a1` alskdj alskdjlajd
     ...    askf laskdjf asldkfj alsdkfj alsdkfjasldkfj END
     ...
     ...    SECOND askf laskdjf _asldkfj_ alsdkfj alsdkfjasldkfj
@@ -94,14 +94,14 @@ Keyword Documentation
 Deprecation
     Keyword Doc Should Be           1    *DEPRECATED* for some reason.
     Keyword Should Be Deprecated    1
-    FOR    ${index}    IN RANGE    2    11
-        Keyword Should Not Be Deprecated    ${index}
+    FOR    $index    IN RANGE    2    11
+        Keyword Should Not Be Deprecated    $index
     END
 
 Keyword tags
     Keyword Tags Should Be          6
     Keyword Tags Should Be          7    ?!?!??    Has    kw4    tags
-    Keyword Tags Should Be          8    \${3}   a    b
+    Keyword Tags Should Be          8    \$3   a    b
     Keyword Tags Should Be          9    bar    dar    foo
 
 Non ASCII
@@ -113,8 +113,8 @@ Keyword Source Info
     Keyword Lineno Should Be          0    71
 
 '*.resource' extension is accepted
-    Run Libdoc And Parse Output       ${TESTDATADIR}/resource.resource
-    Source Should Be                  ${TESTDATADIR}/resource.resource
+    Run Libdoc And Parse Output       $TESTDATADIR/resource.resource
+    Source Should Be                  $TESTDATADIR/resource.resource
     Lineno Should Be                  1
     Keyword Name Should Be            2    Yay, I got new extension!
     Keyword Arguments Should Be       2    Awesome

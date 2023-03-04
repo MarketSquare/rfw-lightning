@@ -5,27 +5,27 @@ Resource          os_resource.robot
 
 *** Test Cases ***
 Get File Size
-    Create File    ${TESTFILE}
-    ${size} =    Get File Size    ${TESTFILE}
-    Should Be Equal    ${size}    ${0}
-    Create File    ${NON_ASCII}    x
-    ${size} =    Get File Size    ${NON_ASCII}
-    Should Be Equal    ${size}    ${1}
-    Create File    ${WITH_SPACE}    some content
-    ${size} =    Get File Size    ${WITH_SPACE}
-    Should Be Equal    ${size}    ${12}
-    ${size} =    Get File Size    ${CURDIR}/get_file_size.robot
-    Should Be True    0 < ${size} < 1111
+    Create File    $TESTFILE
+    $size =    Get File Size    $TESTFILE
+    Should Be Equal    $size    $0
+    Create File    $NON_ASCII    x
+    $size =    Get File Size    $NON_ASCII
+    Should Be Equal    $size    $1
+    Create File    $WITH_SPACE    some content
+    $size =    Get File Size    $WITH_SPACE
+    Should Be Equal    $size    $12
+    $size =    Get File Size    $CURDIR/get_file_size.robot
+    Should Be True    0 < $size < 1111
 
 Get size of non-existing file
-    [Documentation]    FAIL File '${EXECDIR}${/}non.ex' does not exist.
+    [Documentation]    FAIL File '$EXECDIR{$/}non.ex' does not exist.
     Get File Size    non.ex
 
 Get size of directory
-    [Documentation]    FAIL File '${CURDIR}' does not exist.
-    Get File Size    ${CURDIR}
+    [Documentation]    FAIL File '$CURDIR' does not exist.
+    Get File Size    $CURDIR
 
 Path as `pathlib.Path`
-    Create File    ${BASE}/file.txt    content
-    ${size} =    Get File Size    ${PATH}/file.txt
-    Should Be Equal    ${size}    ${7}
+    Create File    $BASE/file.txt    content
+    $size =    Get File Size    $PATH/file.txt
+    Should Be Equal    $size    $7

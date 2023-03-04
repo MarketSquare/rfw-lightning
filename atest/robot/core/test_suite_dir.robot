@@ -42,8 +42,8 @@ File Without Extension
 
 File and Directory Starting with _
     ${path} =    Normalize Path    ${DATADIR}/core/test_suite_dir
-    Syslog Should Contain  Ignoring file or directory '${path}${/}_ignore_this_file.robot'.
-    Syslog Should Contain  Ignoring file or directory '${path}${/}_ignore_this_dir'.
+    Syslog Should Contain  Ignoring file or directory '${path}{$/}_ignore_this_file.robot'.
+    Syslog Should Contain  Ignoring file or directory '${path}{$/}_ignore_this_dir'.
 
 *** Keywords ***
 Suite Passed

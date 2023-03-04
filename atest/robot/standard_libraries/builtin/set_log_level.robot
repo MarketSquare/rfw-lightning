@@ -4,7 +4,7 @@ Resource          atest_resource.robot
 
 *** Test Cases ***
 Set Log Level
-    ${tc} =    Check Test Case    ${TESTNAME}
+    $tc =    Check Test Case    $TESTNAME
     Check Log Message    ${tc.kws[0].msgs[0]}    Log level changed from INFO to TRACE.
     Check Log Message    ${tc.kws[1].msgs[1]}    This is logged    TRACE
     Check Log Message    ${tc.kws[2].msgs[1]}    This is logged    DEBUG
@@ -21,10 +21,10 @@ Set Log Level
     Should Be Empty    ${tc.kws[19].msgs}
 
 Invalid Log Level Failure Is Catchable
-    Check Test Case    ${TESTNAME}
+    Check Test Case    $TESTNAME
 
 Log Level Goes To HTML
-    File Should Contain    ${OUTDIR}${/}set_log_level_log.html    KW Info to log
-    File Should Contain    ${OUTDIR}${/}set_log_level_log.html    KW Trace to log
-    File Should Contain    ${OUTDIR}${/}set_log_level_log.html    TC Info to log
-    File Should Contain    ${OUTDIR}${/}set_log_level_log.html    TC Trace to log
+    File Should Contain    $OUTDIR{$/}set_log_level_log.html    KW Info to log
+    File Should Contain    $OUTDIR{$/}set_log_level_log.html    KW Trace to log
+    File Should Contain    $OUTDIR{$/}set_log_level_log.html    TC Info to log
+    File Should Contain    $OUTDIR{$/}set_log_level_log.html    TC Trace to log

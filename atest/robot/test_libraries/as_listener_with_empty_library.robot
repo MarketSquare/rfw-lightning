@@ -1,5 +1,5 @@
 *** Settings ***
-Suite Setup     Run Tests    ${EMPTY}    test_libraries/as_listener/empty_library.robot
+Suite Setup     Run Tests    $EMPTY    test_libraries/as_listener/empty_library.robot
 Resource        atest_resource.robot
 
 *** Test Cases ***

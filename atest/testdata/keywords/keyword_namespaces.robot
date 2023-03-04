@@ -86,15 +86,15 @@ Search order can give presedence to custom keyword over standard library keyword
     [Teardown]    Set Library Search Order
 
 Keyword From Custom Library Overrides Keywords From Standard Library Even When Std Lib Imported With Different Name
-    ${ret} =    Replace String
-    Should Be Equal    ${ret}    I replace nothing!
-    ${ret} =    My With Name.Replace String
-    Should Be Equal    ${ret}    I replace nothing!
-    ${ret} =    Std With Name.Replace String    I replace this!    this    that
-    Should Be Equal    ${ret}    I replace that!
+    $ret =    Replace String
+    Should Be Equal    $ret    I replace nothing!
+    $ret =    My With Name.Replace String
+    Should Be Equal    $ret    I replace nothing!
+    $ret =    Std With Name.Replace String    I replace this!    this    that
+    Should Be Equal    $ret    I replace that!
 
 No Warning When Custom Library Keyword Is Registered As RunKeyword Variant And It Has Same Name As Std Keyword
-    Run Keyword If    ${TRUE}    Log    Hello
+    Run Keyword If    $TRUE    Log    Hello
 
 Keyword In More Than One Custom Library And Standard Library
     [Documentation]    FAIL
@@ -126,6 +126,6 @@ my_resource_1.Overrided in test case file with full name
     Overrided in test case file with full name    # This is from resource
 
 BuiltIn.Log
-    [Arguments]    ${arg}
+    [Arguments]    $arg
     Log    Keyword in test case file overriding keyword in BuiltIn
-    Log    ${arg}    # This is from BuiltIn
+    Log    $arg    # This is from BuiltIn

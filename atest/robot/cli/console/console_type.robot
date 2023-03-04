@@ -39,7 +39,7 @@ None
 
 Invalid
     Run Tests Without Processing Output    --Console Invalid    misc/pass_and_fail.robot
-    Stderr Should Be Equal To    [ ERROR ] Invalid console output type 'Invalid'. Available 'VERBOSE', 'DOTTED', 'QUIET' and 'NONE'.${USAGE_TIP}\n
+    Stderr Should Be Equal To    [ ERROR ] Invalid console output type 'Invalid'. Available 'VERBOSE', 'DOTTED', 'QUIET' and 'NONE'.$USAGE_TIP\n
 
 --dotted
     Run and verify tests    --dotted
@@ -70,14 +70,14 @@ Dotted does not show details for skipped after fatal error
     Run tests    -X.    core/empty_testcase_and_uk.robot
     Stdout Should Be    dotted_exitonfailure_empty_test.txt
     Stderr Should Be    dotted_exitonfailure_empty_test_stderr.txt
-    Check test tags    ${EMPTY}
-    ${tc} =    Check test case    Empty Test Case    FAIL
+    Check test tags    $EMPTY
+    $tc =    Check test case    Empty Test Case    FAIL
     ...    Failure occurred and exit-on-failure mode is in use.
     Should contain    ${tc.tags}    robot:exit
 
 *** Keywords ***
 Run and verify tests
-    [Arguments]    ${options}
-    Run Tests    ${options}    misc/warnings_and_errors.robot
+    [Arguments]    $options
+    Run Tests    $options    misc/warnings_and_errors.robot
     Should Be Equal    ${SUITE.status}    PASS
     Length Should Be    ${SUITE.tests}    3

@@ -1,9 +1,9 @@
 *** Settings ***
 Library          OperatingSystem
-Test Teardown    Remove File    ${VARFILE}
+Test Teardown    Remove File    $VARFILE
 
 *** Variables ***
-${VARFILE}    %{TEMPDIR}/robot_variable_test.py
+$VARFILE    %{TEMPDIR}/robot_variable_test.py
 
 *** Test Cases ***
 
@@ -15,8 +15,8 @@ Importing Same Variable File Does Not Re-Import Module
 *** Keywords ***
 
 Test Import
-    [Arguments]    ${value}
-    Create File    ${VARFILE}    VAR = '${value}'
-    Import Variables    ${VARFILE}
-    Should Be Equal    ${VAR}    initial value
+    [Arguments]    $value
+    Create File    $VARFILE    VAR = '$value'
+    Import Variables    $VARFILE
+    Should Be Equal    $VAR    initial value
 

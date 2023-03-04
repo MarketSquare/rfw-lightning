@@ -73,14 +73,14 @@ Functions decorated with @keyword can start with underscrore
     Function name can be whatever
 
 Embedded Args Keyword
-    ${count}  ${item} =  Add 7 Copies of Coffee To Cart
-    Should Be Equal  ${count}-${item}  7-Coffee
+    $count  $item =  Add 7 Copies of Coffee To Cart
+    Should Be Equal  $count-$item  7-Coffee
 
 Assignment is not part of name
     Log    No assignment
-    ${var} =    Set Variable    value
-    ${v1}    ${v2} =    Set Variable    1    2
-    ${first}    @{rest} =    Evaluate    range(10)
+    $var =    Set Variable    value
+    $v1    $v2 =    Set Variable    1    2
+    $first    @{rest} =    Evaluate    range(10)
 
 Library name and keyword name are separate
     Keyword Only In Test Case File

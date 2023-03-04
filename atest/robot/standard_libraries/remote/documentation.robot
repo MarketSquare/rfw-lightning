@@ -5,7 +5,7 @@ Test Template    Verify executed short doc and full Libdoc
 
 *** Test Cases ***
 Empty
-    ${EMPTY}    ${EMPTY}    0
+    $EMPTY    $EMPTY    0
 
 Single
     Single line documentation    Single line documentation    3
@@ -36,15 +36,15 @@ Init arguments
 
 *** Keywords ***
 Run Remote Tests And Libdoc
-    ${port} =    Run Remote Tests    documentation.robot    documentation.py    stop_server=no
-    Run Libdoc And Parse Output    Remote::http://127.0.0.1:${port}
+    $port =    Run Remote Tests    documentation.robot    documentation.py    stop_server=no
+    Run Libdoc And Parse Output    Remote::http://127.0.0.1:$port
     [Teardown]      Run Keywords
     ...    Stop Remote Server    documentation.py    AND
     ...    Remove Output Files
 
 Verify executed short doc and full Libdoc
-    [Arguments]    ${short}    ${full}    ${index}
-    ${tc} =    Check Test Case    ${TEST_NAME}
-    Should Be Equal    ${tc.kws[0].doc}    ${short}
-    Keyword Name Should Be    ${index}    ${TEST_NAME}
-    Keyword Doc Should Be     ${index}    ${full}
+    [Arguments]    $short    $full    $index
+    $tc =    Check Test Case    $TEST_NAME
+    Should Be Equal    ${tc.kws[0].doc}    $short
+    Keyword Name Should Be    $index    $TEST_NAME
+    Keyword Doc Should Be     $index    $full

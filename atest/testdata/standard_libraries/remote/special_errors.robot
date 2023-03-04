@@ -1,10 +1,10 @@
 *** Settings ***
 Documentation     Continuable and fatal errors.
-Library           Remote    127.0.0.1:${PORT}
+Library           Remote    127.0.0.1:$PORT
 Suite Setup       Set Log Level    DEBUG
 
 *** Variables ***
-${PORT}           8270
+$PORT           8270
 
 *** Test Cases ***
 Continuable

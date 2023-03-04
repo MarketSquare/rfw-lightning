@@ -9,14 +9,14 @@ Library           libraryscope.InvalidNone
 
 *** Keyword ***
 Register All
-    [Arguments]    ${name}
-    libraryscope.Global.Register    ${name}
-    libraryscope.Suite.Register    ${name}
-    libraryscope.Test.Register    ${name}
-    libraryscope.InvalidValue.Register    ${name}
-    libraryscope.InvalidEmpty.Register    ${name}
-    libraryscope.InvalidMethod.Register    ${name}
-    libraryscope.InvalidNone.Register    ${name}
+    [Arguments]    $name
+    libraryscope.Global.Register    $name
+    libraryscope.Suite.Register    $name
+    libraryscope.Test.Register    $name
+    libraryscope.InvalidValue.Register    $name
+    libraryscope.InvalidEmpty.Register    $name
+    libraryscope.InvalidMethod.Register    $name
+    libraryscope.InvalidNone.Register    $name
 
 Invalids Should Have Registered
     [Arguments]    @{expected}

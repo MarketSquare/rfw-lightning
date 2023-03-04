@@ -1,7 +1,7 @@
 *** Test Cases ***
 For
     [Documentation]    FAIL    'For' is a reserved keyword. It must be an upper case 'FOR' when used as a marker.
-    For    ${x}    IN    invalid
+    For    $x    IN    invalid
 
 Valid END after For
     [Documentation]    FAIL
@@ -10,8 +10,8 @@ Valid END after For
     ...    1) 'For' is a reserved keyword. It must be an upper case 'FOR' when used as a marker.
     ...
     ...    2) 'End' is a reserved keyword. It must be an upper case 'END' when used as a marker to close a block.
-    For    ${x}    IN    invalid
-        Log    ${x}
+    For    $x    IN    invalid
+        Log    $x
     END
 
 If
@@ -48,8 +48,8 @@ End
 
 End after valid FOR header
     [Documentation]    FAIL    'End' is a reserved keyword. It must be an upper case 'END' when used as a marker to close a block.
-    FOR    ${x}   IN    whatever
-        Log    ${x}
+    FOR    $x   IN    whatever
+        Log    $x
     End
 
 End after valid If header
@@ -60,8 +60,8 @@ End after valid If header
 
 Reserved inside FOR
     [Documentation]    FAIL    'If' is a reserved keyword. It must be an upper case 'IF' when used as a marker.
-    FOR    ${x}    IN    whatever
-        If    ${x}
+    FOR    $x    IN    whatever
+        If    $x
     END
 
 Reserved inside IF
@@ -78,8 +78,8 @@ Reserved inside IF
     ...
     ...    5) 'End' is a reserved keyword. It must be an upper case 'END' when used as a marker to close a block.
     IF    True
-        For    ${x}    IN    invalid
-            Log     ${x}
+        For    $x    IN    invalid
+            Log     $x
         END
         If    False
             No Operation

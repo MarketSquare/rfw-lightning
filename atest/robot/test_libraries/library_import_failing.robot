@@ -1,12 +1,12 @@
 *** Settings ***
-Suite Setup     Run Tests    ${EMPTY}    test_libraries/library_import_failing.robot
+Suite Setup     Run Tests    $EMPTY    test_libraries/library_import_failing.robot
 Resource        atest_resource.robot
 
 *** Test Cases ***
 Invalid Library
-    ${path} =    Normalize Path    ${DATADIR}/test_libraries/MyInvalidLibFile.py
+    $path =    Normalize Path    $DATADIR/test_libraries/MyInvalidLibFile.py
     Error in file    0    test_libraries/library_import_failing.robot    2
-    ...    Importing library '${path}' failed:
+    ...    Importing library '$path' failed:
     ...    ImportError: I'm not really a library!
     ...    traceback=raise ImportError("I'm not really a library!")
 
@@ -38,11 +38,11 @@ Non-existing Library
 Non-existing Variable In Library Name
     Error in file    6    test_libraries/library_import_failing.robot    8
     ...    Replacing variables from setting 'Library' failed:
-    ...    Variable '\${non_existing_ascii}' not found.
+    ...    Variable '\$non_existing_ascii' not found.
 
 Non-existing Variable In Library Arguments
     Error in file    7    test_libraries/library_import_failing.robot    9
-    ...    Variable '\${vars_here}' not found.
+    ...    Variable '\$vars_here' not found.
 
 Library Import Without Name
     Error in file    8    test_libraries/library_import_failing.robot    10

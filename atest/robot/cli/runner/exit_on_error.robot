@@ -2,7 +2,7 @@
 Resource          atest_resource.robot
 
 *** Variables ***
-${MESSAGE}        Error occurred and exit-on-error mode is in use.
+$MESSAGE        Error occurred and exit-on-error mode is in use.
 
 *** Test Cases ***
 Parsing error
@@ -39,31 +39,31 @@ With --SkipTeardownOnExit
 *** Keywords ***
 Executed normally
     [Arguments]    @{tests}
-    FOR    ${name}    IN    @{tests}
-        Check Test Case    ${name}
+    FOR    $name    IN    @{tests}
+        Check Test Case    $name
     END
 
 Failed due to error
-    [Arguments]    ${test}
-    Check Test Case    ${test}    FAIL    ${MESSAGE}
+    [Arguments]    $test
+    Check Test Case    $test    FAIL    $MESSAGE
 
 Skipped due to error
     [Arguments]    @{tests}
-    FOR    ${name}    IN    @{tests}
-        ${tc} =    Check Test Case    ${name}    FAIL    ${MESSAGE}
+    FOR    $name    IN    @{tests}
+        $tc =    Check Test Case    $name    FAIL    $MESSAGE
         Should Contain    ${tc.tags}    robot:exit
     END
 
 Teardowns not executed
-    [Arguments]    ${name}
-    ${suite} =    Get Test Suite    ${name}
-    Teardown Should Not Be Defined    ${suite}
-    ${tc} =    Check Test Case    ${name}    FAIL    ${MESSAGE}
-    Teardown Should Not Be Defined    ${tc}
+    [Arguments]    $name
+    $suite =    Get Test Suite    $name
+    Teardown Should Not Be Defined    $suite
+    $tc =    Check Test Case    $name    FAIL    $MESSAGE
+    Teardown Should Not Be Defined    $tc
 
 Teardowns executed
-    [Arguments]    ${name}
-    ${suite} =    Get Test Suite    ${name}
+    [Arguments]    $name
+    $suite =    Get Test Suite    $name
     Should Be Equal    ${suite.teardown.name}    BuiltIn.No Operation
-    ${tc} =    Check Test Case    ${name}    FAIL    ${MESSAGE}
+    $tc =    Check Test Case    $name    FAIL    $MESSAGE
     Should Be Equal    ${tc.teardown.name}    BuiltIn.No Operation

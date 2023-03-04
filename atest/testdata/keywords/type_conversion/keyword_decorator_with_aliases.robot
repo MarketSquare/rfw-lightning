@@ -4,13 +4,13 @@ Resource                 conversion.resource
 
 *** Variables ***
 @{LIST}                  foo                       bar
-&{DICT}                  foo=${1}                  bar=${2}
+&{DICT}                  foo=$1                  bar=$2
 
 *** Test Cases ***
 Integer
-    Integer              42                        ${42}
+    Integer              42                        $42
     Int                  -1                        ${-1}
-    Long                 9999999999999999999999    ${9999999999999999999999}
+    Long                 9999999999999999999999    $9999999999999999999999
 
 Invalid integer
     [Template]           Conversion Should Fail
@@ -37,16 +37,16 @@ Invalid decimal
     Decimal              foobar
 
 Boolean
-    Boolean              True                      ${True}
-    Bool                 YES                       ${True}
-    Boolean              on                        ${True}
-    Bool                 1                         ${True}
-    Boolean              false                     ${False}
-    Bool                 No                        ${False}
-    Boolean              oFF                       ${False}
-    Bool                 0                         ${False}
-    Boolean              ${EMPTY}                  ${False}
-    Bool                 none                      ${None}
+    Boolean              True                      $True
+    Bool                 YES                       $True
+    Boolean              on                        $True
+    Bool                 1                         $True
+    Boolean              false                     $False
+    Bool                 No                        $False
+    Boolean              oFF                       $False
+    Bool                 0                         $False
+    Boolean              $EMPTY                  $False
+    Bool                 none                      $None
 
 Invalid boolean is accepted as-is
     Boolean              FooBar                    u'FooBar'
@@ -130,7 +130,7 @@ Invalid timedelta
 
 List
     List                 []                        []
-    List                 ['foo', 'bar']            ${LIST}
+    List                 ['foo', 'bar']            $LIST
     List                 [1, 2, 3.14, -42]         [1, 2, 3.14, -42]
     List                 ['\\x00', '\\x52']        ['\\x00', 'R']
 
@@ -140,13 +140,13 @@ Invalid list
     List                 ()                                              error=Value is tuple, not list.
     List                 {}                                              error=Value is dictionary, not list.
     List                 ooops                                           error=Invalid expression.
-    List                 ${EMPTY}                                        error=Invalid expression.
+    List                 $EMPTY                                        error=Invalid expression.
     List                 !"#¤%&/(inv expr)\=?                            error=Invalid expression.
     List                 1 / 0                                           error=Invalid expression.
 
 Tuple
     Tuple                ()                        ()
-    Tuple                ('foo', "bar")            tuple(${LIST})
+    Tuple                ('foo', "bar")            tuple($LIST)
     Tuple                (1, 2, 3.14, -42)         (1, 2, 3.14, -42)
 
 Invalid tuple
@@ -158,7 +158,7 @@ Invalid tuple
 
 Dictionary
     Dictionary           {}                        {}
-    Dict                 {'foo': 1, "bar": 2}      dict(${DICT})
+    Dict                 {'foo': 1, "bar": 2}      dict($DICT)
     Map                  {1: 2, 3.14: -42}         {1: 2, 3.14: -42}
 
 Invalid dictionary

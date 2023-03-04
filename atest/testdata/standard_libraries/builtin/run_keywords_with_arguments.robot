@@ -3,11 +3,11 @@ Documentation        Testing Run Keywords when used with AND. Tests without AND 
 ...                  run_keywords.robot.
 
 *** Variables ***
-${NOOP}              No Operation
+$NOOP              No Operation
 @{MANY_ARGUMENTS}    hello    1    2    3
-@{ESCAPED}           1    \AND    2    Log Many    x\${escaped}    c:\\temp
+@{ESCAPED}           1    \AND    2    Log Many    x\$escaped    c:\\temp
 @{LIST_VARIABLE}     Log Many    this    AND    that
-${AND_VARIABLE}      AND
+$AND_VARIABLE      AND
 
 *** Test Cases ***
 With arguments
@@ -24,9 +24,9 @@ Should fail with failing keyword
 Should support keywords and arguments from variables
     Run Keywords
     ...    Should Be Equal   2    2         AND
-    ...    ${NOOP}                          AND
+    ...    $NOOP                          AND
     ...    Log Many    @{MANY_ARGUMENTS}    AND
-    ...    @{EMPTY}    Should Be Equal As Integers    ${1}    @{EMPTY}    1
+    ...    @{EMPTY}    Should Be Equal As Integers    $1    @{EMPTY}    1
 
 AND must be upper case
     [Documentation]    FAIL  No keyword with name 'no kw' found.
@@ -42,7 +42,7 @@ Escaped AND
 
 AND from Variable
     [Documentation]    FAIL  No keyword with name 'no kw' found.
-    Run Keywords    Log Many    this    ${AND_VARIABLE}    that    AND    no kw
+    Run Keywords    Log Many    this    $AND_VARIABLE    that    AND    no kw
 
 AND in List Variable
     [Documentation]    FAIL  No keyword with name 'no kw' found.
@@ -65,31 +65,31 @@ AND as first argument should raise an error
     Run Keywords    AND    Log Many    1    2
 
 Keywords names needing escaping
-    Run keywords    Needs \\escaping \\\${notvar}    AND    Needs \\escaping \\\${notvar}
+    Run keywords    Needs \\escaping \\\$notvar    AND    Needs \\escaping \\\$notvar
 
 Keywords names needing escaping as variable
-    @{names} =    Create List    Needs \\escaping \\\${notvar}
-    Run keywords    @{names}    AND    ${names}[0]
+    @{names} =    Create List    Needs \\escaping \\\$notvar
+    Run keywords    @{names}    AND    $names[0]
 
 In test teardown with non-existing variable in keyword name
     [Documentation]
     ...    FAIL Teardown failed:
     ...    Several failures occurred:
     ...
-    ...    1) No keyword with name '\${bad}' found.
+    ...    1) No keyword with name '\$bad' found.
     ...
-    ...    2) Variable '\${bad}' not found.
+    ...    2) Variable '\$bad' not found.
     ...
     ...    3) Executed
     No Operation
     [Teardown]    Run keywords
-    ...    ${bad}                     AND
-    ...    Embedded ${bad}            AND
+    ...    $bad                     AND
+    ...    Embedded $bad            AND
     ...    Fail    Executed
 
 *** Keywords ***
-Embedded ${arg}
-    Log    ${arg}
+Embedded $arg
+    Log    $arg
 
-Needs \escaping \${notvar}
+Needs \escaping \$notvar
     No operation

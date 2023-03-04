@@ -4,7 +4,7 @@ Default Tags    -literal-with-default
 Resource        -tag_syntax.resource
 
 *** Variables ***
-${TAG}          -literal-with-variable
+$TAG          -literal-with-variable
 
 *** Test Cases ***
 Deprecation warning
@@ -17,7 +17,7 @@ Escaped
     No Operation
 
 Variable
-    [Tags]    ${TAG}
+    [Tags]    $TAG
     No Operation
 
 *** Keywords ***

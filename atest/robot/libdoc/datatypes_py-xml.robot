@@ -2,7 +2,7 @@
 Documentation     Tests are not run using Python 3.6 because `typing.get_type_hints` handles
 ...               Unions incorrectly with it making test results too different compared to others.
 Force Tags        require-py3.7
-Suite Setup       Run Libdoc And Parse Output    ${TESTDATADIR}/DataTypesLibrary.py
+Suite Setup       Run Libdoc And Parse Output    $TESTDATADIR/DataTypesLibrary.py
 Resource          libdoc_resource.robot
 
 *** Test Cases ***
@@ -25,7 +25,7 @@ Enum
     ...    {"name": "four","value": "4"}
 
 TypedDict
-    ${required}     Get Element Count    ${LIBDOC}    xpath=dataTypes/typedDicts/typedDict/items/item[@required]
+    $required     Get Element Count    $LIBDOC    xpath=dataTypes/typedDicts/typedDict/items/item[@required]
     IF   $required == 0
         DataType TypedDict Should Be    0
         ...    GeoLocation

@@ -1,5 +1,5 @@
 *** Setting ***
-Suite Setup       Run Tests    ${EMPTY}    tags/default_tags.robot
+Suite Setup       Run Tests    $EMPTY    tags/default_tags.robot
 Resource          atest_resource.robot
 
 *** Test Case ***

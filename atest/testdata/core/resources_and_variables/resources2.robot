@@ -1,5 +1,5 @@
 *** Variable ***
-${resources2}     Variable from resources2.robot
+$resources2     Variable from resources2.robot
 
 *** Keyword ***
 resources2

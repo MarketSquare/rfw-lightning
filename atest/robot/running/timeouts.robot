@@ -4,9 +4,9 @@ Suite Teardown     Remove Directory    ${TIMEOUT_TEMP}    recursive
 Resource           atest_resource.robot
 
 *** Variables ***
-${TIMEOUT_TEMP}    %{TEMPDIR}${/}robot_timeout_tests
-${TEST_STOPPED}    ${TIMEOUT_TEMP}${/}test_stopped.txt
-${KW_STOPPED}      ${TIMEOUT_TEMP}${/}kw_stopped.txt
+${TIMEOUT_TEMP}    %{TEMPDIR}{$/}robot_timeout_tests
+${TEST_STOPPED}    ${TIMEOUT_TEMP}{$/}test_stopped.txt
+${KW_STOPPED}      ${TIMEOUT_TEMP}{$/}kw_stopped.txt
 
 *** Test Cases ***
 Timeouted Test Passes

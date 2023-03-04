@@ -38,7 +38,7 @@ Variable Should Exist With Variables
 
 Variable Should Exist With Built In Variables
     Variable Should Exist    \${TEMPDIR}
-    Variable Should Exist    \${/}
+    Variable Should Exist    \{$/}
     Variable Should Exist    \${10}
     Variable Should Exist    \${TRUE}
     # Currently this is not working Variable Should Exist \${CURDIR}

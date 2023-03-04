@@ -1,6 +1,6 @@
 *** Settings ***
 Resource        atest_resource.robot
-Suite Setup     Run Tests    ${EMPTY}    misc/suites
+Suite Setup     Run Tests    $EMPTY    misc/suites
 
 *** Test Cases ***
 Ids in output after test run
@@ -8,7 +8,7 @@ Ids in output after test run
 
 Ids in output after rebot
     Copy Previous Outfile
-    Run Rebot    ${EMPTY}    ${OUTFILE_COPY}
+    Run Rebot    $EMPTY    $OUTFILE_COPY
     Suite And Test Ids Should Be Correct
 
 *** Keywords ***

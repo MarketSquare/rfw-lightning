@@ -45,7 +45,7 @@ Keyword cannot have only teardown
     Keyword cannot have only teardown
 
 Replacing Variables in Keyword Teardown Fails
-    [Documentation]  FAIL Keyword teardown failed:\nVariable '${NON_EXISTING}' not found.
+    [Documentation]  FAIL Keyword teardown failed:\nVariable '$NON_EXISTING' not found.
     Replacing Variables in Keyword Teardown Fails
 
 
@@ -59,13 +59,13 @@ Failing Keyword with Teardown
     Log   Executed if in nested Teardown
     [Teardown]  Log  In Failing UK Teardown
 
-Keyword with Teardown and ${embedded} ${arguments:A.*}
-    Log  In UK with ${embedded} ${arguments}
-    [Teardown]  Log  In Teardown of UK with ${embedded} ${arguments}
+Keyword with Teardown and $embedded ${arguments:A.*}
+    Log  In UK with $embedded $arguments
+    [Teardown]  Log  In Teardown of UK with $embedded $arguments
 
-Failing Keyword with Teardown and ${embedded} ${arguments:[Aa].*}
-    Fail  Expected Failure in UK with ${embedded} ${arguments}
-    [Teardown]  Log  In Teardown of Failing UK with ${embedded} ${arguments}
+Failing Keyword with Teardown and $embedded ${arguments:[Aa].*}
+    Fail  Expected Failure in UK with $embedded $arguments
+    [Teardown]  Log  In Teardown of Failing UK with $embedded $arguments
 
 Failure in Keyword Teardown
     Log  In UK
@@ -106,4 +106,4 @@ Keyword cannot have only teardown
 
 Replacing Variables in Keyword Teardown Fails
     Log  In UK
-    [Teardown]  ${NON_EXISTING}
+    [Teardown]  $NON_EXISTING

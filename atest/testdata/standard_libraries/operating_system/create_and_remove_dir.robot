@@ -5,70 +5,70 @@ Resource          os_resource.robot
 
 *** Test Cases ***
 Create Directory
-    Create Directory    ${TESTDIR}
-    Directory Should Exist    ${TESTDIR}
-    Create Directory    ${TESTDIR}
-    Create Directory    ${TESTDIR}/sub/dirs/here
-    Directory Should Exist    ${TESTDIR}/sub/dirs/here
+    Create Directory    $TESTDIR
+    Directory Should Exist    $TESTDIR
+    Create Directory    $TESTDIR
+    Create Directory    $TESTDIR/sub/dirs/here
+    Directory Should Exist    $TESTDIR/sub/dirs/here
 
 Creating Directory Over Existing File Fails
-    [Documentation]    FAIL Path '${TESTFILE}' is not a directory.
-    Create File    ${TESTFILE}
-    Create Directory    ${TESTFILE}
+    [Documentation]    FAIL Path '$TESTFILE' is not a directory.
+    Create File    $TESTFILE
+    Create Directory    $TESTFILE
 
 Remove Directory
-    Create Directory    ${TESTDIR}
-    Directory Should Exist    ${TESTDIR}
-    Remove Directory    ${TESTDIR}
-    Should Not Exist    ${TESTDIR}
+    Create Directory    $TESTDIR
+    Directory Should Exist    $TESTDIR
+    Remove Directory    $TESTDIR
+    Should Not Exist    $TESTDIR
 
 Remove Directory Recursively
-    Create File    ${TESTDIR}/file.txt
-    Create File    ${TESTDIR}/sub/file2.txt
-    Remove Directory    ${TESTDIR}    Recursive
-    Should Not Exist    ${TESTDIR}
+    Create File    $TESTDIR/file.txt
+    Create File    $TESTDIR/sub/file2.txt
+    Remove Directory    $TESTDIR    Recursive
+    Should Not Exist    $TESTDIR
 
 Removing Non-Existing Directory Is Ok
     Remove Directory    non-existing-dir
 
 Removing Non-Empty Directory When Not Recursive Fails
-    [Documentation]    FAIL Directory '${TESTDIR}' is not empty.
-    Create Directory    ${TESTDIR}
-    Create File    ${TESTDIR}/file.txt
-    Remove Directory    ${TESTDIR}    recursive=no
+    [Documentation]    FAIL Directory '$TESTDIR' is not empty.
+    Create Directory    $TESTDIR
+    Create File    $TESTDIR/file.txt
+    Remove Directory    $TESTDIR    recursive=no
 
 Empty Directory
-    Create File    ${BASE}/file.txt
-    Create File    ${BASE}/dir/f2
-    Directory Should Not Be Empty    ${BASE}
-    Empty Directory    ${BASE}
-    Directory Should Be Empty    ${BASE}
+    Create File    $BASE/file.txt
+    Create File    $BASE/dir/f2
+    Directory Should Not Be Empty    $BASE
+    Empty Directory    $BASE
+    Directory Should Be Empty    $BASE
 
 Emptying Non-Existing Directory Fails
-    [Documentation]    FAIL Directory '${BASE}${/}nonexisting' does not exist.
-    Empty Directory    ${BASE}/nonexisting
+    [Documentation]    FAIL Directory '$BASE{$/}nonexisting' does not exist.
+    Empty Directory    $BASE/nonexisting
 
 Emptying Dir When Directory Is File Fails
-    [Documentation]    FAIL Directory '${TESTFILE}' does not exist.
-    Create File    ${TESTFILE}
-    Empty Directory    ${TESTFILE}
+    [Documentation]    FAIL Directory '$TESTFILE' does not exist.
+    Create File    $TESTFILE
+    Empty Directory    $TESTFILE
 
 Create And Remove Non-ASCII Directory
-    Create Directory    ${NON_ASCII}
-    Directory Should Exist    ${NON_ASCII}
-    Remove Directory    ${NON_ASCII}
-    Should Not Exist    ${NON_ASCII}
+    Create Directory    $NON_ASCII
+    Directory Should Exist    $NON_ASCII
+    Remove Directory    $NON_ASCII
+    Should Not Exist    $NON_ASCII
 
 Create And Remove Directory With Space
-    Create Directory    ${WITH_SPACE}
-    Directory Should Exist    ${WITH_SPACE}
-    Remove Directory    ${WITH_SPACE}
-    Should Not Exist    ${WITH_SPACE}
+    Create Directory    $WITH_SPACE
+    Directory Should Exist    $WITH_SPACE
+    Remove Directory    $WITH_SPACE
+    Should Not Exist    $WITH_SPACE
 
 Path as `pathlib.Path`
-    ${path}=Evaluate    pathlib.Path($TESTDIR)
-    Create Directory     ${path}
-    Create File          ${path}${/}file.txt
-    File Should Exist    ${TESTDIR}/file.txt
-    Empty Directory      ${path}
-    Remove Directory     ${path}
+    $path=Evaluate    pathlib.Path($TESTDIR)
+    Create Directory     $path
+    Create File          $path{$/}file.txt
+    File Should Exist    $TESTDIR/file.txt
+    Empty Directory      $path
+    Remove Directory     $path

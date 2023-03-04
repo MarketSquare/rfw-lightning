@@ -1,14 +1,14 @@
 *** Settings ***
-Suite Setup       Run Tests    --listener "ListenImports;${IMPORTS_FILE}"    ${LISTENER_DIR}/imports/imports.robot
+Suite Setup       Run Tests    --listener "ListenImports;$IMPORTS_FILE"    $LISTENER_DIR/imports/imports.robot
 Suite Teardown    Remove Listener Files
 Resource          listener_resource.robot
 
 *** Variables ***
-${IMPORTS_FILE}    %{TEMPDIR}/listener_imports.txt
+$IMPORTS_FILE    %{TEMPDIR}/listener_imports.txt
 
 *** Test Cases ***
 All imports are usable
-    Check Test Case    ${TEST_NAME}
+    Check Test Case    $TEST_NAME
 
 Listen Imports
     Init Expect
@@ -46,7 +46,7 @@ Listen Imports
     Expect
     ...    Library
     ...    Aliased
-    ...    args: [\${2}]
+    ...    args: [\$2]
     ...    importer: //imports.robot
     ...    originalname: local_lib
     ...    source: //local_lib.py
@@ -90,13 +90,13 @@ Listen Imports
     Verify Expected
 
 Failed Impors Are Listed In Errors
-    ${path} =    Normalize Path    ${LISTENER_DIR}/imports/imports.robot
-    Error in file    0    ${path}    9
+    $path =    Normalize Path    $LISTENER_DIR/imports/imports.robot
+    Error in file    0    $path    9
     ...    Resource file 'resource that does not exist and fails' does not exist.
-    Error in file    1    ${path}    10
+    Error in file    1    $path    10
     ...    Importing library 'LibraryThatDoesNotExist' failed: *
     ...    traceback=None
-    Error in file    2    ${path}    11
+    Error in file    2    $path    11
     ...    Variable file 'variables which dont exist.py' does not exist.
 
 *** Keywords ***
@@ -104,12 +104,12 @@ Init expect
     Set test variable    @{EXPECTED}    @{EMPTY}
 
 Expect
-    [Arguments]    ${type}    ${name}    @{attrs}
-    ${entry} =    Catenate    SEPARATOR=\n\t
-    ...    Imported ${type}
-    ...    name: ${name}
+    [Arguments]    $type    $name    @{attrs}
+    $entry =    Catenate    SEPARATOR=\n\t
+    ...    Imported $type
+    ...    name: $name
     ...    @{attrs}
-    Set test variable    @{EXPECTED}    @{EXPECTED}    ${entry}
+    Set test variable    @{EXPECTED}    @{EXPECTED}    $entry
 
 Verify Expected
     Check Listener File    listener_imports.txt    @{EXPECTED}

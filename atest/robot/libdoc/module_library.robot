@@ -1,5 +1,5 @@
 *** Settings ***
-Suite Setup        Run Libdoc And Parse Output    ${TESTDATADIR}/module.py
+Suite Setup        Run Libdoc And Parse Output    $TESTDATADIR/module.py
 Resource           libdoc_resource.robot
 
 *** Test Cases ***
@@ -22,7 +22,7 @@ Scope
     Scope Should Be                  GLOBAL
 
 Source info
-    Source should be                 ${TESTDATADIR}/module.py
+    Source should be                 $TESTDATADIR/module.py
     Lineno should be                 1
 
 Spec version
@@ -50,7 +50,7 @@ Non-ASCII String Defaults
     Keyword Arguments Should Be      9     arg=hyvä
 
 Embedded Arguments
-    Keyword Name Should Be           13    Takes \${embedded} \${args}
+    Keyword Name Should Be           13    Takes \$embedded \$args
     Keyword Arguments Should Be      13
 
 Keyword Documentation
@@ -62,7 +62,7 @@ Keyword Documentation
     Keyword Shortdoc Should Be       4     Set tags in documentation.
 
 Multiline Documentation With Split Short Doc
-    ${doc} =    Catenate    SEPARATOR=\n
+    $doc =    Catenate    SEPARATOR=\n
     ...    This is short doc.
     ...    It can span multiple
     ...    physical
@@ -72,7 +72,7 @@ Multiline Documentation With Split Short Doc
     ...    contain multiple lines.
     ...
     ...    And paragraphs.
-    Keyword Doc Should Be            5     ${doc}
+    Keyword Doc Should Be            5     $doc
     Keyword Shortdoc Should Be       5     This is short doc. It can span multiple physical lines and contain *formatting*.
 
 Non-ASCII doc
@@ -95,6 +95,6 @@ Keyword source info
     Keyword Lineno Should Be         0     17
 
 Keyword source info with decorated function
-    Keyword Name Should Be           13    Takes \${embedded} \${args}
+    Keyword Name Should Be           13    Takes \$embedded \$args
     Keyword Should Not Have Source   13
     Keyword Lineno Should Be         13    71

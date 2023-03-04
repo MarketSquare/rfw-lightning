@@ -1,5 +1,5 @@
 *** Settings ***
-Suite Setup     Run Tests  ${EMPTY}  misc/multiple_suites
+Suite Setup     Run Tests  $EMPTY  misc/multiple_suites
 Resource        atest_resource.robot
 Documentation   Giving suite names from commandline is tested in robot/cli/runner/suite_name_doc_and_metadata.txt
 
@@ -42,6 +42,6 @@ Spaces are preserved
     Should Be Equal  ${SUITE.suites[6].name}  Suite 6
 
 Root File Suite Name
-    [Setup]  Run Tests  ${EMPTY}  misc/pass_and_fail.robot
+    [Setup]  Run Tests  $EMPTY  misc/pass_and_fail.robot
     Should Be Equal  ${SUITE.name}  Pass And Fail
 

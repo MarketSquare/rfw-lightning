@@ -39,7 +39,7 @@ Global scope library gets events 2
     ...                 Start suite: Global Scope 2
     ...                 Start kw: global_listenerlibrary.Events Should Be
     ...                 End kw: global_listenerlibrary.Events Should Be
-    ...                 Start test: ${TEST_NAME}
+    ...                 Start test: $TEST_NAME
     ...                 Start kw: global_listenerlibrary.Events Should Be
 
 Global scope library gets all previous events 2
@@ -47,9 +47,9 @@ Global scope library gets all previous events 2
     ...                 Start suite: Global Scope 2
     ...                 Start kw: global_listenerlibrary.Events Should Be
     ...                 End kw: global_listenerlibrary.Events Should Be
-    ...                 Start test: ${PREV_TEST_NAME}
+    ...                 Start test: $PREV_TEST_NAME
     ...                 Start kw: global_listenerlibrary.Events Should Be
     ...                 End kw: global_listenerlibrary.Events Should Be
-    ...                 End test: ${PREV_TEST_NAME}
-    ...                 Start test: ${TEST_NAME}
+    ...                 End test: $PREV_TEST_NAME
+    ...                 Start test: $TEST_NAME
     ...                 Start kw: global_listenerlibrary.Events Should Be

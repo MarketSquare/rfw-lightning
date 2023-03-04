@@ -19,8 +19,8 @@ Logging
     Logging
 
 Returning
-    ${ret} =  Returning
-    Should Be Equal  ${ret}  Hello from module library
+    $ret =  Returning
+    Should Be Equal  $ret  Hello from module library
 
 One Argument
     [Documentation]  FAIL Expected 'Hello', got 'World'
@@ -39,10 +39,10 @@ Default Arguments
     Default Arguments  Hello
 
 Variable Arguments
-    ${sum} =  Variable Arguments  2  3
-    Should Be Equal  ${sum}  ${5}
-    ${sum} =  Variable Arguments  @{INTS}
-    Should Be Equal  ${sum}  ${55}
+    $sum =  Variable Arguments  2  3
+    Should Be Equal  $sum  $5
+    $sum =  Variable Arguments  @{INTS}
+    Should Be Equal  $sum  $55
 
 Only Methods And Functions Are Keywords
     [Documentation]  FAIL No keyword with name 'Attribute' found.
@@ -58,10 +58,10 @@ Functions starting with underscore are not keywords
 
 If __all__ is present, only functions listed there are available 1
     [Documentation]  FAIL No keyword with name 'Not in all' found.
-    ${path} =  Join with execdir  xxx
-    Should Be Equal  ${path}  ${EXECDIR}${/}xxx
-    ${path} =  Abspath  .
-    Should Be Equal  ${path}  ${EXECDIR}
+    $path =  Join with execdir  xxx
+    Should Be Equal  $path  $EXECDIR{$/}xxx
+    $path =  Abspath  .
+    Should Be Equal  $path  $EXECDIR
     Not in all
 
 If __all__ is present, only functions listed there are available 2
@@ -83,23 +83,23 @@ Class Method Assigned To Module Variable
 
 Lambda Keyword
     [Documentation]  FAIL Keyword 'module_library.Lambda Keyword' expected 1 argument, got 2.
-    ${ret} =  Lambda Keyword  2
-    Should Be Equal  ${ret}  ${3}
+    $ret =  Lambda Keyword  2
+    Should Be Equal  $ret  $3
     Lambda Keyword  2  3
 
 Lambda Keyword With Arguments
     [Documentation]  FAIL STARTS: ZeroDivisionError:
-    ${ret} =  Lambda Keyword With Two Args  4  2
-    Should Be Equal  ${ret}  ${2}
+    $ret =  Lambda Keyword With Two Args  4  2
+    Should Be Equal  $ret  $2
     Lambda Keyword With Two Args  4  0
 
 Attribute With Same Name As Module
-    ${ret} =  module_library
-    Should Be Equal  ${ret}  It should be OK to have an attribute with same name as the module
+    $ret =  module_library
+    Should Be Equal  $ret  It should be OK to have an attribute with same name as the module
 
 Importing Submodule As Library
-    ${greeting} =  Keyword from submodule
-    Should Be Equal  ${greeting}  Hello, World!
-    ${greeting} =  Keyword from submodule  you
-    Should Be Equal  ${greeting}  Hello, you!
+    $greeting =  Keyword from submodule
+    Should Be Equal  $greeting  Hello, World!
+    $greeting =  Keyword from submodule  you
+    Should Be Equal  $greeting  Hello, you!
 

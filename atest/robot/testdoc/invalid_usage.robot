@@ -7,15 +7,15 @@ Invalid usage
     Expected at least 2 arguments, got 1.
 
 Non-existing input
-    Parsing '${EXECDIR}${/}nonex.robot' failed: File or directory to execute does not exist.
+    Parsing '$EXECDIR{$/}nonex.robot' failed: File or directory to execute does not exist.
     ...    nonex.robot
 
 Invalid input
     Suite 'Testdoc Resource' contains no tests or tasks.
-    ...    ${CURDIR}/testdoc_resource.robot
+    ...    $CURDIR/testdoc_resource.robot
 
 Invalid output
-    [Setup]    Create Directory    ${OUTFILE}
+    [Setup]    Create Directory    $OUTFILE
     Opening Testdoc output file '*[/\\]testdoc-output.html' failed: *Error: *
-    ...    ${INPUT_1}    remove_outfile=False
-    [Teardown]    Remove Directory    ${OUTFILE}
+    ...    $INPUT_1    remove_outfile=False
+    [Teardown]    Remove Directory    $OUTFILE

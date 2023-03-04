@@ -1,4 +1,4 @@
 *** Variables ***
-${FOO}  bar
+$FOO  bar
 
 ***Test CASES***

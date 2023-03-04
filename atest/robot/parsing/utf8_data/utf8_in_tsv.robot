@@ -1,5 +1,5 @@
 *** Settings ***
-Suite Setup     Run Tests  ${EMPTY}  parsing/utf8_data.tsv
+Suite Setup     Run Tests  $EMPTY  parsing/utf8_data.tsv
 Resource        atest_resource.robot
 
 *** Test Cases ***
@@ -10,7 +10,7 @@ UTF-8 In Metadata
     Check Test Doc  UTF-8  äöå §½€
 
 UTF-8 In Keyword Arguments
-    ${tc} =  Check Test Case  UTF-8
+    $tc =  Check Test Case  UTF-8
     Check Log Message  ${tc.setup.msgs[0]}  äöå
     Check Log Message  ${tc.kws[0].msgs[0]}  §½€
     Check Log Message  ${tc.kws[1].msgs[0]}  äöå §½€
@@ -19,6 +19,6 @@ UTF-8 In Keyword Arguments
     Check Log Message  ${tc.kws[2].kws[2].msgs[0]}  §½€
 
 UTF-8 In Test Case And UK Names
-    ${tc} =  Check Test Case  UTF-8 Name Äöå §½€"
-    Check Keyword Data  ${tc.kws[0]}  Äöå §½€  \${ret}
+    $tc =  Check Test Case  UTF-8 Name Äöå §½€"
+    Check Keyword Data  ${tc.kws[0]}  Äöå §½€  \$ret
     Check Log Message  ${tc.kws[1].msgs[0]}  äöå §½€

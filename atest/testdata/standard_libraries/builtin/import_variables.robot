@@ -57,7 +57,7 @@ Re-Import Variables
 
 Import Variables Arguments Are Resolved Only Once
     ${var} =  Set Variable  \${not_var}
-    Import Variables  ${CURDIR}${/}variables_to_import_2.py  ${var}  c:\\temp
+    Import Variables  ${CURDIR}{$/}variables_to_import_2.py  ${var}  c:\\temp
     Should Be Equal  ${IMPORT_VARIABLES_2_ARGS}  \${not_var} c:\\temp
 
 Import Variables Failure Is Catchable

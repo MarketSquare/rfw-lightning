@@ -9,16 +9,16 @@ Suite Teardown    Events should be    Start suite: Test Scope
 
 *** Test Cases ***
 Test scope library gets events
-    Events should be    Start test: ${TEST_NAME}
+    Events should be    Start test: $TEST_NAME
     ...                 Start kw: listenerlibrary.Events Should Be
 
 Test scope library gets no previous events
-    Events should be    Start test: ${TEST_NAME}
+    Events should be    Start test: $TEST_NAME
     ...                 Start kw: listenerlibrary.Events Should Be
 
 Listener methods in library are keywords
     End test    foo    zap
-    Events should be    Start test: ${TEST_NAME}
+    Events should be    Start test: $TEST_NAME
     ...                 Start kw: listenerlibrary.End Test
     ...                 End test: foo
     ...                 End kw: listenerlibrary.End Test

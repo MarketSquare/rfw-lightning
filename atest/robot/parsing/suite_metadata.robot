@@ -34,11 +34,11 @@ Using Same Name Twice
     Overridden                This overrides first value
 
 Unescaping Metadata In Setting Table
-    Escaping                  Three backslashes \\\\\\ & \${version}
+    Escaping                  Three backslashes \\\\\\ & \$version
 
 *** Keywords ***
 Validate metadata
-    [Arguments]    ${name}    @{lines}
-    ${value} =    Catenate    SEPARATOR=\n    @{lines}
-    ${metadataname}=Evaluate    $SUITE.metadata[$name]
-    Should be Equal    ${metadataname}    ${value}
+    [Arguments]    $name    @{lines}
+    $value =    Catenate    SEPARATOR=\n    @{lines}
+    $metadataname=Evaluate    $SUITE.metadata[$name]
+    Should be Equal    $metadataname    $value

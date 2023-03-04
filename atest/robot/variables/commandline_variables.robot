@@ -5,19 +5,19 @@ Resource          atest_resource.robot
 
 *** Test Case ***
 Normal Text
-    Check Test Case    ${TEST_NAME}
+    Check Test Case    $TEST_NAME
 
 Special Characters
-    Check Test Case    ${TEST_NAME}
+    Check Test Case    $TEST_NAME
 
 No Colon In Variable
-    Check Test Case    ${TEST_NAME}
+    Check Test Case    $TEST_NAME
 
 *** Keyword ***
 Run Tests With Variables
-    ${options} =    Catenate
+    $options =    Catenate
     ...    --variable NORMAL_TEXT:Hello
     ...    --variable no_colon
     ...    -v "SPECIAL:I'll take spam & eggs!!"
-    ...    --variable sPEciAL2:\${notvar}
-    Run Tests    ${options}    variables/commandline_variables.robot
+    ...    --variable sPEciAL2:\$notvar
+    Run Tests    $options    variables/commandline_variables.robot

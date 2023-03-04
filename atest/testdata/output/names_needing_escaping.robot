@@ -1,5 +1,5 @@
 *** Variables ***
-${var}     value
+$var     value
 
 *** Test Case ***
 "Quotes"
@@ -14,11 +14,11 @@ And &
 Backslashes \\ \\\\ \\\\\\ \\\\\\\\
     Backslashes \ \\ \\\ \\\\
 
-Variable \${var}
-    Variable ${var}
+Variable \$var
+    Variable $var
 
-Escaped \\\${var}
-    Escaped \${var}
+Escaped \\\$var
+    Escaped \$var
 
 Newline \\n and Tab \\t
     Newline \n and Tab \t
@@ -36,10 +36,10 @@ And &
 Backslashes \ \\ \\\ \\\\
     No Operation
 
-Variable ${var}
+Variable $var
     No Operation
 
-Escaped \${var}
+Escaped \$var
     No Operation
 
 Newline \n and Tab \t

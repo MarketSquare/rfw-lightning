@@ -1,5 +1,5 @@
 *** Setting ***
-Suite Setup       Run Tests    ${EMPTY}    test_libraries/library_version.robot
+Suite Setup       Run Tests    $EMPTY    test_libraries/library_version.robot
 Resource          atest_resource.robot
 
 *** Test Case ***

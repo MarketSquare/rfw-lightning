@@ -4,8 +4,8 @@ Resource  import_resource_resource_resource.robot
 
 
 *** Variables ***
-${VAR_FROM_IMPORT_RESOURCE_RESOURCE}  value 1
-${COMMON_VAR}  resource 1
+$VAR_FROM_IMPORT_RESOURCE_RESOURCE  value 1
+$COMMON_VAR  resource 1
 
 
 *** Keywords ***

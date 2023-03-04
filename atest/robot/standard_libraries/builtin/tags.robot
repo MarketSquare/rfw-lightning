@@ -1,5 +1,5 @@
 *** Settings ***
-Suite Setup     Run Tests  ${EMPTY}    standard_libraries/builtin/tags
+Suite Setup     Run Tests  $EMPTY    standard_libraries/builtin/tags
 Resource        atest_resource.robot
 
 *** Variables ***
@@ -13,11 +13,11 @@ Set No Tags
     Should Have Only Suite Tags  Set No Tags
 
 Set One Tag
-    ${tc} =  Tags Should Have Been Added  Set One Tag  one
+    $tc =  Tags Should Have Been Added  Set One Tag  one
     Check Log Message  ${tc.kws[0].msgs[0]}  Set tag 'one'.
 
 Set Multiple Tags
-    ${tc} =  Tags Should Have Been Added  Set Multiple Tags  1  2  3  HELLO  Some spaces here
+    $tc =  Tags Should Have Been Added  Set Multiple Tags  1  2  3  HELLO  Some spaces here
     Check Log Message  ${tc.kws[0].msgs[0]}  Set tags '1', '2' and '3'.
     Check Log Message  ${tc.kws[1].msgs[0]}  Set tags 'HELLO', '' and 'Some spaces here'.
 
@@ -28,14 +28,14 @@ Remove No Tags
     Should Have Only Suite Tags  Remove No Tags
 
 Remove One Tag
-    ${tc} =  Tags Should Have Been Removed  Remove One Tag  force
+    $tc =  Tags Should Have Been Removed  Remove One Tag  force
     Check Log Message  ${tc.kws[0].msgs[0]}  Removed tag 'force'.
 
 Remove Non-Existing Tag
     Should Have Only Suite Tags  Remove Non-Existing Tag
 
 Remove Multiple Tags
-    ${tc} =  Tags Should Have Been Removed  Remove Multiple Tags  default  set  set-init
+    $tc =  Tags Should Have Been Removed  Remove Multiple Tags  default  set  set-init
     Check Log Message  ${tc.kws[0].msgs[0]}  Removed tags 'default', 'SET' and 'non-existing'.
     Check Log Message  ${tc.kws[1].msgs[0]}  Removed tags '' and 'set-init'.
 
@@ -57,27 +57,27 @@ Set Tags In Test Teardown
 Using Set And Remove Tags In Suite Teardown Fails
     Should Be Equal  ${SUITE.suites[1].message}  Suite teardown failed:\n'Set Tags' cannot be used in suite teardown.
 
-Modifying ${TEST_TAGS} after setting them has no affect on tags test has
-    Check Test Tags    ${TEST_NAME}    force-init    set-init    new
+Modifying $TEST_TAGS after setting them has no affect on tags test has
+    Check Test Tags    $TEST_NAME    force-init    set-init    new
 
-Modifying ${TEST_TAGS} after removing them has no affect on tags test has
-    Check Test Tags    ${TEST_NAME}
+Modifying $TEST_TAGS after removing them has no affect on tags test has
+    Check Test Tags    $TEST_NAME
 
 *** Keywords ***
 Should Have Only Suite Tags
-    [Arguments]  ${testname}
-    Check Test Tags  ${testname}  @{SUITE_TAGS}
+    [Arguments]  $testname
+    Check Test Tags  $testname  @{SUITE_TAGS}
 
 Tags Should Have Been Added
-    [Arguments]  ${testname}  @{added}
+    [Arguments]  $testname  @{added}
     @{tags} =  Create List  @{SUITE_TAGS}  @{added}
-    Sort List  ${tags}
-    ${tc} =  Check Test Tags  ${testname}  @{tags}
-    [Return]  ${tc}
+    Sort List  $tags
+    $tc =  Check Test Tags  $testname  @{tags}
+    [Return]  $tc
 
 Tags Should Have Been Removed
-    [Arguments]  ${testname}  @{removed}
-    @{tags} =  Copy List  ${SUITE_TAGS}
-    Remove Values From List  ${tags}  @{removed}
-    ${tc} =  Check Test Tags  ${testname}  @{tags}
-    [Return]  ${tc}
+    [Arguments]  $testname  @{removed}
+    @{tags} =  Copy List  $SUITE_TAGS
+    Remove Values From List  $tags  @{removed}
+    $tc =  Check Test Tags  $testname  @{tags}
+    [Return]  $tc

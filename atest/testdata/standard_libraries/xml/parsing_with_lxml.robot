@@ -9,7 +9,7 @@ Parse file using forwards slash as path separator
     Should be equal     ${root.tag}     test
 
 Parse file using system path separator
-    ${root} =   Parse XML     ${CURDIR}${/}test.xml
+    ${root} =   Parse XML     ${CURDIR}{$/}test.xml
     Should be equal     ${root.tag}     test
 
 Parse file using pathlib.Path
@@ -59,7 +59,7 @@ Comments and processing instructions are removed
 
 Parse invalid file
     [Documentation]    FAIL GLOB: *Error: *
-    Parse XML    ${CURDIR}${/}parsing.txt
+    Parse XML    ${CURDIR}{$/}parsing.txt
 
 Parse invalid string
     [Documentation]    FAIL GLOB: *Error: *

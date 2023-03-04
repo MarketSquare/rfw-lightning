@@ -36,16 +36,16 @@ Tuple with non-string first value
 
 Keywords with valid arg spec can be used
     [Template]    NONE
-    ${ret} =    Valid argspec    Hello!
-    Should be equal    ${ret}    HELLO!
-    ${ret} =    Valid argspec with tuple    Hello!
-    Should be equal    ${ret}    HELLO!
-    ${ret} =    Valid argspec with tuple    Hello    world!
-    Should be equal    ${ret}    HELLO WORLD!
+    $ret =    Valid argspec    Hello!
+    Should be equal    $ret    HELLO!
+    $ret =    Valid argspec with tuple    Hello!
+    Should be equal    $ret    HELLO!
+    $ret =    Valid argspec with tuple    Hello    world!
+    Should be equal    $ret    HELLO WORLD!
 
 *** Keywords ***
 Keyword Should Not Exist
-    [Arguments]    ${name}
+    [Arguments]    $name
     Run Keyword And Expect Error
-    ...    No keyword with name '${name}' found.
-    ...    Keyword Should Exist    ${name}
+    ...    No keyword with name '$name' found.
+    ...    Keyword Should Exist    $name

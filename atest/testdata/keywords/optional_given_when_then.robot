@@ -28,7 +28,7 @@ In library keyword name
     And Should Not Match  foo  bar
     But Should Match  foo  foo
     When set test variable  $foo  bar
-    THEN should be equal  ${foo}  bar
+    THEN should be equal  $foo  bar
 
 In user keyword in resource file
     Given Keyword Is In Resource File
@@ -76,27 +76,27 @@ We don't drink too many beers
     No Operation
 
 We are in
-    [Arguments]  ${a1}  ${a2}
-    Should Be Equal  ${a1}-${a2}  museum-cafe
+    [Arguments]  $a1  $a2
+    Should Be Equal  $a1-$a2  museum-cafe
 
 Time
     [Arguments]  @{args}
-    Length Should Be  ${args}  4
+    Length Should Be  $args  4
 
 we get this feature ready today
     Given we don't drink too many beers
 
-We Are In ${name} city
-    Should be equal  ${name}  Berlin
+We Are In $name city
+    Should be equal  $name  Berlin
 
-It Does Not ${x}
-    Should Be Equal  ${x}  rain
+It Does Not $x
+    Should Be Equal  $x  rain
 
-We ${x} This ${thing} Implemented
-    Should Be Equal  ${x}-${thing}  get-feature
+We $x This $thing Implemented
+    Should Be Equal  $x-$thing  get-feature
 
-We Go To ${somewhere}
-    Should Be Equal  ${somewhere}  walking tour
+We Go To $somewhere
+    Should Be Equal  $somewhere  walking tour
 
 Multipart prefixes didn't work with RF 6.0
     No Operation

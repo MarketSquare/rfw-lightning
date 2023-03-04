@@ -6,16 +6,16 @@ Library           DynamicKwOnlyArgsWithoutKwargs.py
 Mandatory arguments
     Kw Only Arg              kwo=value
     Args Should Have Been    kwo=value
-    Many Kw Only Args        first=${1}    third=${3}    second=${2}
-    Args Should Have Been    first=${1}    third=${3}    second=${2}
+    Many Kw Only Args        first=$1    third=$3    second=$2
+    Args Should Have Been    first=$1    third=$3    second=$2
 
 Default values
     Kw Only Arg With Default
     Args Should Have Been
     Kw Only Arg With Default    kwo=value
     Args Should Have Been       kwo=value
-    Kw Only Arg With Default    another=${2}    kwo=1
-    Args Should Have Been       another=${2}    kwo=1
+    Kw Only Arg With Default    another=$2    kwo=1
+    Args Should Have Been       another=$2    kwo=1
 
 Mandatory Can Be After Default
     Mandatory After Defaults    mandatory=yyy

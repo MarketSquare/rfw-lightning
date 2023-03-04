@@ -26,8 +26,8 @@ Should Match does not work with bytes
     ...    1) TypeError: *\n\n
     ...    2) TypeError: *
     [Template]    Should Match
-    ${BYTES_WITHOUT_NON_ASCII}    pattern
-    text                          ${BYTES_WITHOUT_NON_ASCII}
+    $BYTES_WITHOUT_NON_ASCII    pattern
+    text                          $BYTES_WITHOUT_NON_ASCII
 
 Should Not Match
     [Documentation]    FAIL    'Hello world' matches '?ello*'
@@ -51,28 +51,28 @@ Should Match Regexp
     IGNORE CASE    (?i)case
     IGNORE CASE    case    flags=IGNORECASE
     abc\nDEFG      ab.*fg  flags=IGNORECASE|DOTALL
-    ${EMPTY}       whatever    Something failed    No values
+    $EMPTY       whatever    Something failed    No values
 
 Should Match Regexp returns match and groups
-    ${ret} =    Should Match Regexp    This is a multiline\nstring!!    (?im)^STR\\w+!!
-    ${match}    ${group} =    Should Match Regexp    ${ret}    ^(\\w+)!!$
-    Should Be Equal    ${match}    ${ret}
-    Should Be Equal    ${group}    string
-    ${match}    @{groups} =    Should Match Regexp    Foo: 42 (xxx)    ^(Fo+)([:.;]) (\\d+?)
-    Should Be Equal    ${match}    Foo: 4
+    $ret =    Should Match Regexp    This is a multiline\nstring!!    (?im)^STR\\w+!!
+    $match    $group =    Should Match Regexp    $ret    ^(\\w+)!!$
+    Should Be Equal    $match    $ret
+    Should Be Equal    $group    string
+    $match    @{groups} =    Should Match Regexp    Foo: 42 (xxx)    ^(Fo+)([:.;]) (\\d+?)
+    Should Be Equal    $match    Foo: 4
     Should Be True    @{groups} == ['Foo', ':', '4']
-    ${match}    @{groups} =    Should Match Regexp    FOO: 42 (xxx)    ^(fo+)([:.;]) (\\d+?)    flags=I
-    Should Be Equal    ${match}    FOO: 4
+    $match    @{groups} =    Should Match Regexp    FOO: 42 (xxx)    ^(fo+)([:.;]) (\\d+?)    flags=I
+    Should Be Equal    $match    FOO: 4
     Should Be True    @{groups} == ['FOO', ':', '4']
-    ${match}    ${group1}    ${group2} =    Should Match Regexp    Hello, (my) World!!!!!    (?ix)^hel+o,\\s # Comment \n\\((my|your)\\)\\ WORLD(!*)$
-    Should Be Equal    ${match}    Hello, (my) World!!!!!
-    Should Be Equal    ${group1}    my
-    Should Be Equal    ${group2}    !!!!!
+    $match    $group1    $group2 =    Should Match Regexp    Hello, (my) World!!!!!    (?ix)^hel+o,\\s # Comment \n\\((my|your)\\)\\ WORLD(!*)$
+    Should Be Equal    $match    Hello, (my) World!!!!!
+    Should Be Equal    $group1    my
+    Should Be Equal    $group2    !!!!!
 
 Should Match Regexp with bytes containing non-ascii characters
-    [Documentation]    FAIL    '${BYTES_WITH_NON_ASCII}' does not match 'hyva'
+    [Documentation]    FAIL    '$BYTES_WITH_NON_ASCII' does not match 'hyva'
     [Template]    Should Match Regexp
-    ${BYTES_WITH_NON_ASCII}    ${BYTES_WITHOUT_NON_ASCII}
+    $BYTES_WITH_NON_ASCII    $BYTES_WITHOUT_NON_ASCII
 
 Should Not Match Regexp
     [Documentation]    FAIL    'James Bond 007' matches '^J\\w{4}\\sB[donkey]+ \\d*$'

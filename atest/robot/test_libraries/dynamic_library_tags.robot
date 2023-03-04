@@ -1,5 +1,5 @@
 *** Settings ***
-Suite Setup      Run Tests    ${EMPTY}    test_libraries/dynamic_library_tags.robot
+Suite Setup      Run Tests    $EMPTY    test_libraries/dynamic_library_tags.robot
 Test Template    Keyword Tags Should Be
 Resource         atest_resource.robot
 
@@ -16,6 +16,6 @@ Tags both from doc and get_keyword_tags
 
 *** Keywords ***
 Keyword Tags Should Be
-    [Arguments]    ${index}    @{tags}
-    ${tc} =    Check Test Case    ${TESTNAME}
-    Lists Should Be Equal    ${tc.kws[${index}].tags}    ${tags}
+    [Arguments]    $index    @{tags}
+    $tc =    Check Test Case    $TESTNAME
+    Lists Should Be Equal    ${tc.kws[$index].tags}    $tags

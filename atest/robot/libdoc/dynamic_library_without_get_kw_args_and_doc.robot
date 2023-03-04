@@ -1,5 +1,5 @@
 *** Settings ***
-Suite Setup       Run Libdoc And Parse Output    ${TESTDATADIR}/DynamicLibraryWithoutGetKwArgsAndDoc.py
+Suite Setup       Run Libdoc And Parse Output    $TESTDATADIR/DynamicLibraryWithoutGetKwArgsAndDoc.py
 Resource          libdoc_resource.robot
 
 *** Test Cases ***
@@ -10,7 +10,7 @@ Documentation
     Doc Should Be    Library doc set in class.
 
 Version
-    Version Should Be    ${EMPTY}
+    Version Should Be    $EMPTY
 
 Type
     Type Should Be    LIBRARY
@@ -28,8 +28,8 @@ Init
 Keyword
     Keyword Name Should Be         0    Keyword
     Keyword Arguments Should Be    0    *varargs
-    Keyword Doc Should Be          0    ${EMPTY}
+    Keyword Doc Should Be          0    $EMPTY
 
 Documentation set in __init__
-    Run Libdoc And Parse Output    ${TESTDATADIR}/DynamicLibraryWithoutGetKwArgsAndDoc.py::New
+    Run Libdoc And Parse Output    $TESTDATADIR/DynamicLibraryWithoutGetKwArgsAndDoc.py::New
     Doc Should Be    New

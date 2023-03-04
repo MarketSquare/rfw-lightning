@@ -10,7 +10,7 @@ Suite Name
     Should Be Equal    ${SUITE.name}    Suite Settings
 
 Suite Documentation
-    ${doc} =    Catenate    SEPARATOR=\n
+    $doc =    Catenate    SEPARATOR=\n
     ...    1st logical line
     ...    (i.e. paragraph)
     ...    is shortdoc on console.
@@ -24,31 +24,31 @@ Suite Documentation
     ...    | ragged |
     ...
     ...    Variables work since Robot 1.2 and doc_from_cli works too.
-    ...    Starting from RF 2.1 \${nonexisting} variables are left unchanged.
+    ...    Starting from RF 2.1 \$nonexisting variables are left unchanged.
     ...    Escaping (e.g. '\${non-existing}', 'c:\\temp', '\\n') works too.
     ...    Not \${closed
-    Should Be Equal    ${SUITE.doc}    ${doc}
+    Should Be Equal    ${SUITE.doc}    $doc
 
 Suite Name And Documentation On Console
     Stdout Should Contain    Suite Settings :: 1st logical line (i.e. paragraph) is shortdoc on console.${SPACE*3}\n
     Stdout Should Contain    Suite Settings :: 1st logical line (i.e. paragraph) is shortdoc on... | PASS |\n
 
 Test Setup
-    ${test} =    Check Test Case    Test Case
-    Verify Setup    ${test}    BuiltIn.Log    Default test setup
+    $test =    Check Test Case    Test Case
+    Verify Setup    $test    BuiltIn.Log    Default test setup
 
 Test Teardown
-    ${test} =    Check Test Case    Test Case
-    Verify Teardown    ${test}    BuiltIn.Log    Default test teardown
+    $test =    Check Test Case    Test Case
+    Verify Teardown    $test    BuiltIn.Log    Default test teardown
 
 Force and Default Tags
     Check Test Tags    Test Case    f1    F2    default
 
 Suite Setup
-    Verify Setup    ${SUITE}    BuiltIn.Log    Default suite setup
+    Verify Setup    $SUITE    BuiltIn.Log    Default suite setup
 
 Suite Teardown
-    Verify Teardown    ${SUITE}    BuiltIn.Log    Default suite teardown
+    Verify Teardown    $SUITE    BuiltIn.Log    Default suite teardown
 
 Invalid Setting
     Error In File    0    parsing/suite_settings.robot    27
@@ -62,14 +62,14 @@ Small typo should provide recommendation.
 
 *** Keywords ***
 Verify Setup
-    [Arguments]    ${item}    ${expected_name}    ${expected_message}
-    Verify Fixture    ${item.setup}    ${expected_name}    ${expected_message}
+    [Arguments]    $item    $expected_name    $expected_message
+    Verify Fixture    ${item.setup}    $expected_name    $expected_message
 
 Verify Teardown
-    [Arguments]    ${item}    ${expected_name}    ${expected_message}
-    Verify Fixture    ${item.teardown}    ${expected_name}    ${expected_message}
+    [Arguments]    $item    $expected_name    $expected_message
+    Verify Fixture    ${item.teardown}    $expected_name    $expected_message
 
 Verify Fixture
-    [Arguments]    ${fixture}    ${expected_name}    ${expected_message}
-    Should be Equal    ${fixture.name}    ${expected_name}
-    Check Log Message    ${fixture.messages[0]}    ${expected_message}
+    [Arguments]    $fixture    $expected_name    $expected_message
+    Should be Equal    ${fixture.name}    $expected_name
+    Check Log Message    ${fixture.messages[0]}    $expected_message

@@ -23,21 +23,21 @@ Tag Doc For Combined Statistics
 *** Keywords ***
 
 Run Tests And Rebot With Tag Doc
-    Run Tests Without Processing Output    ${EMPTY}    misc/normal.robot
-    ${opts} =    Catenate
+    Run Tests Without Processing Output    $EMPTY    misc/normal.robot
+    $opts =    Catenate
     ...    --tagdoc "f1:Doc for Rebot with spaces and _under_scores_"
     ...    --tagdoc "t_1:http://some.url *bold*"
     ...    --tagdoc _d_?_:Doc-for-many-rebot-tags
     ...    --tagdoc D2:More
     ...    --tagstatcombine d*:DX
     Copy Previous Outfile
-    Run Rebot    ${opts}    ${OUTFILE_COPY}
+    Run Rebot    $opts    $OUTFILE_COPY
 
 Tag doc should be correct in output
-    [Arguments]    ${index}    ${tag}    ${doc}
-    ${stats} =    Get Tag Stat Nodes
-    ${txt}=Evaluate     $stats[int($index)].text
-    ${attrdoc}=Evaluate     $stats[int($index)].attrib['doc']
-    Should Be Equal    ${txt}    ${tag}
-    Should Be Equal    ${attrdoc}    ${doc}
+    [Arguments]    $index    $tag    $doc
+    $stats =    Get Tag Stat Nodes
+    $txt=Evaluate     $stats[int($index)].text
+    $attrdoc=Evaluate     $stats[int($index)].attrib['doc']
+    Should Be Equal    $txt    $tag
+    Should Be Equal    $attrdoc    $doc
 

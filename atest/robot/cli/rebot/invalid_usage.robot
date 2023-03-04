@@ -1,10 +1,10 @@
 *** Settings ***
 Resource          rebot_cli_resource.robot
-Suite Setup       Run tests to create input file for Rebot    misc/pass_and_fail.robot    ${INPUT}
+Suite Setup       Run tests to create input file for Rebot    misc/pass_and_fail.robot    $INPUT
 Test Template     Rebot Should Fail
 
 *** Variables ***
-${INPUT}          %{TEMPDIR}/input-for-cli-rebot-invalid-usage.xml
+$INPUT          %{TEMPDIR}/input-for-cli-rebot-invalid-usage.xml
 
 *** Test Cases ***
 Invalid Options
@@ -18,7 +18,7 @@ Non-Existing Input
     Reading XML source '.*nönéx.xml' failed: .*    source=nönéx.xml
 
 Existing And Non-Existing Input
-    Reading XML source '.*nönéx.xml' failed: .*    source=${INPUTFILE} nönéx.xml nonex2.xml
+    Reading XML source '.*nönéx.xml' failed: .*    source=$INPUTFILE nönéx.xml nonex2.xml
 
 Non-XML Input
     [Setup]    Create File    %{TEMPDIR}/invalid.robot    Hello, world
@@ -61,8 +61,8 @@ Invalid --RemoveKeywords
 
 *** Keywords ***
 Rebot Should Fail
-    [Arguments]    ${error}    ${options}=    ${source}=${INPUT}
-    ${result} =    Run Rebot    ${options}    ${source}    default_options=    output=
+    [Arguments]    $error    $options=    $source=$INPUT
+    $result =    Run Rebot    $options    $source    default_options=    output=
     Should Be Equal As Integers   ${result.rc}    252
     Should Be Empty    ${result.stdout}
-    Should Match Regexp    ${result.stderr}    ^\\[ .*ERROR.* \\] ${error}${USAGETIP}$
+    Should Match Regexp    ${result.stderr}    ^\\[ .*ERROR.* \\] $error$USAGETIP$

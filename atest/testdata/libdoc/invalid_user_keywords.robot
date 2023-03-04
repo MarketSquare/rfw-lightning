@@ -1,6 +1,6 @@
 *** Keywords ***
 Invalid arg spec
-    [Arguments]    &{kwargs}    ${invalid}
+    [Arguments]    &{kwargs}    $invalid
     No Operation
 
 Same Twice
@@ -10,9 +10,9 @@ Same Twice
 Same twice
     No Operation
 
-Same ${embedded}
+Same $embedded
     [Documentation]    This is an error only at run time.
     No Operation
 
-same ${embedded_match}
+same $embedded_match
     No Operation

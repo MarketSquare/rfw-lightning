@@ -1,5 +1,5 @@
 *** Settings ***
-Suite Setup      Run Tests    ${EMPTY}    keywords/keyword_tags
+Suite Setup      Run Tests    $EMPTY    keywords/keyword_tags
 Resource         atest_resource.robot
 Test Template    Keyword tags should be
 
@@ -18,7 +18,7 @@ Library keyword tags with documentation and attribute
 
 Invalid library keyword tags
     [Template]    NONE
-    Check Test Case    ${TESTNAME}
+    Check Test Case    $TESTNAME
     Error in library    LibraryWithKeywordTags
     ...    Adding keyword 'invalid_library_keyword_tags' failed:
     ...    Expected tags to be list-like, got integer.
@@ -57,9 +57,9 @@ Keyword tags setting in init file
 
 *** Keywords ***
 Keyword tags should be
-    [Arguments]    @{tags}    ${index}=0    ${kw}=
+    [Arguments]    @{tags}    $index=0    $kw=
     IF    not $kw
-        ${tc}=    Check Test Case    ${TESTNAME}
-        ${kw}=    Set Variable    ${tc.body}[${index}]
+        $tc=    Check Test Case    $TESTNAME
+        $kw=    Set Variable    ${tc.body}[$index]
     END
-    Lists should be equal    ${kw.tags}    ${tags}
+    Lists should be equal    ${kw.tags}    $tags

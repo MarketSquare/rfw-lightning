@@ -18,7 +18,7 @@ Not run keyword
     Non-existing
 
 FOR
-    FOR    ${x}    IN    first    second
+    FOR    $x    IN    first    second
         No Operation
     END
 
@@ -27,7 +27,7 @@ FOR in keyword
 
 FOR in IF
     IF    True
-        FOR    ${x}    ${y}    IN    x    y
+        FOR    $x    $y    IN    x    y
             No Operation
         END
     END
@@ -49,11 +49,11 @@ IF in keyword
 
 IF in FOR
     [Documentation]    FAIL    2
-    FOR    ${x}    IN    1    2
-        IF    ${x} == 1
-            Log    ${x}
+    FOR    $x    IN    1    2
+        IF    $x == 1
+            Log    $x
         ELSE
-            Fail    ${x}
+            Fail    $x
         END
     END
 
@@ -64,11 +64,11 @@ TRY
     [Documentation]    FAIL    Hello, Robot!
     TRY
         Fail    Robot
-    EXCEPT    AS    ${name}
+    EXCEPT    AS    $name
         TRY
-            Fail    Hello, ${name}!
+            Fail    Hello, $name!
         FINALLY
-            Should Be Equal    ${name}    Robot
+            Should Be Equal    $name    Robot
         END
     ELSE
         Fail    Not executed
@@ -102,7 +102,7 @@ User Keyword
     RETURN
 
 FOR In Keyword
-    FOR    ${x}    IN    once
+    FOR    $x    IN    once
         No Operation
     END
 
@@ -116,9 +116,9 @@ TRY In Keyword
     TRY
         RETURN    Value
         Fail    Not executed!
-    EXCEPT    No match    AS    ${var}
+    EXCEPT    No match    AS    $var
         Fail    Not executed!
-    EXCEPT    No    Match    2    AS    ${x}
+    EXCEPT    No    Match    2    AS    $x
         Fail    Not executed!
     EXCEPT
         Fail    Not executed!

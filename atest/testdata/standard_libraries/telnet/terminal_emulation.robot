@@ -10,8 +10,8 @@ ${=}=    =
 
 *** Test Cases ***
 Execute command
-    ${output}=    Execute Command    echo -e "abba\\x1b[3Dcdc"
-    Should Match   ${output}    acdc\r\n*
+    $output=    Execute Command    echo -e "abba\\x1b[3Dcdc"
+    Should Match   $output    acdc\r\n*
 
 Read Until Regex
     Write    echo -e "abba\\x1b[3Dcdc"
@@ -22,7 +22,7 @@ Read Until Multiple Regexp
     Read Until Regexp    foo    acdc    bar
 
 Read Until Precompiled Regexp
-    ${regexps} =    Evaluate    (re.compile(b'foo'), re.compile('acdc'))     modules=re
+    $regexps =    Evaluate    (re.compile(b'foo'), re.compile('acdc'))     modules=re
     Write    echo -e "abba\\x1b[3Dcdc"
     Read Until Regexp    bar   @{regexps}
 
@@ -85,38 +85,38 @@ Window Size
 
 Override terminal emulation and type
     [Setup]    Login and set prompt    terminal_emulation=False   terminal_type=network
-    ${output}=    Execute Command    echo -e "abba\\x1b[3Dcdc"
-    Should Match   ${output}    abba\x1b[3Dcdc\r\n*
+    $output=    Execute Command    echo -e "abba\\x1b[3Dcdc"
+    Should Match   $output    abba\x1b[3Dcdc\r\n*
     Environment variable should be    $TERM    network
 
 Pagination
     [Setup]    Login and set prompt    terminal_emulation=True   window_size=80x10
     Write bare    echo -e "abba\\x1b[3Dcdc\nline2\nline3\nline4\nline5\nline6\nline7\nline8\nline9\nline10\nline11"\n
-    ${out}=       Read until prompt
-    Should match    ${out}    *\r\nacdc\r\nline2\r\nline3\r\nline4\r\nline5\r\nline6\r\nline7\r\nline8\r\nline9\r\nline10\r\nline11\r\n*
+    $out=       Read until prompt
+    Should match    $out    *\r\nacdc\r\nline2\r\nline3\r\nline4\r\nline5\r\nline6\r\nline7\r\nline8\r\nline9\r\nline10\r\nline11\r\n*
 
 Lots and lots of pages
     Set timeout    20
-    ${out}=       Execute command     python -c "print('abba\\x1b[3Dcdc\\n'*20000)"
-    Should contain x times    ${out}    acdc\r\n    20000
+    $out=       Execute command     python -c "print('abba\\x1b[3Dcdc\\n'*20000)"
+    Should contain x times    $out    acdc\r\n    20000
 
 Write & Read Non-ASCII
     [Setup]    Login and set prompt   terminal_emulation=True   terminal_type=vt100  encoding=UTF-8
     Write    echo Hyvää yötä    wArN
-    ${out} =    Read until prompt    deBug
-    Should Be Equal    ${out}    Hyvää yötä\r\n${FULL_PROMPT}
+    $out =    Read until prompt    deBug
+    Should Be Equal    $out    Hyvää yötä\r\n$FULL_PROMPT
 
 Write & Read non-ISO-LATIN-1
     [Setup]    Login and set prompt   terminal_emulation=True   terminal_type=vt100  encoding=UTF-8
     Write    echo \u2603    wArN
-    ${out} =    Read until prompt    deBug
-    Should Be Equal    ${out}    \u2603\r\n${FULL_PROMPT}
+    $out =    Read until prompt    deBug
+    Should Be Equal    $out    \u2603\r\n$FULL_PROMPT
 
 Write ASCII-Only Unicode When Encoding Is ASCII
     [Documentation]   FAIL STARTS: UnicodeEncodeError:
     Write    echo Only ASCII
-    ${out} =    Read Until Prompt
-    Should Be Equal    ${out}    Only ASCII\r\n${FULL_PROMPT}
+    $out =    Read Until Prompt
+    Should Be Equal    $out    Only ASCII\r\n$FULL_PROMPT
     Write    Tämä ei toimi
 
 Encoding can not be changed in terminal encoding
@@ -129,22 +129,22 @@ Newline can not be changed in terminal encoding
 
 *** Keywords ***
 Run with timeout 0.5
-    [Arguments]    ${kw}    @{args}
+    [Arguments]    $kw    @{args}
     [Timeout]     0.5
-    ${res}=   Run keyword    ${kw}    @{args}
-    [Return]    ${res}
+    $res=   Run keyword    $kw    @{args}
+    [Return]    $res
 
 Read until should match
-    [Arguments]    ${expected}   ${match}
-    ${output}=      Read until   ${match}
-    Should match    ${output}    ${expected}
+    [Arguments]    $expected   $match
+    $output=      Read until   $match
+    Should match    $output    $expected
 
 Read until regexp should match
-    [Arguments]    ${expected}     @{match}
-    ${output}=      Read until regexp   @{match}
-    Should match    ${output}    ${expected}
+    [Arguments]    $expected     @{match}
+    $output=      Read until regexp   @{match}
+    Should match    $output    $expected
 
 Read Should Match
-    [Arguments]    ${expected}
-    ${output}=      Read
-    Should match    ${output}    ${expected}
+    [Arguments]    $expected
+    $output=      Read
+    Should match    $output    $expected

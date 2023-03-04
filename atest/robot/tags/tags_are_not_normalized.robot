@@ -19,15 +19,15 @@ Normalized Duplicates Are Removed
     Check Test Tags    Normalized Duplicates Are Removed    hello
 
 Statistics Are Counted In Normalized Manner
-    Should Be Equal    ${STATISTICS.tags.tags['tag'].failed}    ${5}
+    Should Be Equal    ${STATISTICS.tags.tags['tag'].failed}    $5
 
 Including And Excluding Works in Normalized Manner
     [Documentation]    Including is actually tested using --include when running tests. If all previous tests pass then including works.
-    Should Not Contain Tests    ${SUITE}    Excluded
+    Should Not Contain Tests    $SUITE    Excluded
 
 Rebot Keeps Tags In Original Format
     Copy Previous Outfile
-    Run Rebot    --exclude LOWER --exclude 2spaces --exclude *D?O?T?S* --settag "Added tag"    ${OUTFILE_COPY}
+    Run Rebot    --exclude LOWER --exclude 2spaces --exclude *D?O?T?S* --settag "Added tag"    $OUTFILE_COPY
     Check Test Tags    Sorting Is Normalized    A 0    a1    A2    Added tag
     Check Test Tags    Normalized Duplicates Are Removed    Added tag    hello
-    Should Be Equal    ${STATISTICS.tags.tags['tag'].failed}    ${5}
+    Should Be Equal    ${STATISTICS.tags.tags['tag'].failed}    $5

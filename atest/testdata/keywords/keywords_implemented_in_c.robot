@@ -3,12 +3,12 @@ Library            KeywordsImplementedInC.py
 
 *** Test Cases ***
 Use with correct arguments
-    ${result} =    Eq    foo    foo
-    Should Be True    ${result} is True
-    ${result} =    Eq    foo    bar
-    Should Be True    ${result} is False
-    ${result} =    Length    Hello, world!
-    Should Be True    ${result} == 13
+    $result =    Eq    foo    foo
+    Should Be True    $result is True
+    $result =    Eq    foo    bar
+    Should Be True    $result is False
+    $result =    Length    Hello, world!
+    Should Be True    $result == 13
     Print    This is    a bit weird    ...
 
 Use with incorrect arguments
