@@ -202,7 +202,7 @@ class TestSearchVariable(unittest.TestCase):
         if variable is None or ignore_errors:
             identifier = base = None
             start = end = -1
-            is_var = is_scal_var = is_list_var = is_dict_var = False
+            is_var = is_scal_var = False
         else:
             identifier = variable[0]
             base = variable[1:]
