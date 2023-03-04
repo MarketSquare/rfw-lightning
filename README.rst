@@ -6,7 +6,8 @@ RFW Lightning
 This is a reference implementation exploring ways to make Robot Framework more human understandable.
 Kick-started with a sponsorship and excellent ideas from `RoboCorp <https://robocorp.com/>`_.
 
-There have been key difficulties in getting office workers started with Robot Framework use. These have been detected at RoboCorp.
+There have been key difficulties in getting office workers started with Robot Framework use. These have been detected at RoboCorp. 
+RFW Lightning addresses the most valuable detected problems. 
 
 Syntax changes:
 
