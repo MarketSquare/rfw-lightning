@@ -107,12 +107,12 @@ class TestVariables(unittest.TestCase):
                 return 'Hello'
         self.varz['$h'] = Example()
         self.varz['$w'] = 'world'
-        res = self.varz.replace_scalar('Another "$h $w" example')
+        res = self.varz.replace_scalar('Another "{$h} {$w}" example')
         assert_equal(res, 'Another "Hello world" example')
 
     def test_replace_list_item_invalid(self):
-        self.varz['@{L}'] = ['v0', 'v1', 'v3']
-        for inv in ['@{L}[3]', '@{NON}[0]', '@{L[2]}']:
+        self.varz['$L'] = ['v0', 'v1', 'v3']
+        for inv in ['$L[3]', '$NON[0]', '$L[22]']:
             assert_raises(VariableError, self.varz.replace_list, [inv])
 
     def test_replace_non_existing_list(self):
