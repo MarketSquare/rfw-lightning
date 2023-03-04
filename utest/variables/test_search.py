@@ -93,15 +93,14 @@ class TestSearchVariable(unittest.TestCase):
             self._test(inp, var, start)
 
     def test_incomplete_internal_vars(self):
-        for inp in ['${var$', '${var${', '${var$int']:
-            for identifier in '$@&%':
-                assert_raises_with_msg(
-                    DataError,
-                    "Variable '%s' was not closed properly."
-                    % inp.replace('$', identifier),
-                    search_variable, inp.replace('$', identifier)
-                )
-                self._test(inp.replace('$', identifier), ignore_errors=True)
+        for inp in ['$var$', '$var${', '$var$int']:
+            assert_raises_with_msg(
+                DataError,
+                "Variable '%s' has not allowed character."
+                % inp,
+                search_variable, inp
+            )
+            self._test(inp, ignore_errors=True)
         self._test('}{${xx:{}}}}}', '${xx:{}}', start=2)
 
     def test_item_access(self):

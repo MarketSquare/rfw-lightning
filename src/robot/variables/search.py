@@ -164,7 +164,7 @@ def _search_variable(characters: str, identifiers: str, ignore_errors=False) -> 
                 match.items = tuple(items)
                 parsing_items = False
                 continue
-            items.append(string[start+1:index])
+            items.append(characters[start+1:index])
     
     if not_allowed_char and characters[match.start:] in ['$/', '$:', '$\\n']:
         not_allowed_char = False
