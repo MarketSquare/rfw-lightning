@@ -13,7 +13,7 @@ Syntax changes:
 
 - ✨ Simple variables. From ``${ var iable }`` to ``$var_iable``.
   
-  - ✨ FEATURE: Direct argument
+  - ✨ Direct assign keyword call (also working in Variables section) ``$var=Create List  a cow  a dog  a cat``
   - ✨ TODO: Remove ``Set Variable``
   - ✨ TODO: ``Text templates with {$variable}``
   - ✨ TODO: named argument setting with ``$name=value`` instead of ``name=value``
