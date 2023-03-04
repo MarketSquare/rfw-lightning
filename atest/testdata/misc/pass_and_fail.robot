@@ -5,8 +5,8 @@ Force Tags        force
 Library           String
 
 *** Variable ***
-${LEVEL1}         INFO
-${LEVEL2}         DEBUG
+$LEVEL1         INFO
+$LEVEL2         DEBUG
 
 *** Test Case ***
 Pass
@@ -22,9 +22,9 @@ Fail
 
 *** Keyword ***
 My Keyword
-    [Arguments]    ${who}
+    [Arguments]    $who
     [Tags]    keyword    tags    force
-    Log    Hello says "${who}"!    ${LEVEL1}
-    Log    Debug message    ${LEVEL2}
+    Log    Hello says "{$who}"!    $LEVEL1
+    Log    Debug message    $LEVEL2
     ${assign} =    Convert to Uppercase    Just testing...
     RETURN

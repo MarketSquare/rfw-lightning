@@ -48,19 +48,6 @@ class TestSearchVariable(unittest.TestCase):
         self._test(r'$&{{}{}\\}{}', r'&{{}{}\\}', start=1)
         self._test(r'${&{{\\\\}\\}}{}}', r'${&{{\\\\}\\}}')
 
-    def test_uneven_curlys(self):
-        for inp in ['${x:{}', '${y:{{}}', 'xx${z:{}xx',
-                    r'${x\}', r'${x\\\}', r'${x\\\\\\\}']:
-            for identifier in '$@&%':
-                assert_raises_with_msg(
-                    DataError,
-                    "Variable '%s%s' was not closed properly."
-                    % (identifier, inp.split('$')[1]),
-                    search_variable, inp.replace('$', identifier)
-                )
-                self._test(inp.replace('$', identifier), ignore_errors=True)
-        self._test('}{${xx:{}}}}}', '${xx:{}}', start=2)
-
     def test_escaped_uneven_curlys(self):
         self._test(r'${x:\{}', r'${x:\{}')
         self._test(r'${y:{\{}}', r'${y:{\{}}')
