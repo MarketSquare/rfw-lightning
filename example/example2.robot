@@ -88,3 +88,4 @@ Example Keyword
     [Arguments]   $urg1   $arg2
     Log   $urg1
     Log   $arg2
+    Log   Hello:{$urg1},{$arg2}!
