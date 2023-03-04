@@ -11,7 +11,7 @@ RFW Lightning addresses the most valuable detected problems.
 
 Syntax changes:
 
-- ✨ Simple variables. From ``${ var iable }`` to ``$var_iable```.
+- ✨ Simple variables. From ``${ var iable }`` to ``$var_iable``.
   
   - ✨ FEATURE: Direct argument
   - ✨ TODO: Remove ``Set Variable``
