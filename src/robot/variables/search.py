@@ -168,7 +168,7 @@ def _search_variable(characters: str, identifiers: str, ignore_errors=False) -> 
     
     if not_allowed_char and characters[match.start:] in ['$/', '$:', '$\\n']:
         not_allowed_char = False
-    if not_allowed_char:
+    if not_allowed_char or parsing_items:
         if ignore_errors:
             return VariableMatch(characters)
         incomplete = characters[match.start:]
