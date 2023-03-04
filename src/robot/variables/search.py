@@ -145,11 +145,13 @@ def _search_variable(characters: str, identifiers: str, ignore_errors=False) -> 
     not_allowed_char = False
     indices_and_chars = enumerate(characters[start+1:], start=start+1)
     items = []
+    next_item = ''
     parsing_items = False
 
     for index, char in indices_and_chars:
         if char == '[':
             parsing_items = True
+            start=index
             continue
         if not parsing_items:
             if char in (' ', '}', '='):
@@ -158,13 +160,15 @@ def _search_variable(characters: str, identifiers: str, ignore_errors=False) -> 
                 not_allowed_char = True
             match.base = characters[start+1:index+1]
             match.end = index+1
-        else:
-            if char == ']':
-                match.end = index + 1
-                match.items = tuple(items)
-                parsing_items = False
-                continue
-            items.append(characters[start+1:index])
+            continue
+        if char == ']':
+            match.end = index+1
+            items.append(next_item)
+            match.items = tuple(items)
+            next_item = ''
+            parsing_items = False
+            continue
+        next_item = characters[start+1:index]
     
     if not_allowed_char and characters[match.start:] in ['$/', '$:', '$\\n']:
         not_allowed_char = False

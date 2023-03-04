@@ -212,8 +212,6 @@ class TestSearchVariable(unittest.TestCase):
                 items_str = ''.join('[%s]' % i for i in items)
                 end += len(items_str)
                 is_var = inp == '%s%s' % (variable, items_str)
-            is_list_var = is_var and inp[0] == '@'
-            is_dict_var = is_var and inp[0] == '&'
             is_scal_var = is_var and inp[0] == '$'
         match = search_variable(inp, identifiers, ignore_errors)
         assert_equal(match.base, base, '%r base' % inp)
