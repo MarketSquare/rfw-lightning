@@ -6,6 +6,8 @@ RFW Lightning
 This is a reference implementation exploring ways to make Robot Framework more human understandable.
 Kick-started with a sponsorship and excellent ideas from `RoboCorp <https://robocorp.com/>`_.
 
+There have been key difficulties in getting office workers started with Robot Framework use. These have been detected at RoboCorp.
+
 Syntax changes:
 
 - ✨ Simple variables. From ``${ var iable }`` to ``$var_iable```.
@@ -15,8 +17,11 @@ Syntax changes:
   - ✨ TODO: ``Text templates with {$variable}``
   - ✨ TODO: named argument setting with ``$name=value`` instead of ``name=value``
 
-- ✨ Robot Framework like IF syntax - no Python eval.
-- ✨ For loop with iterating over first thing - not over argument expansion.
+- ✨ Robot Framework like IF syntax. No Python eval.
+
+  - Supporting '==', 'is', 'in', '!=', '>', '<', >=', '<=' and 'not in'
+
+- ✨ For loop with iterating over the First thing. Not over argument expansion.
 
 .. code:: robotframework
 
@@ -45,17 +50,17 @@ Syntax changes:
        END
  
 
-ROADMAP
+Roadmap
 =======
 
-1. Implement all the cool 😎 things in the list above
+1. Implement all the cool 😎 things in the list above ⬅️
 2. Invent a new extension because *.robot is taken by the classic Robot Framework syntax
 3. Invent a new runner name for this extension
 4. Carve out Robot Framework to get an extension that depends on the real Robot Framework
 5. Publish the extension
 
-HOW YOU CAN GET THIS STARTED
-============================
+How you can get started
+=======================
 
 If you want to help there is much to do.
 
