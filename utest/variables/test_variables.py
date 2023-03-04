@@ -6,7 +6,6 @@ from robot.utils.asserts import assert_equal, assert_raises
 
 
 SCALARS = ['$var', '$vAR']
-LISTS = ['@{var}', '@{vAR}']
 NOKS = ['var', '${var', '@{va}r', '@var', '%{var}', ' $var',
         '@{var} ', '\\$var', '\\\\$var', 42, None, ['$var'], DataError]
 
@@ -31,7 +30,7 @@ class TestVariables(unittest.TestCase):
 
     def test_set(self):
         value = ['value']
-        for var in SCALARS + LISTS:
+        for var in SCALARS:
             self.varz[var] = value
             assert_equal(self.varz[var], value)
             assert_equal(self.varz[var.lower().replace(' ', '')], value)
@@ -48,24 +47,16 @@ class TestVariables(unittest.TestCase):
                 self.varz[var] = value
                 assert_equal(self.varz[var], value)
 
-    def test_set_list(self):
-        for var in LISTS:
-            for value in [[], [''], ['str'], [10], ['hi', 'u'], ['hi', 2],
-                          [{'a': 1, 'b': 2}, self, None]]:
-                self.varz[var] = value
-                assert_equal(self.varz[var], value)
-                self.varz.clear()
-
     def test_replace_scalar(self):
         self.varz['$foo'] = 'bar'
         self.varz['$a'] = 'ari'
         for inp, exp in [('$foo', 'bar'),
                          ('$a', 'ari'),
-                         (r'$\{a}', '$a'),
+                         (r'\$a', '$a'),
                          ('', ''),
                          ('hii', 'hii'),
-                         ("Let's go to $foo!", "Let's go to bar!"),
-                         ('$fooba$a-$a', 'barbaari-ari')]:
+                         ("Let's go to {$foo}!", "Let's go to bar!"),
+                         ('{$foo}ba{$a}-{$a}', 'barbaari-ari')]:
             assert_equal(self.varz.replace_scalar(inp), exp)
 
     def test_replace_list(self):
@@ -142,9 +133,9 @@ class TestVariables(unittest.TestCase):
     def test_replace_escaped(self):
         self.varz['$foo'] = 'bar'
         for inp, exp in [(r'\$foo', r'$foo'),
-                         (r'\\$foo', r'\bar'),
+                         (r'\\{$foo}', r'\bar'),
                          (r'\\\$foo', r'\$foo'),
-                         (r'\\\\$foo', r'\\bar'),
+                         (r'\\\\{$foo}', r'\\bar'),
                          (r'\\\\\$foo', r'\\$foo')]:
             assert_equal(self.varz.replace_scalar(inp), exp)
 
@@ -152,15 +143,15 @@ class TestVariables(unittest.TestCase):
         self.varz['$exists'] = 'Variable exists but is still not replaced'
         self.varz['$test'] = '$exists & $does_not_exist'
         assert_equal(self.varz['$test'], '$exists & $does_not_exist')
-        self.varz['@{test}'] = ['$exists', '&', '$does_not_exist']
-        assert_equal(self.varz['@{test}'], '$exists & $does_not_exist'.split())
+        self.varz['$test'] = ['$exists', '&', '$does_not_exist']
+        assert_equal(self.varz['$test'], '$exists & $does_not_exist'.split())
 
     def test_variable_as_object(self):
         obj = PythonObject('a', 1)
         self.varz['$obj'] = obj
         assert_equal(self.varz['$obj'], obj)
         expected = ['Some text here %s and %s there' % (obj, obj)]
-        actual = self.varz.replace_list(['Some text here $obj and $obj there'])
+        actual = self.varz.replace_list(['Some text here {$obj} and {$obj} there'])
         assert_equal(actual, expected)
 
     def test_extended_variables(self):

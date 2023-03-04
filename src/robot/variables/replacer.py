@@ -105,10 +105,10 @@ class VariableReplacer:
         parts = []
         while match:
             parts.extend([
-                unescaper(match.before),
+                unescaper(match.before[:-1]),
                 safe_str(self._get_variable_value(match, ignore_errors))
             ])
-            match = search_variable(match.after, ignore_errors=ignore_errors)
+            match = search_variable(match.after[1:], ignore_errors=ignore_errors)
         parts.append(unescaper(match.string))
         return ''.join(parts)
 
