@@ -6,8 +6,8 @@ from robot.utils.asserts import assert_equal, assert_raises
 
 
 SCALARS = ['$var', '$vAR']
-NOKS = ['var', '${var', '@{va}r', '@var', '%{var}', ' $var',
-        '@{var} ', '\\$var', '\\\\$var', 42, None, ['$var'], DataError]
+NOKS = ['var', '${var', '@var', '%{var}', ' $var',
+        '{var} ', '\\$var', '\\\\$var', 42, None, ['$var'], DataError]
 
 
 class PythonObject:
@@ -60,40 +60,39 @@ class TestVariables(unittest.TestCase):
             assert_equal(self.varz.replace_scalar(inp), exp)
 
     def test_replace_list(self):
-        self.varz['@{L}'] = ['v1', 'v2']
-        self.varz['@{E}'] = []
-        self.varz['@{S}'] = ['1', '2', '3']
-        for inp, exp in [(['@{L}'], ['v1', 'v2']),
-                         (['@{L}', 'v3'], ['v1', 'v2', 'v3']),
-                         (['v0', '@{L}', '@{E}', 'v$S[2]'], ['v0', 'v1', 'v2', 'v3']),
+        self.varz['$L'] = ['v1', 'v2']
+        self.varz['$E'] = []
+        self.varz['$S'] = ['1', '2', '3']
+        for inp, exp in [(['$L'], [['v1', 'v2']]),
+                         (['$L', 'v3'], [['v1', 'v2'], 'v3']),
+                         (['v0', '$L', '$E', 'v{$S[2]}'], ['v0', ['v1', 'v2'], [], 'v3']),
                          ([], []),
                          (['hi u', 'hi 2', 3], ['hi u','hi 2', 3])]:
             assert_equal(self.varz.replace_list(inp), exp)
 
     def test_replace_list_in_scalar_context(self):
-        self.varz['@{list}'] = ['v1', 'v2']
-        assert_equal(self.varz.replace_list(['@{list}']), ['v1', 'v2'])
-        assert_equal(self.varz.replace_list(['-@{list}-']), ["-['v1', 'v2']-"])
+        self.varz['$list'] = ['v1', 'v2']
+        assert_equal(self.varz.replace_list(['$list']), [['v1', 'v2']])
+        assert_equal(self.varz.replace_list(['-{$list}-']), ["-['v1', 'v2']-"])
 
     def test_replace_list_item(self):
-        self.varz['@{L}'] = ['v0', 'v1']
+        self.varz['$L'] = ['v0', 'v1']
         assert_equal(self.varz.replace_list(['$L[0]']), ['v0'])
         assert_equal(self.varz.replace_scalar('$L[1]'), 'v1')
-        assert_equal(self.varz.replace_scalar('-$L[0]$L[1]$L[0]-'), '-v0v1v0-')
+        assert_equal(self.varz.replace_scalar('-{$L[0]}{$L[1]}{$L[0]}-'), '-v0v1v0-')
         self.varz['$L2'] = ['v0', ['v11', 'v12']]
         assert_equal(self.varz.replace_list(['$L2[0]']), ['v0'])
         assert_equal(self.varz.replace_list(['$L2[1]']), [['v11', 'v12']])
         assert_equal(self.varz.replace_scalar('$L2[0]'), 'v0')
         assert_equal(self.varz.replace_scalar('$L2[1]'), ['v11', 'v12'])
-        assert_equal(self.varz.replace_list(['$L[0]', '@{L2}[1]']), ['v0', 'v11', 'v12'])
+        assert_equal(self.varz.replace_list(['$L[0]', '$L2[1]']), ['v0', ['v11', 'v12']])
 
     def test_replace_dict_item(self):
-        self.varz['&{D}'] = {'a': 1, 2: 'b', 'nested': {'a': 1}}
+        self.varz['$D'] = {'a': 1, 2: 'b', 'nested': {'a': 1}}
         assert_equal(self.varz.replace_scalar('$D[a]'), 1)
         assert_equal(self.varz.replace_scalar('$D[$2]'), 'b')
         assert_equal(self.varz.replace_scalar('$D[nested][a]'), 1)
         assert_equal(self.varz.replace_scalar('$D[nested]'), {'a': 1})
-        assert_equal(self.varz.replace_scalar('&{D}[nested]'), {'a': 1})
 
     def test_replace_non_strings(self):
         self.varz['$d'] = {'a': 1, 'b': 2}
@@ -202,7 +201,7 @@ class TestVariables(unittest.TestCase):
         assert_raises(VariableError, self.varz.replace_scalar, '${${1.1}/$2}')
 
     def test_list_variable_as_scalar(self):
-        self.varz['@{name}'] = exp = ['spam', 'eggs']
+        self.varz['$name'] = exp = ['spam', 'eggs']
         assert_equal(self.varz.replace_scalar('$name'), exp)
         assert_equal(self.varz.replace_list(['$name', 42]), [exp, 42])
         assert_equal(self.varz.replace_string('$name'), str(exp))
@@ -216,22 +215,22 @@ class TestVariables(unittest.TestCase):
     def test_ignore_error(self):
         v = Variables()
         v['$X'] = 'x'
-        v['@{Y}'] = [1, 2, 3]
-        for item in ['$foo', 'foo$bar', '$foo', '@{zap}', '$Y[7]',
+        v['$Y'] = [1, 2, 3]
+        for item in ['$foo', 'foo$bar', '$foo', '$zap', '$Y[7]',
                      '${inv', '${{inv}', '$var[inv', '$var[key][inv']:
             x_at_end = 'x' if (item.count('{') == item.count('}') and
                                item.count('[') == item.count(']')) else '$x'
             assert_equal(v.replace_string(item, ignore_errors=True), item)
-            assert_equal(v.replace_string('$x'+item+'$x', ignore_errors=True),
+            assert_equal(v.replace_string('{$x}'+item+'{$x}', ignore_errors=True),
                          'x' + item + x_at_end)
             assert_equal(v.replace_scalar(item, ignore_errors=True), item)
             assert_equal(v.replace_scalar('$x'+item+'$x', ignore_errors=True),
                          'x' + item + x_at_end)
             assert_equal(v.replace_list([item], ignore_errors=True), [item])
-            assert_equal(v.replace_list(['$X', item, '@{Y}'], ignore_errors=True),
+            assert_equal(v.replace_list(['$X', item, '$Y'], ignore_errors=True),
                          ['x', item, 1, 2, 3])
-            assert_equal(v.replace_list(['$x'+item+'$x', '@{NON}'], ignore_errors=True),
-                         ['x' + item + x_at_end, '@{NON}'])
+            assert_equal(v.replace_list(['{$x}'+item+'{$x}', '$NON'], ignore_errors=True),
+                         ['x' + item + x_at_end, '$NON'])
 
     def test_sequence_subscript(self):
         sequences = (
