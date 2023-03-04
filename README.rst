@@ -9,10 +9,12 @@ Kick-started with a sponsorship and excellent ideas from `RoboCorp <https://robo
 Syntax changes:
 
 - ✨ Simple variables. From ``${ var iable }`` to ``$var_iable```.
+  
   - ✨ FEATURE: Direct argument
   - ✨ TODO: Remove ``Set Variable``
   - ✨ TODO: ``Text templates with {$variable}``
   - ✨ TODO: named argument setting with ``$name=value`` instead of ``name=value``
+
 - ✨ Robot Framework like IF syntax - no Python eval.
 - ✨ For loop with iterating over first thing - not over argument expansion.
 
