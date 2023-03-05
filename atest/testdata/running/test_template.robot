@@ -2,8 +2,8 @@
 Test Template       Should Be Equal
 
 *** Variables ***
-${VARIABLE}         Variable content
-${SAME_VARIABLE}    Variable content
+$VARIABLE         Variable content
+$SAME_VARIABLE    Variable content
 
 *** Test Cases ***
 Using Normal Keyword Is Not Possible With Template
@@ -45,7 +45,7 @@ Overriding Default Template In Test With NONE Value
 
 Template With Variables
     [Template]    Expect Exactly Two Args
-    ${VARIABLE}    ${VARIABLE}
+    $VARIABLE    $VARIABLE
 
 Template With \@{EMPTY} Variable
     [Template]    Template With Default Parameters
@@ -53,7 +53,7 @@ Template With \@{EMPTY} Variable
 
 Template With Variables And Keyword Name
     [Template]    Expect Exactly Three Args
-    ${SAME_VARIABLE}    Variable content    ${VARIABLE}
+    $SAME_VARIABLE    Variable content    $VARIABLE
 
 Template With Variable And Assign Mark (=)
     [Documentation]    FAIL    1= != 2=
@@ -114,8 +114,8 @@ Template With FOR Loop
 Template With FOR Loop Containing Variables
     [Documentation]    FAIL    Variable content != 42
     [Tags]    42
-    FOR    ${item}    IN    ${VARIABLE}    ${SAME_VARIABLE}    @{TEST_TAGS}
-        ${VARIABLE}    ${item}
+    FOR    ${item}    IN    $VARIABLE    $SAME_VARIABLE    @{TEST_TAGS}
+        $VARIABLE    ${item}
     END
 
 Template With FOR IN RANGE Loop
@@ -248,7 +248,7 @@ Templates with Run Keyword
     Should be equal    42    42
     Fail    First failure
     Expect exactly three args    xxx    xxx    xxx
-    ${VARIABLE} =    Set variable    this doesn't work
+    $VARIABLE =    Set variable    this doesn't work
 
 Templates with continuable failures
     [Documentation]  FAIL
