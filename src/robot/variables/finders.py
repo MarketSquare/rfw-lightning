@@ -87,8 +87,8 @@ class NumberFinder:
 
 
 class EmptyFinder:
-    identifiers = '$@&'
-    empty = NormalizedDict({'${EMPTY}': '', '@{EMPTY}': (), '&{EMPTY}': {}}, ignore='_')
+    identifiers = '$'
+    empty = NormalizedDict({'$EMPTY': ''}, ignore='_')
 
     def find(self, name):
         return self.empty.get(name, NOT_FOUND)

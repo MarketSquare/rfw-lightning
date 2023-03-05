@@ -11,34 +11,33 @@ Library           XML
 Variables         atest_variables.py
 
 *** Variables ***
-$OUTDIR         %{TEMPDIR}{$/}output
-$OUTFILE        $OUTDIR{$/}output.xml
+$OUTDIR         {$TEMPDIR}{$/}output
+$OUTFILE        {$OUTDIR}{$/}output.xml
 $SET_SYSLOG     True
-$SYSLOG_FILE    $OUTDIR{$/}syslog.txt
+$SYSLOG_FILE    {$OUTDIR}{$/}syslog.txt
 $SYSLOG_LEVEL   INFO
-$STDOUT_FILE    $OUTDIR{$/}stdout.txt
-$STDERR_FILE    $OUTDIR{$/}stderr.txt
-$OUTFILE_COPY   %{TEMPDIR}{$/}output-copy.xml
+$STDOUT_FILE    {$OUTDIR}{$/}stdout.txt
+$STDERR_FILE    {$OUTDIR}{$/}stderr.txt
+$OUTFILE_COPY   {$TEMPDIR}{$/}output-copy.xml
 $SUITE          Set by TestCheckerLibrary.Process Output
 $ERRORS         -- ;; --
 $USAGE_TIP      \n\nTry --help for usage information.
 $TESTNAME       $EMPTY    # Used when not running test
-$COMMON_DEFAULTS
-...               --ConsoleColors OFF
-...               --output $OUTFILE
+$COMMON_DEFAULTS=Create List               --ConsoleColors OFF
+...               --output {$OUTFILE}
 ...               --report NONE
 ...               --log NONE
-$RUNNER_DEFAULTS
-...               $COMMON_DEFAULTS
+$RUNNER_DEFAULTS=Create List               $COMMON_DEFAULTS
 ...               --ConsoleMarkers OFF
-...               --PYTHONPATH "$CURDIR{$/}..{$/}testresources{$/}testlibs"
-...               --PYTHONPATH "$CURDIR{$/}..{$/}testresources{$/}listeners"
+...               --PYTHONPATH "{$CURDIR}{$/}..{$/}testresources{$/}testlibs"
+...               --PYTHONPATH "{$CURDIR}{$/}..{$/}testresources{$/}listeners"
 
 *** Keywords ***
 Run Tests
     [Arguments]    $options=    $sources=    $default_options=$RUNNER_DEFAULTS    $output=$OUTFILE    $validate_output=None
-    [Documentation]    *OUTDIR:* file://$OUTDIR (regenerated for every run)
-    $result =    Execute    ${INTERPRETER.runner}   $options    $sources    $default_options
+    [Documentation]    *OUTDIR:* file://{$OUTDIR} (regenerated for every run)
+    $runner=Evaluate  $INTERPRETER.runner
+    $result =    Execute    $runner   $options    $sources    $default_options
     Log Many    RC: ${result.rc}    STDERR:\n${result.stderr}    STDOUT:\n${result.stdout}
     Process Output    $output    validate=$validate_output
     [Return]    $result

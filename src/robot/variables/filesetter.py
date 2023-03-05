@@ -63,7 +63,7 @@ class YamlImporter:
         if args:
             raise DataError('YAML variable files do not accept arguments.')
         variables = self._import(path)
-        return [('${%s}' % name, self._dot_dict(value))
+        return [('$%s' % name, self._dot_dict(value))
                 for name, value in variables]
 
     def _import(self, path):
@@ -135,10 +135,10 @@ class PythonImporter:
 
     def _decorate(self, name):
         if name.startswith('LIST__'):
-            return '@{%s}' % name[6:]
+            return '$%s' % name[6:]
         if name.startswith('DICT__'):
-            return '&{%s}' % name[6:]
-        return '${%s}' % name
+            return '$%s' % name[6:]
+        return '$%s' % name
 
     def _validate(self, name, value):
         if name[0] == '@' and not is_list_like(value):
