@@ -42,10 +42,10 @@ class TestIsVariable(unittest.TestCase):
             assert not search_variable(nok, ignore_errors=True).is_scalar_variable()
 
     def test_contains_variable(self):
-        for ok in SCALARS + [r'\${no $yes !']:
+        for ok in ['{%s}' % s for s in SCALARS] + [r'\${no {$yes} !']:
             assert contains_variable(ok), ok
             assert contains_variable(ok + '[item]')
-            assert contains_variable('hello %s world' % ok)
+            assert contains_variable('hello %s world' % ok), 'hello %s world' % ok
             assert contains_variable('hello %s[item] world' % ok)
             assert contains_variable(' ' + ok)
             assert contains_variable(r'\\' + ok)
