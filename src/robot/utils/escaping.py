@@ -107,21 +107,21 @@ def split_from_equals(string):
     return string[:index], string[index+1:]
 
 
-def _find_split_index(string, variables):
+def _find_split_index(characters, variables):
     relative_index = 0
-    for before, match, string in variables:
+    for before, match, _ in variables:
         try:
             return _find_split_index_from_part(before) + relative_index
         except ValueError:
             relative_index += len(before) + len(match)
-    return _find_split_index_from_part(string) + relative_index
+    return _find_split_index_from_part(characters) + relative_index
 
 
-def _find_split_index_from_part(string):
+def _find_split_index_from_part(characters:str) -> int:
     index = 0
-    while '=' in string[index:]:
-        index += string[index:].index('=')
-        if _not_escaping(string[:index]):
+    while '=' in characters[index:]:
+        index += characters[index:].index('=')
+        if _not_escaping(characters[:index]):
             return index
         index += 1
     raise ValueError
