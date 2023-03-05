@@ -92,11 +92,11 @@ class Namespace:
             self.variables.set_from_variable_table(resource.variables, overwrite)
             user_library = UserLibrary(resource)
             self._kw_store.resources[path] = user_library
-            self._handle_imports(resource.imports)
+            delayed_variables_from_cascading_imports = self._handle_imports(resource.imports)
             LOGGER.imported("Resource", user_library.name,
                             importer=str(import_setting.source),
                             source=path)
-            return [d for d in resource.delayed_variables]
+            return delayed_variables_from_cascading_imports + [d for d in resource.delayed_variables]
         else:
             LOGGER.info(f"Resource file '{path}' already imported by "
                         f"suite '{self._suite_name}'.")
