@@ -114,7 +114,7 @@ def _find_split_index(characters, variables):
             return _find_split_index_from_part(before) + relative_index
         except ValueError:
             relative_index += len(before) + len(match)
-    return _find_split_index_from_part(characters) + relative_index
+    return _find_split_index_from_part(characters[relative_index:]) + relative_index
 
 
 def _find_split_index_from_part(characters:str) -> int:
