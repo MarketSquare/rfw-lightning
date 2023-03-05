@@ -73,10 +73,10 @@ class TestSearchVariable(unittest.TestCase):
 
     def test_escaped_and_not_escaped_vars(self):
         for inp, var, start in [
-                ('\\$esc $not', '$not', len('\\$esc ')),
-                ('\\\\\\$esc \\\\$not', '$not',
-                 len('\\\\\\$esc \\\\')),
-                ('\\$esc\\\\$not$n2', '$not', len('\\$esc\\\\'))]:
+                ('\\$esc {$not}', '$not', len('\\$esc {')),
+                ('\\\\\\$esc \\\\{$not}', '$not',
+                 len('\\\\\\$esc \\\\{')),
+                ('\\$esc\\\\{$not}{$n2}', '$not', len('\\$esc\\\\{'))]:
             self._test(inp, var, start)
 
     def test_internal_vars(self):
@@ -104,7 +104,7 @@ class TestSearchVariable(unittest.TestCase):
 
     def test_item_access(self):
         self._test('$x[0]', '$x', items='0')
-        self._test('.$x[key]..', '$x', start=1, items='key')
+        self._test('.{$x[key]}..', '$x', start=2, items='key')
         self._test('$x[]', '$x', items='')
         self._test('$x}[0]', '$x')
 
@@ -115,7 +115,7 @@ class TestSearchVariable(unittest.TestCase):
 
     def test_item_access_with_vars(self):
         self._test('$x[$i]', '$x', items='$i')
-        self._test('xx $x[$i] $xyz', '$x', start=3, items='$i')
+        self._test('xx {$x[$i]} $xyz', '$x', start=4, items='$i')
         self._test('$$$$$XX[${$i-${${$i}}}]', '$XX', start=4,
                    items='${$i-${${$i}}}')
         self._test('${$i}[${j{}}]', '${$i}', items='${j{}}')
@@ -150,14 +150,6 @@ class TestSearchVariable(unittest.TestCase):
         self._test('@{x}\\[0]', '@{x}')
         self._test('&{x}\\[key]', '&{x}')
 
-    def test_custom_identifiers(self):
-        for inp, start in [('@{x}$y', 4),
-                           ('%{x} $y', 5),
-                           ('*{x}567890$y', 10),
-                           (r'&{x}%{x}@{x}\$x$y',
-                            len(r'&{x}%{x}@{x}\$x'))]:
-            self._test(inp, '$y', start, identifiers=['$'])
-
     def test_identifier_as_variable_name(self):
         for i in self._identifiers:
             for count in 1, 2, 3, 42:
@@ -179,7 +171,7 @@ class TestSearchVariable(unittest.TestCase):
 
     def test_many_possible_starts_and_ends(self):
         self._test('{}'*10000)
-        self._test('{{}}'*1000 + '$var', '$var', start=4000)
+        self._test('{{}}'*1000 + '{$var}', '$var', start=4001)
         self._test('$var' + '[i]'*1000, '$var', items=['i']*1000)
 
     def test_complex(self):
