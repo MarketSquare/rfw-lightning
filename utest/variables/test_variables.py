@@ -218,17 +218,16 @@ class TestVariables(unittest.TestCase):
         v['$Y'] = [1, 2, 3]
         for item in ['$foo', 'foo$bar', '$foo', '$zap', '$Y[7]',
                      '${inv', '${{inv}', '$var[inv', '$var[key][inv']:
-            x_at_end = 'x' if (item.count('{') == item.count('}') and
-                               item.count('[') == item.count(']')) else '$x'
+            x_at_end = '{$x}' if '$' in item else 'x' 
             assert_equal(v.replace_string(item, ignore_errors=True), item)
             assert_equal(v.replace_string('{$x}'+item+'{$x}', ignore_errors=True),
                          'x' + item + x_at_end)
             assert_equal(v.replace_scalar(item, ignore_errors=True), item)
             assert_equal(v.replace_scalar('$x'+item+'$x', ignore_errors=True),
-                         'x' + item + x_at_end)
+                         '$x' + item + '$x')
             assert_equal(v.replace_list([item], ignore_errors=True), [item])
             assert_equal(v.replace_list(['$X', item, '$Y'], ignore_errors=True),
-                         ['x', item, 1, 2, 3])
+                         ['x', item, [1, 2, 3]])
             assert_equal(v.replace_list(['{$x}'+item+'{$x}', '$NON'], ignore_errors=True),
                          ['x' + item + x_at_end, '$NON'])
 

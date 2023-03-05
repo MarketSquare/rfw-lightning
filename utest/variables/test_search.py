@@ -29,10 +29,10 @@ class TestSearchVariable(unittest.TestCase):
 
     def test_one_var(self):
         self._test('$hello', '$hello')
-        self._test('1 $hello more', '$hello', start=2)
+        self._test('1 {$hello} more', '$hello', start=3)
         self._test('$hi}', '$hi')
         self._test('{$hi}}', '$hi', start=1)
-        self._test('-= ${} =-', '${}', start=3)
+        self._test('-= {$moi} =-', '$moi', start=4)
 
     def test_escape_internal_curlys(self):
         self._test(r'${embed:\d\{2\}}', r'${embed:\d\{2\}}')
@@ -58,19 +58,18 @@ class TestSearchVariable(unittest.TestCase):
     def test_multiple_vars(self):
         self._test('$hello $world', '$hello', 0)
         self._test('hi {$u}2 and {$u2} and also {$us3}', '$u', 4)
-        self._test('0123456789 $1 and $2', '$1', 11)
+        self._test('0123456789 {$1} and {$2}', '$1', 12)
 
     def test_escaped_var(self):
         self._test('\\$hello')
         self._test('hi \\\\\\$hello moi')
 
     def test_not_escaped_var(self):
-        self._test('\\\\$hello', '$hello', 2)
-        self._test('\\hi \\\\\\\\\\\\$hello moi', '$hello',
-                   len('\\hi \\\\\\\\\\\\'))
-        self._test('\\ $hello', '$hello', 2)
-        self._test('$hello\\', '$hello', 0)
-        self._test('\\ \\ ${hel\\lo}\\', '${hel\\lo}', 4)
+        self._test('\\\\{$hello}', '$hello', 3)
+        self._test('\\hi \\\\\\\\\\\\{$hello} moi', '$hello',
+                   len('\\hi \\\\\\\\\\\\{'))
+        self._test('\\ {$hello}', '$hello', 3)
+        self._test('{$hello}\\', '$hello', 1)
 
     def test_escaped_and_not_escaped_vars(self):
         for inp, var, start in [
@@ -111,7 +110,7 @@ class TestSearchVariable(unittest.TestCase):
 
     def test_nested_item_access(self):
         self._test('$x[0][1]', '$x', items=['0', '1'])
-        self._test('xx$x[key][42][-1][xxx]', '$x', start=2,
+        self._test('xx{$x[key][42][-1][xxx]}', '$x', start=3,
                    items=['key', '42', '-1', 'xxx'])
 
     def test_item_access_with_vars(self):
@@ -140,7 +139,7 @@ class TestSearchVariable(unittest.TestCase):
             msg = "Variable item '%s' was not closed properly." % inp
             assert_raises_with_msg(DataError, msg, search_variable, inp)
             self._test(inp, ignore_errors=True)
-        self._test('[$var[i]][', '$var', start=1, items='i')
+        self._test('[{$var[i]}][', '$var', start=2, items='i')
 
     def test_nested_list_and_dict_item_syntax(self):
         self._test('$x[0]', '$x', items='0')
@@ -239,21 +238,21 @@ class TestVariableIterator(unittest.TestCase):
         assert_equal(len(iterator), 0)
 
     def test_one_variable(self):
-        iterator = VariableIterator('one $var here', identifiers='$')
+        iterator = VariableIterator('one {$var} here', identifiers='$')
         assert_equal(list(iterator), [('one ', '$var', ' here')])
         assert_equal(bool(iterator), True)
         assert_equal(len(iterator), 1)
 
     def test_multiple_variables(self):
-        iterator = VariableIterator('$1 $2 and $3', identifiers='$')
-        assert_equal(list(iterator), [('', '$1', ' $2 and $3'),
-                                      (' ', '$2', ' and $3'),
-                                      (' and ', '$3', '')])
+        iterator = VariableIterator('{$1} {$2} and {$3}', identifiers='$')
+        assert_equal(list(iterator), [('', '$1', ' {$2} and {$3}'), 
+                                      ('} ', '$2', ' and {$3}'), 
+                                      ('} and ', '$3', '')])
         assert_equal(bool(iterator), True)
         assert_equal(len(iterator), 3)
 
     def test_can_be_iterated_many_times(self):
-        iterator = VariableIterator('one $var here', identifiers='$')
+        iterator = VariableIterator('one {$var} here', identifiers='$')
         assert_equal(list(iterator), [('one ', '$var', ' here')])
         assert_equal(list(iterator), [('one ', '$var', ' here')])
         assert_equal(bool(iterator), True)

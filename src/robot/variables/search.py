@@ -23,7 +23,7 @@ from robot.utils import is_string
 def search_variable(characters, identifiers='$@&%*', ignore_errors=False):
     if not is_string(characters):
         return VariableMatch(characters)
-    return _search_variable(characters, identifiers, ignore_errors)
+    return _search_variable(characters, ignore_errors)
 
 
 def contains_variable(characters, identifiers='$@&'):
@@ -136,8 +136,8 @@ class VariableMatch:
         return '%s%s%s' % (self.identifier, self.base, items)
 
 
-def _search_variable(characters: str, identifiers: str, ignore_errors=False) -> VariableMatch:
-    start = _find_variable_start(characters, identifiers)
+def _search_variable(characters: str, ignore_errors=False) -> VariableMatch:
+    start = _find_variable_start(characters)
     if start < 0:
         return VariableMatch(characters)
 
@@ -145,7 +145,6 @@ def _search_variable(characters: str, identifiers: str, ignore_errors=False) -> 
     not_allowed_char = False
     indices_and_chars = enumerate(characters[start+1:], start=start+1)
     items = []
-    next_item = ''
     parsing_items = False
 
     for index, char in indices_and_chars:
@@ -180,13 +179,15 @@ def _search_variable(characters: str, identifiers: str, ignore_errors=False) -> 
     return match if match else VariableMatch(match)
 
 
-def _find_variable_start(characters, identifiers):
+def _find_variable_start(characters):
     index = 0
     while True:
         index = characters.find('$', index)
         if index < 0:
             return -1
-        if characters[index] in identifiers and _not_escaped(characters, index):
+        if index == 0:
+            return index
+        if index > 0 and characters[index-1] == '{' and _not_escaped(characters, index-1):
             return index
         index += 1
 
@@ -230,7 +231,7 @@ class VariableIterator:
             if not match:
                 break
             remaining = match.after
-            yield match.before, match.match, remaining
+            yield match.before[:-1], match.match, remaining[1:]
 
     def __len__(self):
         return sum(1 for _ in self)
