@@ -165,8 +165,8 @@ def _search_variable(characters: str, ignore_errors=False) -> VariableMatch:
             not_allowed_char = True
         match.base = characters[start+1:index+1]
         match.end = index+1
-    
-    if not_allowed_char and characters[match.start:] in ['$/', '$:', '$\\n']:
+
+    if not_allowed_char and match.base in ['/', ':', '\\n']:
         not_allowed_char = False
     if not_allowed_char or parsing_items:
         if ignore_errors:
