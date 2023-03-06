@@ -81,8 +81,8 @@ def _tokens_to_statements(tokens, curdir=None):
     statement = []
     EOS = Token.EOS
     for t in tokens:
-        if curdir and '${CURDIR}' in t.value:
-            t.value = t.value.replace('${CURDIR}', curdir)
+        if curdir and '{$CURDIR}' in t.value:
+            t.value = t.value.replace('{$CURDIR}', curdir)
         if t.type != EOS:
             statement.append(t)
         else:

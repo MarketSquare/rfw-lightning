@@ -36,7 +36,7 @@ $RUNNER_DEFAULTS=Create List               $COMMON_DEFAULTS
 Run Tests
     [Arguments]    $options=    $sources=    $default_options=$RUNNER_DEFAULTS    $output=$OUTFILE    $validate_output=None
     [Documentation]    *OUTDIR:* file://{$OUTDIR} (regenerated for every run)
-    $runner=Evaluate  $INTERPRETER.runner
+    $runner=Evaluate  \$INTERPRETER.runner
     $result =    Execute    $runner   $options    $sources    $default_options
     Log Many    RC: ${result.rc}    STDERR:\n${result.stderr}    STDOUT:\n${result.stdout}
     Process Output    $output    validate=$validate_output
@@ -45,14 +45,16 @@ Run Tests
 Run Tests Without Processing Output
     [Arguments]    $options=    $sources=    $default_options=$RUNNER_DEFAULTS
     [Documentation]    *OUTDIR:* file://$OUTDIR (regenerated for every run)
-    $result =    Execute    ${INTERPRETER.runner}   $options    $sources    $default_options
+    $runner=Evaluate  \$INTERPRETER.runner
+    $result =    Execute    $runner   $options    $sources    $default_options
     Log Many    RC: ${result.rc}    STDERR:\n${result.stderr}    STDOUT:\n${result.stdout}
     [Return]    $result
 
 Run Rebot
     [Arguments]    $options=    $sources=    $default_options=$COMMON_DEFAULTS    $output=$OUTFILE    $validate_output=None
     [Documentation]    *OUTDIR:* file://$OUTDIR (regenerated for every run)
-    $result =    Execute    ${INTERPRETER.rebot}   $options    $sources    $default_options
+    $runner=Evaluate  \$INTERPRETER.rebot
+    $result =    Execute    $runner   $options    $sources    $default_options
     Log Many    RC: ${result.rc}    STDERR:\n${result.stderr}    STDOUT:\n${result.stdout}
     Process Output    $output    validate=$validate_output
     [Return]    $result
@@ -60,25 +62,31 @@ Run Rebot
 Run Rebot Without Processing Output
     [Arguments]    $options=    $sources=    $default_options=$COMMON_DEFAULTS
     [Documentation]    *OUTDIR:* file://$OUTDIR (regenerated for every run)
-    $result =    Execute    ${INTERPRETER.rebot}   $options    $sources    $default_options
+    $runner=Evaluate  \$INTERPRETER.rebot
+    $result =    Execute    $runner   $options    $sources    $default_options
     Log Many    RC: ${result.rc}    STDERR:\n${result.stderr}    STDOUT:\n${result.stdout}
     [Return]    $result
 
 Execute
     [Arguments]    $executor    $options    $sources    $default_options=
     Set Execution Environment
-    @{arguments} =    Get Execution Arguments    $options    $sources    $default_options
-    $result =    Run Process    @{executor}    @{arguments}
+    $arguments =    Get Execution Arguments    $options    $sources    $default_options
+    $result =    Run Process    *$executor    *$arguments
     ...    stdout=$STDOUTFILE    stderr=$STDERRFILE    output_encoding=SYSTEM
     ...    timeout=5min    on_timeout=terminate
     [Return]    $result
 
 Get Execution Arguments
     [Arguments]    $options    $sources    $default_options
-    @{options} =    Split command line    --outputdir $OUTDIR $default_options $options
-    @{sources} =    Split command line    $sources
-    @{sources} =    Join Paths    $DATADIR    @{sources}
-    [Return]    @{options}    @{sources}
+    $options=    Split command line    --outputdir $OUTDIR $default_options $options
+    $sources=    Split command line    $sources
+    $result_sources=Create List
+    FOR   $path_item  IN  $sources
+          $path_item=Join Path  $DATADIR  $path_item
+          Append To List   $result_sources   $path_item
+    END
+    $result=Combine Lists   $options   $result_sources
+    [Return]    $result
 
 Set Execution Environment
     Remove Directory    $OUTDIR    recursive
