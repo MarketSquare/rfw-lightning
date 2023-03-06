@@ -17,9 +17,9 @@ Create Status Line
     [Return]    $name{$spaces}| $status |
 
 Stdout Should Be
-    [Arguments]    $expected    &{replaced}
-    Output Should Be     $STDOUT_FILE    $expected    &{replaced}
+    [Arguments]    $expected    *$replaced
+    Output Should Be     $STDOUT_FILE    $expected    *$replaced
 
 Stderr Should Be
-    [Arguments]    $expected    &{replaced}
-    Output Should Be     $STDERR_FILE    $expected    &{replaced}
+    [Arguments]    $expected    *$replaced
+    Output Should Be     $STDERR_FILE    $expected    *$replaced

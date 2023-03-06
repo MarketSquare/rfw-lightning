@@ -100,16 +100,16 @@ Check Test Suite
     [Return]    $suite
 
 Check Test Doc
-    [Arguments]    $name    @{expected}
+    [Arguments]    $name    *$expected
     $tc =    Check Test Case    $name
-    $expected =    Catenate    @{expected}
+    $expected =    Catenate    *$expected
     Should Be Equal    ${tc.doc}    $expected
     [Return]    $tc
 
 Check Test Tags
-    [Arguments]    $name    @{expected}
+    [Arguments]    $name    *$expected
     $tc =    Check Test Case    $name
-    Should Contain Tags    $tc    @{expected}
+    Should Contain Tags    $tc    *$expected
     [Return]    $tc
 
 Check Keyword Data
@@ -151,8 +151,8 @@ Get Output File
     [Return]    $file
 
 File Should Contain
-    [Arguments]    $path    @{expected}    $count=None
-    $exp =    Catenate    @{expected}
+    [Arguments]    $path    *$expected    $count=None
+    $exp =    Catenate    *$expected
     $file =    Get Output File    $path
     IF    not $count
         Should Contain    $file    $exp
@@ -161,100 +161,100 @@ File Should Contain
     END
 
 File Should Not Contain
-    [Arguments]    $path    @{expected}
-    $exp =    Catenate    @{expected}
+    [Arguments]    $path    *$expected
+    $exp =    Catenate    *$expected
     $file =    Get Output File    $path
     Should Not Contain    $file    $exp
 
 File Should Match Regexp
-    [Arguments]    $path    @{expected}
-    $exp =    Catenate    @{expected}
+    [Arguments]    $path    *$expected
+    $exp =    Catenate    *$expected
     $file =    Get Output File    $path
     Should Match Regexp    ${file.strip()}    (?s)^$exp$
 
 File Should Contain Regexp
-    [Arguments]    $path    @{expected}
-    $exp =    Catenate    @{expected}
+    [Arguments]    $path    *$expected
+    $exp =    Catenate    *$expected
     $file =    Get Output File    $path
     Should Match Regexp    ${file.strip()}    $exp
 
 File Should Not Contain Regexp
-    [Arguments]    $path    @{expected}
-    $exp =    Catenate    @{expected}
+    [Arguments]    $path    *$expected
+    $exp =    Catenate    *$expected
     $file =    Get Output File    $path
     Should Not Match Regexp    ${file.strip()}    $exp
 
 File Should Be Equal To
-    [Arguments]    $path    @{expected}
+    [Arguments]    $path    *$expected
     $content =    Get Output File    $path
-    $exp =    Catenate    @{expected}
+    $exp =    Catenate    *$expected
     Should Be Equal    $content    $exp
 
 File Should Match
-    [Arguments]    $path    @{expected}
+    [Arguments]    $path    *$expected
     $content =    Get Output File    $path
-    $exp =    Catenate    @{expected}
+    $exp =    Catenate    *$expected
     Should Match    $content    $exp
 
 File Should Contain Match
-    [Arguments]    $path    @{expected}
+    [Arguments]    $path    *$expected
     $content =    Get Output File    $path
-    $exp =    Catenate    @{expected}
+    $exp =    Catenate    *$expected
     Should Match    $content    *$exp*
 
 File Should Start With
-    [Arguments]    $path    @{expected}
+    [Arguments]    $path    *$expected
     $content =    Get Output File    $path
-    $exp =    Catenate    @{expected}
+    $exp =    Catenate    *$expected
     Should Start With    $content    $exp
 
 Stderr Should Be Equal To
-    [Arguments]    @{expected}
-    File Should Be Equal To    $STDERR_FILE    @{expected}
+    [Arguments]    *$expected
+    File Should Be Equal To    $STDERR_FILE    *$expected
 
 Stderr Should Start With
-    [Arguments]    @{expected}
-    File Should Start With    $STDERR_FILE    @{expected}
+    [Arguments]    *$expected
+    File Should Start With    $STDERR_FILE    *$expected
 
 Stderr Should Match
-    [Arguments]    @{expected}
-    File Should Match    $STDERR_FILE    @{expected}
+    [Arguments]    *$expected
+    File Should Match    $STDERR_FILE    *$expected
 
 Stderr Should Be Empty
     $stderr =    Get Stderr
     Should Be Empty    $stderr    Errors in test execution:\n$stderr
 
 Stderr Should Contain
-    [Arguments]    @{expected}    $count=None
-    File Should Contain    $STDERR_FILE    @{expected}    count=$count
+    [Arguments]    *$expected    $count=None
+    File Should Contain    $STDERR_FILE    *$expected    count=$count
 
 Stderr Should Not Contain
-    [Arguments]    @{expected}
-    File Should Not Contain    $STDERR_FILE    @{expected}
+    [Arguments]    *$expected
+    File Should Not Contain    $STDERR_FILE    *$expected
 
 Stderr Should Match Regexp
-    [Arguments]    @{expected}
-    File Should Match Regexp    $STDERR_FILE    @{expected}
+    [Arguments]    *$expected
+    File Should Match Regexp    $STDERR_FILE    *$expected
 
 Stderr Should Contain Regexp
-    [Arguments]    @{expected}
-    File Should Contain Regexp    $STDERR_FILE    @{expected}
+    [Arguments]    *$expected
+    File Should Contain Regexp    $STDERR_FILE    *$expected
 
 Stdout Should Contain
-    [Arguments]    @{expected}    $count=None
-    File Should Contain    $STDOUT_FILE    @{expected}    count=$count
+    [Arguments]    *$expected    $count=None
+    File Should Contain    $STDOUT_FILE    *$expected    count=$count
 
 Stdout Should Not Contain
-    [Arguments]    @{expected}
-    File Should Not Contain    $STDOUT_FILE    @{expected}
+    [Arguments]    *$expected
+    File Should Not Contain    $STDOUT_FILE    *$expected
 
 Stdout Should Match Regexp
-    [Arguments]    @{expected}
-    File Should Match Regexp    $STDOUT_FILE    @{expected}
+    [Arguments]    *$expected
+    File Should Match Regexp    $STDOUT_FILE    *$expected
 
 Stdout Should Contain Regexp
-    [Arguments]    @{expected}
-    File Should Contain Regexp    $STDOUT_FILE    @{expected}
+    [Arguments]    *$expected
+    File Should Contain Regexp    $STDOUT_FILE    *$expected
 
 Get Syslog
     $file =    Get Output File    $SYSLOG_FILE
@@ -269,28 +269,28 @@ Get Stdout
     [Return]    $file
 
 Syslog Should Contain Match
-    [Arguments]    @{expected}
-    File Should Contain Match    $SYSLOG_FILE    @{expected}
+    [Arguments]    *$expected
+    File Should Contain Match    $SYSLOG_FILE    *$expected
 
 Syslog Should Contain
-    [Arguments]    @{expected}
-    File Should Contain    $SYSLOG_FILE    @{expected}
+    [Arguments]    *$expected
+    File Should Contain    $SYSLOG_FILE    *$expected
 
 Syslog Should Not Contain
-    [Arguments]    @{expected}
-    File Should Not Contain    $SYSLOG_FILE    @{expected}
+    [Arguments]    *$expected
+    File Should Not Contain    $SYSLOG_FILE    *$expected
 
 Syslog Should Match Regexp
-    [Arguments]    @{expected}
-    File Should Match Regexp    $SYSLOG_FILE    @{expected}
+    [Arguments]    *$expected
+    File Should Match Regexp    $SYSLOG_FILE    *$expected
 
 Syslog Should Contain Regexp
-    [Arguments]    @{expected}
-    File Should Contain Regexp    $SYSLOG_FILE    @{expected}
+    [Arguments]    *$expected
+    File Should Contain Regexp    $SYSLOG_FILE    *$expected
 
 Syslog Should Not Contain Regexp
-    [Arguments]    @{expected}
-    File Should Not Contain Regexp    $SYSLOG_FILE    @{expected}
+    [Arguments]    *$expected
+    File Should Not Contain Regexp    $SYSLOG_FILE    *$expected
 
 Check Names
     [Arguments]    $item    $name    $longprefix=
@@ -344,18 +344,18 @@ Tag Statistics Should Be
     Should Be Equal As Integers    ${tag.attrib['fail']}    $fail
 
 Set PYTHONPATH
-    [Arguments]    @{values}
-    $value =    Catenate    SEPARATOR=${:}    @{values}
+    [Arguments]    *$values
+    $value =    Catenate    SEPARATOR=${:}    *$values
     Set Environment Variable    PYTHONPATH    $value
 
 Reset PYTHONPATH
     Remove Environment Variable    PYTHONPATH
 
 Error in file
-    [Arguments]    $index    $path    $lineno    @{message}    $traceback=
+    [Arguments]    $index    $path    $lineno    *$message    $traceback=
     ...    $stacktrace=    $pattern=True    $level=ERROR
     $path =    Join Path    $DATADIR    $path
-    $message =    Catenate    @{message}
+    $message =    Catenate    *$message
     $error =    Set Variable    Error in file '$path' on line $lineno: $message
     $error =    Set Variable If    $traceback and not $stacktrace
     ...    $error\nTraceback (most recent call last):\n*$traceback*
@@ -366,10 +366,10 @@ Error in file
     Check Log Message    $ERRORS[$index]    $error    level=$level    pattern=$pattern
 
 Error in library
-    [Arguments]    $name    @{message}    $pattern=False    $index=0
+    [Arguments]    $name    *$message    $pattern=False    $index=0
     $error =    Catenate
     ...    Error in library '$name':
-    ...    @{message}
+    ...    *$message
     Check Log Message    $ERRORS[$index]    $error    level=ERROR    pattern=$pattern
 
 Setup Should Not Be Defined
@@ -381,9 +381,9 @@ Teardown Should Not Be Defined
     Should Not Be True     ${model_object.teardown}
 
 Traceback Should Be
-    [Arguments]    $msg    @{entries}    $error
+    [Arguments]    $msg    *$entries    $error
     $exp =    Set Variable    Traceback (most recent call last):
-    FOR    $path    $func    $text    IN    @{entries}
+    FOR    $path    $func    $text    IN    *$entries
         $path =    Normalize Path    $DATADIR/$path
         $exp =    Set Variable    $exp\n${SPACE*2}File "$path", line *, in $func\n${SPACE*4}$text
     END
