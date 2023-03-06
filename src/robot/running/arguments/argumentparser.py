@@ -194,14 +194,22 @@ class UserKeywordArgumentParser(ArgumentSpecParser):
 
     def _validate_arg(self, arg):
         arg, default = split_from_equals(arg)
+        varargs = False
+        if arg.startswith('*'):
+            varargs = True
+            arg = arg[1:]
         if not (is_assign(arg) or arg == '@{}'):
             self._report_error(f"Invalid argument syntax '{arg}'.")
         if default is None:
+            if varargs:
+                arg = '*' + arg
             return arg
         if not is_scalar_assign(arg):
             typ = 'list' if arg[0] == '@' else 'dictionary'
             self._report_error(f"Only normal arguments accept default values, "
                                f"{typ} arguments like '{arg}' do not.")
+        if varargs:
+            arg = '*' + arg
         return arg, default
 
     def _is_var_named(self, arg):
@@ -211,7 +219,7 @@ class UserKeywordArgumentParser(ArgumentSpecParser):
         return kwargs[1:]
 
     def _is_var_positional(self, arg):
-        return arg and arg[0] == '@'
+        return arg and arg[0] == '*'
 
     def _is_named_only_separator(self, arg):
         return arg == '@{}'

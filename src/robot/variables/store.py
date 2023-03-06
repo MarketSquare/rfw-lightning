@@ -88,6 +88,8 @@ class VariableStore:
             self.data[name] = value
 
     def _undecorate(self, name):
+        if name.startswith('*'):
+            name = name[1:]
         if not is_assign(name):
             raise VariableError("Invalid variable name '%s'." % name)
         return name[1:]

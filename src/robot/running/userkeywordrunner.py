@@ -128,7 +128,7 @@ class UserKeywordRunner:
                 value = value.resolve(variables)
             variables['$%s' % name] = value
         if spec.var_positional:
-            variables['@%s' % spec.var_positional] = varargs
+            variables['*%s' % spec.var_positional] = varargs
         if spec.var_named:
             variables['&%s' % spec.var_named] = DotDict(kwargs)
 
